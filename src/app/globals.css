@@ -1,0 +1,538 @@
+@import "tailwindcss";
+
+:root {
+
+    /* Colors */
+    --background: #ffffff;
+    --foreground: #171717;
+
+    /* Typography */
+    --font-xs: 0.75rem;
+    --font-sm: 0.875rem;
+    --font-md: 1rem;
+    --font-lg: 1.125rem;
+    --font-xl: 1.25rem;
+    --font-2xl: 1.5rem;
+
+    /* Line Heights */
+    --lh-tight: 1.25;
+    --lh-normal: 1.5;
+    --lh-relaxed: 1.7;
+
+    /* Spacing */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+}
+
+@media (min-width: 768px) {
+
+    :root {
+
+        --font-sm: 0.9375rem;
+        --font-md: 1.0625rem;
+        --font-lg: 1.1875rem;
+        --font-xl: 1.375rem;
+        --font-2xl: 1.75rem;
+
+        --space-4: 20px;
+        --space-5: 28px;
+        --space-6: 40px;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    :root {
+
+        --font-md: 1.125rem;
+        --font-lg: 1.25rem;
+        --font-xl: 1.5rem;
+        --font-2xl: 2rem;
+
+        --space-5: 32px;
+        --space-6: 48px;
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    background: var(--background);
+    color: var(--foreground);
+
+    font-size: 16px;
+    line-height: var(--lh-normal);
+
+    text-rendering: optimizeLegibility;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    overflow-x: hidden;
+}
+
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-modern {
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+}
+
+.scrollbar-modern::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+
+.scrollbar-modern::-webkit-scrollbar-button {
+    display: none;
+}
+
+.scrollbar-modern::-webkit-scrollbar {
+    width: 6px;
+}
+
+.scrollbar-modern::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollbar-modern::-webkit-scrollbar-thumb {
+    border-radius: 100%;
+    background: linear-gradient(180deg, rgba(0, 43, 91, 0.35), rgba(0, 43, 91, 0.65));
+}
+
+.scrollbar-modern::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(0, 43, 91, 0.65), rgba(0, 43, 91, 0.95));
+}
+
+.scrollbar-modern::-webkit-scrollbar-button {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+}
+
+
+.main-container {
+    width: 100%;
+    max-width: 1440px;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: var(--space-3);
+}
+
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-up {
+    animation: slide-up 350ms ease-out forwards;
+}
+
+@keyframes auth-card-enter {
+    from {
+        opacity: 0;
+        transform: perspective(1200px) rotateX(-8deg) translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: perspective(1200px) rotateX(0deg) translateY(0);
+    }
+}
+
+.animate-auth-card {
+    transform-origin: top;
+    animation: auth-card-enter 420ms cubic-bezier(0.16, 1, 0.3, 1);
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+}
+
+
+/* ====== Scrollbar Utilities ====== */
+
+.c {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+}
+
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+
+@keyframes modalFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-modal {
+    animation: modalFade 0.25s ease-out;
+}
+
+@keyframes toast-in {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-toast-in {
+    animation: toast-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fav-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #ef4444;
+    border-radius: 9999px;
+    opacity: 1;
+    animation: fav-burst 0.6s ease-out forwards;
+}
+
+.fav-p-0 {
+    transform: rotate(0deg);
+}
+
+.fav-p-1 {
+    transform: rotate(45deg);
+}
+
+.fav-p-2 {
+    transform: rotate(90deg);
+}
+
+.fav-p-3 {
+    transform: rotate(135deg);
+}
+
+.fav-p-4 {
+    transform: rotate(180deg);
+}
+
+.fav-p-5 {
+    transform: rotate(225deg);
+}
+
+.fav-p-6 {
+    transform: rotate(270deg);
+}
+
+.fav-p-7 {
+    transform: rotate(315deg);
+}
+
+@keyframes fav-burst {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(30px, -30px) scale(0.5);
+    }
+}
+
+
+
+button {
+    cursor: pointer;
+}
+
+@import "tailwindcss";
+
+:root {
+    --background: #ffffff;
+    --foreground: #171717;
+    --font-xs: 0.75rem;
+    --font-sm: 0.875rem;
+    --font-md: 1rem;
+    --font-lg: 1.125rem;
+    --font-xl: 1.25rem;
+    --font-2xl: 1.5rem;
+    --lh-tight: 1.25;
+    --lh-normal: 1.5;
+    --lh-relaxed: 1.7;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+}
+
+@media (min-width: 768px) {
+    :root {
+        --font-sm: 0.9375rem;
+        --font-md: 1.0625rem;
+        --font-lg: 1.1875rem;
+        --font-xl: 1.375rem;
+        --font-2xl: 1.75rem;
+        --space-4: 20px;
+        --space-5: 28px;
+        --space-6: 40px;
+    }
+}
+
+@media (min-width: 1024px) {
+    :root {
+        --font-md: 1.125rem;
+        --font-lg: 1.25rem;
+        --font-xl: 1.5rem;
+        --font-2xl: 2rem;
+        --space-5: 32px;
+        --space-6: 48px;
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--background);
+    color: var(--foreground);
+    font-size: 16px;
+    line-height: var(--lh-normal);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar,
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hidden {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.scrollbar-modern {
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+    scrollbar-color: #d1d5db transparent;
+}
+
+.scrollbar-modern::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+.scrollbar-modern::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollbar-modern::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: #d1d5db;
+}
+
+.scrollbar-modern::-webkit-scrollbar-thumb:hover {
+    background-color: #9ca3af;
+}
+
+.scrollbar-modern::-webkit-scrollbar-button {
+    display: none !important;
+}
+
+.main-container {
+    width: 100%;
+    max-width: 1440px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-up {
+    animation: slide-up 350ms ease-out forwards;
+}
+
+@keyframes auth-card-enter {
+    from {
+        opacity: 0;
+        transform: perspective(1200px) rotateX(-8deg) translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: perspective(1200px) rotateX(0deg) translateY(0);
+    }
+}
+
+.animate-auth-card {
+    transform-origin: top;
+    animation: auth-card-enter 420ms cubic-bezier(0.16, 1, 0.3, 1);
+    backface-visibility: hidden;
+    will-change: transform, opacity;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes modalFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-modal {
+    animation: modalFade 0.25s ease-out;
+}
+
+@keyframes toast-in {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.animate-toast-in {
+    animation: toast-in 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fav-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #ef4444;
+    border-radius: 9999px;
+    opacity: 1;
+    animation: fav-burst 0.6s ease-out forwards;
+}
+
+.fav-p-0 {
+    transform: rotate(0deg);
+}
+
+.fav-p-1 {
+    transform: rotate(45deg);
+}
+
+.fav-p-2 {
+    transform: rotate(90deg);
+}
+
+.fav-p-3 {
+    transform: rotate(135deg);
+}
+
+.fav-p-4 {
+    transform: rotate(180deg);
+}
+
+.fav-p-5 {
+    transform: rotate(225deg);
+}
+
+.fav-p-6 {
+    transform: rotate(270deg);
+}
+
+.fav-p-7 {
+    transform: rotate(315deg);
+}
+
+@keyframes fav-burst {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(30px, -30px) scale(0.5);
+    }
+}
+
+button {
+    cursor: pointer;
+}
