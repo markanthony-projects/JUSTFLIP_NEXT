@@ -61,12 +61,22 @@ export default function Step3Additional({
         <textarea
           name="missionAndVision"
           rows={5}
+          maxLength={500}
           className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-[#002b5b] focus:ring-1 focus:ring-[#002b5b] outline-none transition placeholder-gray-400"
           placeholder="Enter About Mission and Vision"
           value={formData.missionAndVision}
           onChange={handleChange}
         />
-        {errors.missionAndVision && <p className="text-red-500 text-xs mt-1">{errors.missionAndVision}</p>}
+        <div className="flex justify-between items-center mt-1">
+          {errors.missionAndVision ? (
+            <p className="text-red-500 text-xs">{errors.missionAndVision}</p>
+          ) : (
+            <div></div>
+          )}
+          <p className={`text-xs text-right ${formData.missionAndVision?.length >= 500 ? 'text-red-500 font-bold' : 'text-gray-500'}`}>
+            {formData.missionAndVision?.length || 0}/500 characters
+          </p>
+        </div>
       </div>
     </div>
   );

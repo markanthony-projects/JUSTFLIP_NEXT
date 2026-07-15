@@ -110,6 +110,9 @@ export default function RegistrationForm() {
 
   const handleChange = (e, index = null) => {
     const { name, value, type, checked } = e.target;
+    if (name === 'missionAndVision') {
+      if (value.length > 500) return; // Prevent exceeding 500 characters
+    }
     if (name === "operation_Areas" && index !== null) {
       const values = [...formData.operation_Areas];
       values[index] = value;
