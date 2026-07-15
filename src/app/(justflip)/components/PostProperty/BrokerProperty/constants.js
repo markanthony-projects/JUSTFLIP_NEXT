@@ -1,17 +1,22 @@
 // Broker Property – shared option constants + field definitions
 // Re-uses the same vocabulary as PublishProperty/constants.js
 
+import React from 'react';
+import { HiOutlineBuildingOffice2, HiOutlineHomeModern } from 'react-icons/hi2';
+import { MdOutlineLandscape, MdOutlineHouse } from 'react-icons/md';
+import { BiDollarCircle, BiRefresh, BiKey } from 'react-icons/bi';
+
 export const propertyOptions = [
-    { label: 'Apartment / Flats', value: 'apartment' },
-    { label: 'Villa', value: 'villa' },
-    { label: 'Plot / Land', value: 'plot' },
-    { label: 'Residential House', value: 'residentialhouse' },
+    { label: 'Apartment / Flats', value: 'apartment', icon: <HiOutlineBuildingOffice2 size={18} /> },
+    { label: 'Villa', value: 'villa', icon: <HiOutlineHomeModern size={18} /> },
+    { label: 'Plot / Land', value: 'plot', icon: <MdOutlineLandscape size={18} /> },
+    { label: 'Residential House', value: 'residentialhouse', icon: <MdOutlineHouse size={18} /> },
 ];
 
 export const transactionTagsOptions = [
-    { label: 'Sale', value: 'Sale' },
-    { label: 'Re-Sale', value: 'Re-Sale' },
-    { label: 'Rent', value: 'Rent' },
+    { label: 'Sale', value: 'Sale', icon: <BiDollarCircle size={18} /> },
+    { label: 'Re-Sale', value: 'Re-Sale', icon: <BiRefresh size={18} /> },
+    { label: 'Rent', value: 'Rent', icon: <BiKey size={18} /> },
 ];
 
 export const furnishOptions = [
@@ -85,8 +90,8 @@ export const getInputFields = (type, cityOptions = [], locations = [], transacti
     ];
 
     const baseStep1 = [
-        { name: "type", label: "Property Type", type: "select", required: true, options: propertyOptions, searchable: true },
-        { name: "transactionTag", label: "Transaction Type", type: "select", required: true, options: transactionTagsOptions, defaultValue: transactionType },
+        { name: "type", label: "Property Type", type: "button-group", required: true, options: propertyOptions },
+        { name: "transactionTag", label: "Transaction Type", type: "button-group", required: true, options: transactionTagsOptions, defaultValue: transactionType },
         { name: "name", label: "Project Name", type: "project-search", required: false },
         { name: "cityId", label: "City", type: "select", options: cityOptions, required: true, searchable: true },
         { name: "locationId", label: "Area / Location", type: "location-search", required: true },

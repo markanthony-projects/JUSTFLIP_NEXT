@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Breadcrumb from "@/src/components/organisms/breadCrumb";
 import { useAuthStore } from "@/src/stores/auth.store";
+import { useBrokerPropertyFormStore } from "@/src/stores/brokerPropertyForm.store";
 import { useFileUpload } from "@/src/hooks/useFileUpload";
 import { JUSTFLIP } from "@/src/lib/axios/api";
 import { toast } from "@/src/utils/toast";
@@ -45,8 +46,8 @@ const MEDIA_TITLE_MAP = {
 const buildInitialFormData = (brokerId, residenceType, transactionType) => ({
     residenceType: residenceType || "Residential",
     brokerId,
-    type: "apartment",
-    transactionTag: transactionType || "Sale",
+    type: "",
+    transactionTag: "",
     name: "",
     linkedProjectId: "",
     possessionStatus: "",
@@ -72,9 +73,14 @@ function BrokerPropertyClient({ initialCities = [] }) {
     const [residenceType, setResidenceType] = useState("Residential");
     const [transactionType, setTransactionType] = useState("Sale");
 
-    // Form state
-    const [formData, setFormData] = useState(() => buildInitialFormData(brokerId, "Residential", "Sale"));
-    const [currentStep, setCurrentStep] = useState(1);
+    // Form state from Zustand store
+    const { formData, setFormData, currentStep, setCurrentStep, clearStore, hydrated } = useBrokerPropertyFormStore();
+    
+    // Prevent rendering until hydration is complete to avoid hydration mismatch errors
+    const [isMounted, setIsMounted] = useState(false);
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
     const [errors, setErrors] = useState({});
     const [isMapOpen, setIsMapOpen] = useState(false);
 
@@ -440,6 +446,8 @@ function BrokerPropertyClient({ initialCities = [] }) {
             setProjectQuery("");
             setLocationQuery("");
             setCurrentStep(1);
+            clearStore();
+            router.push('/profile');
         } catch (err) {
             console.error("Submit failed:", err);
             toast.error(err?.response?.data?.message || "Something went wrong. Please try again.");
@@ -457,6 +465,8 @@ function BrokerPropertyClient({ initialCities = [] }) {
 
     // ─── Render ───────────────────────────────────────
 
+    if (!isMounted || !hydrated) return null; // Avoid hydration mismatch
+
     return (
         <div className="py-4 md:py-8 min-h-screen w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
             {/* Breadcrumb */}
@@ -467,15 +477,15 @@ function BrokerPropertyClient({ initialCities = [] }) {
             <div className="flex flex-col lg:flex-row justify-between gap-6 items-start" ref={dropdownRef}>
                 
                 {/* Left Sidebar */}
-                <div className="hidden md:flex flex-col gap-6 sticky top-28 self-start">
+                <div className="hidden md:flex flex-col gap-6">
                     <BrokerPropertySidebarStepper currentStep={currentStep} />
                 </div>
-                <div className="block md:hidden">
+                <div className="block md:hidden w-full">
                     <PublishPropertySidebar />
                 </div>
 
                 {/* Main Form Container */}
-                <div className="flex-1 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex flex-col p-4 md:p-6 lg:p-8 gap-4 md:gap-6 lg:gap-8 relative overflow-hidden">
+                <div className="w-full lg:w-auto flex-1 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex flex-col p-4 md:p-6 lg:p-8 gap-4 md:gap-6 lg:gap-8 relative overflow-hidden">
                     {/* Decorative Top Accent */}
                     <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#002B5B] via-[#057748] to-[#002B5B]" />
                     

@@ -59,6 +59,25 @@ const BrokerPropertyFormRenderer = ({
                         />
                     )}
 
+                    {field.type === "button-group" && (
+                        <div className="flex flex-wrap gap-3">
+                            {field.options?.map(opt => {
+                                const isSelected = getFieldValue(field.name) === opt.value;
+                                return (
+                                    <button
+                                        key={opt.value}
+                                        type="button"
+                                        onClick={() => handleChange({ target: { name: field.name, value: opt.value } })}
+                                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all border ${isSelected ? 'bg-[#002B5B] text-white border-[#002B5B] shadow-md shadow-blue-900/20' : 'bg-white text-slate-600 border-slate-200 hover:border-blue-200 hover:bg-blue-50'}`}
+                                    >
+                                        {opt.icon && <span>{opt.icon}</span>}
+                                        {opt.label}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    )}
+
                     {['text', 'number', 'date'].includes(field.type) && (
                         <input
                             type={field.type}
