@@ -30,7 +30,7 @@ const ProjectCard = ({ project, priority }) => {
                             className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                             priority={priority}
                         />
-                        
+
                         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none z-0"></div>
 
                         <div className="absolute top-0 right-0 m-3 flex justify-between w-full z-10">
@@ -64,7 +64,7 @@ const ProjectCard = ({ project, priority }) => {
                                 {project.address || `${project?.residenceType || 'Property'} • ${project?.transactionTag || 'For Sale'}`}
                             </p>
                         )}
-                        
+
                         <div className="mt-auto flex items-center justify-between pt-2">
                             <p className="text-[15px] text-start font-extrabold text-[#002B5B]">
                                 {project?.priceRange || 'Price on Request'}

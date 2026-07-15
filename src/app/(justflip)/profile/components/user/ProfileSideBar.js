@@ -19,7 +19,7 @@ const ProfileSideBar = ({ activeNav, setActiveNav }) => {
   const NAV_ITEMS = [
     { id: "overview", label: "My Profile", icon: <HiOutlineUser size={22} />, color: "text-[#002B5B]" },
     { id: "post-property", label: "Post a Property", icon: <HiOutlineHome size={22} />, color: "text-[#002B5B]", isLink: true, href: "/post-property" },
-    { id: "my-properties", label: "My Properties", icon: <HiOutlineDocumentText size={22} />, color: "text-[#002B5B]" },
+    { id: "my-properties", label: "Posted Properties", icon: <HiOutlineDocumentText size={22} />, color: "text-[#002B5B]" },
     { id: "wishlist", label: "Wishlist", icon: <HiOutlineHeart size={22} />, color: "text-[#002B5B]" },
     { id: "compare", label: "Compare", icon: <HiOutlineCollection size={22} />, color: "text-[#002B5B]", isLink: true, href: "/compare" },
   ];

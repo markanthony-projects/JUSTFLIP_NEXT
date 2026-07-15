@@ -149,7 +149,6 @@ export default function BrokerSliderContent() {
         {
             label: "Real Estate",
             items: [
-                { name: 'My Properties', href: '/my-properties', icon: HiOutlineHome },
                 { name: 'Wishlist', href: '/profile?tab=wishlist', icon: HiOutlineHeart },
                 { name: 'Compare', href: '/compare', icon: HiOutlineCollection },
             ]
