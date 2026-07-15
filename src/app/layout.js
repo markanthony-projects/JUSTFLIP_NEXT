@@ -11,6 +11,8 @@ import { constructMetadata } from "@/src/utils/seo";
 import ToastContainer from "../components/organisms/ToastContainer";
 import Footer from "../layout/Footer";
 import PreFooter from "../layout/PreFooter";
+import MobileBottomNav from "../layout/MobileBottomNav";
+import MobileBottomNavGlass from "../layout/MobileBottomNavGlass";
 
 import { firaSans } from "./fonts";
 
@@ -48,6 +50,7 @@ export default function RootLayout({ children }) {
                     flex-col
                     overflow-x-hidden
                     antialiased
+                    pb-16 md:pb-0
                 `}
             >
                 {/* <CompareInitializer /> */}
@@ -59,6 +62,9 @@ export default function RootLayout({ children }) {
                 <PreFooter />
 
                 <Footer />
+                
+                {/* <MobileBottomNav /> */}
+                <MobileBottomNavGlass />
 
                 <ToastContainer />
             </body>

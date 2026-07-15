@@ -9,6 +9,12 @@ const nextConfig = {
         hostname: 'luxurydata.s3.eu-north-1.amazonaws.com',
       },
     ],
+    unoptimized: true,
+  },
+  experimental: {
+    serverActions: {
+      allowedOrigins: ['hs23fwgh-3000.inc1.devtunnels.ms', 'localhost:3000', '*.devtunnels.ms']
+    }
   }
 };
 
