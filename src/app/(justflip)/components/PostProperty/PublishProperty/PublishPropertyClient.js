@@ -6,6 +6,7 @@ import { useFileUpload } from '@/src/hooks/useFileUpload';
 import LocationService from '@/src/services/LocationService';
 import { JUSTFLIP } from '@/src/lib/axios/api';
 import { useAuthStore } from '@/src/stores/auth.store';
+import { useUserPropertyFormStore } from '@/src/stores/userPropertyForm.store';
 import { toast } from '@/src/utils/toast';
 
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
@@ -41,7 +42,13 @@ function PublishPropertyClient({ initialCities }) {
   const { user, authType } = useAuthStore();
   const suggestionRef = useRef(null);
   const searchTimeout = useRef(null);
-  const [currentStep, setCurrentStep] = useState(1);
+  const { formData, setFormData, currentStep, setCurrentStep, clearStore, hydrated } = useUserPropertyFormStore();
+  
+  // Prevent rendering until hydration is complete to avoid hydration mismatch errors
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => {
+      setIsMounted(true);
+  }, []);
   const [isMapOpen, setIsMapOpen] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [errors, setErrors] = useState({});
@@ -68,29 +75,7 @@ function PublishPropertyClient({ initialCities }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const [formData, setFormData] = useState({
-    residenceType: "",
-    ownerId: user?.id,
-    uploadedBy: user?.id,
-    type: "apartment",
-    transactionTag: "",
-    name: "",
-    subLocality: "",
-    address: "",
-    cityId: null,
-    locationId: null,
-    possessionStatus: "",
-    medias: [],
-    coordinates: { lat: null, lng: null },
-    units: [{
-      floorPlans: [],
-      currency: "INR",
-      bedrooms: 1,
-      commonBathrooms: 1,
-      furnishing: "Unfurnished",
-      type: "",
-    }],
-  });
+  // formData is managed by Zustand
 
   useEffect(() => {
     if (residenceType) setFormData(prev => ({ ...prev, residenceType: residenceType.toLowerCase(), transactionTag: transactionType.toLowerCase() }));
@@ -398,6 +383,7 @@ function PublishPropertyClient({ initialCities }) {
 
       const response = await JUSTFLIP.post('/project', payload);
       toast.success("Property published successfully!");
+      clearStore();
       router.push('/');
     } catch (error) {
       console.error("Submit failed", error);
@@ -408,8 +394,8 @@ function PublishPropertyClient({ initialCities }) {
   const inputFields = useMemo(() => {
     const commonSteps = {
       1: [
-        { name: "type", label: "Property Type", type: "select", options: propertyOptions },
-        { name: "transactionTag", label: "Transaction Tag", type: "select", options: transactionTagsOptions },
+        { name: "type", label: "Property Type", type: "button-group", options: propertyOptions },
+        { name: "transactionTag", label: "Transaction Tag", type: "button-group", options: transactionTagsOptions },
         { name: "name", label: "Project/Building Name", type: "search-project" },
         { name: "cityId", label: "City", type: "select", options: initialCities?.map(c => ({ label: c.name, value: c.id })) || [] },
         { name: "description", label: "Property Description", type: "textarea" },
@@ -434,10 +420,12 @@ function PublishPropertyClient({ initialCities }) {
     return commonSteps;
   }, [initialCities, locationSuggestions]);
 
+  if (!isMounted || !hydrated) return null; // Avoid hydration mismatch
+
   return (
     <div className="py-4 min-h-screen overflow-x-hidden">
       <div className="flex flex-col lg:flex-row justify-between gap-4">
-        <div className="flex-1 bg-white rounded-xl shadow-2xl shadow-slate-100 border border-gray-300 flex flex-col p-4">
+        <div className="w-full lg:w-auto flex-1 bg-white rounded-xl shadow-2xl shadow-slate-100 border border-gray-300 flex flex-col p-4">
           <div className="border-b border-slate-100 pb-4 space-y-4">
             <div className="">
               <h2 className="text-2xl font-black text-[#002B5B] tracking-tight">
@@ -473,6 +461,23 @@ function PublishPropertyClient({ initialCities }) {
                           searchable={true}
                         />
                       </>
+                    ) : field.type === "button-group" ? (
+                      <div className="flex flex-wrap gap-3">
+                        {field.options?.map(opt => {
+                          const isSelected = getFieldValue(field.name) === opt.value;
+                          return (
+                            <button
+                              key={opt.value}
+                              type="button"
+                              onClick={() => handleChange({ target: { name: field.name, value: opt.value } })}
+                              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all border ${isSelected ? 'bg-[#002B5B] text-white border-[#002B5B] shadow-md shadow-blue-900/20' : 'bg-white text-slate-600 border-slate-200 hover:border-blue-200 hover:bg-blue-50'}`}
+                            >
+                              {opt.icon && <span>{opt.icon}</span>}
+                              {opt.label}
+                            </button>
+                          );
+                        })}
+                      </div>
                     ) : field.type === "search-project" ? (
                       <SearchDropdown
                         value={formData.name}

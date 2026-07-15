@@ -19,6 +19,7 @@ const BrokerHeader = ({onEditClick, onUpdateClick}) => {
   const {user, updateUser} = useAuthStore()
   const addToast = useToastStore((state) => state.addToast)
   const [isUploading, setIsUploading] = React.useState(false)
+  const [isMissionModalOpen, setIsMissionModalOpen] = React.useState(false)
   console.log(user);
   
   const isApproved = user?.approval === "approved"
@@ -108,7 +109,7 @@ const BrokerHeader = ({onEditClick, onUpdateClick}) => {
         {/* mobile layout */}
         <div className='flex flex-col items-center md:hidden'>
 
-          {/* company's logo */}
+          {/* broker's photo */}
           <motion.div 
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -116,28 +117,28 @@ const BrokerHeader = ({onEditClick, onUpdateClick}) => {
             className='-mt-16 mb-4 z-10 relative'
           >
             <div className='w-28 h-28 rounded-full border-4 border-white shadow-lg overflow-hidden relative bg-white'>
-              {user?.companyLogo ? (
-                <Image alt="the company's logo" 
-                  src={user?.companyLogo} 
+              {user?.profilePhoto ? (
+                <Image alt="the broker's photo" 
+                  src={user?.profilePhoto} 
                   fill={true} 
                   className='object-cover'>
                 </Image>
               ) : (
                 <div className='w-full h-full flex items-center justify-center text-[#002B5B] text-4xl font-bold bg-slate-50'>
-                  {initials}
+                  {getInitials(user?.name)}
                 </div>
               )}
             </div>
             
-            {/* Logo Upload Button (Bottom-Right) */}
+            {/* Photo Upload Button (Bottom-Right) */}
             <div className="absolute -bottom-2 -right-2 z-20">
               <label className="cursor-pointer bg-white text-gray-700 border border-gray-200 shadow-md text-xs font-semibold px-2 py-1.5 rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors w-8 h-8">
-                {isUploading.companyLogo ? (
+                {isUploading.profilePhoto ? (
                   <div className="w-3.5 h-3.5 border-2 border-gray-300 border-t-gray-700 rounded-full animate-spin" />
                 ) : (
                   <FiEdit size={14} />
                 )}
-                <input type="file" accept="image/*" onChange={(e) => handleImageUpdate(e, 'companyLogo')} className="hidden" disabled={isUploading.companyLogo} />
+                <input type="file" accept="image/*" onChange={(e) => handleImageUpdate(e, 'profilePhoto')} className="hidden" disabled={isUploading.profilePhoto} />
               </label>
             </div>
           </motion.div>
@@ -155,17 +156,20 @@ const BrokerHeader = ({onEditClick, onUpdateClick}) => {
             </div>
           )}
 
-          <div className='flex items-center gap-2 mb-1 justify-center text-center'>
-            <h1 className='text-2xl font-bold text-gray-900'>
-              {user?.companyName || user?.name}
-            </h1>
-            {isApproved && <MdVerified className="text-blue-500" size={24}/>}
+          <div className='flex flex-col items-center gap-1 mb-1 justify-center text-center'>
+            <div className='flex items-center gap-2'>
+              <h1 className='text-2xl font-bold text-gray-900'>
+                {user?.name}
+              </h1>
+              {isApproved && <MdVerified className="text-blue-500" size={24}/>}
+            </div>
+            {user?.companyName && (
+              <p className="text-sm font-semibold text-gray-600">
+                Associated with: <span className="font-bold text-[#002B5B]">{user.companyName}</span>
+              </p>
+            )}
           </div>
-          {user?.missionAndVision && (
-            <p className="text-sm text-gray-500 font-medium flex items-center gap-1 mt-1 mb-4 text-center px-4 leading-relaxed">
-              "{user.missionAndVision}"
-            </p>
-          )}
+
 
           {/* the rera certified or id  */}
           {user?.rera && (
@@ -224,27 +228,27 @@ const BrokerHeader = ({onEditClick, onUpdateClick}) => {
                 className='-mt-20 shrink-0 relative'
               >
                 <div className='w-36 h-36 rounded-full border-4 border-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden relative bg-white'>
-                  {user?.companyLogo ? (
-                    <Image alt="the company's logo" 
-                      src={user?.companyLogo} 
+                  {user?.profilePhoto ? (
+                    <Image alt="the broker's photo" 
+                      src={user?.profilePhoto} 
                       fill={true} 
                       className='object-cover'>
                     </Image>
                   ) : (
                     <div className='w-full h-full flex items-center justify-center text-[#002B5B] text-5xl font-bold bg-slate-50'>
-                      {initials}
+                      {getInitials(user?.name)}
                     </div>)}
                 </div>
                 
-                {/* Logo Upload Button (Bottom-Right) */}
+                {/* Photo Upload Button (Bottom-Right) */}
                 <div className="absolute -bottom-3 -right-3 z-20">
                   <label className="cursor-pointer bg-white text-gray-700 border border-gray-200 shadow-lg text-xs font-semibold px-2 py-2 rounded-xl flex items-center justify-center hover:bg-gray-50 hover:shadow-xl transition-all w-10 h-10">
-                    {isUploading.companyLogo ? (
+                    {isUploading.profilePhoto ? (
                       <div className="w-4 h-4 border-2 border-gray-300 border-t-gray-700 rounded-full animate-spin" />
                     ) : (
                       <FiEdit size={16} />
                     )}
-                    <input type="file" accept="image/*" onChange={(e) => handleImageUpdate(e, 'companyLogo')} className="hidden" disabled={isUploading.companyLogo} />
+                    <input type="file" accept="image/*" onChange={(e) => handleImageUpdate(e, 'profilePhoto')} className="hidden" disabled={isUploading.profilePhoto} />
                   </label>
                 </div>
               </motion.div>
@@ -265,19 +269,22 @@ const BrokerHeader = ({onEditClick, onUpdateClick}) => {
                   )}
                 </div>
                 
-                {/* the company name */}
-                <div className='flex items-center gap-3'>
-                  <h1 className='text-3xl font-extrabold text-gray-900 tracking-tight'>
-                    {user?.companyName || user?.name}
-                  </h1>
-                  {isApproved && <MdVerified className="text-blue-500 drop-shadow-sm" size={28} />}
+                {/* the broker name */}
+                <div className='flex flex-col mb-1'>
+                  <div className='flex items-center gap-3'>
+                    <h1 className='text-3xl font-extrabold text-gray-900 tracking-tight'>
+                      {user?.name}
+                    </h1>
+                    {isApproved && <MdVerified className="text-blue-500 drop-shadow-sm" size={28} />}
+                  </div>
+                  {user?.companyName && (
+                    <p className="text-lg font-medium text-gray-600 mt-1">
+                      Associated with: <span className="font-bold text-[#002B5B]">{user.companyName}</span>
+                    </p>
+                  )}
                 </div>
                 
-                {user?.missionAndVision && (
-                  <p className="text-sm font-medium text-gray-500 mt-2 max-w-2xl leading-relaxed">
-                    "{user.missionAndVision}"
-                  </p>
-                )}
+
 
                 {/* address and rera information*/}
                 <div className='flex items-center gap-4 flex-wrap mt-4'>
@@ -332,6 +339,29 @@ const BrokerHeader = ({onEditClick, onUpdateClick}) => {
 
         </div>
       </div>
+
+      {/* Mission & Vision Modal */}
+      {isMissionModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-2xl p-6 md:p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto shadow-2xl relative"
+          >
+            <button 
+              onClick={() => setIsMissionModalOpen(false)}
+              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors"
+            >
+              ✕
+            </button>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Mission & Vision</h2>
+            <div className="text-gray-700 leading-relaxed text-sm sm:text-base whitespace-pre-wrap">
+              {user?.missionAndVision}
+            </div>
+          </motion.div>
+        </div>
+      )}
+
     </div>
   )
 }

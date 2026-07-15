@@ -32,6 +32,7 @@ export default function CompareClientView({ initialProperties = [] }) {
     const [currentProperties, setCurrentProperties] = useState(initialProperties);
 
     const [isHydrated, setIsHydrated] = useState(false);
+    const [isFetching, setIsFetching] = useState(false);
     const hasInitialSynced = useRef(false);
 
     // Rehydrate the Zustand store on mount so it has the correct state
@@ -43,6 +44,7 @@ export default function CompareClientView({ initialProperties = [] }) {
     // Keep it synced if the server re-renders with new properties
     useEffect(() => {
         setCurrentProperties(initialProperties);
+        setIsFetching(false);
     }, [initialProperties]);
 
     // Sync logic between Store and URL
@@ -68,6 +70,9 @@ export default function CompareClientView({ initialProperties = [] }) {
 
         // On subsequent runs (or if URL was empty on load), Store wins!
         if (urlIds !== storeIds) {
+            if (currentProperties.length === 0 && storeIds) {
+                setIsFetching(true);
+            }
             if (storeIds) {
                 router.replace(`/compare?ids=${storeIds}`);
             } else {
@@ -77,7 +82,7 @@ export default function CompareClientView({ initialProperties = [] }) {
         
         const timer = setTimeout(() => setIsSyncing(false), 50);
         return () => clearTimeout(timer);
-    }, [searchParams, storeItems, initialProperties, router, isHydrated]);
+    }, [searchParams, storeItems, initialProperties, router, isHydrated, currentProperties.length]);
 
     const handleProperty = (property) => {
         const projectUrl = createProjectUrl(
@@ -105,7 +110,7 @@ export default function CompareClientView({ initialProperties = [] }) {
         }
     };
 
-    if (isSyncing) {
+    if (isSyncing || isFetching) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="animate-pulse w-8 h-8 rounded-full bg-[#002B5B]"></div>

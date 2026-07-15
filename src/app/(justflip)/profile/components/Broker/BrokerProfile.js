@@ -120,12 +120,7 @@ const BrokerProfile = () => {
                     </motion.div>
                 )}
 
-                {activeNav === 'my-properties' && (
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className='bg-white/70 backdrop-blur-xl rounded-2xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 text-center'>
-                    <h2 className='text-2xl font-bold text-gray-900 tracking-tight mb-2'>My Properties</h2>
-                    <p className="text-gray-500">You haven't listed any properties yet.</p>
-                    </motion.div>
-                )}
+
 
                 {activeNav === 'wishlist' && (
                     <div className='bg-white/70 backdrop-blur-xl rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 relative overflow-hidden'>

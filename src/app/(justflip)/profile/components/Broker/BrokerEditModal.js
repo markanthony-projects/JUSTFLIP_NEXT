@@ -46,6 +46,9 @@ const BrokerEditModal = ({ isOpen, onClose }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target
+    if (name === 'missionAndVision') {
+      if (value.length > 500) return // Prevent exceeding 500 characters
+    }
     setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
@@ -167,7 +170,10 @@ const BrokerEditModal = ({ isOpen, onClose }) => {
                 <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">About</h3>
                 <div className="space-y-1">
                   <label className="text-sm font-semibold text-gray-700">Mission and Vision</label>
-                  <textarea name="missionAndVision" value={formData.missionAndVision} onChange={handleChange} rows="3" className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#002B5B]/20 focus:border-[#002B5B] transition-all outline-none resize-none"></textarea>
+                  <textarea name="missionAndVision" value={formData.missionAndVision} onChange={handleChange} maxLength={500} rows="3" className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#002B5B]/20 focus:border-[#002B5B] transition-all outline-none resize-none"></textarea>
+                  <p className={`text-xs text-right ${formData.missionAndVision?.length >= 500 ? 'text-red-500 font-bold' : 'text-gray-500'}`}>
+                    {formData.missionAndVision?.length || 0}/500 characters
+                  </p>
                 </div>
               </div>
 
