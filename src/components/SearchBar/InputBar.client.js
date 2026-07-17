@@ -9,7 +9,7 @@ import { FaSearch } from 'react-icons/fa'
 import { fetchSuggestionsAction } from './search.actions'
 import { formatUrl } from '@/src/utils/URLFormatter'
 import { TextField } from '../Inputs'
-import useDebounce from '@/src/hooks/useDebounce'
+import { useDebounce } from '@/src/hooks/useDebounce'
 import { useRouter } from 'next/router'
 
 //this list should be outside so that it doesn't gets recreated on every render.
