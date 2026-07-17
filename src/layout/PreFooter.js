@@ -25,18 +25,18 @@ const Section = ({ title, links }) => (
 const PreFooter = () => {
 
     const popularCities = [
-        { label: "Projects in Bengaluru", href: "/listings/?search=bengaluru" },
-        { label: "Projects in Dubai", href: "/listings/?search=dubai" },
-        { label: "Projects in Mysuru", href: "/listings/?search=mysuru" },
-        { label: "Projects in Pune", href: "/listings/?search=pune" },
-        { label: "Projects in Chennai", href: "/listings/?search=chennai" },
+        { label: "Projects in Bengaluru", href: "/search?q=bengaluru" },
+        { label: "Projects in Dubai", href: "/search?q=dubai" },
+        { label: "Projects in Mysuru", href: "/search?q=mysuru" },
+        { label: "Projects in Pune", href: "/search?q=pune" },
+        { label: "Projects in Chennai", href: "/search?q=chennai" },
     ];
 
     const popularZones = [
-        { label: "Projects in East Bengaluru", href: "/listings/?search=east" },
-        { label: "Projects in West Bengaluru", href: "/listings/?search=west" },
-        { label: "Projects in North Bengaluru", href: "/listings/?search=north" },
-        { label: "Projects in South Bengaluru", href: "/listings/?search=south" },
+        { label: "Projects in East Bengaluru", href: "/search?q=east" },
+        { label: "Projects in West Bengaluru", href: "/search?q=west" },
+        { label: "Projects in North Bengaluru", href: "/search?q=north" },
+        { label: "Projects in South Bengaluru", href: "/search?q=south" },
     ];
 
     const apartments = [
@@ -49,7 +49,7 @@ const PreFooter = () => {
         "Bagalur",
     ].map((area) => ({
         label: `Apartments in ${area}`,
-        href: `/listings/?search=${area.toLowerCase().replace(/\s+/g, "-")}&propertyType=apartment`,
+        href: `/search?q=${area.toLowerCase().replace(/\s+/g, "-")}&propertyType=apartment`,
     }));
 
     const plots = [
@@ -61,7 +61,7 @@ const PreFooter = () => {
         "Bagalur",
     ].map((area) => ({
         label: `Plots in ${area}`,
-        href: `/listings/?search=${area.toLowerCase().replace(/\s+/g, "-")}&propertyType=plot`,
+        href: `/search?q=${area.toLowerCase().replace(/\s+/g, "-")}&propertyType=plot`,
     }));
 
     const villas = [
@@ -72,7 +72,7 @@ const PreFooter = () => {
         "Anekal",
     ].map((area) => ({
         label: `Villas in ${area}`,
-        href: `/listings/?search=${area.toLowerCase().replace(/\s+/g, "-")}&propertyType=villa`,
+        href: `/search?q=${area.toLowerCase().replace(/\s+/g, "-")}&propertyType=villa`,
     }));
 
     const apartmentsByZone = [
@@ -85,7 +85,7 @@ const PreFooter = () => {
         const zoneNameOnly = zone.replace(/bengaluru/i, "").trim();
         return {
             label: `Apartments in ${zone}`,
-            href: `/listings/?search=${zoneNameOnly.toLowerCase()}&propertyType=apartment`,
+            href: `/search?q=${zoneNameOnly.toLowerCase()}&propertyType=apartment`,
         };
     });
 
