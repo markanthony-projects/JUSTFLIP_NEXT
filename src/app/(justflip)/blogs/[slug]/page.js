@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
  return constructMetadata({
   title,
   description,
-  canonical: `/blogs/${name}-{id}`,
+  canonical: `/blogs/${name}-${id}`,
   image: blog?.image?.url || 'https://justflip.in/logo.png',
   type: 'article'
 });
