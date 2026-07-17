@@ -199,7 +199,7 @@ const User = () => {
                                     onClick={sendOtp}
                                     className="text-[#002b5b] text-xs font-bold hover:underline transition"
                                 >
-                                    Didn't receive the code? Resend OTP
+                                    {`Didn't receive the code? Resend OTP`}
                                 </button>
                             )}
                         </div>
