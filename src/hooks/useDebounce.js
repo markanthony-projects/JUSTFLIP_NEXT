@@ -1,22 +1,44 @@
 'use client'
-// created the hook and this hook helps us reduce the number of API calls, that takes place when a user tries searching in the 
-// search bar for a property, place or projects and builder. when the user stops typing for 3 secs then only the API is called
-// so the search is clean and clear.
+import { useCallback, useEffect, useRef } from 'react';
 
-import React, { useEffect, useState } from 'react'
+const useDebounce = ({callback, delay = 300}) => {
+    //a mutable reference to the current timer.
+    const timerRef = useRef(null);
+    //a mutable reference to the latest callback to prevent the debounce timer from resetting if the cllback function changes on a parent re-render.
+    const callbackRef = useRef(null)
+    // const [ debouncedValue, setDebouncedValue ] = useState(value)
 
-const useDebounce = ({value, delay = 300}) => {
-    const [ debouncedValue, setDebouncedValue ] = useState(value)
+    useEffect(() => {
+        callbackRef.current = callback
+    },[callback])
 
-    useEffect(() =>{
-        const timer = setTimeout(() =>{
-            setDebouncedValue(value)
-        }, delay)
+    //we have to clean up the timer if the component unmounts.
+    useEffect(()=> {
+        return () =>{
+            if(timerRef.current) clearTimeout(timerRef.current);
+        }
+    },[])
 
-        return () => clearTimeout(timer);
-    })
+    //return a memoized function that haandles debouncing.
+    return useCallback((...args) => {
+        if(timerRef.current){
+            clearTimeout(timerRef.current);
+        }
 
-  return debouncedValue
+        timerRef.current = setTimeout(()=>{
+            callbackRef.current(...args)
+        },delay)
+    }, [delay])
+
+    // useEffect(() =>{
+    //     const timer = setTimeout(() =>{
+    //         setDebouncedValue(value)
+    //     }, delay)
+
+    //     return () => clearTimeout(timer);
+    // })
+
+//   return debouncedValue
 }
 
 export default useDebounce

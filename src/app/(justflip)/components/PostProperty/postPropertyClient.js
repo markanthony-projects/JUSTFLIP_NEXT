@@ -36,16 +36,22 @@ const DEFAULT_FAQS = [
 
 const PostPropertyClient = () => {
     const router = useRouter();
+    // const user = useAuthStore((state) => state.user);
     const { isAuthenticated, authType } = useAuthStore();
     const [residenceType, setResidenceType] = useState('Residential');
     const [transactionType, setTransactionType] = useState('Sale');
-    const [uploaderRole, setUploaderRole] = useState('User');
+    const uploaderRole = authType === "broker" ? "Broker" : authType === "visitor" ? "User" : "";
+    // console.log("uploaderRole:", uploaderRole); 
+    // console.log(authType, "authType");
+    // console.log("isAuthenticated:", isAuthenticated);            
+    
+    
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
     const [faqs, setFaqs] = useState(DEFAULT_FAQS);
 
     const residenceOptions = [
         { label: "Residential", value: "Residential", icon: <RiHome4Line /> },
-        { label: "Commercial", value: "Commercial", icon: <RiBuilding4Line /> }
+        { label: "Commercial", value: "Commercial", icon: <RiBuilding4Line /> },
     ];
 
     const transactionOptions = [
@@ -60,9 +66,9 @@ const PostPropertyClient = () => {
         { label: "Developer", value: "Developer", icon: <FiTool /> }
     ];
 
-    const handleRoleChange = (role) => {
-        setUploaderRole(role);
-    };
+    // const handleRoleChange = (role) => {
+    //     setUploaderRole(role);
+    // };
 
     const handleStart = () => {
         if (uploaderRole === "User") {
@@ -132,7 +138,9 @@ const PostPropertyClient = () => {
                             label="Who Are You?"
                             options={roleOptions}
                             value={uploaderRole}
-                            onChange={handleRoleChange}
+                            checked= {uploaderRole}
+                            // onChange={handleRoleChange}
+                            disabled={roleOptions !== uploaderRole}    
                         />
 
                         <div className="pt-2">

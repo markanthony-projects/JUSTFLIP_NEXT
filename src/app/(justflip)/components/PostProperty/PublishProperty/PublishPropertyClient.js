@@ -409,7 +409,7 @@ function PublishPropertyClient({ initialCities }) {
     const commonSteps = {
       1: [
         { name: "type", label: "Property Type", type: "select", options: propertyOptions },
-        { name: "transactionTag", label: "Transaction Tag", type: "select", options: transactionTagsOptions },
+        { name: "transactionTag", label: "Transaction Type", type: "select", options: transactionTagsOptions },
         { name: "name", label: "Project/Building Name", type: "search-project" },
         { name: "cityId", label: "City", type: "select", options: initialCities?.map(c => ({ label: c.name, value: c.id })) || [] },
         { name: "description", label: "Property Description", type: "textarea" },
