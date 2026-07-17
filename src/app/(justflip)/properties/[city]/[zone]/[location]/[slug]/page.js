@@ -51,8 +51,8 @@ export async function generateMetadata({ params }) {
     const { cityName, locationName, name, id } = parseProjectUrl(city, zone, location, slug);
     const { projectData } = await getProjectPageData(id);
 
-    const title = projectData ? `${projectData.name} - ${locationName}, ${cityName} | Justflip` : `${name} Properties | Justflip`;
-    const description = projectData?.description ? projectData.description.replace(/<[^>]+>/g, '').substring(0, 160) : `Explore ${name} located in ${locationName}, ${cityName}.`;
+    const title = projectData ? `${projectData.name} in ${locationName}, ${cityName} - Price, Floor Plans, Reviews` : `${name} Properties | Justflip`;
+    const description = projectData?.description ? projectData.description.replace(/<[^>]+>/g, '').substring(0, 157) + '...' : `Explore ${name} located in ${locationName}, ${cityName}. View exact pricing, 2/3/4 BHK floor plans, amenities, and read verified reviews.`;
     const url = `/properties/${city}/${zone}/${location}/${slug}`;
 
     return constructMetadata({

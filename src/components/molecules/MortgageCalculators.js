@@ -495,12 +495,9 @@
 
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { useState, useEffect } from "react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { CiCalculator1 } from "react-icons/ci";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
 
 function SummaryCard({ label, value, dotClass, borderClass = "border-gray-200" }) {
     return (
@@ -529,18 +526,7 @@ export default function MortgageCalculator() {
 
     const [results, setResults] = useState(null);
 
-    const chartRef = useRef(null);
 
-    const [chartData, setChartData] = useState({
-        labels: ["Principal", "Interest"],
-        datasets: [
-            {
-                data: [0, 0],
-                backgroundColor: ["#ccc", "#999"],
-                borderWidth: 0
-            }
-        ]
-    });
 
     useEffect(() => {
         calculateMortgage();
@@ -607,60 +593,7 @@ export default function MortgageCalculator() {
 
     };
 
-    useEffect(() => {
 
-        if (!chartRef.current) return;
-
-        const chart = chartRef.current;
-        const ctx = chart.ctx;
-
-        let interestGradient =
-            ctx.createLinearGradient(0, 0, 0, 300);
-
-        if (interestRate <= 5) {
-
-            interestGradient.addColorStop(0, "#22c55e");
-            interestGradient.addColorStop(1, "#16a34a");
-
-        } else if (interestRate <= 12) {
-
-            interestGradient.addColorStop(0, "#f59e0b");
-            interestGradient.addColorStop(1, "#ea580c");
-
-        } else {
-
-            interestGradient.addColorStop(0, "#ef4444");
-            interestGradient.addColorStop(1, "#b91c1c");
-
-        }
-
-        let principalGradient =
-            ctx.createLinearGradient(0, 0, 0, 300);
-
-        principalGradient.addColorStop(0, "#06b6d4");
-        principalGradient.addColorStop(1, "#1e3a8a");
-
-        setChartData({
-            labels: ["Principal", "Interest"],
-            datasets: [
-                {
-                    data: [
-                        Number(results?.totalPrincipal || 0),
-                        Number(results?.totalInterest || 0)
-                    ],
-                    backgroundColor: [
-                        principalGradient,
-                        interestGradient
-                    ],
-                    borderWidth: 0,
-                    borderRadius: 12,
-                    spacing: 4,
-                    hoverOffset: 6
-                }
-            ]
-        });
-
-    }, [results, interestRate]);
 
     return (
         <div className="w-full rounded-md border border-gray-200 bg-white p-3 sm:p-4 md:p-6">
@@ -857,42 +790,44 @@ export default function MortgageCalculator() {
 
                             <div className="absolute h-36 w-36 sm:h-44 sm:w-44 md:h-56 md:w-56 rounded-full blur-3xl opacity-20 bg-cyan-400" />
 
-                            <Doughnut
-                                ref={chartRef}
-                                data={chartData}
-                                options={{
-                                    responsive: true,
-                                    maintainAspectRatio: false,
-                                    cutout: "76%",
-                                    layout: {
-                                        padding: 8
-                                    },
-                                    animation: {
-                                        duration: 1200,
-                                        easing: "easeInOutQuart"
-                                    },
-                                    plugins: {
-                                        legend: {
-                                            display: false
-                                        },
-                                        tooltip: {
-                                            backgroundColor: "#0f172a",
-                                            padding: 12,
-                                            cornerRadius: 12,
-                                            displayColors: false,
-                                            callbacks: {
-                                                label: function (context) {
-                                                    return (
-                                                        context.label +
-                                                        ": ₹ " +
-                                                        Number(context.raw).toLocaleString("en-IN")
-                                                    );
-                                                }
-                                            }
-                                        }
-                                    }
-                                }}
-                            />
+                            <ResponsiveContainer width="100%" height="100%">
+                                <PieChart>
+                                    <defs>
+                                        <linearGradient id="colorPrincipal" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stopColor="#06b6d4" />
+                                            <stop offset="100%" stopColor="#1e3a8a" />
+                                        </linearGradient>
+                                        <linearGradient id="colorInterest" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stopColor={
+                                                interestRate <= 5 ? "#22c55e" : interestRate <= 12 ? "#f59e0b" : "#ef4444"
+                                            } />
+                                            <stop offset="100%" stopColor={
+                                                interestRate <= 5 ? "#16a34a" : interestRate <= 12 ? "#ea580c" : "#b91c1c"
+                                            } />
+                                        </linearGradient>
+                                    </defs>
+                                    <Pie
+                                        data={[
+                                            { name: "Principal", value: Number(results?.totalPrincipal || 0) },
+                                            { name: "Interest", value: Number(results?.totalInterest || 0) }
+                                        ]}
+                                        innerRadius="76%"
+                                        outerRadius="100%"
+                                        dataKey="value"
+                                        stroke="none"
+                                        paddingAngle={2}
+                                        cornerRadius={12}
+                                    >
+                                        <Cell fill="url(#colorPrincipal)" />
+                                        <Cell fill="url(#colorInterest)" />
+                                    </Pie>
+                                    <Tooltip 
+                                        contentStyle={{ backgroundColor: "#0f172a", borderRadius: "12px", border: "none", color: "#fff" }}
+                                        itemStyle={{ color: "#fff" }}
+                                        formatter={(value, name) => [`₹ ${Number(value).toLocaleString("en-IN")}`, name]}
+                                    />
+                                </PieChart>
+                            </ResponsiveContainer>
 
                             <div className="absolute px-4 text-center">
 

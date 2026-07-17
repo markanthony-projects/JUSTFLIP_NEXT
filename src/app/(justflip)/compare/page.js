@@ -8,14 +8,14 @@ export async function generateMetadata({ searchParams }) {
     
     if (ids.length === 0) {
         return {
-            title: 'Compare Properties | JustFlip',
-            description: 'Compare multiple properties side-by-side to find your perfect match on JustFlip.',
+            title: 'Compare Properties side-by-side | JustFlip',
+            description: 'Compare multiple properties side-by-side. Compare prices, floor plans, amenities, and location advantages to find your perfect match on JustFlip.',
         };
     }
 
     return {
-        title: `Comparing ${ids.length} Propert${ids.length > 1 ? 'ies' : 'y'} | JustFlip`,
-        description: 'Compare your selected properties side-by-side to make an informed decision on JustFlip.',
+        title: `Comparing ${ids.length} Propert${ids.length > 1 ? 'ies' : 'y'} - Price, Amenities & Location | JustFlip`,
+        description: `Compare ${ids.length} selected properties side-by-side. Analyze exact pricing, layouts, amenities, and connectivity to make an informed decision on JustFlip.`,
     };
 }
 

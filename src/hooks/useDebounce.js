@@ -1,44 +1,17 @@
-'use client'
-import { useCallback, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
-const useDebounce = ({callback, delay = 300}) => {
-    //a mutable reference to the current timer.
-    const timerRef = useRef(null);
-    //a mutable reference to the latest callback to prevent the debounce timer from resetting if the cllback function changes on a parent re-render.
-    const callbackRef = useRef(null)
-    // const [ debouncedValue, setDebouncedValue ] = useState(value)
+export function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
 
-    useEffect(() => {
-        callbackRef.current = callback
-    },[callback])
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
 
-    //we have to clean up the timer if the component unmounts.
-    useEffect(()=> {
-        return () =>{
-            if(timerRef.current) clearTimeout(timerRef.current);
-        }
-    },[])
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
 
-    //return a memoized function that haandles debouncing.
-    return useCallback((...args) => {
-        if(timerRef.current){
-            clearTimeout(timerRef.current);
-        }
-
-        timerRef.current = setTimeout(()=>{
-            callbackRef.current(...args)
-        },delay)
-    }, [delay])
-
-    // useEffect(() =>{
-    //     const timer = setTimeout(() =>{
-    //         setDebouncedValue(value)
-    //     }, delay)
-
-    //     return () => clearTimeout(timer);
-    // })
-
-//   return debouncedValue
+  return debouncedValue;
 }
-
-export default useDebounce

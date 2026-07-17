@@ -8,8 +8,8 @@ import { buildItemListSchema } from "@/src/utils/schema";
 export async function generateMetadata(props) {
     const searchParams = await props.searchParams;
     const category = searchParams?.category || "Trending Blogs";
-    const title = `${category} | Real Estate News & Guide - Justflip`;
-    const description = `Read the latest ${category.toLowerCase()} about real estate in India and Dubai, market trends, property buying guides, and investment tips.`;
+    const title = `${category} - Real Estate News, Market Trends & Guides | JustFlip`;
+    const description = `Read the latest ${category.toLowerCase()} about real estate in India and Dubai. Discover top market trends, property buying guides, and expert investment tips on JustFlip.`;
     const url = `/blogs${category !== "Trending Blogs" ? `?category=${category}` : ''}`;
 
     return constructMetadata({

@@ -10,8 +10,8 @@ export async function generateMetadata({ params }) {
     const { name, id } = parseDevelopersDetailsUrl(slug);
     const { builder } = await BuilderService?.fetchDeveloperById(id);
 
-    const title = builder ? `Projects by ${builder.name} | Developer Legacy by Justflip` : `${name} Properties & Builder Details | Justflip`;
-    const description = builder?.description ? builder.description.replace(/<[^>]+>/g, '').substring(0, 160) : `Explore luxury real estate projects and the legacy of ${name}.`;
+    const title = builder ? `Top Projects by ${builder.name} - Reviews & Prices | JustFlip` : `${name} Properties & Builder Reviews | JustFlip`;
+    const description = builder?.description ? builder.description.replace(/<[^>]+>/g, '').substring(0, 157) + '...' : `Explore luxury real estate projects, legacy, and verified reviews of ${name}. View complete list of past and upcoming properties on JustFlip.`;
     const url = `/developers/${slug}`;
 
     return constructMetadata({

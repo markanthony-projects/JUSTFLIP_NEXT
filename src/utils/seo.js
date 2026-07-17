@@ -11,10 +11,6 @@ export function constructMetadata({
     description,
     alternates: {
       canonical,
-      languages: {
-          'en-IN': '/en-IN',
-          'en-AE': '/en-AE',
-      },
     },
     openGraph: {
       title,

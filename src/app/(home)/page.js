@@ -12,8 +12,8 @@ import { constructMetadata } from "@/src/utils/seo";
 import { buildWebsiteSchema } from "@/src/utils/schema";
 
 export const metadata = constructMetadata({
-    title: "Real Estate Properties in India & Dubai",
-    description: "Discover new apartments, villas, and plots across top cities in India and Dubai with Justflip.",
+    title: "Buy Apartments, Villas & Plots in India & Dubai | JustFlip.in",
+    description: "Browse 10,000+ verified new homes, apartments, villas, and plots from top developers across India and Dubai. Find your dream home on JustFlip today!",
     canonical: "/"
 });
 
@@ -32,6 +32,7 @@ export default async function JustFlipHomePage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
             />
+            <h1 className="sr-only">Buy Apartments, Villas & Plots in India & Dubai - JustFlip</h1>
             <section className="relative w-full">
                 <Banners />
                 <div className="absolute top-0 left-0 w-full z-20 bg-linear-to-b from-black/90 via-black/60 to-transparent">
