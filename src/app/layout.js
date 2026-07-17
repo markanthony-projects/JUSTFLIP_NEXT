@@ -1,6 +1,5 @@
 import favicon from "@/public/icons/favicon.svg";
 
-import "leaflet/dist/leaflet.css";
 import "./globals.css";
 
 import { SliderProvider } from "@/src/context/SliderContext";
