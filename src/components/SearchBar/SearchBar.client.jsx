@@ -9,20 +9,11 @@ import { FaSearch } from "react-icons/fa";
 import { fetchSuggestionsAction } from "./search.actions";
 import { formatUrl } from "@/src/utils/URLFormatter";
 import { TextField } from "../Inputs";
-import ActionButton from "../atoms/ActionButton";
+import { useRouter } from "next/navigation";
 
-const emptySuggestions = {
-    projects: [],
-    builders: [],
-    locations: [],
-};
-
-export default function SearchBarClient() {
-    const [search, setSearch] = useState("");
-    const [suggestions, setSuggestions] = useState(emptySuggestions);
-    const [isPending, startTransition] = useTransition();
-    const [placeholderIndex, setPlaceholderIndex] = useState(0);
-    const searchPlaceholderList = [
+//this list should be outside so that it doesn't gets recreated on every render.
+//if this is ketp inside the useEffect tha depends on it will run infinitely.
+const searchPlaceholderList = [
         {
             title: "Projects in Bengaluru",
             placeholder: "Search projects like 'Sobha Dream Acres'…",
@@ -82,8 +73,22 @@ export default function SearchBarClient() {
             title: "Ready to Move",
             placeholder: "Search Ready-to-Move Homes in Bengaluru…",
             aria: "Search Ready to Move Homes"
-        },
+        }
     ];
+
+const emptySuggestions = {
+    projects: [],
+    builders: [],
+    locations: [],
+};
+
+export default function SearchBarClient() {
+    const router = useRouter();
+
+    const [search, setSearch] = useState("");
+    const [suggestions, setSuggestions] = useState(emptySuggestions);
+    const [isPending, startTransition] = useTransition();
+    const [placeholderIndex, setPlaceholderIndex] = useState(0)
 
     useEffect(() => {
         if (search.length === 0) {
@@ -94,8 +99,6 @@ export default function SearchBarClient() {
             return () => clearInterval(interval);
         }
     }, [search]);
-
-
 
     const debounceRef = useRef(null);
     const containerRef = useRef(null);
@@ -136,6 +139,11 @@ export default function SearchBarClient() {
         return () => document.removeEventListener("mousedown", handler);
     }, []);
 
+    const handleSearchRedirect = () => {
+        // console.log(`/properties?search=${search}`);
+        router.push(`/properties?search=${search}`);
+    }
+
     return (
         <div ref={containerRef} className="relative w-full max-w-4xl bg-white rounded-lg shadow-lg flex h-10 lg:h-12 border border-gray-300" >
             <div className="flex-1 flex items-center p-1">
@@ -143,6 +151,7 @@ export default function SearchBarClient() {
                     <TextField
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
+                        // aria-label = {searchPlaceholderList[aria].aria}
                         className="border-none focus:ring-0 text-xs md:text-sm"
                     />
 
@@ -161,7 +170,8 @@ export default function SearchBarClient() {
                 <button
                     type="submit"
                     aria-label="Search"
-                    className=" transition-all duration-200 ease-in-out  transform hover:scale-[1.03] active:scale-95 inline-flex items-center justify-center gap-2      px-4 h-full       rounded-lg       bg-[#002B5B] text-white       text-sm font-medium       transition-all duration-200     "
+                    className=" transition-all duration-200 ease-in-out  transform hover:scale-[1.03] active:scale-95 inline-flex items-center justify-center gap-2 px-4 h-full rounded-lg bg-[#002B5B] text-white text-sm font-medium       transition-all duration-200     "
+                    onClick={handleSearchRedirect}
                 >
                     <FaSearch className="text-lg" />
 
