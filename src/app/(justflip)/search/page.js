@@ -5,8 +5,8 @@ export async function generateMetadata({ searchParams }) {
   const p = await searchParams;
   const q = p?.q || '';
   return constructMetadata({
-    title: q ? `"${q}" Properties | Justflip` : 'Search Properties | Justflip',
-    description: `Search real estate properties${q ? ` matching "${q}"` : ''} on Justflip.`,
+    title: q ? `Search Results for "${q}" Properties - Buy Flats & Villas | JustFlip` : 'Search Flats, Villas & Plots for Sale | JustFlip',
+    description: q ? `Browse top real estate properties matching "${q}". View verified listings with photos, floor plans, and latest prices on JustFlip.` : 'Search for your dream home across India & Dubai. Browse 500+ verified apartments, villas, and plots with detailed pricing and photos.',
     canonical: `/search`,
     noIndex: true,
   });

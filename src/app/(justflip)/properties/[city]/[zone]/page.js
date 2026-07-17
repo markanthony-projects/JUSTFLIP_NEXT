@@ -31,8 +31,8 @@ export async function generateMetadata({ params }) {
   const { cityName, name, id } = parseZoneUrl(city, zone);
   const { zoneData } = await getZonePageData(id);
 
-  const title = `Properties in ${name}, ${cityName} | Real Estate | Justflip`;
-  const description = zoneData?.description ? zoneData.description.replace(/<[^>]+>/g, '').substring(0, 160) : `Explore the latest residential properties, apartments, and villas in ${name}, ${cityName}.`;
+  const title = `Buy Flats, Villas & Plots in ${name}, ${cityName} - Photos & Prices | JustFlip`;
+  const description = zoneData?.description ? zoneData.description.replace(/<[^>]+>/g, '').substring(0, 157) + '...' : `Browse top residential properties, apartments, and villas for sale in ${name}, ${cityName}. Check latest prices, floor plans & reviews.`;
   
   return constructMetadata({
     title,

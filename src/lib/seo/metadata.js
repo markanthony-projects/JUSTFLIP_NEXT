@@ -23,9 +23,9 @@ export function generateSeoMetadata(filters, originalSlug) {
     locationStr = search;
   }
 
-  const title = `${typeStr} for Sale in ${locationStr} | JustFlip`;
+  const title = `Buy ${typeStr} in ${locationStr} - Price, Floor Plans | JustFlip`;
   
-  const description = `Browse ${typeStr.toLowerCase()} for sale in ${locationStr}. View verified listings, photos, prices, and amenities on JustFlip - your trusted real estate portal.`;
+  const description = `Explore 500+ verified ${typeStr.toLowerCase()} for sale in ${locationStr}. View exact prices, HD photos, floor plans, and amenities on JustFlip.`;
 
   return {
     title,

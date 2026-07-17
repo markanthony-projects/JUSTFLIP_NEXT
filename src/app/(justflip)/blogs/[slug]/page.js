@@ -15,8 +15,8 @@ export async function generateMetadata({ params }) {
 
   const blog = await getBlogData({id});
 
-  const title = blog?.title || name;
-  const description = blog?.shortDescription || `Read ${title} on Justflip Blogs.`;
+  const title = blog?.title ? `${blog.title} | JustFlip Blogs` : `${name} - Real Estate Blog | JustFlip`;
+  const description = blog?.shortDescription || `Read the latest insights on ${name}. Get expert real estate news, market trends, and investment tips on JustFlip Blogs.`;
 
  return constructMetadata({
   title,
