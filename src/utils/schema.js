@@ -17,7 +17,7 @@ export function buildWebsiteSchema() {
     url: "https://justflip.in/",
     potentialAction: {
       "@type": "SearchAction",
-      target: "https://justflip.in/properties?q={search_term_string}",
+      target: "https://justflip.in/search?q={search_term_string}",
       "query-input": "required name=search_term_string",
     },
   };
@@ -93,5 +93,38 @@ export function buildFAQSchema(faqs = []) {
         text: faq?.answer,
       },
     })),
+  };
+}
+
+export function buildSearchResultsSchema(results = [], query = '') {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `Search results for "${query}" on Justflip`,
+    numberOfItems: results.length,
+    itemListElement: results.slice(0, 10).map((item, index) => {
+      // Basic formatting for url
+      const slug = item.name?.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+      const locSlug = item.location?.name?.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+      const citySlug = item.city?.name?.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+      const zoneSlug = item.zone?.name?.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+      
+      const url = `https://justflip.in/properties/${citySlug}/${zoneSlug}/${locSlug}/${slug}-${item.id}`;
+      
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "RealEstateListing",
+          name: item.name,
+          url,
+          offers: {
+            "@type": "Offer",
+            priceCurrency: "INR",
+            price: item.minPrice || 0,
+          },
+        },
+      };
+    }),
   };
 }
