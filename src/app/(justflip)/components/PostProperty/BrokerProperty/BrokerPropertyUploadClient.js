@@ -63,11 +63,13 @@ const buildInitialFormData = (brokerId, residenceType, transactionType) => ({
 // ─── Component ────────────────────────────────────────────────────────────────
 
 function BrokerPropertyClient({ initialCities = [] }) {
+    // console.log("BrokerPropertyClient initialCities:", initialCities);
     const router = useRouter();
-    const { user, broker } = useAuthStore();
+    const { user } = useAuthStore();
+    // console.log("BrokerPropertyClient user:", user);
     const { uploadFiles, loading: isUploading } = useFileUpload();
 
-    const brokerId = 'bfb181ec-54f6-40aa-8c18-76e4ec2c778b' ?? broker?.id ?? user?.id;
+    const brokerId = 'bfb181ec-54f6-40aa-8c18-76e4ec2c778b' ?? user?.centralUserId; // Fallback to hardcoded broker ID if not available
 
     // Residence / transaction types from session (set after mount)
     const [residenceType, setResidenceType] = useState("Residential");

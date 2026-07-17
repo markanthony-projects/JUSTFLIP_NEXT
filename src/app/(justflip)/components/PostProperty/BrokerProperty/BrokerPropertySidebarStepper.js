@@ -1,10 +1,8 @@
 import React from 'react';
-import { IoIosArrowBack } from 'react-icons/io';
-import { useRouter } from 'next/navigation';
+
 import { IoCallOutline } from 'react-icons/io5';
 import { FaWhatsapp, FaCheck, FaHome } from 'react-icons/fa';
-import BannerImage from "@/public/assets/UploadPropBanner.png";
-import Image from '@/src/components/atoms/Image';
+
 import SimpleButton from '@/src/components/atoms/SimpleButton';
 
 const steps = [
@@ -15,7 +13,6 @@ const steps = [
 ];
 
 const BrokerPropertySidebarStepper = ({ currentStep }) => {
-    const router = useRouter();
     
     // Calculate progress percentage
     const progress = Math.round((currentStep / steps.length) * 100);
@@ -31,7 +28,7 @@ const BrokerPropertySidebarStepper = ({ currentStep }) => {
     };
 
     return (
-        <div className="w-full lg:w-[320px] shrink-0 bg-white rounded-xl p-5 flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.08)] hidden md:flex">
+        <div className="w-full lg:w-[320px] shrink-0 bg-white rounded-xl p-5 flex-col shadow-[0_8px_30px_rgb(0,0,0,0.08)] hidden md:flex">
             {/* Stepper Section */}
             <div className="flex flex-col gap-5">
                 {/* Title Section */}

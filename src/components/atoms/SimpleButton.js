@@ -6,7 +6,7 @@ const SimpleButton = ({ label = "Click Me", onClick, type = "button", loading = 
             type={type}
             onClick={onClick}
             disabled={disabled || loading}
-            className={`group relative w-full flex justify-center items-center py-3.5 px-4 border border-transparent text-sm font-bold rounded-xl text-white transition-all duration-300 transform hover:scale-[1.02] active:scale-95 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed ${className || "bg-[#002B5B] hover:bg-[#001D3D]"}`}
+            className={`group relative w-full flex justify-center items-center py-3.5 px-4 border-10 border-transparent text-sm font-bold rounded-xl text-white transition-all duration-300 transform hover:scale-[1.02] active:scale-95 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed ${className || "bg-[#002B5B] hover:bg-[#001D3D]"}`}
         >
             {loading ? "Loading..." : label}
 

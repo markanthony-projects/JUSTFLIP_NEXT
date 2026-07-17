@@ -1,13 +1,14 @@
 import React from 'react';
 import { FaCheck } from 'react-icons/fa';
 
-const PublishPropertyStepper = ({ currentStep }) => {
-    const steps = [
+const steps = [
         { id: 1, label: "Basic Details" },
         { id: 2, label: "Property Details" },
         { id: 3, label: "Other Details" },
         { id: 4, label: "Files" }
-    ];
+];
+
+const PublishPropertyStepper = ({ currentStep }) => {
 
     return (
         <div className="relative w-full  hidden sm:block">
