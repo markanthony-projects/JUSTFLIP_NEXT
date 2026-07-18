@@ -30,6 +30,12 @@ export default function MultiSelectFilter({ config }) {
           const isSelected = selectedValues.includes(option.value);
           return (
             <label key={option.value} className="flex items-center gap-3 cursor-pointer group">
+              <input 
+                type="checkbox" 
+                className="hidden" 
+                checked={isSelected} 
+                onChange={() => handleToggle(option.value)} 
+              />
               <div className={`w-4 h-4 rounded border flex items-center justify-center transition-colors ${
                 isSelected ? 'bg-[#002B5B] border-[#002B5B]' : 'border-gray-300 group-hover:border-[#002B5B]'
               }`}>

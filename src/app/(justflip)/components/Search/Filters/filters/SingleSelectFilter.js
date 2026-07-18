@@ -21,6 +21,12 @@ export default function SingleSelectFilter({ config }) {
           const isSelected = currentValue === option.value;
           return (
             <label key={option.value} className="flex items-center gap-3 cursor-pointer group">
+              <input 
+                type="radio" 
+                className="hidden" 
+                checked={isSelected} 
+                onChange={() => handleChange(option.value)} 
+              />
               <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors ${
                 isSelected ? 'border-[#002B5B]' : 'border-gray-300 group-hover:border-[#002B5B]'
               }`}>
