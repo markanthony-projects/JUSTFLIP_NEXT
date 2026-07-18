@@ -53,16 +53,18 @@ export class PortalSearchAdapter extends SearchAdapter {
     if (filters.uploader) params.uploader = filters.uploader;
     if (filters.furnishing) params.furnishing = filters.furnishing;
     if (filters.approval) params.approval = filters.approval;
+    if (filters.bhk) params.unitType = `${filters.bhk} BHK`;
+    if (filters.facing) params.facing = filters.facing;
     return params;
   }
 
   _mapSortToParams(sort) {
     if (!sort || sort === 'relevance') return {};
     const map = {
-      price_asc: { sortBy: 'minPrice', sortOrder: 'ASC' },
-      price_desc: { sortBy: 'minPrice', sortOrder: 'DESC' },
-      newest: { sortBy: 'createdAt', sortOrder: 'DESC' },
-      popular: { sortBy: 'viewCount', sortOrder: 'DESC' },
+      price_asc: { sort: 'price_asc' },
+      price_desc: { sort: 'price_desc' },
+      newest: { sort: 'createdAt_desc' },
+      popular: { sort: 'createdAt_desc' }, // Fallback since backend doesn't have popular yet
     };
     return map[sort] || {};
   }
