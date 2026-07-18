@@ -59,16 +59,6 @@ export const SEARCH_CONFIG = {
         { label: 'Unfurnished', value: 'unfurnished' },
       ],
     },
-    approval: {
-      key: 'approval',
-      apiParam: 'approval',
-      label: 'Approval Status',
-      type: 'single-select',
-      options: [
-        { label: 'Approved', value: 'approved' },
-        { label: 'Pending', value: 'pending' },
-      ],
-    },
   },
 
   // Sort options

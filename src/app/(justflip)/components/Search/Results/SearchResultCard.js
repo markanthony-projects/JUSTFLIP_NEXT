@@ -85,10 +85,7 @@ const SearchResultCard = ({ project, priority }) => {
               <span className="text-orange-500 text-[10px]">🔥</span>
               {tags}
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-300 rounded-full text-xs font-semibold text-gray-700">
-              <span className="text-orange-700 text-[10px]">❖</span>
-              {project.approval === 'approved' ? 'Approved' : 'N/A'}
-            </span>
+
           </div>
           
           {logoImage && (
