@@ -1,10 +1,22 @@
 import React from 'react';
 import Link from 'next/link';
+import { buildBreadcrumbSchema } from '@/src/utils/schema';
 
 export default function SearchBreadcrumb({ query }) {
+  const items = [{ label: "Home", href: "/" }, { label: "Search Results" }];
+  if (query) {
+    items.push({ label: `"${query}"` });
+  }
+  const breadcrumbSchema = buildBreadcrumbSchema(items);
+
   return (
-    <nav aria-label="Breadcrumb" className="mb-4">
-      <ol className="flex items-center space-x-2 text-sm text-gray-500">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <nav aria-label="Breadcrumb" className="mb-4">
+        <ol className="flex items-center space-x-2 text-sm text-gray-500">
         <li>
           <Link href="/" className="hover:text-[#002B5B] transition-colors">Home</Link>
         </li>
@@ -26,5 +38,6 @@ export default function SearchBreadcrumb({ query }) {
         )}
       </ol>
     </nav>
+    </>
   );
 }

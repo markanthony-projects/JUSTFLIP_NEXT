@@ -4,12 +4,21 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { buildBreadcrumbSchema } from "@/src/utils/schema";
 
 export default function Breadcrumb({ items = [], color = "#002B5B", zTop = false }) {
     const router = useRouter();
 
+    const schemaItems = [{ label: "Home", href: "/" }, ...items];
+    const breadcrumbSchema = buildBreadcrumbSchema(schemaItems);
+
     return (
-        <nav className={`py-2 text-sm w-full overflow-hidden  ${zTop ? "text-white absolute top-1 z-30" : ""}`}>
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
+            <nav className={`py-2 text-sm w-full overflow-hidden  ${zTop ? "text-white absolute top-1 z-30" : ""}`}>
             <ol className={`flex w-full text-xs items-center gap-1 overflow-x-auto whitespace-nowrap scrollbar-hidden text-[${color}] ${zTop ? "flex-1 px-2 md:px-4 py-1 w-full  mx-auto md:max-w-[1440px]" : ""}`}>
                 <li className="flex items-center shrink-0">
                     <Link href="/" className="hover:underline" style={{ color }}>Home</Link>
@@ -36,5 +45,6 @@ export default function Breadcrumb({ items = [], color = "#002B5B", zTop = false
                 ))}
             </ol>
         </nav>
+        </>
     );
 }

@@ -69,14 +69,8 @@ export default async function LocationPage({ params }) {
 
   const bannerImage = locationData?.medias?.find(o => o.title === 'logo')
 
-  const breadcrumbSchema = buildBreadcrumbSchema(breadcrumbItems);
-
   return (
     <div className="">
-      <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
       <Breadcrumb items={breadcrumbItems} />
       <div className="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-4 gap-6">
         <div className="lg:col-span-4 xl:col-span-3 space-y-4">
