@@ -1,14 +1,26 @@
 export default function robots() {
+  const commonDisallow = [
+    '/admin/', 
+    '/private/', 
+    '/api/', 
+    '/search', 
+    '/wishlist/', 
+    '/profile/', 
+    '/settings/', 
+  ];
+
   return {
     rules: [
       {
-        userAgent: '*',
+        userAgent: ['Googlebot', 'Bingbot'],
         allow: '/',
-        disallow: ['/admin/', '/private/', '/api/'],
+        disallow: commonDisallow,
       },
       {
         userAgent: '*',
-        disallow: '/search',  // Don't index search results
+        allow: '/',
+        disallow: commonDisallow,
+        crawlDelay: 2,
       },
     ],
     sitemap: 'https://justflip.in/sitemap.xml',
