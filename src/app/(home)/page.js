@@ -9,7 +9,7 @@ import Blogs from "../(justflip)/components/Blogs";
 import MortgageCalculator from "@/src/components/molecules/MortgageCalculators";
 
 import { constructMetadata } from "@/src/utils/seo";
-import { buildWebsiteSchema } from "@/src/utils/schema";
+import { buildWebsiteSchema, buildBreadcrumbSchema } from "@/src/utils/schema";
 
 export const metadata = constructMetadata({
     title: "Buy Apartments, Villas & Plots in India & Dubai | JustFlip.in",
@@ -25,12 +25,17 @@ export default async function JustFlipHomePage() {
     const city = raw ? JSON.parse(raw) : null;
 
     const websiteSchema = buildWebsiteSchema();
+    const breadcrumbSchema = buildBreadcrumbSchema([{ label: "Home", href: "/" }]);
 
     return (
         <main className="relative flex flex-col min-h-screen w-full overflow-x-hidden">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
             <h1 className="sr-only">Buy Apartments, Villas & Plots in India & Dubai - JustFlip</h1>
             <section className="relative w-full">

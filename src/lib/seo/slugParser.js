@@ -1,3 +1,5 @@
+import SiteService from "@/src/services/SiteService";
+
 // Mapping of URL-friendly property type terms to API values
 const PROPERTY_TYPE_MAP = {
   'flats': 'apartment',
@@ -13,21 +15,39 @@ const PROPERTY_TYPE_MAP = {
   'property': ''
 };
 
-const CITY_LIST = [
-  'bangalore',
-  'bengaluru',
-  'mumbai',
-  'delhi',
-  'noida',
-  'gurgaon',
-  'hyderabad',
-  'chennai',
-  'pune',
-  'kolkata'
+const STATIC_CITY_LIST = [
+  'bangalore', 'bengaluru', 'mumbai', 'delhi', 'noida', 'gurgaon', 'gurugram', 'new-delhi',
+  'hyderabad', 'chennai', 'pune', 'kolkata', 'dubai', 'mysuru', 'mysore', 'ahmedabad', 
+  'surat', 'jaipur', 'lucknow', 'kanpur', 'nagpur', 'indore', 'thane', 'bhopal', 
+  'visakhapatnam', 'patna', 'vadodara', 'ghaziabad', 'ludhiana', 'agra', 'nashik', 
+  'faridabad', 'meerut', 'rajkot', 'kalyan-dombivli', 'vasai-virar', 'varanasi', 
+  'srinagar', 'aurangabad', 'dhanbad', 'amritsar', 'navi-mumbai', 'allahabad', 
+  'ranchi', 'howrah', 'coimbatore', 'jabalpur', 'gwalior', 'vijayawada', 'jodhpur', 
+  'madurai', 'raipur', 'kota', 'guwahati', 'chandigarh', 'solapur', 'hubballi-dharwad',
+  'bareilly', 'moradabad', 'tiruchirappalli', 'tiruppur', 'kochi', 'trivandrum', 'thiruvananthapuram'
 ]; // Ideally fetch from API, but hardcoded fallback for synchronous parsing
 
-export function parseSlugToFilters(slugArray) {
+let CACHED_CITY_LIST = null;
+
+export async function parseSlugToFilters(slugArray) {
   if (!slugArray || slugArray.length === 0) return null;
+
+  let dynamicCityList = [];
+  try {
+    if (CACHED_CITY_LIST) {
+      dynamicCityList = CACHED_CITY_LIST;
+    } else {
+      const response = await SiteService.fetchPopularCities({ offset: 0, limit: 100 });
+      dynamicCityList = (response?.cities || []).map(c => c?.name?.toLowerCase()).filter(Boolean);
+      if (dynamicCityList.length > 0) {
+        CACHED_CITY_LIST = dynamicCityList;
+      }
+    }
+  } catch (error) {
+    console.error("Failed to fetch cities for slug parser, falling back to static list", error);
+  }
+
+  const CITY_LIST = dynamicCityList.length > 0 ? dynamicCityList : STATIC_CITY_LIST;
 
   const slug = slugArray.join('/'); // Just in case it's nested, but mostly 1 segment
   const lowerSlug = slug.toLowerCase();
@@ -112,6 +132,9 @@ export function parseSlugToFilters(slugArray) {
     }
     const locality = localityTokens.join(' ').replace(/\b\w/g, l => l.toUpperCase());
     filters.search = locality; // Map locality to existing 'search' parameter
+  } else {
+    // If no locality, use city as search term so the backend city filter triggers
+    filters.search = filters.city;
   }
 
   return filters;

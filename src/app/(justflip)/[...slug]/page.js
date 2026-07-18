@@ -7,7 +7,7 @@ import { generateSeoMetadata } from '@/src/lib/seo/metadata';
 export async function generateMetadata({ params }) {
   const p = await params;
   const slugArray = p?.slug || [];
-  const filters = parseSlugToFilters(slugArray);
+  const filters = await parseSlugToFilters(slugArray);
 
   if (!filters) {
     return {
@@ -24,7 +24,7 @@ export default async function DynamicSeoSearchPage({ params, searchParams }) {
   const s = await searchParams;
   
   const slugArray = p?.slug || [];
-  const seoFilters = parseSlugToFilters(slugArray);
+  const seoFilters = await parseSlugToFilters(slugArray);
 
   console.log('[DynamicSeoSearchPage] Incoming Slug:', slugArray.join('/'));
   console.log('[DynamicSeoSearchPage] Parsed SEO Filters:', seoFilters);
