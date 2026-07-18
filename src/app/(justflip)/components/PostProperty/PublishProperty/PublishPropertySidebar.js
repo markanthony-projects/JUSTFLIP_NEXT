@@ -31,15 +31,15 @@ const PublishPropertySidebar = () => {
                 Need help with the form?
                 Feel free to call or message us on WhatsApp anytime—we’re here for you.
             </div>
-            <div className="flex flex-wrap items-center gap-[12px] w-full text-xs md:text-[14px] font-[600] text-white">
+            <div className="flex flex-wrap items-center gap-3 w-full text-xs md:text-[14px] font-semibold text-white">
                 <SimpleButton
                     onClick={() => HandleCall()}
-                    className="flex-1 h-[40px] bg-[#002B5B] rounded-[16px] flex items-center justify-center gap-[12px] px-[12px]"
+                    className="flex-1 h-10 rounded-2xl flex items-center justify-center gap-3 px-3"
                     label={<span className="flex items-center gap-2">Call For Help <IoCallOutline fontSize='18px' /></span>}
                 />
                 <SimpleButton
                     onClick={() => handleWhatsApp()}
-                    className='flex-1 h-[40px] bg-[#057748] rounded-[16px] flex items-center justify-center gap-[12px] px-[12px] hover:bg-[#04633c]'
+                    className='flex-1 h-10 bg-[#25D366] rounded-2xl flex items-center justify-center gap-3 px-3 hover:bg-[#25D366]'
                     label={<span className="flex items-center gap-2">Whatsapp <FaWhatsapp fontSize='18px' /></span>}
                 />
             </div>

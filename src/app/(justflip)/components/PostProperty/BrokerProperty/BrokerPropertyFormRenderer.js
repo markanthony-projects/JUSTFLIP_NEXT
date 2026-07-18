@@ -17,7 +17,6 @@ const BrokerPropertyFormRenderer = ({
     onSelectProject,
     onProjectSearch,
     projectQuery,
-
     locationSuggestions = [],
     showLocationDropdown,
     setShowLocationDropdown,

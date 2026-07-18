@@ -1,10 +1,18 @@
 // Broker Property – shared option constants + field definitions
 // Re-uses the same vocabulary as PublishProperty/constants.js
-
 import React from 'react';
 import { HiOutlineBuildingOffice2, HiOutlineHomeModern } from 'react-icons/hi2';
 import { MdOutlineLandscape, MdOutlineHouse } from 'react-icons/md';
 import { BiDollarCircle, BiRefresh, BiKey } from 'react-icons/bi';
+
+// ── UI Metadata ───────────────────────────────────
+
+export const STEP_TITLES = {
+    1: { title: "Basic Details", subtitle: "Set property type, location and project name." },
+    2: { title: "Property Specifications", subtitle: "Describe the size, rooms, and features." },
+    3: { title: "Pricing & Map", subtitle: "Set the expected price and pin the property on the map." },
+    4: { title: "Photos & Videos", subtitle: "Add high-quality visuals to attract buyers." },
+};
 
 export const propertyOptions = [
     { label: 'Apartment / Flats', value: 'apartment', icon: <HiOutlineBuildingOffice2 size={18} /> },
@@ -40,6 +48,7 @@ export const numberOptions = [
     { label: '1', value: '1' }, { label: '2', value: '2' },
     { label: '3', value: '3' }, { label: '4', value: '4' },
     { label: '5', value: '5' }, { label: '6', value: '6' },
+    { label: '7', value: '7' }, { label: '8+', value: '8+' },
 ];
 
 export const possessionStatusOptions = [
@@ -52,8 +61,7 @@ export const yesNoOptions = [
     { label: 'No', value: 'No' },
 ];
 
-export const inputClass =
-    "w-full h-[48px] px-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-[#002B5B]/10 focus:border-[#002B5B] hover:border-slate-300 transition-all shadow-sm";
+export const inputClass ="w-full h-[48px] px-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium   text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-[#002B5B]/10 focus:border-[#002B5B] hover:border-slate-300 transition-all shadow-sm";
 
 /** Fields that live inside formData.units[0] */
 export const UNIT_FIELDS = [

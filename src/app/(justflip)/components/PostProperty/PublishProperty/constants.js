@@ -48,4 +48,14 @@ export const yesNoOptions = [
     { label: "No", value: "No" },
 ];
 
+/** Fields that live inside formData.units[0] */
+export const UNIT_FIELDS = [
+    "flatsCount", "furnishing", "interiorArea", "exteriorArea", "facing",
+    "bedrooms", "balconies", "commonBathrooms", "attachedBathrooms",
+    "unit_type", "advanceAmount", "expectedPrice", "maxPrice", "isNegotiable", "plotArea",
+    "plotWidth", "plotLength", "roadWidth", "floors", "openSidesCount",
+    "allowedFloors", "isCornerPlot", "isConstructionDone", "isGatedColony",
+    "hasBoundaryWalls",
+];
+
 export const inputClass = "w-full p-2 border border-[#BABABA] rounded-md focus:outline-none focus:border-[#002B5B] text-sm";
