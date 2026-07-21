@@ -292,8 +292,10 @@ function SlideImage({
                     alt={banner?.alt || banner?.name || "Banner"}
                     fill
                     priority={priority}
-                    quality={90}
+                    quality={100}
                     sizes="100vw"
+                    placeholder="blur"
+                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/x8AAwMCAO+ip1sAAAAASUVORK5CYII="
                     draggable={false}
                     className={`object-cover pointer-events-none transition-transform duration-7000 ease-out ${visible ? "scale-100" : "scale-[1.04]"}`}
                 />

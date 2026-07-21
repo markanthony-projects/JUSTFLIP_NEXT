@@ -6,16 +6,18 @@ export function constructMetadata({
   noIndex = false,
   type = "website"
 }) {
+  const absoluteCanonical = canonical.startsWith('http') ? canonical : `https://justflip.in${canonical}`;
+
   return {
     title,
     description,
     alternates: {
-      canonical,
+      canonical: absoluteCanonical,
     },
     openGraph: {
       title,
       description,
-      url: canonical,
+      url: absoluteCanonical,
       siteName: 'Justflip',
       locale: 'en_IN',
       type,

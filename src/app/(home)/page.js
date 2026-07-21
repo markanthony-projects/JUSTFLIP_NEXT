@@ -1,12 +1,18 @@
 import SearchBar from "@/src/components/SearchBar/SearchBar.server";
 import InchargeHeader from "@/src/layout/Header/InchargeHeader.server";
 import Banners from "../(justflip)/components/Banners/Banners";
-import PopularCities from "../(justflip)/components/PopularCities/PopularCities";
-import TaggedProperties from "../(justflip)/components/TaggedProperties/TaggedProperties";
-import TopBuilders from "../(justflip)/components/TopBuilders/TopBuilders";
 import { cookies } from "next/headers";
-import Blogs from "../(justflip)/components/Blogs";
-import MortgageCalculator from "@/src/components/molecules/MortgageCalculators";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+import { SkeletonBlock } from "../(justflip)/components/Skelton/SkeletonSection";
+import { TopBuildersSkeleton } from "../(justflip)/components/Skelton/TopBuildersSkeleton";
+import { BlogsSkeleton } from "../(justflip)/components/Skelton/BlogsSkelton";
+
+const PopularCities = dynamic(() => import("../(justflip)/components/PopularCities/PopularCities"), { suspense: true });
+const TaggedProperties = dynamic(() => import("../(justflip)/components/TaggedProperties/TaggedProperties"), { suspense: true });
+const TopBuilders = dynamic(() => import("../(justflip)/components/TopBuilders/TopBuilders"), { suspense: true });
+const Blogs = dynamic(() => import("../(justflip)/components/Blogs"), { suspense: true });
+const MortgageCalculator = dynamic(() => import("@/src/components/molecules/MortgageCalculators"), { suspense: true });
 
 import { constructMetadata } from "@/src/utils/seo";
 import { buildWebsiteSchema, buildBreadcrumbSchema } from "@/src/utils/schema";
@@ -51,11 +57,25 @@ export default async function JustFlipHomePage() {
             <span id="banner-end" className="block h-px w-full" />
 
             <div className="w-full min-h-screen py-10 px-4 lg:px-6 lg:max-w-310 mx-auto flex flex-col gap-4 md:gap-8">
-                <TaggedProperties city={city} />
-                <TopBuilders city={city} />
-                <MortgageCalculator />
-                <PopularCities />
-                <Blogs tag={"Latest Blogs"} />
+                <Suspense fallback={<SkeletonBlock className="h-64 w-full" />}>
+                    <TaggedProperties city={city} />
+                </Suspense>
+                
+                <Suspense fallback={<TopBuildersSkeleton />}>
+                    <TopBuilders city={city} />
+                </Suspense>
+
+                <Suspense fallback={<SkeletonBlock className="h-64 w-full" />}>
+                    <MortgageCalculator />
+                </Suspense>
+
+                <Suspense fallback={<SkeletonBlock className="h-64 w-full" />}>
+                    <PopularCities />
+                </Suspense>
+
+                <Suspense fallback={<BlogsSkeleton />}>
+                    <Blogs tag={"Latest Blogs"} />
+                </Suspense>
             </div>
         </main>
     );

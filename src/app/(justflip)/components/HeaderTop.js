@@ -10,7 +10,7 @@ export default function HeaderTop({ data, bannerImage , zone=false }) {
          
         </div>
         <div className="relative w-[180px] h-[60px] md:w-[300px] md:h-[100px]">
-          <Image src={bannerImage?.url} alt="location image" fill className="object-cover" priority sizes="(max-width: 768px) 180px, 300px" />
+          <Image src={bannerImage?.url} alt="location image" fill className="object-cover" priority sizes="(max-width: 768px) 180px, 300px" quality={100} placeholder="blur" blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=" />
         </div>
       </div>
 
