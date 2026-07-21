@@ -1,8 +1,13 @@
+import bundleAnalyzer from "@next/bundle-analyzer";
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactCompiler: true,
   images: {
-    qualities: [75, 80, 85, 90],
     remotePatterns: [
       {
         protocol: "https",
@@ -26,4 +31,4 @@ const nextConfig = {
   reactStrictMode: true,
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);
