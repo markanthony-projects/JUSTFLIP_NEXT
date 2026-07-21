@@ -36,8 +36,26 @@ export function buildBreadcrumbSchema(items = []) {
   };
 }
 
-export function buildRealEstateSchema({ name, description, url, locationName, cityName, price }) {
-  return {
+export function buildRealEstateSchema({ 
+  name, 
+  description, 
+  url, 
+  locationName, 
+  cityName, 
+  price,
+  numberOfRooms,
+  floorSize,
+  yearBuilt,
+  amenities,
+  latitude,
+  longitude,
+  images,
+  availability,
+  reraNumber,
+  ratingValue,
+  reviewCount
+}) {
+  const schema = {
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
     name: name,
@@ -55,6 +73,71 @@ export function buildRealEstateSchema({ name, description, url, locationName, ci
       price: price || 0,
     },
   };
+
+  if (numberOfRooms) {
+    schema.numberOfRooms = {
+      "@type": "QuantitativeValue",
+      value: numberOfRooms,
+    };
+  }
+
+  if (floorSize) {
+    schema.floorSize = {
+      "@type": "QuantitativeValue",
+      value: floorSize,
+      unitText: "SQFT",
+    };
+  }
+
+  if (yearBuilt) {
+    schema.dateCreated = String(yearBuilt);
+  }
+
+  if (amenities && amenities.length > 0) {
+    schema.amenityFeature = amenities.map((a) => ({
+      "@type": "LocationFeatureSpecification",
+      name: a,
+      value: true,
+    }));
+  }
+
+  if (latitude && longitude) {
+    schema.geo = {
+      "@type": "GeoCoordinates",
+      latitude: latitude,
+      longitude: longitude,
+    };
+  }
+
+  if (images && images.length > 0) {
+    schema.image = images;
+  }
+
+  if (availability) {
+    schema.offers.availability = availability === 'PreOrder' 
+      ? "https://schema.org/PreOrder" 
+      : "https://schema.org/InStock";
+  }
+
+  if (reraNumber) {
+    schema.additionalProperty = [{
+      "@type": "PropertyValue",
+      name: "RERA Number",
+      value: reraNumber
+    }];
+  }
+
+  if (ratingValue && reviewCount) {
+    schema.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: String(ratingValue),
+      reviewCount: String(reviewCount),
+      bestRating: "5",
+      worstRating: "1"
+    };
+  }
+
+  return schema;
 }
 
 export function buildDeveloperSchema({ name, description, slug, logo }) {
@@ -126,5 +209,68 @@ export function buildSearchResultsSchema(results = [], query = '') {
         },
       };
     }),
+  };
+}
+
+export function buildLocalBusinessSchema({
+  name = "JustFlip",
+  telephone = "+918431362126",
+  openingHours = "Mo-Su 09:30-18:30",
+  address = {
+    "@type": "PostalAddress",
+    "streetAddress": "JustFlip Headquarters",
+    "addressLocality": "Bangalore",
+    "addressRegion": "Karnataka",
+    "addressCountry": "IN"
+  },
+  latitude = "12.9716",
+  longitude = "77.5946",
+  sameAs = [
+    "https://www.facebook.com/justflip",
+    "https://www.instagram.com/justflip",
+    "https://www.youtube.com/justflip"
+  ]
+} = {}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    name,
+    address,
+    telephone,
+    openingHours,
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude,
+      longitude,
+    },
+    sameAs,
+  };
+}
+
+export function buildBlogPostingSchema({
+  title,
+  publishDate,
+  updateDate,
+  coverImage,
+  shortDescription,
+  authorName = "JustFlip",
+  publisherName = "JustFlip"
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    datePublished: publishDate,
+    dateModified: updateDate || publishDate,
+    author: {
+      "@type": "Organization",
+      name: authorName
+    },
+    publisher: {
+      "@type": "Organization",
+      name: publisherName
+    },
+    image: coverImage,
+    description: shortDescription
   };
 }
