@@ -6,6 +6,7 @@ import { useAuthStore } from '@/src/stores/auth.store'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
+import { LuEye,LuEyeOff } from 'react-icons/lu'
 
 const Broker = () => {
   const router = useRouter()
@@ -17,6 +18,7 @@ const Broker = () => {
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [isVisible,setIsVisible] = useState(false)
 
   const handleLogin = async e => {
     if (e) e.preventDefault()
@@ -77,16 +79,26 @@ const Broker = () => {
       />
 
       {mode === 'login' && (
-        <TextField
-          label='Password'
-          required
-          type='password'
-          placeholder='********'
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          error={error}
-        />
+        <div className="relative flex items-center w-full">
+          <TextField
+            label="Password"
+            required
+            type={isVisible ? "text" : "password"}
+            placeholder="********"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            error={error}
+          />
+          <button
+            type="button"
+            onClick={() => setIsVisible(!isVisible)}
+            className="absolute top-[50%] -translate-0.5 right-3 text-gray-500 hover:text-gray-700 flex items-center"
+          >
+            {isVisible ? <LuEyeOff size={20} /> : <LuEye size={20} />}
+          </button>
+        </div>
       )}
+
 
       <div className='flex items-center justify-between text-[11px]'>
         {mode === 'login' ? (
