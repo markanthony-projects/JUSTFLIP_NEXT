@@ -31,12 +31,16 @@ const ProfileSideBar = ({ activeNav, setActiveNav }) => {
   const initials = getInitials(user?.name)
 
   const handleNavClick = (item) => {
+    console.log("Clicked:", item);
+
     if (item.isLink) {
-      router.push(item.href)
+      console.log("Router push:", item.href);
+      router.push(item.href);
     } else {
-      setActiveNav(item.id)
+      console.log("Setting activeNav:", item.id);
+      setActiveNav(item.id);
     }
-  }
+  };
 
   return (
     <div className='flex flex-col gap-6'>

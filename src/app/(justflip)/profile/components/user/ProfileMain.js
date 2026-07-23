@@ -21,6 +21,7 @@ import ProfileSideBar from './ProfileSideBar'
 import Loading from '../Loading'
 import WishlistClient from '@/src/app/(justflip)/wishlist/WishlistClient'
 import BrokerPropertyDashboard from '../Broker/BrokerPropertyDashboard'
+import { useSearchParams } from 'next/navigation'
 
 // INPUT CONFIG — drives what fields show inside the modal.
 const fieldsArray = {
@@ -49,7 +50,18 @@ const ProfileMain = () => {
 
   const addToast = useToastStore(state => state.addToast) //we are getting the useToast function from the toast store.
 
+  const searchParams = useSearchParams()
+  const tabParam = searchParams.get('tab')
+
   const [activeNav, setActiveNav] = useState('overview')
+
+  useEffect(() => {
+    if(tabParam){
+        setActiveNav(tabParam)
+      }else{
+        setActiveNav("overview")
+      }
+  },[tabParam])
 
   // modalMode: null (closed) | "all" | "both"
   // null means modal is closed. The string tells the modal which fields to show.
