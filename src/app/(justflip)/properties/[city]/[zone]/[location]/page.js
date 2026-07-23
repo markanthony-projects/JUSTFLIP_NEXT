@@ -52,7 +52,7 @@ export async function generateMetadata({ params }) {
   });
 }
 
-export const revalidate = 3600;
+export const revalidate = 1800;
 
 export default async function LocationPage({ params }) {
   const { city, zone, location } = await params;

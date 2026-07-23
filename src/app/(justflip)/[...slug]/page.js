@@ -19,6 +19,7 @@ export async function generateMetadata({ params }) {
 }
 
 // Render Page
+export const revalidate = 1800;
 export default async function DynamicSeoSearchPage({ params, searchParams }) {
   const p = await params;
   const s = await searchParams;

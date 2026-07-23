@@ -41,7 +41,7 @@ export async function generateMetadata({ params }) {
   });
 }
 
-export const revalidate = 3600;
+export const revalidate = 1800;
 
 export default async function ZonePage({ params }) {
   const { city, zone } = await params;

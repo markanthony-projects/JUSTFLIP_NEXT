@@ -63,7 +63,7 @@ export async function generateMetadata({ params }) {
     });
 }
 
-export const revalidate = 3600;
+export const revalidate = 1800;
 
 async function PropertyDetails({ params }) {
     const { city, zone, location, slug } = await params;
