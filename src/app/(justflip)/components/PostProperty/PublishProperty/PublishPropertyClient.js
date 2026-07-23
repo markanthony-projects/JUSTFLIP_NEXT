@@ -45,6 +45,7 @@ import UserPropertySideBarStepper from './UserPropertySideBarStepper'
 import PublishPropertyStepper from './PublishPropertyStepper'
 import UserPropertyFormRenderer from './UserPropertyFormRenderer'
 import PublishPropertyMedia from './PublishPropertyMedia'
+import BrokerPropertyFormRenderer from '../BrokerProperty/BrokerPropertyFormRenderer'
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -559,8 +560,8 @@ function PublishPropertyClient ({ initialCities }) {
             </div>
           </div>
 
-          {/* {currentStep !== 4 && (
-            <UserPropertyFormRenderer
+          {currentStep !== 4 && (
+            <BrokerPropertyFormRenderer
               fields={inputFields[currentStep] || []}
               formData={formData}
               errors={errors}
@@ -581,7 +582,7 @@ function PublishPropertyClient ({ initialCities }) {
               onSelectLocation={handleSelectLocation}
               locationQuery={locationQuery}
             />
-          )} */}
+          )}
 
           {currentStep === 4 && (
             <PublishPropertyMedia
