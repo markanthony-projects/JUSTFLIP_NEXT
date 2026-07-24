@@ -4,10 +4,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HiHome, HiOutlineChatAlt2, HiOutlineMenu } from "react-icons/hi";
 import { TbCrown } from "react-icons/tb";
-import { FiPlusSquare } from "react-icons/fi";
+import { FiPlusSquare, FiUser } from "react-icons/fi";
+import { useAuthStore } from "@/src/stores/auth.store";
 
 export default function MobileBottomNav() {
     const pathname = usePathname();
+    const { isAuthenticated, user } = useAuthStore();
+
+    const MenuIcon = (props) => {
+        if (isAuthenticated) {
+            return user?.profilePhoto ? (
+                <img src={user.profilePhoto} alt="Profile" className={`rounded-full object-cover w-6 h-6 ${props.className || ""}`} />
+            ) : (
+                <FiUser className={props.className} />
+            );
+        }
+        return <HiOutlineMenu className={props.className} />
+    };
 
     const navItems = [
         {
@@ -38,8 +51,8 @@ export default function MobileBottomNav() {
             isActive: pathname === "/upgrade",
         },
         {
-            name: "Menu",
-            icon: HiOutlineMenu,
+            name: isAuthenticated ? "Profile" : "Menu",
+            icon: MenuIcon,
             href: "/menu",
             isActive: pathname === "/menu",
         },
