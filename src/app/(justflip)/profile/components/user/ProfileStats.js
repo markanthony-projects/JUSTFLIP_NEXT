@@ -1,66 +1,95 @@
 'use client'
-// this component is Responsible for showing 4 summary stat cards (Favourites, Searches, Visited, Alerts).
-// Data source:"Saved" count → list.length from useFavouritesStore (persisted, no API call needed)
 
+// This component is responsible for showing summary stat cards.
 
-// the icons import 
 import { FaHeart } from 'react-icons/fa6'
 import { FaSearch } from 'react-icons/fa'
 import { GiFamilyHouse } from 'react-icons/gi'
 import { HiBellAlert } from 'react-icons/hi2'
+import { HiArrowRight } from 'react-icons/hi'
+
 import { motion } from 'framer-motion'
 
-// the use favourite store import.
 import { useFavouritesStore } from '@/src/stores/favourites.store'
 
-//an array of objects to map on the different stats available to display to the user
 const stats = [
-  { icon: <FaHeart />,        label: 'Favourite Properties', key: 'saved',    color: '#d12121' },
-  { icon: <FaSearch />,       label: 'Saved Searches',       key: 'searches', color: '#041a33' },
-  { icon: <GiFamilyHouse />,  label: 'Visited Properties',   key: 'visited',  color: '#041a33' },
-  { icon: <HiBellAlert />,    label: 'Active Alerts',        key: 'alerts',   color: '#7f7a1a' },
+  {
+    icon: <FaHeart />,
+    label: 'Saved Properties',
+    key: 'saved',
+    iconBg: 'bg-red-50',
+    iconColor: 'text-red-500',
+    accent: 'bg-red-500',
+  },
+  {
+    icon: <FaSearch />,
+    label: 'Saved Searches',
+    key: 'searches',
+    iconBg: 'bg-blue-50',
+    iconColor: 'text-blue-600',
+    accent: 'bg-blue-600',
+  },
+  {
+    icon: <GiFamilyHouse />,
+    label: 'Visited Properties',
+    key: 'visited',
+    iconBg: 'bg-emerald-50',
+    iconColor: 'text-emerald-600',
+    accent: 'bg-emerald-600',
+  },
+  {
+    icon: <HiBellAlert />,
+    label: 'Property Alerts',
+    key: 'alerts',
+    iconBg: 'bg-amber-50',
+    iconColor: 'text-amber-600',
+    accent: 'bg-amber-600',
+  },
 ]
 
 const ProfileStats = () => {
   const savedProperties = useFavouritesStore(state => state.list.length)
 
   const counts = {
-    saved:    savedProperties,
-    searches: 0, // wire up when saved searches store/API is available
-    visited:  0, // wire up when recently viewed store/API is available
-    alerts:   0, // wire up when alerts store/API is available
+    saved: savedProperties,
+    searches: 0,
+    visited: 0,
+    alerts: 0,
   }
 
   return (
-    <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
-      {stats.map(({ icon, label, key, color }, index) => (
+    <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
+      {stats.map(({ icon, label, key, iconBg, iconColor, accent }) => (
         <motion.div
           key={key}
-          whileHover={{ y: -5, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          className='flex flex-col items-start gap-3 bg-white/80 backdrop-blur-lg rounded-2xl p-5 shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-white/60 relative overflow-hidden group'
+          whileHover={{ y: -6 }}
+          transition={{ type: 'spring', stiffness: 280, damping: 20 }}
+          className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
         >
-          {/* Subtle background glow on hover */}
-          <div 
-            className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500 rounded-2xl"
-            style={{ backgroundColor: color }}
-          />
+          {/* Top Accent */}
+          <div className={`absolute left-0 top-0 h-1 w-full ${accent}`} />
 
-          {/* Icon box */}
-          <div
-            className='text-2xl p-3 rounded-xl shadow-sm transition-transform duration-300 group-hover:scale-110'
-            style={{ backgroundColor: `${color}10`, color: color }}
-          >
-            {icon}
-          </div>
+          {/* Hover Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent to-slate-50 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-          <div className='flex flex-col mt-2'>
-            <span className='text-3xl font-extrabold text-gray-900 tracking-tight'>
-              {counts[key]}
-            </span>
-            <span className='text-xs md:text-sm font-medium text-gray-500 mt-1'>
-              {label}
-            </span>
+          <div className="relative z-10 flex h-full flex-col">
+            {/* Icon */}
+            <div
+              className={`flex h-14 w-14 items-center justify-center rounded-2xl text-2xl transition-transform duration-300 group-hover:scale-110 ${iconBg} ${iconColor}`}
+            >
+              {icon}
+            </div>
+
+            {/* Count */}
+            <div className="mt-6">
+              <h2 className="text-4xl font-black tracking-tight text-slate-900">
+                {counts[key]}
+              </h2>
+
+              <p className="mt-1 text-sm font-medium text-slate-500">
+                {label}
+              </p>
+            </div>
           </div>
         </motion.div>
       ))}
