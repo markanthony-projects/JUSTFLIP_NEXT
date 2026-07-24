@@ -223,7 +223,7 @@ export default function BrokerSliderContent() {
                 ))}
             </div>
 
-            <div className="p-4 border-t border-gray-100 bg-gray-50/50 pb-24 md:pb-4">
+            <div className="p-4 border-t border-gray-100 bg-gray-50/50 pb-24 md:block hidden">
                 <button
                     onClick={handleLogout}
                     className="flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-white border border-gray-200 hover:border-red-200 hover:bg-red-50 text-gray-700 hover:text-red-600 rounded-xl text-sm font-semibold transition-all duration-200 shadow-sm"
