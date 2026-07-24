@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HiHome, HiOutlineChatAlt2, HiOutlineMenu } from "react-icons/hi";
+import { HiHome, HiOutlineBookmark, HiOutlineChatAlt2, HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 import { TbCrown } from "react-icons/tb";
 import { FiPlusSquare } from "react-icons/fi";
 
@@ -15,27 +15,25 @@ export default function MobileBottomNav() {
             icon: HiHome,
             href: "/",
             isActive: pathname === "/",
-            activeColor: "text-orange-500",
         },
         {
-            name: "Responses",
-            icon: HiOutlineChatAlt2,
-            href: "/responses",
-            isActive: pathname === "/responses",
+            name: "Search",
+            icon: HiOutlineSearch,
+            href: "/search",
+            isActive: pathname === "/search",
         },
         {
             name: "Sell/Rent",
             icon: FiPlusSquare,
-            href: "/upload-a-property",
+            href: "/post-property",
             isActive: pathname === "/upload-a-property",
             badge: "FREE",
-            activeColor: "text-orange-500",
         },
         {
-            name: "Upgrade",
-            icon: TbCrown,
-            href: "/upgrade",
-            isActive: pathname === "/upgrade",
+            name: "Saved",
+            icon: HiOutlineBookmark,
+            href: "/profile?tab=wishlist",
+            isActive: pathname === "/saved",
         },
         {
             name: "Menu",
@@ -52,8 +50,8 @@ export default function MobileBottomNav() {
                     key={item.name}
                     href={item.href}
                     className={`flex flex-col items-center justify-center w-1/5 gap-1.5 ${
-                        item.isActive ? item.activeColor || "text-gray-900" : "text-gray-500"
-                    } hover:text-orange-500 transition-colors`}
+                        item.isActive ? "text-[#002B5B]" : "text-gray-500"
+                    }`}
                 >
                     <div className="relative flex items-center justify-center">
                         <item.icon className="text-2xl" />
