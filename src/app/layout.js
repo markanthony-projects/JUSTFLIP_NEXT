@@ -11,7 +11,7 @@ import ToastContainer from "../components/organisms/ToastContainer";
 import Footer from "../layout/Footer";
 import PreFooter from "../layout/PreFooter";
 import MobileBottomNav from "../layout/MobileBottomNav";
-import MobileBottomNavGlass from "../layout/MobileBottomNavGlass";
+// import MobileBottomNavGlass from "../layout/MobileBottomNavGlass";
 
 import { firaSans } from "./fonts";
 
@@ -62,8 +62,8 @@ export default function RootLayout({ children }) {
 
                 <Footer />
                 
-                {/* <MobileBottomNav /> */}
-                <MobileBottomNavGlass />
+                <MobileBottomNav />
+                {/* <MobileBottomNavGlass /> */}
 
                 <ToastContainer />
             </body>
