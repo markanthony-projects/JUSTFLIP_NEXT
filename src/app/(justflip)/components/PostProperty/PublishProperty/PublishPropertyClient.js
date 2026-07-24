@@ -538,7 +538,7 @@ function PublishPropertyClient ({ initialCities }) {
           <UserPropertySideBarStepper currentStep={currentStep} />
         </div>
         <div className='block md:hidden w-full'>
-          <PublishPropertySidebar />
+          <PublishPropertySidebar compact/>
         </div>
 
         {/* main form container */}
@@ -561,7 +561,7 @@ function PublishPropertyClient ({ initialCities }) {
           </div>
 
           {currentStep !== 4 && (
-            <BrokerPropertyFormRenderer
+            <UserPropertyFormRenderer
               fields={inputFields[currentStep] || []}
               formData={formData}
               errors={errors}
