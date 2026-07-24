@@ -21,8 +21,8 @@ const ProjectCard = ({ project, priority }) => {
 
     return (
         <>
-            <Link href={projectUrl}>
-                <div className="group relative bg-white shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 border border-gray-200 hover:border-gray-300 rounded-xl overflow-hidden my-2 w-72 md:w-75 max-w-75 flex flex-col h-full">
+            <Link href={projectUrl} className="w-full">
+                <div className="group relative bg-white shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 border border-gray-200 hover:border-gray-300 rounded-xl overflow-hidden w-full max-w-sm mx-auto flex flex-col h-full">
                     <div className="w-full h-40 md:h-48 lg:h-52 relative overflow-hidden bg-gray-100 border-b border-gray-100">
                         <Image
                             src={bannerImage?.url}

@@ -3,6 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/src/stores/auth.store";
+
+import { useUserPropertyFormStore } from "@/src/stores/userPropertyForm.store";
+import { useBrokerPropertyFormStore } from "@/src/stores/brokerPropertyForm.store";
+
 import LoginModal from "@/src/components/organisms/LoginModal";
 import { PostPropertyBanner } from "./postPropertyBanner";
 import { PostPropertyForm } from "./postPropertyForm";
@@ -37,7 +41,10 @@ const DEFAULT_FAQS = [
 const PostPropertyClient = () => {
     const router = useRouter();
     // const user = useAuthStore((state) => state.user);
-    const { isAuthenticated, authType } = useAuthStore();
+    const { user, isAuthenticated, authType } = useAuthStore();
+    const setUserFormData = useUserPropertyFormStore((state) => state.setFormData)
+    const setBrokerFormData = useBrokerPropertyFormStore((state) => state.setFormData)
+
     const [residenceType, setResidenceType] = useState('Residential');
     const [transactionType, setTransactionType] = useState('Sale');
     const uploaderRole = authType === "broker" ? "Broker" : authType === "visitor" ? "User" : "";
@@ -71,14 +78,28 @@ const PostPropertyClient = () => {
     // };
 
     const handleStart = () => {
+        const activeId = user?.id
         if (uploaderRole === "User") {
             if (isAuthenticated && authType === "visitor") {
+                setUserFormData((prev) => ({
+                    ...prev,
+                    residenceType: residenceType,
+                    type: transactionType,
+                    ownerId: activeId,
+                    uploadedBy: authType
+                }))
                 router.push("/post-property/publish-property");
             } else {
                 setIsLoginModalOpen(true);
             }
         } else if (uploaderRole === "Broker") {
             if (isAuthenticated && authType === "broker") {
+                setBrokerFormData((prev) => ({
+                    ...prev,
+                    residenceType: residenceType,
+                    type: transactionType,
+                    brokerId: activeId
+                }))
                 router.push("/post-property/list-your-properties");
             } else {
                 router.push("/login");
@@ -89,7 +110,28 @@ const PostPropertyClient = () => {
     };
 
     const handleLoginSuccess = () => {
-        router.push("/post-property/publish-property");
+        const freshUser = useAuthStore.getState().user;
+        const freshAuthType = useAuthStore.getState().authType;
+        const activeId = freshUser?.id
+
+        if(freshAuthType === "visitor"){
+            setUserFormData((prev) => ({
+                ...prev,
+                residenceType: residenceType,
+                type: transactionType,
+                ownerId: activeId,
+                uploadedBy: freshAuthType
+            }))
+            router.push("/post-property/publish-property");
+        }else if (freshAuthType === "broker"){
+            setBrokerFormData((prev) => ({
+                ...prev,
+                residenceType: residenceType,
+                type: transactionType,
+                brokerId: activeId
+            }))
+            router.push("/post-property/list-your-properties")
+        }
     };
 
     useEffect(() => {
@@ -120,7 +162,8 @@ const PostPropertyClient = () => {
                             value={residenceType}
                             onChange={(val) => {
                                 setResidenceType(val);
-                                sessionStorage.setItem("residenceType", val);
+                                setUserFormData((prev) => ({ ...prev, residenceType: val }));
+                                setBrokerFormData((prev) => ({ ...prev, residenceType: val }));
                             }}
                         />
 
@@ -130,7 +173,8 @@ const PostPropertyClient = () => {
                             value={transactionType}
                             onChange={(val) => {
                                 setTransactionType(val);
-                                sessionStorage.setItem("transactionType", val);
+                                setUserFormData((prev) => ({ ...prev, type: val }));
+                                setBrokerFormData((prev) => ({ ...prev, type: val }));
                             }}
                         />
 
@@ -139,7 +183,7 @@ const PostPropertyClient = () => {
                             options={roleOptions}
                             value={uploaderRole}
                             checked= {uploaderRole}
-                            // onChange={handleRoleChange}
+                            onChange={() => {}}
                             disabled={roleOptions !== uploaderRole}    
                         />
 

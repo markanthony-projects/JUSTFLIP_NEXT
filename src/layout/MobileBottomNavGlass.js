@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HiHome, HiOutlineSearch, HiOutlineBookmark, HiOutlineCog, HiOutlineSwitchHorizontal } from "react-icons/hi";
+import { HiHome, HiOutlineSearch, HiOutlineBookmark, HiOutlineCog, HiOutlineSwitchHorizontal, HiOutlineDocumentText, HiOutlinePlus } from "react-icons/hi";
 
 export default function MobileBottomNavGlass() {
     const pathname = usePathname();
@@ -15,15 +15,15 @@ export default function MobileBottomNavGlass() {
             isActive: pathname === "/",
         },
         {
-            name: "Search",
-            icon: HiOutlineSearch,
-            href: "/search",
+            name: "Post",
+            icon: HiOutlinePlus,
+            href: "/post-property",
             isActive: pathname === "/search",
         },
         {
-            name: "Post",
-            icon: HiOutlineSwitchHorizontal,
-            href: "/post-property",
+            name: "Search",
+            icon: HiOutlineSearch,
+            href: "/search",
             isActive: pathname === "/search",
         },
         {

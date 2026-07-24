@@ -114,6 +114,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/src/stores/auth.store';
 import { useSlider } from '@/src/context/SliderContext';
+
+import { useUserPropertyFormStore } from '@/src/stores/userPropertyForm.store';
 import {
     HiOutlineLogout,
     HiOutlineUser,
@@ -133,6 +135,11 @@ export default function UserSliderContent() {
 
     const handleLogout = async () => {
         await logout();
+
+        if(useUserPropertyFormStore.getState().clearStore){
+            useUserPropertyFormStore.getState().clearStore()
+        }
+
         closeSlider();
         router.push("/");
     };
@@ -153,7 +160,7 @@ export default function UserSliderContent() {
         {
             label: "Real Estate",
             items: [
-                { name: 'Posted Properties', href: '/my-properties', icon: HiOutlineHome },
+                { name: 'Posted Properties', href: '/profile?tab=my-properties', icon: HiOutlineHome },
                 { name: 'Wishlist', href: '/profile?tab=wishlist', icon: HiOutlineHeart },
                 { name: 'Compare', href: '/compare', icon: HiOutlineCollection },
             ]
@@ -208,7 +215,7 @@ export default function UserSliderContent() {
                 ))}
             </div>
 
-            <div className="p-4 border-t border-gray-100 bg-gray-50/50">
+            <div className="p-4 border-t border-gray-100 bg-gray-50/50 pb-24 md:block hidden">
                 <button
                     onClick={handleLogout}
                     className="flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-white border border-gray-200 hover:border-red-200 hover:bg-red-50 text-gray-700 hover:text-red-600 rounded-xl text-sm font-semibold transition-all duration-200 shadow-sm"

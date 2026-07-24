@@ -21,17 +21,18 @@ import ProfileSideBar from './ProfileSideBar'
 import Loading from '../Loading'
 import WishlistClient from '@/src/app/(justflip)/wishlist/WishlistClient'
 import BrokerPropertyDashboard from '../Broker/BrokerPropertyDashboard'
+import { useSearchParams } from 'next/navigation'
 
 // INPUT CONFIG — drives what fields show inside the modal.
 const fieldsArray = {
   all: [
     { key: 'name', label: 'Full name', type: 'text' },
     { key: 'email', label: 'Email ID', type: 'email' },
-    { key: 'phone', label: 'phone nuber', type: 'text' }
+    { key: 'phone', label: 'phone number', type: 'text' }
   ],
   both: [
     { key: 'email', label: 'Email ID', type: 'email' },
-    { key: 'phone', label: 'phone nuber', type: 'text' }
+    { key: 'phone', label: 'phone number', type: 'text' }
   ]
 }
 
@@ -49,7 +50,18 @@ const ProfileMain = () => {
 
   const addToast = useToastStore(state => state.addToast) //we are getting the useToast function from the toast store.
 
+  const searchParams = useSearchParams()
+  const tabParam = searchParams.get('tab')
+
   const [activeNav, setActiveNav] = useState('overview')
+
+  useEffect(() => {
+    if(tabParam){
+        setActiveNav(tabParam)
+      }else{
+        setActiveNav("overview")
+      }
+  },[tabParam])
 
   // modalMode: null (closed) | "all" | "both"
   // null means modal is closed. The string tells the modal which fields to show.
@@ -177,7 +189,7 @@ const ProfileMain = () => {
   }
 
   return (
-    <div className='mb-10 md:py-10 min-h-screen'>
+    <div className='mb-10 min-h-screen'>
       <motion.div 
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
@@ -211,40 +223,63 @@ const ProfileMain = () => {
               </div>
 
               {/* Right sidebar content (Overview specific) */}
-              <div className='flex flex-col gap-8'>
-                <motion.div 
+              <div className="flex flex-col gap-8">
+                <motion.div
                   whileHover={{ y: -2 }}
-                  className='hidden sm:block bg-white/70 backdrop-blur-xl rounded-2xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 relative overflow-hidden'
+                  className="hidden sm:block relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
                 >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-full blur-3xl opacity-50 -z-10 translate-x-10 -translate-y-10"></div>
-                  <div className='flex justify-between items-center mb-6'>
-                    <h2 className='text-xl font-bold text-gray-800 tracking-tight'>
-                      Account Details
-                    </h2>
+                  {/* Background Glow */}
+                  <div className="absolute -top-16 -right-16 h-48 w-48 rounded-full bg-blue-50 blur-3xl opacity-70" />
+
+                  {/* Header */}
+                  <div className="relative z-10 flex items-center justify-between">
+                    <div>
+                      <h2 className="text-xl font-black text-slate-900">
+                        Account Details
+                      </h2>
+
+                      <p className="mt-1 text-sm text-slate-500">
+                        Manage your personal information.
+                      </p>
+                    </div>
+
                     <button
                       onClick={() => openModal('both')}
-                      className='text-xs font-semibold text-blue-600 bg-blue-50 border border-transparent rounded-full px-4 py-1.5 hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-sm'
+                      className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-blue-600 transition-all hover:border-blue-200 hover:bg-blue-50"
                     >
                       Edit
                     </button>
                   </div>
 
-                  <div className='flex flex-col gap-5 mt-2'>
-                    <div className='group'>
-                      <p className='text-xs font-medium text-gray-400 mb-1 uppercase tracking-wider'>Email Address</p>
-                      <div className='flex items-center justify-between'>
-                        <p className='text-gray-800 font-medium group-hover:text-blue-600 transition-colors'>{user?.email || 'Not provided'}</p>
-                      </div>
+                  {/* Details */}
+                  <div className="relative z-10 mt-8 space-y-6">
+
+                    {/* Email */}
+                    <div className="rounded-2xl bg-slate-50 p-4 transition hover:bg-blue-50">
+
+                      <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                        Email Address
+                      </p>
+
+                      <p className="mt-2 break-all text-sm font-semibold text-slate-800">
+                        {user?.email || "Not provided"}
+                      </p>
+
                     </div>
 
-                    <div className='w-full h-px bg-gray-100'></div>
+                    {/* Phone */}
+                    <div className="rounded-2xl bg-slate-50 p-4 transition hover:bg-blue-50">
 
-                    <div className='group'>
-                      <p className='text-xs font-medium text-gray-400 mb-1 uppercase tracking-wider'>Phone Number</p>
-                      <div className='flex items-center justify-between'>
-                        <p className='text-gray-800 font-medium group-hover:text-blue-600 transition-colors'>{user?.phone || 'Not provided'}</p>
-                      </div>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                        Phone Number
+                      </p>
+
+                      <p className="mt-2 text-sm font-semibold text-slate-800">
+                        {user?.phone || "Not provided"}
+                      </p>
+
                     </div>
+
                   </div>
                 </motion.div>
               </div>

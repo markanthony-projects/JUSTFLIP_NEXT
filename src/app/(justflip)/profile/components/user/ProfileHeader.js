@@ -34,7 +34,7 @@ const ProfileHeader = ({ onEditClick }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className='h-32 md:h-40 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 w-full relative overflow-hidden'
+        className='h-36 md:h-44 bg-gradient-to-br from-slate-900 via-blue-900 to-blue-700 relative overflow-hidden'
       >
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
         <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
@@ -44,19 +44,43 @@ const ProfileHeader = ({ onEditClick }) => {
       <div className='md:hidden flex flex-row items-center justify-center gap-2 relative'>
 
         <div  className='flex flex-col items-center px-4 pb-6'>
-        <motion.div 
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-          className='-mt-12 mb-4 z-10'
-        >
-          <div className='flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-white to-blue-50 text-blue-700 text-4xl font-bold border-4 border-white shadow-xl shadow-blue-900/10'>
-            {initials}
-          </div>
-        </motion.div>
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+              whileHover={{ scale: 1.03 }}
+              className="relative -mt-16 flex h-32 w-32 items-center justify-center rounded-full
+                        bg-gradient-to-br from-slate-50 via-white to-blue-100
+                        border-[6px] border-white
+                        shadow-[0_20px_45px_rgba(37,99,235,0.18)]
+                        text-5xl font-black text-blue-700"
+            >
+              {initials}
+
+              {/* Soft inner ring */}
+              <div className="absolute inset-0 rounded-full ring-1 ring-blue-100" />
+
+              {/* Verification badge */}
+              <div className="absolute bottom-1 right-1 flex h-8 w-8 items-center justify-center rounded-full border-4 border-white bg-emerald-500">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={3}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
+            </motion.div>
 
         {/* name and badge of the user */}
-        <div className='flex items-center gap-2 flex-wrap justify-center mb-2'>
+        <div className='flex items-center gap-2 flex-wrap justify-center mb-2 mt-3'>
           <h1 className='text-xl font-bold text-gray-900'>{user?.name || "User"}</h1>
           <span className='text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 text-amber-700 border border-amber-200/50 shadow-sm'>
             {user?.authType === "broker" ? "Broker" : "Buyer"}
@@ -102,18 +126,43 @@ const ProfileHeader = ({ onEditClick }) => {
           {/* Left section */}
           <div className='flex flex-col md:flex-row md:items-end gap-6 relative z-10'>
             {/* Avatar */}
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.8, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-              className='flex items-center justify-center -mt-16 w-32 h-32 rounded-full bg-gradient-to-br from-white to-blue-50 text-blue-700 text-5xl font-extrabold border-[6px] border-white shadow-2xl shadow-blue-900/10 relative'
+              whileHover={{ scale: 1.03 }}
+              className="relative -mt-16 flex h-32 w-32 items-center justify-center rounded-full
+                        bg-gradient-to-br from-slate-50 via-white to-blue-100
+                        border-[6px] border-white
+                        shadow-[0_20px_45px_rgba(37,99,235,0.18)]
+                        text-5xl font-black text-blue-700"
             >
               {initials}
-              <div className="absolute inset-0 rounded-full ring-1 ring-inset ring-black/5"></div>
+
+              {/* Soft inner ring */}
+              <div className="absolute inset-0 rounded-full ring-1 ring-blue-100" />
+
+              {/* Verification badge */}
+              <div className="absolute bottom-1 right-1 flex h-8 w-8 items-center justify-center rounded-full border-4 border-white bg-emerald-500">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-4 w-4 text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={3}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+              </div>
             </motion.div>
 
             {/* User Info */}
-            <div className='sm:block flex flex-col gap-2 pb-2'>
+            <div className='flex flex-col gap-3 pb-4 mt-3'>
               <div className='flex items-center gap-3 flex-wrap'>
                 <h1 className='text-3xl font-extrabold text-gray-900 tracking-tight'>
                   {user?.name || 'User'}
@@ -121,14 +170,14 @@ const ProfileHeader = ({ onEditClick }) => {
 
                 {/* Role badge */}
                 <span className='text-[11px] font-bold tracking-wider uppercase px-3 py-1 rounded-full bg-gradient-to-r from-amber-100 to-orange-100 text-amber-700 border border-amber-200/50 shadow-sm'>
-                  {user?.authType || 'Buyer'}
+                  {user?.authType === "broker" ? "Broker" : 'Buyer'}
                 </span>
               </div>
 
               {/* Location (fixed condition) */}
-              <div className="flex items-center gap-4 mt-1">
+              <div className="flex flex-wrap items-center gap-5 mt-1 text-sm">
                 {user?.city && (
-                  <p className='text-sm text-gray-600 flex items-center gap-1.5 font-medium'>
+                  <p className='flex items-center gap-2 text-gray-600 font-medium'>
                     <FaMapLocationDot className="text-blue-500" /> {user.city}
                   </p>
                 )}
