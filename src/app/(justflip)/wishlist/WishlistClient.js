@@ -123,7 +123,7 @@ const Wishlist = ({ isEmbedded = false }) => {
                           alt={property?.name}
                           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
                           loading="eager"
-                          fetchpriority="high"
+                          fetchPriority="high"
                         />
                       )}
                       
@@ -137,7 +137,7 @@ const Wishlist = ({ isEmbedded = false }) => {
                             src={logoUrl}
                             alt={property?.name}
                             loading="eager"
-                            fetchpriority="high"
+                            fetchPriority="high"
                             className="w-9 h-9 object-contain rounded-lg"
                           />
                         </div>

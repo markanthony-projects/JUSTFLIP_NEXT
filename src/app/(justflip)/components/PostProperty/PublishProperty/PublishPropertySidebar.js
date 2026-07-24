@@ -1,50 +1,50 @@
-import React from 'react';
-import { IoCallOutline } from 'react-icons/io5';
-import { FaWhatsapp } from 'react-icons/fa';
-import BannerImage from "@/public/assets/UploadPropBanner.png";
-import Image from '@/src/components/atoms/Image';
-import SimpleButton from '@/src/components/atoms/SimpleButton';
+'use client'
 
+import React from 'react'
+import { IoCallOutline } from 'react-icons/io5'
+import { FaWhatsapp } from 'react-icons/fa'
 
 const PublishPropertySidebar = () => {
-    const HandleCall = () => {
-        window.location.href = "tel:+918431362126";
-    }
+  const HandleCall = () => {
+    window.location.href = 'tel:+918431362126'
+  }
 
-    const handleWhatsApp = () => {
-        const message = "Hi, I am facing an issue while uploading property. Please help me.";
-        const encodedMessage = encodeURIComponent(message);
+  const handleWhatsApp = () => {
+    const message =
+      'Hi, I am facing an issue while uploading property. Please help me.'
+    const encodedMessage = encodeURIComponent(message)
 
-        window.open(
-            `https://wa.me/918431362126?text=${encodedMessage}`,
-            "_blank"
-        );
-    };
+    window.open(
+      `https://wa.me/918431362126?text=${encodedMessage}`,
+      '_blank'
+    )
+  }
 
-    return (
-        <div className="h-max w-full md:w-[350px] lg:w-[400px] shadow-2xl shadow-slate-200 p-6 flex flex-col items-center gap-8 rounded-xl bg-white border border-gray-300">
-            <div className='relative w-full aspect-[4/3] rounded-xl overflow-hidden' >
-                <Image src={BannerImage} alt="Upload Banner" wrapperClassName="h-full w-full" />
+  return (
+    <div className="md:hidden fixed right-3 top-1/2 -translate-y-1/2 z-50">
+        <div className="bg-white rounded-full shadow-lg border border-slate-200 px-3 py-2 flex flex-col items-center">
+            <div className='flex items-center gap-2'>
+                <button
+                    onClick={HandleCall}
+                    className="w-7 h-7 rounded-full bg-[#002B5B] text-white flex items-center justify-center transition-transform hover:scale-105"
+                >
+                    <IoCallOutline size={18} />
+                </button>
+
+                <button
+                    onClick={handleWhatsApp}
+                    className="w-7 h-7 rounded-full bg-[#25D366] text-white flex items-center justify-center transition-transform hover:scale-105"
+                >
+                    <FaWhatsapp size={18} />
+                </button>
             </div>
-
-            <div className="w-full text-wrap text-xs/[15.6px] font-[500] text-[#585858]">
-                Need help with the form?
-                Feel free to call or message us on WhatsApp anytime—we’re here for you.
-            </div>
-            <div className="flex flex-wrap items-center gap-3 w-full text-xs md:text-[14px] font-semibold text-white">
-                <SimpleButton
-                    onClick={() => HandleCall()}
-                    className="flex-1 h-10 rounded-2xl flex items-center justify-center gap-3 px-3"
-                    label={<span className="flex items-center gap-2">Call For Help <IoCallOutline fontSize='18px' /></span>}
-                />
-                <SimpleButton
-                    onClick={() => handleWhatsApp()}
-                    className='flex-1 h-10 bg-[#25D366] rounded-2xl flex items-center justify-center gap-3 px-3 hover:bg-[#25D366]'
-                    label={<span className="flex items-center gap-2">Whatsapp <FaWhatsapp fontSize='18px' /></span>}
-                />
-            </div>
+            {/* <span className="mt-2 text-[10px] font-semibold text-slate-600">
+                Need Help
+            </span> */}
         </div>
-    );
-};
+    </div>
 
-export default PublishPropertySidebar;
+  )
+}
+
+export default PublishPropertySidebar
