@@ -9,7 +9,6 @@ export const metadata = {
 
 const SettingsPage = () => {
   const breadcrumbItems = [
-    { label: "Home", href: "/" },
     { label: "Settings" }
   ];
 
