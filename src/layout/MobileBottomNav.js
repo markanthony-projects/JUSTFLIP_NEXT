@@ -11,6 +11,9 @@ export default function MobileBottomNav() {
     const pathname = usePathname();
     const { isAuthenticated, user } = useAuthStore();
 
+    console.log(user)
+    console.log(user?.role)
+
     const MenuIcon = (props) => {
         if (isAuthenticated) {
             return user?.profilePhoto ? (
@@ -51,8 +54,12 @@ export default function MobileBottomNav() {
         {
             name: isAuthenticated ? "Profile" : "Menu",
             icon: MenuIcon,
-            href: "/menu",
-            isActive: pathname === "/menu",
+            href: !isAuthenticated
+                ? "/menu"
+                : user?.role === "broker"
+                ? "/profile?tab=my-profile"
+                : "/profile",
+            isActive: pathname === "/profile" || pathname === "/menu",
         },
     ];
 
