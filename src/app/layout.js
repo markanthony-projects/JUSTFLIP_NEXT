@@ -56,16 +56,16 @@ export default function RootLayout({ children }) {
 
                 <SliderProvider>
                     {children}
+
+                    <PreFooter />
+
+                    <Footer />
+                    
+                    <MobileBottomNav />
+                    {/* <MobileBottomNavGlass /> */}
+
+                    <ToastContainer />
                 </SliderProvider>
-
-                <PreFooter />
-
-                <Footer />
-                
-                <MobileBottomNav />
-                {/* <MobileBottomNavGlass /> */}
-
-                <ToastContainer />
             </body>
         </html>
     );
