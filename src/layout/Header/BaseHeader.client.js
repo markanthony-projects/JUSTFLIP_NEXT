@@ -103,27 +103,7 @@ export default function BaseHeaderClient({ children, config, }) {
                     </nav>
 
                     <div className=" inset-y-0 right-2 flex items-center lg:hidden">
-                        {isAuthenticated ? (
-                            <div>
-                                {isAuthenticated && (
-                                    <div className="flex items-center justify-end ml-6 relative">
-                                        <div className="relative">
-                                            <button
-                                                onClick={handleSliderOpen}
-                                                className="h-10 w-10 flex items-center justify-center rounded-full text-white bg-white/20 overflow-hidden ring-2 ring-white/50 hover:ring-white transition-all"
-                                            >
-                                                {user?.profilePhoto ? (
-                                                    <img src={user.profilePhoto} alt="Profile" className="h-full w-full object-cover" />
-                                                ) : (
-                                                    <FiUser className="text-lg" />
-                                                )}
-                                            </button>
-                                            <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-[#10B981] ring-2 ring-blue-900"></span>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        ) : (
+                        {!isAuthenticated && (
                             <button
                                 type="button"
                                 aria-label="Menu"
