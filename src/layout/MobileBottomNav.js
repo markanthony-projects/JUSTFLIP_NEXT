@@ -6,7 +6,7 @@ import { HiHome, HiOutlineBookmark, HiOutlineChatAlt2, HiOutlineMenu, HiOutlineS
 import { TbCrown } from "react-icons/tb";
 import { FiPlusSquare, FiUser } from "react-icons/fi";
 import { useAuthStore } from "@/src/stores/auth.store";
-import { useSlider } from "@/src/context/SliderContext";
+import { useSlider, isOpen } from "@/src/context/SliderContext";
 import UserSliderContent from "./Header/UserSliderContent";
 import BrokerSliderContent from "./Header/BrokerSliderContent";
 
@@ -38,7 +38,7 @@ export default function MobileBottomNav() {
                 <FiUser className={props.className} />
             );
         }
-        return <HiOutlineMenu className={props.className} />
+        return <FiUser className={props.className} />
     };
 
     const navItems = [
@@ -68,11 +68,11 @@ export default function MobileBottomNav() {
             isActive: pathname === "/profile" && tab === "wishlist",
         },
         {
-            name: isAuthenticated ? "Profile" : "Menu",
+            name: isAuthenticated ? "Profile" : "Login",
             icon: MenuIcon,
-            href: "/menu",
+            href: "/login",
             action: isAuthenticated ? handleSliderOpen : undefined,
-            isActive: pathname === "/menu",
+            isActive: pathname === "/login",
         },
     ];
 
