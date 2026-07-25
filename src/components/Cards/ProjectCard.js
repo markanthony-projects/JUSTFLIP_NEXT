@@ -22,21 +22,21 @@ const ProjectCard = ({ project, priority }) => {
     return (
         <>
             <Link href={projectUrl} className="w-full">
-                <div className="group relative bg-white shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 border border-gray-200 hover:border-gray-300 rounded-xl overflow-hidden w-full max-w-sm mx-auto flex flex-col h-full">
-                    <div className="w-full h-40 md:h-48 lg:h-52 relative overflow-hidden bg-gray-100 border-b border-gray-100">
+                <div className="group relative bg-white shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 hover:border-gray-300 rounded-lg overflow-hidden flex flex-col my-2 w-75 md:w-75 max-w-75">
+                    <div className= "h-38 md:h-38 xl:h-38 relative overflow-hidden bg-gray-100 border-b border-gray-100 w-75 md:w-75 max-w-75">
                         <Image
-                            src={bannerImage?.url}
+                            src={bannerImage?.url || '/assets/project-banner.webp'}
                             alt={bannerImage?.alt || project.name}
                             className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                             priority={priority}
                         />
 
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none z-0"></div>
+                        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent pointer-events-none z-0"></div>
 
                         <div className="absolute top-0 right-0 m-3 flex justify-between w-full z-10">
-                            <div className="absolute left-3 top-3 bg-white/95 backdrop-blur-sm shadow-sm text-[#002B5B] flex items-center rounded-lg h-7 px-2.5">
+                            <div className="absolute left-2 top-3 bg-white/95 backdrop-blur-sm shadow-md text-[#002B5B] flex items-center rounded-r-lg shadow-gray-800 h-7 px-2.5">
                                 <MdOutlineLocationOn className="text-red-500" size={14} />
-                                <span className="text-[10px] font-bold md:font-bold pl-1 truncate max-w-[120px]">
+                                <span className="text-[10px] font-bold md:font-bold pl-1 truncate max-w-30">
                                     {locationName}
                                 </span>
                             </div>
@@ -44,19 +44,19 @@ const ProjectCard = ({ project, priority }) => {
                                 <FavouriteButton
                                     project={project}
                                     onAuthRequired={() => setShowLoginPrompt(true)}
-                                    className={`p-2 rounded-full flex items-center justify-center bg-white/95 backdrop-blur-sm shadow-sm hover:bg-red-50 transition-colors`}
+                                    className={`p-2 rounded-full flex items-center justify-center bg-white/95 backdrop-blur-sm shadow-sm shadow-gray-800 hover:bg-red-50 transition-colors`}
                                 />
                             </div>
                         </div>
                     </div>
 
-                    <div className="flex flex-col flex-1 min-h-[90px] px-4 py-3.5 gap-1.5 z-10 bg-white">
-                        <h3 className="text-[15px] leading-snug text-start line-clamp-1 font-extrabold text-gray-900 truncate tracking-tight">
+                    <div className="flex flex-col flex-1 py-1 z-10 bg-white h-16 md:h-16.5 overflow-hidden px-2 border border-gray-200">
+                        <h3 className="text-[15px] leading-snug text-start line-clamp-1 font-extrabold text-gray-900 truncate tracking-tight text-sm md:font-bold">
                             {projectName}
                         </h3>
 
                         {project.summary ? (
-                            <p className="text-start text-xs font-medium text-gray-500 line-clamp-1 truncate">
+                            <p className="text-start font-medium text-gray-500 line-clamp-1 truncate text-xs md:font-medium">
                                 {project.summary}
                             </p>
                         ) : (
@@ -65,8 +65,8 @@ const ProjectCard = ({ project, priority }) => {
                             </p>
                         )}
 
-                        <div className="mt-auto flex items-center justify-between pt-2">
-                            <p className="text-[15px] text-start font-extrabold text-[#002B5B]">
+                        <div className="my-1 flex items-center justify-between">
+                            <p className="text-[15px] text-start font-extrabold text-[#002B5B] md:font-bold">
                                 {project?.priceRange || 'Price on Request'}
                             </p>
                             {project.status && (

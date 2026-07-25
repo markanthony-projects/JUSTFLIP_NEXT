@@ -61,7 +61,7 @@ function FavouriteButton({
         {isFavourite ? (
           <IoIosHeart className="text-red-500 text-lg" />
         ) : (
-          <IoIosHeartEmpty className="text-lg" />
+          <IoIosHeartEmpty color="red" className="text-lg" />
         )}
       </span>
 
