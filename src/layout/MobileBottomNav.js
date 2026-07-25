@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { HiHome, HiOutlineBookmark, HiOutlineChatAlt2, HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 import { TbCrown } from "react-icons/tb";
 import { FiPlusSquare, FiUser } from "react-icons/fi";
@@ -12,6 +12,10 @@ import BrokerSliderContent from "./Header/BrokerSliderContent";
 
 export default function MobileBottomNav() {
     const pathname = usePathname();
+    const searchParams = useSearchParams();
+
+    const tab = searchParams.get("tab")
+
     const { isAuthenticated, user, authType } = useAuthStore();
     const { openSlider } = useSlider();
 
@@ -24,7 +28,7 @@ export default function MobileBottomNav() {
     };
 
     console.log(user)
-    console.log(user?.role)
+    console.log(authType)
 
     const MenuIcon = (props) => {
         if (isAuthenticated) {
@@ -54,14 +58,14 @@ export default function MobileBottomNav() {
             name: "Sell/Rent",
             icon: FiPlusSquare,
             href: "/post-property",
-            isActive: pathname === "/upload-a-property",
+            isActive: pathname.startsWith("/post-property"),
             badge: "FREE",
         },
         {
             name: "Saved",
             icon: HiOutlineBookmark,
             href: "/profile?tab=wishlist",
-            isActive: pathname === "/saved",
+            isActive: pathname === "/profile" && tab === "wishlist",
         },
         {
             name: isAuthenticated ? "Profile" : "Menu",
