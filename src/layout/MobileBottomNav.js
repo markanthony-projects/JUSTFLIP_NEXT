@@ -2,19 +2,18 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { usePathname, useRouter } from "next/navigation";
 import { HiHome, HiOutlineBookmark, HiOutlineChatAlt2, HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 import { TbCrown } from "react-icons/tb";
 import { FiPlusSquare, FiUser } from "react-icons/fi";
 import { useAuthStore } from "@/src/stores/auth.store";
 import { useSlider, isOpen } from "@/src/context/SliderContext";
 import { useSearchStore } from "@/src/stores/search.store";
-import { useSlider } from "@/src/context/SliderContext";
 import UserSliderContent from "./Header/UserSliderContent";
 import BrokerSliderContent from "./Header/BrokerSliderContent";
 import MobileSearchModal from "@/src/app/(justflip)/components/Search/MobileSearchModal";
+import { Suspense } from "react";
 
-export default function MobileBottomNav() {
+function MobileBottomNavContent() {
     const pathname = usePathname();
     const searchParams = useSearchParams();
 
@@ -132,5 +131,13 @@ export default function MobileBottomNav() {
             })}
             <MobileSearchModal />
         </div>
+    );
+}
+
+export default function MobileBottomNav() {
+    return (
+        <Suspense fallback={null}>
+            <MobileBottomNavContent />
+        </Suspense>
     );
 }
