@@ -9,7 +9,9 @@ import { FaSearch } from "react-icons/fa";
 import { fetchSuggestionsAction } from "./search.actions";
 import { formatUrl } from "@/src/utils/URLFormatter";
 import { TextField } from "../Inputs";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useSearchStore } from "@/src/stores/search.store";
+import { useCityStore } from "@/src/stores/city.store";
 
 //this list should be outside so that it doesn't gets recreated on every render.
 //if this is ketp inside the useEffect tha depends on it will run infinitely.
@@ -84,6 +86,12 @@ const emptySuggestions = {
 
 export default function SearchBarClient() {
     const router = useRouter();
+    const pathname = usePathname();
+    const { setQuery, query } = useSearchStore();
+    const { activeCity } = useCityStore();
+
+    const pathSegments = pathname?.split('/').filter(Boolean) || [];
+    const isSearchPage = (pathSegments[0] === 'properties' && pathSegments.length < 5) || pathSegments[0] === 'search';
 
     const [search, setSearch] = useState("");
     const [suggestions, setSuggestions] = useState(emptySuggestions);
@@ -113,20 +121,20 @@ export default function SearchBarClient() {
     useEffect(() => {
         if (debounceRef.current) clearTimeout(debounceRef.current);
 
-        if (!search) {
+        if (!search || isSearchPage) {
             setSuggestions(emptySuggestions);
             return;
         }
 
         debounceRef.current = setTimeout(() => {
             startTransition(async () => {
-                const res = await fetchSuggestionsAction(search);
+                const res = await fetchSuggestionsAction(search, activeCity?.id);
                 setSuggestions(res);
             });
         }, 300);
 
         return () => clearTimeout(debounceRef.current);
-    }, [search]);
+    }, [search, isSearchPage, activeCity?.id]);
 
     useEffect(() => {
         const handler = (e) => {
@@ -140,8 +148,12 @@ export default function SearchBarClient() {
     }, []);
 
     const handleSearchRedirect = () => {
-        // console.log(`/properties?search=${search}`);
-        router.push(`/properties?search=${search}`);
+        setQuery(search);
+        if (search && search.trim() !== '') {
+            router.push(`/search?q=${encodeURIComponent(search)}`);
+        } else {
+            router.push(`/search`);
+        }
     }
 
     return (

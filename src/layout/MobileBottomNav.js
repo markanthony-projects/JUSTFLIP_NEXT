@@ -1,26 +1,37 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { HiHome, HiOutlineBookmark, HiOutlineChatAlt2, HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 import { TbCrown } from "react-icons/tb";
 import { FiPlusSquare, FiUser } from "react-icons/fi";
 import { useAuthStore } from "@/src/stores/auth.store";
 import { useSlider, isOpen } from "@/src/context/SliderContext";
+import { useSearchStore } from "@/src/stores/search.store";
 import UserSliderContent from "./Header/UserSliderContent";
 import BrokerSliderContent from "./Header/BrokerSliderContent";
+
 import { useRouter } from "next/navigation";
 import { toast } from "../utils/toast";
 
-export default function MobileBottomNav() {
+import MobileSearchModal from "@/src/app/(justflip)/components/Search/MobileSearchModal";
+import { Suspense } from "react";
+
+
+function MobileBottomNavContent() {
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const router = useRouter()
 
     const tab = searchParams.get("tab")
 
+    const router = useRouter();
     const { isAuthenticated, user, authType } = useAuthStore();
     const { openSlider } = useSlider();
+    const { toggleSearchModal, isSearchModalOpen } = useSearchStore();
+
+    const handleSearchClick = () => {
+        toggleSearchModal();
+    };
 
     const handleSliderOpen = () => {
         if (authType === "broker") {
@@ -70,7 +81,8 @@ export default function MobileBottomNav() {
             name: "Search",
             icon: HiOutlineSearch,
             href: "/search",
-            isActive: pathname === "/search",
+            action: handleSearchClick,
+            isActive: pathname === "/search" || pathname?.includes('/properties') || isSearchModalOpen,
         },
         {
             name: "Sell/Rent",
@@ -138,6 +150,15 @@ export default function MobileBottomNav() {
                     </Link>
                 );
             })}
+            <MobileSearchModal />
         </div>
+    );
+}
+
+export default function MobileBottomNav() {
+    return (
+        <Suspense fallback={null}>
+            <MobileBottomNavContent />
+        </Suspense>
     );
 }

@@ -8,11 +8,16 @@ export const SEARCH_CONFIG = {
   
   // Filter definitions — add new filters here, UI auto-generates
   filters: {
+    tag: {
+      key: 'tag',
+      apiParam: 'tag',
+      type: 'hidden',
+    },
     propertyType: {
       key: 'propertyType',
       apiParam: 'propertyType',
       label: 'Property Type',
-      type: 'multi-select',
+      type: 'property-type',
       options: [
         { label: 'Apartment / Flats', value: 'apartment' },
         { label: 'Villa', value: 'villa' },

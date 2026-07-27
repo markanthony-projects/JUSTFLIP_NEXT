@@ -3,7 +3,7 @@
 import JustflipService from "@/src/services/JustflipService";
 
 
-export async function fetchSuggestionsAction(query) {
+export async function fetchSuggestionsAction(query, cityId) {
     if (!query || query.trim().length < 2) {
         return {
             projects: [],
@@ -12,7 +12,7 @@ export async function fetchSuggestionsAction(query) {
         };
     }
 
-    const result = await JustflipService.suggestions(query);
+    const result = await JustflipService.suggestions(query, cityId);
 
     return {
         projects: result.projects || [],
