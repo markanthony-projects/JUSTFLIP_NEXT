@@ -19,6 +19,8 @@ import { JUSTFLIP } from "@/src/lib/axios/api";
 import { RiHome4Line, RiBuilding4Line, RiPriceTag3Line, RiHistoryLine, RiKey2Line, RiShieldCheckLine } from "react-icons/ri";
 import { FiUser, FiTool } from "react-icons/fi";
 import { FaRegHandshake } from "react-icons/fa";
+import { toast } from "@/src/utils/toast";
+
 const DEFAULT_FAQS = [
     {
         question: "Is listing a property on JustFlip free?",
@@ -47,10 +49,57 @@ const PostPropertyClient = () => {
 
     const [residenceType, setResidenceType] = useState('Residential');
     const [transactionType, setTransactionType] = useState('Sale');
-    const uploaderRole = authType === "broker" ? "Broker" : authType === "visitor" ? "User" : "";
+    // const uploaderRole = authType === "broker" ? "Broker" : authType === "visitor" ? "User" : "";
+    const [uploaderRole, setUploaderRole] = useState("");
     // console.log("uploaderRole:", uploaderRole); 
     // console.log(authType, "authType");
-    // console.log("isAuthenticated:", isAuthenticated);            
+    // console.log("isAuthenticated:", isAuthenticated);
+    
+    useEffect(() => {
+        if (!isAuthenticated) return;
+
+        if (authType === "visitor") {
+            setUploaderRole("User");
+        } else if (authType === "broker") {
+            setUploaderRole("Broker");
+        } else if (authType === "developer") {
+            setUploaderRole("Developer");
+        }
+    }, [isAuthenticated, authType]);
+
+    useEffect(() => {
+        const pending = sessionStorage.getItem("postPropertyData");
+
+        if (!pending) return;
+
+        const data = JSON.parse(pending);
+
+        if (data.uploaderRole) {
+            setUploaderRole(data.uploaderRole);
+        }
+
+        if (data.residenceType) {
+            setResidenceType(data.residenceType);
+        }
+
+        if (data.transactionType) {
+            setTransactionType(data.transactionType);
+        }
+
+    }, []);
+
+    useEffect(() => {
+        if (!isAuthenticated) return;
+
+        const pending = sessionStorage.getItem("postPropertyData");
+
+        if (!pending) return;
+
+        proceedToNextPage();
+
+        sessionStorage.removeItem("postPropertyData");
+
+    }, [isAuthenticated]);
     
     
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -77,62 +126,59 @@ const PostPropertyClient = () => {
     //     setUploaderRole(role);
     // };
 
-    const handleStart = () => {
-        const activeId = user?.id
-        if (uploaderRole === "User") {
-            if (isAuthenticated && authType === "visitor") {
-                setUserFormData((prev) => ({
-                    ...prev,
-                    residenceType: residenceType,
-                    type: transactionType,
-                    ownerId: activeId,
-                    uploadedBy: authType
-                }))
-                router.push("/post-property/publish-property");
-            } else {
-                setIsLoginModalOpen(true);
-            }
-        } else if (uploaderRole === "Broker") {
-            if (isAuthenticated && authType === "broker") {
-                setBrokerFormData((prev) => ({
-                    ...prev,
-                    residenceType: residenceType,
-                    type: transactionType,
-                    brokerId: activeId
-                }))
-                router.push("/post-property/list-your-properties");
-            } else {
-                router.push("/login");
-            }
-        } else if (uploaderRole === "Developer") {
-            router.push("/contact-us");
-        }
-    };
+    const proceedToNextPage = () => {
+        const activeId = useAuthStore.getState().user?.id
+        const auth = useAuthStore.getState().authType
 
-    const handleLoginSuccess = () => {
-        const freshUser = useAuthStore.getState().user;
-        const freshAuthType = useAuthStore.getState().authType;
-        const activeId = freshUser?.id
-
-        if(freshAuthType === "visitor"){
+        if(uploaderRole === "User"){
             setUserFormData((prev) => ({
                 ...prev,
-                residenceType: residenceType,
+                residenceType,
                 type: transactionType,
                 ownerId: activeId,
-                uploadedBy: freshAuthType
+                uploadedBy: auth
             }))
-            router.push("/post-property/publish-property");
-        }else if (freshAuthType === "broker"){
+            router.push("/post-property/publish-property")
+        }
+
+        else if(uploaderRole === "Broker"){
             setBrokerFormData((prev) => ({
                 ...prev,
-                residenceType: residenceType,
+                residenceType,
                 type: transactionType,
                 brokerId: activeId
             }))
             router.push("/post-property/list-your-properties")
         }
-    };
+
+        else if(uploaderRole === "Developer"){
+            router.push("/contact-us")
+        }
+    }
+    
+    const handleStart = () => {
+        if(!uploaderRole){
+            toast.warn("Please Select Who You are.")
+            return;
+        }
+
+        if(!isAuthenticated){
+            sessionStorage.setItem(
+                "postPropertyData",
+                JSON.stringify({
+                    uploaderRole,
+                    residenceType,
+                    transactionType
+                })
+            )
+        }
+
+        proceedToNextPage()
+    }
+
+    const handleLoginSuccess = () => {
+        proceedToNextPage()
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -148,7 +194,7 @@ const PostPropertyClient = () => {
         };
         fetchData();
     }, []);
-
+    
     return (
         <div className="min-h-screen">
             <PostProperty>
@@ -178,13 +224,16 @@ const PostPropertyClient = () => {
                             }}
                         />
 
-                        <PostPropertySelection
+                        <PostPropertySelection 
                             label="Who Are You?"
-                            options={roleOptions}
+                            options={roleOptions.map((option) => ({
+                                ...option,
+                                disabled: isAuthenticated && option.value !== uploaderRole
+                            }))}
                             value={uploaderRole}
-                            checked= {uploaderRole}
-                            onChange={() => {}}
-                            disabled={roleOptions !== uploaderRole}    
+                            onChange={(val) => {
+                                if(!isAuthenticated) setUploaderRole(val)
+                            }}
                         />
 
                         <div className="pt-2">
