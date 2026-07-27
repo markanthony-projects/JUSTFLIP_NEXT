@@ -21,6 +21,7 @@ export const useSearchStore = create((set, get) => ({
   isLoadingMore: false,
   error: null,
   isFilterOpen: false,   // Mobile filter sheet
+  isSearchModalOpen: false, // Mobile full-screen search modal
 
   // ── Actions ──
   setQuery: (query) => set({ query, page: 1 }),
@@ -61,6 +62,8 @@ export const useSearchStore = create((set, get) => ({
   setLoadingMore: (isLoadingMore) => set({ isLoadingMore }),
   setError: (error) => set({ error, isLoading: false }),
   toggleFilterSheet: () => set(state => ({ isFilterOpen: !state.isFilterOpen })),
+  toggleSearchModal: () => set(state => ({ isSearchModalOpen: !state.isSearchModalOpen })),
+  closeSearchModal: () => set({ isSearchModalOpen: false }),
 
   // Hydrate from URL params
   hydrateFromUrl: (searchParams, initialSeoFilters = null) => {

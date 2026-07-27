@@ -12,9 +12,9 @@ class JustflipService {
         }
     }
 
-    static async suggestions(query) {
+    static async suggestions(query, cityId) {
         try {
-            const { data } = await JUSTFLIP.get(`/project/search?query=${query}`);
+            const { data } = await JUSTFLIP.get(`/project/search`, { params: { query, cityId } });
             return data;
         } catch (error) {
             handleApiError(error);

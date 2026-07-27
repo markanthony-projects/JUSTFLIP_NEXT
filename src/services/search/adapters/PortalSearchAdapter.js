@@ -1,4 +1,5 @@
 import { JUSTFLIP } from '@/src/lib/axios/api';
+import { useCityStore } from '@/src/stores/city.store';
 import { SearchAdapter } from '../SearchAdapter';
 import { transformSearchResponse, transformSuggestions } from '../SearchTransformer';
 
@@ -12,8 +13,11 @@ export class PortalSearchAdapter extends SearchAdapter {
     this.abort(); // Cancel previous request
     this.controller = new AbortController();
 
+    const activeCity = useCityStore.getState().activeCity;
+
     const params = {
       search: query || undefined,
+      cityId: activeCity?.id || undefined,
       page,
       limit,
       ...this._mapFiltersToParams(filters),

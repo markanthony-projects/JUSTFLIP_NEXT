@@ -1,19 +1,27 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { HiHome, HiOutlineBookmark, HiOutlineChatAlt2, HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 import { TbCrown } from "react-icons/tb";
 import { FiPlusSquare, FiUser } from "react-icons/fi";
 import { useAuthStore } from "@/src/stores/auth.store";
+import { useSearchStore } from "@/src/stores/search.store";
 import { useSlider } from "@/src/context/SliderContext";
 import UserSliderContent from "./Header/UserSliderContent";
 import BrokerSliderContent from "./Header/BrokerSliderContent";
+import MobileSearchModal from "@/src/app/(justflip)/components/Search/MobileSearchModal";
 
 export default function MobileBottomNav() {
     const pathname = usePathname();
+    const router = useRouter();
     const { isAuthenticated, user, authType } = useAuthStore();
     const { openSlider } = useSlider();
+    const { toggleSearchModal, isSearchModalOpen } = useSearchStore();
+
+    const handleSearchClick = () => {
+        toggleSearchModal();
+    };
 
     const handleSliderOpen = () => {
         if (authType === "broker") {
@@ -45,7 +53,8 @@ export default function MobileBottomNav() {
             name: "Search",
             icon: HiOutlineSearch,
             href: "/search",
-            isActive: pathname === "/search",
+            action: handleSearchClick,
+            isActive: pathname === "/search" || pathname?.includes('/properties') || isSearchModalOpen,
         },
         {
             name: "Sell/Rent",
@@ -112,6 +121,7 @@ export default function MobileBottomNav() {
                     </Link>
                 );
             })}
+            <MobileSearchModal />
         </div>
     );
 }
