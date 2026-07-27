@@ -36,9 +36,13 @@ const Broker = () => {
     if (res.success) {
       toast.success('Welcome back!')
       const pending = sessionStorage.getItem("postPropertyData")
+      const redirect = sessionStorage.getItem("redirectAfterLogin")
 
       if(pending){
         router.replace("/post-property")
+      } else if (redirect){
+        sessionStorage.removeItem("redirectAfterLogin")
+        router.replace(redirect)
       }else{
         router.replace('/')
       }  
