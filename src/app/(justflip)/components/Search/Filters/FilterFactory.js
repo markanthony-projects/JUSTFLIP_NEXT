@@ -12,6 +12,10 @@ export const FilterRegistry = {
 export default function FilterFactory({ config }) {
   const FilterComponent = FilterRegistry[config.type];
 
+  if (config.type === 'hidden') {
+    return null;
+  }
+
   if (!FilterComponent) {
     console.warn(`No filter component found for type: ${config.type}`);
     return null;

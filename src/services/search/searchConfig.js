@@ -8,6 +8,11 @@ export const SEARCH_CONFIG = {
   
   // Filter definitions — add new filters here, UI auto-generates
   filters: {
+    tag: {
+      key: 'tag',
+      apiParam: 'tag',
+      type: 'hidden',
+    },
     propertyType: {
       key: 'propertyType',
       apiParam: 'propertyType',

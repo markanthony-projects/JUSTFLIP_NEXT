@@ -55,6 +55,7 @@ export class PortalSearchAdapter extends SearchAdapter {
     if (filters.approval) params.approval = filters.approval;
     if (filters.bhk) params.unitType = `${filters.bhk} BHK`;
     if (filters.facing) params.facing = filters.facing;
+    if (filters.tag) params.tag = filters.tag;
     return params;
   }
 
