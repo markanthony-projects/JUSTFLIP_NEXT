@@ -17,7 +17,7 @@ export const SEARCH_CONFIG = {
       key: 'propertyType',
       apiParam: 'propertyType',
       label: 'Property Type',
-      type: 'multi-select',
+      type: 'property-type',
       options: [
         { label: 'Apartment / Flats', value: 'apartment' },
         { label: 'Villa', value: 'villa' },

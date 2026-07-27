@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { useSearchStore } from '@/src/stores/search.store';
+import { useCityStore } from '@/src/stores/city.store';
 import { useSearchQuery } from '@/src/hooks/useSearchQuery';
 import { PortalSearchAdapter } from '@/src/services/search/adapters/PortalSearchAdapter';
 
@@ -22,6 +23,8 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
     query, filters, sort, page, limit, 
     setResults, setLoading, setError, setFilter, setQuery
   } = useSearchStore();
+
+  const { activeCity } = useCityStore();
 
   const isFirstRender = useRef(true);
 
@@ -58,7 +61,7 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
     return () => {
       adapter.abort();
     };
-  }, [query, JSON.stringify(filters), sort, page, limit]);
+  }, [query, JSON.stringify(filters), sort, page, limit, activeCity?.id]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
