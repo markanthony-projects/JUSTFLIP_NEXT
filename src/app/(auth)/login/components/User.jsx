@@ -5,7 +5,7 @@ import AuthService from "@/src/services/AuthService";
 import { useAuthStore } from "@/src/stores/auth.store";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "@/src/utils/toast";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 
 const OTP_LENGTH = 6;

@@ -19,7 +19,7 @@ import { JUSTFLIP } from "@/src/lib/axios/api";
 import { RiHome4Line, RiBuilding4Line, RiPriceTag3Line, RiHistoryLine, RiKey2Line, RiShieldCheckLine } from "react-icons/ri";
 import { FiUser, FiTool } from "react-icons/fi";
 import { FaRegHandshake } from "react-icons/fa";
-import { useToastStore } from "@/src/stores/toast.store";
+import { toast } from "@/src/utils/toast";
 
 const DEFAULT_FAQS = [
     {
@@ -54,7 +54,6 @@ const PostPropertyClient = () => {
     // console.log("uploaderRole:", uploaderRole); 
     // console.log(authType, "authType");
     // console.log("isAuthenticated:", isAuthenticated);
-    const addToast = useToastStore((state) => state.addToast)  
     
     useEffect(() => {
         if (!isAuthenticated) return;
@@ -159,10 +158,7 @@ const PostPropertyClient = () => {
     
     const handleStart = () => {
         if(!uploaderRole){
-            addToast({
-                message: "Please select who you are.",
-                type: "warn"
-            })
+            toast.warn("Please Select Who You are.")
             return;
         }
 

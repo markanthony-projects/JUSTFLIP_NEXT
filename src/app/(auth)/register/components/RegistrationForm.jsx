@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import { toast } from "@/src/utils/toast";
 import { AUTH, JUSTFLIP } from "@/src/lib/axios/api";
 import { FaCheck } from "react-icons/fa";
 import ReviewModal from "./ReviewModal";

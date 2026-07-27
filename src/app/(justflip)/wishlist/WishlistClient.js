@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { toast } from "react-hot-toast";
+import { toast } from '@/src/utils/toast';
 import { convertToCurrency, getLowestAndHighestPrice } from "@/src/utils/RenderFunction";
 import { HiXMark } from "react-icons/hi2";
 import { HiOutlineLocationMarker } from "react-icons/hi";

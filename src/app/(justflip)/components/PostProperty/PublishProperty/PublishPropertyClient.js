@@ -144,7 +144,7 @@ function PublishPropertyClient ({ initialCities }) {
   useEffect(() => {
     if(isMounted && !isLoading){
       if(!user){
-        toast.error("Please Login to publish a property.")
+        toast.info("Please Login to publish a property.")
         router.push("/login")
       }
     }
