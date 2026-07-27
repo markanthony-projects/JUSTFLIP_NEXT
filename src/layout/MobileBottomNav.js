@@ -11,7 +11,6 @@ import { useSearchStore } from "@/src/stores/search.store";
 import UserSliderContent from "./Header/UserSliderContent";
 import BrokerSliderContent from "./Header/BrokerSliderContent";
 
-import { useRouter } from "next/navigation";
 import { toast } from "../utils/toast";
 
 import MobileSearchModal from "@/src/app/(justflip)/components/Search/MobileSearchModal";
