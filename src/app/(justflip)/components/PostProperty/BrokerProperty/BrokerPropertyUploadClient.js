@@ -65,7 +65,7 @@ const buildInitialFormData = (brokerId, residenceType, transactionType) => ({
 function BrokerPropertyClient({ initialCities = [] }) {
     // console.log("BrokerPropertyClient initialCities:", initialCities);
     const router = useRouter();
-    const { user } = useAuthStore();
+    const { user, isLoading } = useAuthStore();
     // console.log("BrokerPropertyClient user:", user);
     const { uploadFiles, loading: isUploading } = useFileUpload();
 
@@ -105,6 +105,15 @@ function BrokerPropertyClient({ initialCities = [] }) {
 
     // ── Effects ───────────────────────────────────────
 
+    useEffect(() => {
+        if(isMounted && !isLoading){
+            if(!user){
+                toast.error("Please Login to Publish a Property")
+                router.push("/login")
+            }
+        }
+    },[user, isLoading, isMounted, router])
+
     // Read sessionStorage on mount (SSR safe)
     useEffect(() => {
         const rt = sessionStorage.getItem("residenceType");
@@ -114,7 +123,7 @@ function BrokerPropertyClient({ initialCities = [] }) {
             setTransactionType(tt);
             setFormData((prev) => ({ ...prev, transactionTag: tt, residenceType: rt || prev.residenceType }));
         }
-    }, []);
+    }, [setFormData]);
 
     // Close dropdowns on outside click
     useEffect(() => {

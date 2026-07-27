@@ -35,7 +35,13 @@ const Broker = () => {
 
     if (res.success) {
       toast.success('Welcome back!')
-      router.replace('/')  
+      const pending = sessionStorage.getItem("postPropertyData")
+
+      if(pending){
+        router.replace("/post-property")
+      }else{
+        router.replace('/')
+      }  
     } else {
       setError(res.error)
     }

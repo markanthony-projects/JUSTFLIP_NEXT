@@ -85,7 +85,13 @@ const User = () => {
             const res = await visitorLogin({ email: identifier, otp: otpValue });
             if (res.success) {
                 toast.success("Login successful!");
-                router.replace("/");
+                const pending = sessionStorage.getItem("postPropertyData")
+
+                if(pending){
+                    router.replace("/post-property")
+                }else{
+                    router.replace("/");
+                }
             } else {
                 setError(res.error || "Invalid OTP");
             }
