@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { usePathname, useRouter } from "next/navigation";
 import { HiHome, HiOutlineBookmark, HiOutlineChatAlt2, HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 import { TbCrown } from "react-icons/tb";
 import { FiPlusSquare, FiUser } from "react-icons/fi";
 import { useAuthStore } from "@/src/stores/auth.store";
+import { useSlider, isOpen } from "@/src/context/SliderContext";
 import { useSearchStore } from "@/src/stores/search.store";
 import { useSlider } from "@/src/context/SliderContext";
 import UserSliderContent from "./Header/UserSliderContent";
@@ -14,6 +16,10 @@ import MobileSearchModal from "@/src/app/(justflip)/components/Search/MobileSear
 
 export default function MobileBottomNav() {
     const pathname = usePathname();
+    const searchParams = useSearchParams();
+
+    const tab = searchParams.get("tab")
+
     const router = useRouter();
     const { isAuthenticated, user, authType } = useAuthStore();
     const { openSlider } = useSlider();
@@ -31,6 +37,9 @@ export default function MobileBottomNav() {
         }
     };
 
+    console.log(user)
+    console.log(authType)
+
     const MenuIcon = (props) => {
         if (isAuthenticated) {
             return user?.profilePhoto ? (
@@ -39,7 +48,7 @@ export default function MobileBottomNav() {
                 <FiUser className={props.className} />
             );
         }
-        return <HiOutlineMenu className={props.className} />
+        return <FiUser className={props.className} />
     };
 
     const navItems = [
@@ -60,21 +69,21 @@ export default function MobileBottomNav() {
             name: "Sell/Rent",
             icon: FiPlusSquare,
             href: "/post-property",
-            isActive: pathname === "/upload-a-property",
+            isActive: pathname.startsWith("/post-property"),
             badge: "FREE",
         },
         {
             name: "Saved",
             icon: HiOutlineBookmark,
             href: "/profile?tab=wishlist",
-            isActive: pathname === "/saved",
+            isActive: pathname === "/profile" && tab === "wishlist",
         },
         {
-            name: isAuthenticated ? "Profile" : "Menu",
+            name: isAuthenticated ? "Profile" : "Login",
             icon: MenuIcon,
-            href: "/menu",
+            href: "/login",
             action: isAuthenticated ? handleSliderOpen : undefined,
-            isActive: pathname === "/menu",
+            isActive: pathname === "/login",
         },
     ];
 

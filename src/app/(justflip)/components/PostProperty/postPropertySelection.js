@@ -4,13 +4,20 @@ export const PostPropertySelection = ({ label, options, value, onChange }) => (
         <div className="flex flex-wrap gap-3">
             {options.map((option) => {
                 const isSelected = value === option.value;
+                const isDisabled = option.disabled
                 return (
                     <button
                         key={option.value}
-                        onClick={() => onChange(option.value)}
-                        className={`flex items-center justify-center gap-2 px-4 py-3 text-sm rounded-xl font-bold transition-all duration-200 border flex-1 min-w-[130px] ${isSelected
+                        disabled={isDisabled}
+                        onClick={() => !isDisabled && onChange(option.value)}
+                        className={`flex items-center justify-center gap-2 px-4 py-3 text-sm rounded-xl font-bold transition-all duration-200 border flex-1 min-w-[130px]
+                            ${isSelected
                                 ? "bg-[#032B5B] text-white border-[#032B5B] shadow-md shadow-[#032B5B]/20"
                                 : "bg-white text-slate-400 border-slate-200 hover:border-[#032B5B]"
+                            }
+                            ${isDisabled 
+                                ? "opacity-50 cursor-not-allowed hover:border-slate-200"
+                                : ""
                             }`}
                     >
                         <span className={`text-[1.1rem] ${isSelected ? "text-white" : "text-[#2d4563]"}`}>
