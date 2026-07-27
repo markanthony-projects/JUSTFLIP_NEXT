@@ -10,8 +10,12 @@ import { useSlider, isOpen } from "@/src/context/SliderContext";
 import { useSearchStore } from "@/src/stores/search.store";
 import UserSliderContent from "./Header/UserSliderContent";
 import BrokerSliderContent from "./Header/BrokerSliderContent";
+
+import { toast } from "../utils/toast";
+
 import MobileSearchModal from "@/src/app/(justflip)/components/Search/MobileSearchModal";
 import { Suspense } from "react";
+
 
 function MobileBottomNavContent() {
     const pathname = usePathname();
@@ -38,6 +42,21 @@ function MobileBottomNavContent() {
 
     console.log(user)
     console.log(authType)
+
+    const handleSavedClick = () => {
+        if(!isAuthenticated){
+            toast.info("Please log in to view your saved properties.");
+
+            sessionStorage.setItem(
+                "redirectAfterLogin",
+                "/profile?tab=wishlist"
+            )
+
+            router.push("/login")
+            return;
+        }
+        router.push("/profile?tab=wishlist")
+    }
 
     const MenuIcon = (props) => {
         if (isAuthenticated) {
@@ -74,7 +93,8 @@ function MobileBottomNavContent() {
         {
             name: "Saved",
             icon: HiOutlineBookmark,
-            href: "/profile?tab=wishlist",
+            // href: "/profile?tab=wishlist",
+            action: handleSavedClick,
             isActive: pathname === "/profile" && tab === "wishlist",
         },
         {

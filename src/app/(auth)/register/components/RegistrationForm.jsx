@@ -66,7 +66,7 @@ export default function RegistrationForm() {
     let newErrors = {};
 
     if (currentStep === 0) {
-      if (!formData.name) { newErrors.name = "Broker Name is required"; valid = false; }
+      if (!formData.name) { newErrors.name = "Name is required"; valid = false; }
       if (!formData.email) { newErrors.email = "Email ID is required"; valid = false; }
       if (!formData.password) { newErrors.password = "Password is required"; valid = false; }
       if (!formData.phone) { newErrors.phone = "Phone Number is required"; valid = false; }

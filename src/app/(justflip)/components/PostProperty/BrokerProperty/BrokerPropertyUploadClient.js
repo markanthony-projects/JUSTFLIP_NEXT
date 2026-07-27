@@ -69,7 +69,7 @@ function BrokerPropertyClient({ initialCities = [] }) {
     // console.log("BrokerPropertyClient user:", user);
     const { uploadFiles, loading: isUploading } = useFileUpload();
 
-    const brokerId = 'bfb181ec-54f6-40aa-8c18-76e4ec2c778b' ?? user?.centralUserId; // Fallback to hardcoded broker ID if not available
+    const brokerId = user?.id || user?.centralUserId || null; // Fallback to hardcoded broker ID if not available
 
     // Residence / transaction types from session (set after mount)
     const [residenceType, setResidenceType] = useState("Residential");
@@ -108,7 +108,7 @@ function BrokerPropertyClient({ initialCities = [] }) {
     useEffect(() => {
         if(isMounted && !isLoading){
             if(!user){
-                toast.error("Please Login to Publish a Property")
+                toast.info("Please Login to Publish a Property")
                 router.push("/login")
             }
         }

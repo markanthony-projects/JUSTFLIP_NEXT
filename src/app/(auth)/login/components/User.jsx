@@ -86,10 +86,14 @@ const User = () => {
             if (res.success) {
                 toast.success("Login successful!");
                 const pending = sessionStorage.getItem("postPropertyData")
+                const redirect = sessionStorage.getItem("redirectAfterLogin")
 
                 if(pending){
                     router.replace("/post-property")
-                }else{
+                } else if (redirect){
+                    sessionStorage.removeItem("redirectAfterLogin")
+                    router.replace(redirect)
+                } else{
                     router.replace("/");
                 }
             } else {
