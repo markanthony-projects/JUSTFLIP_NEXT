@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import { toast } from "@/src/utils/toast";
 import { AUTH, JUSTFLIP } from "@/src/lib/axios/api";
 import { FaCheck } from "react-icons/fa";
 import ReviewModal from "./ReviewModal";
@@ -66,7 +66,7 @@ export default function RegistrationForm() {
     let newErrors = {};
 
     if (currentStep === 0) {
-      if (!formData.name) { newErrors.name = "Broker Name is required"; valid = false; }
+      if (!formData.name) { newErrors.name = "Name is required"; valid = false; }
       if (!formData.email) { newErrors.email = "Email ID is required"; valid = false; }
       if (!formData.password) { newErrors.password = "Password is required"; valid = false; }
       if (!formData.phone) { newErrors.phone = "Phone Number is required"; valid = false; }

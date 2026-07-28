@@ -5,7 +5,7 @@ import AuthService from '@/src/services/AuthService'
 import { useAuthStore } from '@/src/stores/auth.store'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import toast from 'react-hot-toast'
+import { toast } from '@/src/utils/toast'
 import { LuEye,LuEyeOff } from 'react-icons/lu'
 
 const Broker = () => {
@@ -35,7 +35,17 @@ const Broker = () => {
 
     if (res.success) {
       toast.success('Welcome back!')
-      router.replace('/')  
+      const pending = sessionStorage.getItem("postPropertyData")
+      const redirect = sessionStorage.getItem("redirectAfterLogin")
+
+      if(pending){
+        router.replace("/post-property")
+      } else if (redirect){
+        sessionStorage.removeItem("redirectAfterLogin")
+        router.replace(redirect)
+      }else{
+        router.replace('/')
+      }  
     } else {
       setError(res.error)
     }

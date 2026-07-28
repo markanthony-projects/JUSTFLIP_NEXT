@@ -5,7 +5,7 @@ import AuthService from "@/src/services/AuthService";
 import { useAuthStore } from "@/src/stores/auth.store";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import toast from "react-hot-toast";
+import { toast } from "@/src/utils/toast";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 
 const OTP_LENGTH = 6;
@@ -85,7 +85,17 @@ const User = () => {
             const res = await visitorLogin({ email: identifier, otp: otpValue });
             if (res.success) {
                 toast.success("Login successful!");
-                router.replace("/");
+                const pending = sessionStorage.getItem("postPropertyData")
+                const redirect = sessionStorage.getItem("redirectAfterLogin")
+
+                if(pending){
+                    router.replace("/post-property")
+                } else if (redirect){
+                    sessionStorage.removeItem("redirectAfterLogin")
+                    router.replace(redirect)
+                } else{
+                    router.replace("/");
+                }
             } else {
                 setError(res.error || "Invalid OTP");
             }

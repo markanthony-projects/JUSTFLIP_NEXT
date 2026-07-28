@@ -1,10 +1,11 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { useSearchStore } from '@/src/stores/search.store';
+import { useCityStore } from '@/src/stores/city.store';
 import { useSearchQuery } from '@/src/hooks/useSearchQuery';
 import { PortalSearchAdapter } from '@/src/services/search/adapters/PortalSearchAdapter';
 
-import SearchBarEnhanced from './SearchBar/SearchBarEnhanced';
+
 import SearchResultsList from './Results/SearchResultsList';
 import ResultsHeader from './Results/ResultsHeader';
 import FilterPanel from './Filters/FilterPanel';
@@ -22,6 +23,8 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
     query, filters, sort, page, limit, 
     setResults, setLoading, setError, setFilter, setQuery
   } = useSearchStore();
+
+  const { activeCity } = useCityStore();
 
   const isFirstRender = useRef(true);
 
@@ -58,15 +61,14 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
     return () => {
       adapter.abort();
     };
-  }, [query, JSON.stringify(filters), sort, page, limit]);
+  }, [query, JSON.stringify(filters), sort, page, limit, activeCity?.id]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* 1. Sticky Search Bar Area */}
       <div className="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm py-4">
         <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
-          <SearchBarEnhanced />
-          <div className="mt-4">
+          <div>
             <FilterChips />
           </div>
         </div>

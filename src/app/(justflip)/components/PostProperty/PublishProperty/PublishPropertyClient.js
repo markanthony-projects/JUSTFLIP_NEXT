@@ -83,7 +83,7 @@ const buildInitialFormData = (brokerId, residenceType, transactionType) => ({
 function PublishPropertyClient ({ initialCities }) {
   // console.log('PublishPropertyClient initialCities:', initialCities)
   const router = useRouter()
-  const { user } = useAuthStore()
+  const { user, isLoading } = useAuthStore()
   const { uploadFiles, loading: isUploading } = useFileUpload()
 
   const userId = user?.id || user?.centralUserId || null
@@ -141,6 +141,15 @@ function PublishPropertyClient ({ initialCities }) {
     transactionType
   )
 
+  useEffect(() => {
+    if(isMounted && !isLoading){
+      if(!user){
+        toast.info("Please Login to publish a property.")
+        router.push("/login")
+      }
+    }
+  },[user, isLoading, isMounted, router])
+
   // ── Effects ───────────────────────────────────────
   // Read sessionStorage on mount
   useEffect(() => {
@@ -155,7 +164,7 @@ function PublishPropertyClient ({ initialCities }) {
         residenceType: rt || prev.residenceType
       }))
     }
-  }, [])
+  }, [setFormData])
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -502,7 +511,7 @@ function PublishPropertyClient ({ initialCities }) {
       const res = await JUSTFLIP.post('/project', payload)
       toast.success(res?.data?.message || 'Property uploaded successfully!')
       setFormData(
-        buildInitialFormData(brokerId, residenceType, transactionType)
+        buildInitialFormData(userId, residenceType, transactionType)
       )
       setProjectQuery('')
       setLocationQuery('')
@@ -655,3 +664,4 @@ function PublishPropertyClient ({ initialCities }) {
 }
 
 export default PublishPropertyClient
+
