@@ -53,7 +53,8 @@ export default async function CityPage({ params }) {
   return (
     <div className="">
       <Breadcrumb items={breadcrumbItems} />
-      <div className="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-4 gap-6 mx-auto">
+
         <div className="lg:col-span-4 xl:col-span-3 space-y-4">
           <HeaderTop data={cityData} bannerImage={bannerImage} />
           <div className="block lg:hidden">
@@ -93,15 +94,16 @@ export default async function CityPage({ params }) {
           </Suspense>
 
         </div>
-        <div className="lg:col-span-2 xl:col-span-1 md:m-2 hidden lg:flex lg:flex-col lg:gap-4">
+
+        <div className="sticky top-20 self-start lg:col-span-2 xl:col-span-1 md:m-2 hidden lg:flex lg:flex-col lg:gap-4">
           <Suspense fallback={<RatingCardSkeleton />}>
             <PriceTrendClient data={reviewData} trendData={trends} type={"city"} typeId={id} />
           </Suspense>
           <Suspense fallback={<TopPropertySkeleton />}>
             <TopProperty typeId={id} type={"city"} />
           </Suspense>
-
         </div>
+        
       </div>
     </div>
   );

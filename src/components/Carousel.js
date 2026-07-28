@@ -787,7 +787,7 @@ export default function Carousel({
             {showArrows && hasLeft && (
                 <button
                     onClick={scrollPrev}
-                    className="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
+                    className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 z-20 h-8 w-6 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
                 >
                     <FiChevronLeft size={22} />
                 </button>
@@ -798,7 +798,7 @@ export default function Carousel({
             {showArrows && hasRight && (
                 <button
                     onClick={scrollNext}
-                    className="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 h-10 w-10 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
+                    className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 h-8 w-6 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
                 >
                     <FiChevronRight size={22} />
                 </button>
