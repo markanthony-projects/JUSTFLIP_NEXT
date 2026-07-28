@@ -8,6 +8,7 @@ import { useAuthStore } from '@/src/stores/auth.store'
 import { JUSTFLIP } from '@/src/lib/axios/api'
 import ProjectCard from '@/src/components/Cards/ProjectCard'
 import Link from 'next/link'
+import PropertyCard from '@/src/components/Cards/PropertyCard'
 
 const BrokerPropertyDashboard = () => {
   const { user, authType } = useAuthStore()
@@ -206,8 +207,8 @@ const BrokerPropertyDashboard = () => {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center md:justify-items-start"
           >
-            {filteredProperties.map(project => (
-              <ProjectCard key={project.id} project={project} />
+            {filteredProperties.map(project => (            
+              <PropertyCard key={project.id} project={project} />
             ))}
           </motion.div>
         ) : (

@@ -58,8 +58,8 @@ export default function BaseHeaderClient({ children, config, }) {
     const navigation = [
         {
             name: "Post Your Property",
-            to: "/upload-a-property",
-            current: "/upload-a-property",
+            to: "/post-property",
+            current: "/post-property",
             show: !authType,
 
         },
