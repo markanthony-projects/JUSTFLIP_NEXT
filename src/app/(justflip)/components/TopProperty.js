@@ -3,7 +3,9 @@ import React from 'react'
 import ProjectSection from './TaggedProperties/ProjectSection'
 
 async function TopProperty({ type, typeId }) {
+  
   const projects = await ProjectService.fetchTopProjects({ type, typeId, limit: 15, page: 1, })
+
   return (
     <section className="lg:border border-gray-300 rounded-xl lg:p-4  bg-white" aria-label="Top Properties">
       <h2 className="text-lg font-semibold ">Top Properties</h2>

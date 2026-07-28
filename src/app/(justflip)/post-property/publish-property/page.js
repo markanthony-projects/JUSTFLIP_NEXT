@@ -1,6 +1,7 @@
 import React from 'react'
 import PublishPropertyClient from '../../components/PostProperty/PublishProperty/PublishPropertyClient';
 import SiteService from '@/src/services/SiteService';
+// import PublishPropertyClient from '../../components/PostProperty/PublishProperty/New/PublishPropertyClient';
 
 async function PublishProperty() {
       const { cities } = await SiteService.fetchPopularCities({ offset: 0, limit: 15 });
