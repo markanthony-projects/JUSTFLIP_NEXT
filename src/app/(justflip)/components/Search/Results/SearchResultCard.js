@@ -66,6 +66,12 @@ const SearchResultCard = ({ project, priority }) => {
             priority={priority}
           />
         </Link>
+        <div className="absolute top-3 left-3 z-10">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm shadow-md text-xs font-semibold text-gray-800">
+            <span className="text-orange-500">🔥</span>
+            {tags}
+          </span>
+        </div>
         <div className="absolute top-3 right-3 z-10">
           <FavouriteButton
             project={project}
@@ -80,13 +86,15 @@ const SearchResultCard = ({ project, priority }) => {
         
         {/* Top Badges & Logo */}
         <div className="flex justify-between items-start mb-2">
-          <div className="flex flex-wrap gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-300 rounded-full text-xs font-semibold text-gray-700">
-              <span className="text-orange-500 text-[10px]">🔥</span>
-              {tags}
-            </span>
-
-          </div>
+          {/* Title & Location */}
+            <Link href={projectUrl} className="block mb-4">
+              <h2 className="text-xl font-bold text-gray-900 group-hover:text-[#002B5B] transition-colors line-clamp-1">
+                {projectName}
+              </h2>
+              <p className="text-sm font-medium text-gray-600 mt-0.5 line-clamp-1">
+                {locationName}, {cityName}{zoneName ? `, ${zoneName}` : ''}
+              </p>
+            </Link>
           
           {logoImage && (
             <div className="hidden sm:block w-16 h-12 relative border border-gray-100 rounded bg-white p-1 ml-4 shrink-0">
@@ -98,16 +106,6 @@ const SearchResultCard = ({ project, priority }) => {
             </div>
           )}
         </div>
-
-        {/* Title & Location */}
-        <Link href={projectUrl} className="block mb-4">
-          <h2 className="text-xl font-bold text-gray-900 group-hover:text-[#002B5B] transition-colors line-clamp-1">
-            {projectName}
-          </h2>
-          <p className="text-sm font-medium text-gray-600 mt-0.5 line-clamp-1">
-            {locationName}, {cityName}{zoneName ? `, ${zoneName}` : ''}
-          </p>
-        </Link>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-3 sm:gap-x-4 p-4 rounded-xl border border-gray-100 bg-gray-50/50 mt-auto mb-4">
