@@ -11,6 +11,7 @@ import ResultsHeader from './Results/ResultsHeader';
 import FilterPanel from './Filters/FilterPanel';
 import MobileFilterSheet from './Filters/MobileFilterSheet';
 import FilterChips from './Filters/FilterChips';
+import HorizontalFilterBar from './Filters/HorizontalFilterBar';
 import SearchBreadcrumb from './SEO/SearchBreadcrumb';
 
 const adapter = new PortalSearchAdapter();
@@ -66,8 +67,9 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       {/* 1. Sticky Search Bar Area */}
-      <div className="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm py-4">
-        <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+      <div className="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm py-0 lg:py-0">
+        <HorizontalFilterBar />
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl py-3">
           <div>
             <FilterChips />
           </div>
@@ -78,11 +80,11 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl py-6 flex-1 flex gap-6">
         
         {/* Left Sidebar (Desktop Filters) */}
-        <aside className="hidden lg:block w-[280px] shrink-0">
+        {/* <aside className="hidden lg:block w-[280px] shrink-0">
           <div className="sticky top-[140px]">
             <FilterPanel />
           </div>
-        </aside>
+        </aside> */}
 
         {/* Right Content Area (Results) */}
         <main className="flex-1 min-w-0 flex flex-col">
