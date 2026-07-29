@@ -7,7 +7,7 @@ async function TopProperty({ type, typeId }) {
   const projects = await ProjectService.fetchTopProjects({ type, typeId, limit: 15, page: 1, })
 
   return (
-    <section className="lg:border border-gray-300 rounded-xl lg:p-4  bg-white" aria-label="Top Properties">
+    <section className="lg:p-4 lg:px-5 lg:rounded-2xl lg:shadow-sm bg-white w-full p-2 md:p-3 shadow-[0_8px_30px_rgb(0,0,0,0.03)]" aria-label="Top Properties">
       <h2 className="text-lg font-semibold ">Top Properties</h2>
       <div className=" w-full lg:w-[260px] mx-auto ">
         {projects?.length > 0 ? (

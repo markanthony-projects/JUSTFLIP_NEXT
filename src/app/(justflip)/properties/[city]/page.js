@@ -95,7 +95,7 @@ export default async function CityPage({ params }) {
 
         </div>
 
-        <div className="sticky top-20 self-start lg:col-span-2 xl:col-span-1 md:m-2 hidden lg:flex lg:flex-col lg:gap-4">
+        <div className="sticky top-28 self-start lg:col-span-2 xl:col-span-1 hidden lg:flex lg:flex-col lg:gap-2">
           <Suspense fallback={<RatingCardSkeleton />}>
             <PriceTrendClient data={reviewData} trendData={trends} type={"city"} typeId={id} />
           </Suspense>
