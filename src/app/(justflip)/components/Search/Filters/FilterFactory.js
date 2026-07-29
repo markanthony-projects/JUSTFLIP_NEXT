@@ -11,7 +11,7 @@ export const FilterRegistry = {
   'property-type': PropertyTypeFilter,
 };
 
-export default function FilterFactory({ config }) {
+export default function FilterFactory({ config, onClose }) {
   const FilterComponent = FilterRegistry[config.type];
 
   if (config.type === 'hidden') {
@@ -23,5 +23,5 @@ export default function FilterFactory({ config }) {
     return null;
   }
 
-  return <FilterComponent config={config} />;
+  return <FilterComponent config={config} onClose={onClose} />;
 }

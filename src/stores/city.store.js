@@ -41,11 +41,11 @@ export const useCityStore = create(
             hasResolvedCity: false,
 
             setActiveCity: (city) => {
-                if (!city || get().activeCity?.id === city.id) return;
+                if (city && get().activeCity?.id === city.id) return;
 
                 set({
                     activeCity: city,
-                    hasResolvedCity: true,
+                    hasResolvedCity: !!city,
                 });
 
                 setCityCookie(city);

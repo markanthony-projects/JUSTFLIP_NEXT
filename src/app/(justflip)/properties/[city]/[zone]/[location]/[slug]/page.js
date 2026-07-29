@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react'
-import { getProjectPageData } from '@/src/app/(justflip)/components/CityComponent/city.server';
+import { getProjectPageData, getProjectReviews, getLocationDetails, getSimilarProjects } from '@/src/app/(justflip)/components/CityComponent/city.server';
 import dynamic from 'next/dynamic';
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import PriceTrendSchema from '@/src/components/seo/PriceTrendSchema';
@@ -68,9 +68,9 @@ export const revalidate = 1800;
 async function PropertyDetails({ params }) {
     const { city, zone, location, slug } = await params;
     const { cityName, zoneName, locationName, name, id } = parseProjectUrl(city, zone, location, slug)
-    const { projectData, reviewData, locationData, similarProjects } = await getProjectPageData(id);
+    const { projectData } = await getProjectPageData(id);
 
-    const UniqueSimilarProject = similarProjects?.filter((data) => data?.id !== projectData?.id);
+    const locationId = projectData?.location?.id;
     const cityUrl = createCityUrl(cityName, projectData?.city?.id)
     const zoneUrl = createZoneUrl(cityName, projectData?.zone?.name, projectData?.zone?.id)
     const locationUrl = createLocationUrl(cityName, zoneName, locationName, projectData?.location?.id)
@@ -139,22 +139,17 @@ async function PropertyDetails({ params }) {
                         </Suspense>
 
                         <Suspense fallback={<ReviewsSkeleton />} >
-                            <ReviewsSectionClient typeName={projectData?.name} typeId={projectData?.id} type="project" reviews={reviewData} />
+                            <ReviewsWrapper projectId={id} projectName={projectData?.name} />
                         </Suspense>
-                        <Suspense fallback={<DeveloperLegacySkeleton />} >
-                            <DeveloperDetail project={projectData} data={locationData} />
-                        </Suspense>
-                        <Suspense fallback={<HighlightSkeleton />} >
-                            <Highlight data={locationData} />
-                        </Suspense>
-                        <Suspense fallback={<PriceTrendSkeleton />} >
-                            <PriceTrendSection data={locationData} />
-                        </Suspense>
-
-                        <PriceTrendSchema trends={locationData?.pricings} />
-
-                        <Suspense fallback={<LocationImageGallerySkeleton />} >
-                            <LocationImageGallery data={locationData} />
+                        <Suspense fallback={
+                            <>
+                                <DeveloperLegacySkeleton />
+                                <HighlightSkeleton />
+                                <PriceTrendSkeleton />
+                                <LocationImageGallerySkeleton />
+                            </>
+                        }>
+                            <LocationInfoWrapper locationId={locationId} projectData={projectData} />
                         </Suspense>
 
                     </div>
@@ -166,7 +161,7 @@ async function PropertyDetails({ params }) {
                             <LeadForm data={projectData} />
                         </Suspense>
                         <Suspense fallback={<CompareCarouselSkeleton />} >
-                            <CompareCarousel data={UniqueSimilarProject} />
+                            <SimilarProjectsWrapper locationId={locationId} projectId={id} type="compare" />
                         </Suspense>
                     </div>
                 </div>
@@ -176,7 +171,7 @@ async function PropertyDetails({ params }) {
                 <FloatingActions data={projectData} />
             </section>
             <Suspense fallback={<SimilarPropertiesSkeleton />}>
-                <SimilarProject data={UniqueSimilarProject} />
+                <SimilarProjectsWrapper locationId={locationId} projectId={id} type="similar" />
             </Suspense>
             <Suspense fallback={<FAQSkeleton />}>
                 <FAQ data={projectData} />
@@ -184,6 +179,34 @@ async function PropertyDetails({ params }) {
 
         </div>
     )
+}
+
+async function ReviewsWrapper({ projectId, projectName }) {
+    const reviewData = await getProjectReviews(projectId);
+    return <ReviewsSectionClient typeName={projectName} typeId={projectId} type="project" reviews={reviewData} />;
+}
+
+async function LocationInfoWrapper({ locationId, projectData }) {
+    const locationData = await getLocationDetails(locationId);
+    return (
+        <>
+            <DeveloperDetail project={projectData} data={locationData} />
+            <Highlight data={locationData} />
+            <PriceTrendSection data={locationData} />
+            <PriceTrendSchema trends={locationData?.pricings} />
+            <LocationImageGallery data={locationData} />
+        </>
+    );
+}
+
+async function SimilarProjectsWrapper({ locationId, projectId, type }) {
+    const similarProjects = await getSimilarProjects(locationId);
+    const UniqueSimilarProject = similarProjects?.filter((data) => data?.id !== projectId);
+    
+    if (type === 'compare') {
+        return <CompareCarousel data={UniqueSimilarProject} />;
+    }
+    return <SimilarProject data={UniqueSimilarProject} />;
 }
 
 export default PropertyDetails
