@@ -21,28 +21,36 @@ const PublishPropertySidebar = () => {
   }
 
   return (
-    <div className="md:hidden fixed right-3 top-1/2 -translate-y-1/2 z-50">
-        <div className="bg-white rounded-full shadow-lg border border-slate-200 px-3 py-2 flex flex-col items-center">
-            <div className='flex items-center gap-2'>
-                <button
-                    onClick={HandleCall}
-                    className="w-7 h-7 rounded-full bg-[#002B5B] text-white flex items-center justify-center transition-transform hover:scale-105"
-                >
-                    <IoCallOutline size={18} />
-                </button>
+    <div className="fixed right-2 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
+      
+      <button
+        onClick={HandleCall}
+        className="group flex items-center justify-end"
+      >
+        <span className="mr-2 bg-[#002B5B] text-white px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+          Call Us
+        </span>
 
-                <button
-                    onClick={handleWhatsApp}
-                    className="w-7 h-7 rounded-full bg-[#25D366] text-white flex items-center justify-center transition-transform hover:scale-105"
-                >
-                    <FaWhatsapp size={18} />
-                </button>
-            </div>
-            {/* <span className="mt-2 text-[10px] font-semibold text-slate-600">
-                Need Help
-            </span> */}
+        <div className="w-12 h-12 rounded-full bg-[#002B5B] text-white flex items-center justify-center shadow-lg">
+          <IoCallOutline size={22} />
         </div>
+      </button>
+
+      <button
+        onClick={handleWhatsApp}
+        className="group flex items-center justify-end"
+      >
+        <span className="mr-2 bg-[#25D366] text-white px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+          WhatsApp
+        </span>
+
+        <div className="w-12 h-12 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-lg">
+          <FaWhatsapp size={22} />
+        </div>
+      </button>
+
     </div>
+
 
   )
 }

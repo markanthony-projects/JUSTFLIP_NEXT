@@ -95,7 +95,7 @@ export default async function LocationPage({ params }) {
           <PriceTrendSchema trends={locationData?.pricings} />
 
           <Suspense fallback={<TopBuildersSkeleton />}>
-            <BuildersSection builders={builders} />
+            <BuildersSection builders={builders} city={locationData?.city} />
           </Suspense>
 
           <Suspense fallback={<LocationAroundSkeleton />}>

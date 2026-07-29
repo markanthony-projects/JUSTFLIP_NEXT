@@ -71,7 +71,7 @@ export default async function CityPage({ params }) {
           </Suspense>
 
           <Suspense fallback={<TopBuildersSkeleton />}>
-            <BuildersSection builders={builders} />
+            <BuildersSection builders={builders} city={cityData} />
           </Suspense>
 
           <Suspense fallback={<PropertySupplySkeleton />}>

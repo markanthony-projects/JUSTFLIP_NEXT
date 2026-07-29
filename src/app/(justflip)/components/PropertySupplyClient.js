@@ -1,15 +1,22 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Carousel from "@/src/components/Carousel";
 import Image from "@/src/components/atoms/Image";
+import { JUSTFLIP } from "@/src/lib/axios/api";
+import { formatDisplayPrice } from "@/src/utils/RenderFunction";
+import { formatUrl } from "@/src/utils/URLFormatter";
+
+const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_COLUMN = 3;
 
 const tabs = [
   {
     name: "Apartment",
-    value: 'apartment',
-    icon: (isSelected) => (
+    value: "apartment",
+    icon: () => (
       <svg
         width="43"
         height="43"
@@ -30,7 +37,7 @@ const tabs = [
   },
   {
     name: "Villa",
-    value: 'villa',
+    value: "villa",
     icon: (isSelected) => (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -47,8 +54,8 @@ const tabs = [
   },
   {
     name: "Plot",
-    value: 'plot',
-    icon: (isSelected) => (
+    value: "plot",
+    icon: () => (
       <svg
         width="43"
         height="43"
@@ -82,89 +89,377 @@ const tabs = [
   },
 ];
 
+const getPriceRangesForCity = (cityName) => {
+  const city = (cityName || "").toString().toLowerCase();
 
+  if (city === "dubai") {
+    return [
+      { label: "AED 0M - 1M", min: 0, max: 1000000 },
+      { label: "AED 1M - 10M", min: 1000000, max: 10000000 },
+      { label: "AED 10M - 20M", min: 10000000, max: 20000000 },
+      { label: "AED 20M - 30M", min: 20000000, max: 30000000 },
+      { label: "AED 30M - 40M", min: 30000000, max: 40000000 },
+      { label: "AED 40M - 50M", min: 40000000, max: 50000000 },
+      { label: "AED 50M +", min: 50000000, max: null },
+    ];
+  }
 
+  return [
+    { label: "INR 30L - 80L", min: 3000000, max: 8000000 },
+    { label: "INR 1Cr - 1.5Cr", min: 10000000, max: 15000000 },
+    { label: "INR 1.5Cr - 2Cr", min: 15000000, max: 20000000 },
+    { label: "INR 2Cr - 3Cr", min: 20000000, max: 30000000 },
+    { label: "INR 4Cr +", min: 50000000, max: null },
+  ];
+};
 
-export default function PropertySupplyClient({ initialProjects, typeName }) {
-  const [projects] = useState(initialProjects);
+const getPropertyCurrency = (property) => {
+  const units = Array.isArray(property?.units) ? property.units : [];
+
+  for (let i = 0; i < units.length; i++) {
+    if (units[i]?.currency) return units[i].currency.toString().toUpperCase();
+  }
+
+  return "INR";
+};
+
+const extractProjects = (payload) => {
+  if (Array.isArray(payload)) return payload;
+  if (Array.isArray(payload?.projects)) return payload.projects;
+  return [];
+};
+
+const extractTotal = (payload, fallback) => {
+  const total = payload?.pagination?.total ?? payload?.total;
+  return Number.isFinite(Number(total)) ? Number(total) : fallback;
+};
+
+const getProjectIdentity = (project) => {
+  return project?.id ?? project?._id ?? project?.slug ?? null;
+};
+
+const dedupeProjects = (projectList) => {
+  if (!Array.isArray(projectList)) return [];
+
+  const seen = new Set();
+
+  return projectList.filter((project) => {
+    const identity = getProjectIdentity(project);
+
+    if (!identity) return true;
+    if (seen.has(identity)) return false;
+
+    seen.add(identity);
+    return true;
+  });
+};
+
+const getScopeParam = (typeName, typeId) => {
+  if (!typeName || !typeId) return {};
+
+  switch (typeName) {
+    case "location":
+      return { locationId: typeId };
+    case "zone":
+      return { zoneId: typeId };
+    case "city":
+      return { cityId: typeId };
+    default:
+      return {};
+  }
+};
+
+const getInitialTabData = (initialProjects, activeTab) => {
+  const grouped = Array.isArray(initialProjects)
+    ? initialProjects.find((item) => item?.type === activeTab)
+    : null;
+
+  if (grouped) {
+    const projects = dedupeProjects(grouped.projects);
+
+    return {
+      projects,
+      total: Number(grouped.total || projects.length || 0),
+    };
+  }
+
+  const projects = dedupeProjects(extractProjects(initialProjects));
+
+  return {
+    projects,
+    total: extractTotal(initialProjects, projects.length),
+  };
+};
+
+const getProjectHref = (property) => {
+  const city = property?.city?.name || "city";
+  const zone = property?.zone?.name || "zone";
+  const location = property?.location?.name || "location";
+  const name = property?.name || "property";
+
+  return `/properties/${formatUrl(city)}/${formatUrl(zone)}/${formatUrl(location)}/${formatUrl(name)}/${property?.id}`;
+};
+
+const getFormattedPrice = (property, fallbackCurrency) => {
+  if (!property?.priceRange) return "Price on request";
+
+  let currency = fallbackCurrency;
+  const priceRange = property.priceRange.toString();
+  const upperPriceRange = priceRange.toUpperCase();
+
+  if (upperPriceRange.includes("AED")) currency = "AED";
+  if (upperPriceRange.includes("INR")) currency = "INR";
+  if (upperPriceRange.includes("$") || upperPriceRange.includes("USD")) currency = "USD";
+
+  const parts = priceRange
+    .split(/\s*(?:-|\u2013|\u2014|\u2212|to)\s*/i)
+    .filter(Boolean);
+  const formatPart = (part) => {
+    const value = part.trim();
+
+    if (/[a-z]/i.test(value)) {
+      return value;
+    }
+
+    return formatDisplayPrice(value, currency);
+  };
+
+  if (parts.length >= 2) {
+    return `${formatPart(parts[0])} - ${formatPart(parts[1])}`;
+  }
+
+  if (parts.length === 1) {
+    return formatPart(parts[0]);
+  }
+
+  return priceRange;
+};
+
+export default function PropertySupplyClient({ initialProjects, typeName, typeId }) {
+  const pathname = usePathname();
   const [activeTab, setActiveTab] = useState("apartment");
+  const [page, setPage] = useState(1);
   const [selectedPriceRange, setSelectedPriceRange] = useState(null);
+  const [projects, setProjects] = useState(() => getInitialTabData(initialProjects, "apartment").projects);
+  const [totalCount, setTotalCount] = useState(() => getInitialTabData(initialProjects, "apartment").total);
+  const [loading, setLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
 
+  const selectedCity = pathname?.split("/").filter(Boolean)[1] || "";
+  const priceRanges = useMemo(() => getPriceRangesForCity(selectedCity), [selectedCity]);
+  const scopeParam = useMemo(() => getScopeParam(typeName, typeId), [typeName, typeId]);
+  const currency = useMemo(() => getPropertyCurrency(projects[0]), [projects]);
+  const projectColumns = useMemo(
+    () => Array.from({ length: Math.ceil(projects.length / ITEMS_PER_COLUMN) }),
+    [projects.length]
+  );
+
+  const fetchProjects = useCallback(
+    async ({ nextPage, append }) => {
+      if (!Object.keys(scopeParam).length) return;
+
+      if (append) {
+        setIsFetching(true);
+      } else {
+        setLoading(true);
+      }
+
+      try {
+        const { data } = await JUSTFLIP.get("/project/city-projects", {
+          params: {
+            page: nextPage,
+            limit: ITEMS_PER_PAGE,
+            propertyType: activeTab,
+            ...(selectedPriceRange && {
+              minPrice: selectedPriceRange.min,
+              maxPrice: selectedPriceRange.max,
+            }),
+            ...scopeParam,
+          },
+        });
+
+        const nextProjects = dedupeProjects(extractProjects(data));
+
+        setProjects((current) => (
+          append ? dedupeProjects([...current, ...nextProjects]) : nextProjects
+        ));
+        setTotalCount((currentTotal) => {
+          const fallback = append ? nextPage * ITEMS_PER_PAGE : nextProjects.length;
+          return extractTotal(data, currentTotal || fallback);
+        });
+      } catch (error) {
+        console.error("Failed to fetch property supply projects:", error);
+
+        if (!append) {
+          const initialData = getInitialTabData(initialProjects, activeTab);
+          setProjects(initialData.projects);
+          setTotalCount(initialData.total);
+        }
+      } finally {
+        setLoading(false);
+        setIsFetching(false);
+      }
+    },
+    [activeTab, initialProjects, scopeParam, selectedPriceRange]
+  );
+
+  useEffect(() => {
+    setPage(1);
+    fetchProjects({ nextPage: 1, append: false });
+  }, [fetchProjects]);
 
   return (
-    <div className="bg-[#F3F8FA] rounded-md p-4">
-      <p className=" text-lg font-medium">Explore More Properties</p>
+    <div className="rounded-2xl bg-white p-4 shadow-md mt-6">
+      <p className="mb-4 text-[18px] leading-[18px] font-semibold text-[#002B5B]">
+        Explore More Properties
+      </p>
 
-      <div className="flex py-2 my-2 gap-3 rounded-xl justify-start overflow-x-auto h-[74px]">
-        {tabs?.map((tab, i) => (
-          <button
-            type="button"
-            aria-label="Select Tab"
-            key={i}
-            className={`flex-1 px-4 py-1 font-medium flex items-center justify-start gap-2 md:gap-4 transition-all duration-300 border rounded-xl min-w-44
-            ${activeTab === tab.value
-                ? "bg-[#002B5B] text-white border-[#002B5B]"
-                : "bg-white text-[#002B5B] hover:bg-gray-200"
-              }
-          `}
-            onClick={() => setActiveTab(tab.value)}
-          >
-            {tab.icon ? tab.icon(activeTab === tab.value) : null}
-            <div className="grid justify-start items-start text-start">
-              <p className=" text-[16px] leading-[22.4px] font-[500]">{tab.name}</p>
-              <p className=" text-[12px] leading-[16.8px] font-[400]">
-                {Number(projects?.find(d => d.type === tab.value)?.total || 0)} Properties
-              </p>
-            </div>
-          </button>
-        ))}
+      <div className="flex h-[74px] justify-start gap-3 overflow-x-auto rounded-xl pb-2">
+        {tabs.map((tab) => {
+          const isSelected = activeTab === tab.value;
+
+          return (
+            <button
+              type="button"
+              aria-label={`Select ${tab.name}`}
+              aria-pressed={isSelected}
+              key={tab.value}
+              onClick={() => {
+                setActiveTab(tab.value);
+                setPage(1);
+                setSelectedPriceRange(null);
+              }}
+              className={`group flex min-w-44 flex-1 items-center justify-start gap-2 rounded-xl border px-4 py-2 font-medium transition-all duration-300 hover:shadow-md md:gap-4 ${
+                isSelected
+                  ? "border-[#002B5B] bg-[#002B5B] text-white shadow-md"
+                  : "border-slate-200 bg-white text-[#002B5B] hover:bg-slate-50"
+              }`}
+            >
+              <span className="rounded-full p-2 transition-all duration-300">
+                {tab.icon(isSelected)}
+              </span>
+
+              <div className="grid items-start justify-start text-start">
+                <p className="text-[16px] leading-[22.4px] font-[500]">
+                  {tab.name}
+                </p>
+                <p
+                  className={`text-[12px] leading-[16.8px] font-[400] ${
+                    isSelected ? "text-white/90" : "text-slate-500"
+                  }`}
+                >
+                  {isSelected ? `${totalCount} Properties` : "Tap to explore"}
+                </p>
+              </div>
+            </button>
+          );
+        })}
       </div>
 
-      <hr className=" border-[#BABABA] md:border-t-[0.5px] my-4" />
+      <hr className="my-4 border-[#BABABA] md:border-t-[0.5px]" />
 
-      <div className="mt-4">
-        {projects.length === 0 && (
-          <p className="text-gray-500 text-center">No properties available.</p>
+      <div className="flex flex-wrap justify-between gap-2 overflow-x-auto py-1 sm:flex-nowrap">
+        <div className="flex flex-wrap gap-2 sm:flex-nowrap">
+          {priceRanges.map((range) => {
+            const isSelected = selectedPriceRange?.label === range.label;
+
+            return (
+              <button
+                type="button"
+                aria-label={`Select Price Range ${range.label}`}
+                key={range.label}
+                onClick={() => {
+                  setSelectedPriceRange(range);
+                  setPage(1);
+                }}
+                className={`min-w-24 rounded-full border px-3 py-1.5 text-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm sm:min-w-28 ${
+                  isSelected
+                    ? "border-[#002B5B] bg-[#002B5B] text-white"
+                    : "border-slate-200 bg-white text-[#002B5B] hover:bg-slate-50"
+                }`}
+              >
+                {range.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="relative mt-4 min-h-[300px] w-full custom-scrollbar">
+        {!projects.length && !loading && !isFetching ? (
+          <div className="flex h-60 items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white/70">
+            <p className="text-gray-500">No properties available for this selection.</p>
+          </div>
+        ) : (
+          <Carousel
+            items={projectColumns}
+            itemWidth={320}
+            showDots={false}
+            renderItem={(_, colIndex) => {
+              const items = projects
+                .slice(colIndex * ITEMS_PER_COLUMN, colIndex * ITEMS_PER_COLUMN + ITEMS_PER_COLUMN)
+                .filter(Boolean);
+              const totalColumns = Math.ceil(projects.length / ITEMS_PER_COLUMN);
+              const isLastColumn = colIndex === totalColumns - 1;
+
+              return (
+                <div className="flex min-w-[320px] flex-col gap-3 mt-3 mb-4">
+                  {items.map((property, rowIndex) => (
+                    <Link
+                      href={getProjectHref(property)}
+                      key={`${getProjectIdentity(property) || "property"}-${colIndex}-${rowIndex}`}
+                    >
+                      <div
+                        className={`flex w-full items-center gap-3 rounded-xl bg-white p-2 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-sm border border-slate-100 ${
+                          !isLastColumn ? "md:shadow-[0_4px_12px_rgba(0,43,91,0.08)]" : ""
+                        }`}
+                      >
+                        <div className="relative h-16 w-16 overflow-hidden rounded-xl border border-slate-200 shadow-md transition-transform duration-300 hover:scale-105">
+                          <Image
+                            src={property?.logo || property?.banner}
+                            alt={property?.name || "Property"}
+                            sizes="64px"
+                          />
+                        </div>
+
+                        <div className="min-w-0 flex-1 space-y-1">
+                          <div className="flex items-center justify-between gap-2">
+                            <h3 className="max-w-[220px] truncate text-base font-semibold text-[#002B5B]">
+                              {property?.name}
+                            </h3>
+                            <span className="rounded-full bg-[#002B5B]/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-[#002B5B]">
+                              View
+                            </span>
+                          </div>
+                          <p className="max-w-[220px] truncate text-sm font-semibold text-[#002B5B]">
+                            {getFormattedPrice(property, currency)}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              );
+            }}
+            onReachEnd={() => {
+              const hasMore = totalCount
+                ? projects.length < totalCount
+                : projects.length === page * ITEMS_PER_PAGE;
+
+              if (!isFetching && !loading && hasMore) {
+                const nextPage = page + 1;
+                setPage(nextPage);
+                fetchProjects({ nextPage, append: true });
+              }
+            }}
+          />
         )}
 
-        <Carousel
-          rows={3}
-          items={projects?.find(d => d.type === activeTab)?.projects}
-          itemWidth={320}
-          aspect="h-fit"
-          showDots={false}
-          renderItem={(property, index) => {
-            const isLastRow = index >= projects?.find(d => d.type === activeTab)?.projects?.length - 3;
-            return (
-              <Link
-                href={`/`}
-                key={property?.id}
-              >
-                <div
-                  className={`p-2 flex items-center w-full gap-3  ${isLastRow ? "" : "border-r border-gray-400"} `}
-                >
-                  <div className="w-16 h-16 rounded-full overflow-hidden shadow-md relative">
-                    <Image
-                      src={property?.banner}
-                      alt={property.name}
-                      sizes="64px"
-                    />
-                  </div>
-
-                  <div className="space-y-1">
-                    <h3 className=" text-base font-medium text-[#002B5B]  line-clamp-1 max-w-[220px]">
-                      {property.name}
-                    </h3>
-                    <p className="text-sm font-normal text-[#002B5B] underline">
-
-                      {property.priceRange}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            );
-          }}
-        />
+        {(loading || isFetching) && (
+          <div className="flex min-w-[120px] items-center justify-center py-3">
+            <div className="h-6 w-6 animate-spin rounded-full border-t-2 border-[#002B5B]" />
+          </div>
+        )}
       </div>
     </div>
   );
