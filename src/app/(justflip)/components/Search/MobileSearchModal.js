@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { HiOutlineX, HiSearch, HiLocationMarker } from "react-icons/hi";
+import { HiOutlineX, HiSearch, HiLocationMarker, HiOutlinePencil } from "react-icons/hi";
+import { BiTargetLock } from "react-icons/bi";
 import { useSearchStore } from "@/src/stores/search.store";
 import { useCityStore } from "@/src/stores/city.store";
 import { fetchSuggestionsAction } from "@/src/components/SearchBar/search.actions";
@@ -13,6 +14,7 @@ import { PiBuildingApartment } from "react-icons/pi";
 import { SlLocationPin } from "react-icons/sl";
 import { BsBuildingFillGear } from "react-icons/bs";
 import FilterFactory from "@/src/app/(justflip)/components/Search/Filters/FilterFactory";
+import LocationSelectorModal from "@/src/app/(justflip)/components/Search/LocationSelectorModal";
 import { SEARCH_CONFIG } from "@/src/services/search/searchConfig";
 import { PortalSearchAdapter } from "@/src/services/search/adapters/PortalSearchAdapter";
 
@@ -33,6 +35,9 @@ export default function MobileSearchModal() {
     const [suggestions, setSuggestions] = useState(emptySuggestions);
     const [isPending, startTransition] = useTransition();
     const [showCityDropdown, setShowCityDropdown] = useState(false);
+    const [showLocalityDropdown, setShowLocalityDropdown] = useState(false);
+    const [showLocationEditor, setShowLocationEditor] = useState(false);
+    const [selectedLocalities, setSelectedLocalities] = useState([]);
     const [loadingCities, setLoadingCities] = useState(false);
     const [liveTotal, setLiveTotal] = useState(total);
     const [isCalculating, setIsCalculating] = useState(false);
@@ -43,16 +48,23 @@ export default function MobileSearchModal() {
 
     const pathname = usePathname();
     const searchParams = useSearchParams();
+    const submitRef = useRef(false);
 
-    // Close modal automatically when the route finishes changing
+    // Close modal automatically when the route finishes changing, BUT only if user submitted
     useEffect(() => {
-        if (isSearchModalOpen) {
+        if (isSearchModalOpen && submitRef.current) {
             closeSearchModal();
+            submitRef.current = false;
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname, searchParams]);
 
     const debounceRef = useRef(null);
+
+    // Clear localities when the city changes
+    useEffect(() => {
+        setSelectedLocalities([]);
+    }, [activeCity?.id]);
 
     // Prevent background scrolling
     useEffect(() => {
@@ -94,16 +106,16 @@ export default function MobileSearchModal() {
     // Live Total Calculation
     useEffect(() => {
         if (!isSearchModalOpen || !activeCity) return;
-        
+
         setIsCalculating(true);
         const timer = setTimeout(async () => {
             try {
-                const data = await adapter.search({ 
-                    query: search, 
-                    filters, 
-                    sort: 'relevance', 
-                    page: 1, 
-                    limit: 1 
+                const data = await adapter.search({
+                    query: search,
+                    filters,
+                    sort: 'relevance',
+                    page: 1,
+                    limit: 1
                 });
                 setLiveTotal(data.total);
             } catch (error) {
@@ -129,6 +141,7 @@ export default function MobileSearchModal() {
         const params = useSearchStore.getState().toSearchParams();
         const queryString = params.toString();
 
+        submitRef.current = true;
         startNavigation(() => {
             if (queryString) {
                 router.push(`/search?${queryString}`);
@@ -150,178 +163,258 @@ export default function MobileSearchModal() {
         ...suggestions.builders.map(b => ({ type: "builder", data: b })),
     ];
 
+    const toggleLocality = (loc) => {
+        if (selectedLocalities.find(l => l.id === loc.id)) {
+            setSelectedLocalities(selectedLocalities.filter(l => l.id !== loc.id));
+        } else {
+            setSelectedLocalities([...selectedLocalities, loc]);
+        }
+    };
+
     return (
-        <div className="fixed inset-0 z-[110] bg-white flex flex-col animate-slide-up md:hidden">
-            {/* Header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 shadow-sm">
-                <h2 className="text-lg font-bold text-[#002B5B]">Search Properties</h2>
-                <button onClick={closeSearchModal} className="p-2 -mr-2 text-gray-500 hover:text-gray-900">
-                    <HiOutlineX className="w-6 h-6" />
-                </button>
-            </div>
+        <>
+            <div className={`fixed inset-0 z-[110] bg-white flex flex-col animate-slide-up md:hidden`}>
+                {/* Header */}
+                <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 shadow-sm bg-white z-10">
+                    <h2 className="text-xl font-extrabold text-[#002B5B] tracking-tight">Search Properties</h2>
+                    <button onClick={closeSearchModal} className="p-2 -mr-2 bg-gray-50 text-gray-500 hover:bg-gray-100 hover:text-gray-900 rounded-full transition-colors">
+                        <HiOutlineX className="w-5 h-5" />
+                    </button>
+                </div>
 
-            <div className="flex-1 flex flex-col overflow-hidden bg-gray-50">
-                {/* Search Form Area */}
-                <div className="bg-white p-4 space-y-4 shadow-sm border-b border-gray-200">
-                    
-                    {/* Mandatory City Selection */}
-                    <div>
-                        <label className="block text-xs font-semibold text-gray-600 mb-1 uppercase tracking-wider">Select City *</label>
-                        <button 
-                            type="button"
-                            onClick={() => setShowCityDropdown(!showCityDropdown)}
-                            className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border ${!activeCity ? 'border-red-400 bg-red-50' : 'border-gray-300 bg-gray-50'}`}
-                        >
-                            <div className="flex items-center gap-2">
-                                <HiLocationMarker className={activeCity ? 'text-[#002B5B]' : 'text-red-500'} />
-                                <span className={activeCity ? 'text-gray-900 font-medium' : 'text-red-500'}>
-                                    {activeCity ? activeCity.name : "Tap to select your city"}
-                                </span>
-                            </div>
-                            <svg className={`w-4 h-4 text-gray-500 transition-transform ${showCityDropdown ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        
-                        {/* City Dropdown List */}
-                        {showCityDropdown && (
-                            <div className="mt-2 bg-white border border-gray-200 rounded-xl shadow-lg max-h-48 overflow-y-auto">
-                                {loadingCities ? (
-                                    <div className="p-4 text-sm text-center text-gray-500">Loading cities...</div>
-                                ) : (
-                                    <ul className="py-1">
-                                        {cityList.map((city) => (
-                                            <li 
-                                                key={city.id}
-                                                onClick={() => handleSelectCity(city)}
-                                                className={`px-4 py-3 text-sm cursor-pointer border-b border-gray-50 last:border-0 flex items-center justify-between ${activeCity?.id === city.id ? 'bg-blue-50 text-[#002B5B] font-semibold' : 'text-gray-700 hover:bg-gray-50'}`}
+                <div className="flex-1 flex flex-col overflow-hidden bg-gray-50">
+                    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24 scrollbar-hide">
+                        {/* Search Form Area */}
+                        <div className="bg-white p-4 pb-2 shadow-sm border-b border-gray-200">
+                            {/* Top section: You are searching in ... Edit */}
+                            {activeCity && (
+                                <div className="flex justify-between items-center px-2 py-1 mb-4 bg-blue-50/40 rounded-lg">
+                                    <p className="text-[13px] text-gray-500">
+                                        You are searching in <span className="font-semibold text-[#002B5B]">{activeCity.name}</span>
+                                    </p>
+                                    <button
+                                        onClick={() => setShowLocationEditor(true)}
+                                        className="text-[13px] text-[#002B5B] font-medium flex items-center gap-1.5 hover:bg-blue-100 px-2 py-1 rounded-md transition-colors"
+                                    >
+                                        Edit <HiOutlinePencil className="w-3.5 h-3.5" />
+                                    </button>
+                                </div>
+                            )}
+
+                            {/* City Dropdown List */}
+                            {showCityDropdown && (
+                                <div className="mt-2 mb-3 bg-white border border-gray-200 rounded-xl shadow-lg max-h-48 overflow-y-auto">
+                                    {loadingCities ? (
+                                        <div className="p-4 text-sm text-center text-gray-500">Loading cities...</div>
+                                    ) : (
+                                        <ul className="py-1">
+                                            {cityList.map((city) => (
+                                                <li
+                                                    key={city.id}
+                                                    onClick={() => handleSelectCity(city)}
+                                                    className={`px-4 py-3 text-sm cursor-pointer border-b border-gray-50 last:border-0 flex items-center justify-between ${activeCity?.id === city.id ? 'bg-blue-50 text-[#002B5B] font-semibold' : 'text-gray-700 hover:bg-gray-50'}`}
+                                                >
+                                                    {city.name}
+                                                    {activeCity?.id === city.id && <div className="w-2 h-2 rounded-full bg-[#002B5B]" />}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* City/Localities/Projects Card */}
+                            <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-gray-100 p-5 mb-2 transition-all">
+                                <h3 className="text-[15px] font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                    City, Localities & Projects
+                                </h3>
+
+                                <div className="flex flex-wrap gap-2.5 mb-5">
+                                    {/* Selected City Pill */}
+                                    {activeCity && (
+                                        <div className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-[#e8f6f3] to-[#d1f2eb] text-gray-800 border border-[#1abc9c]/50 rounded-full text-[13px] font-medium shadow-sm">
+                                            {activeCity.name}
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setActiveCity(null);
+                                                    setShowLocationEditor(true);
+                                                }}
+                                                className="text-gray-500 hover:text-red-500 ml-1 flex items-center justify-center transition-colors bg-white/50 rounded-full p-0.5"
                                             >
-                                                {city.name}
-                                                {activeCity?.id === city.id && <div className="w-2 h-2 rounded-full bg-[#002B5B]" />}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
-                            </div>
-                        )}
-                    </div>
+                                                <HiOutlineX className="w-3.5 h-3.5" />
+                                            </button>
+                                        </div>
+                                    )}
 
-                    {/* Search Input */}
-                    <form onSubmit={handleSearchSubmit} className="relative">
-                        <div className="relative flex items-center bg-gray-50 border border-gray-300 rounded-xl overflow-hidden focus-within:border-[#002B5B] focus-within:ring-1 focus-within:ring-[#002B5B] transition-all">
-                            <div className="pl-3 text-gray-400">
-                                <HiSearch className="w-5 h-5" />
-                            </div>
-                            <input
-                                type="text"
-                                value={search}
-                                onChange={(e) => setSearch(e.target.value)}
-                                disabled={!activeCity}
-                                placeholder={activeCity ? "Search projects, localities, builders..." : "Select a city first"}
-                                className="flex-1 py-3 px-3 bg-transparent border-none focus:outline-none focus:ring-0 text-sm disabled:opacity-50"
-                            />
-                            {search && (
-                                <button type="button" onClick={() => setSearch("")} className="pr-3 text-gray-400">
-                                    <HiOutlineX className="w-5 h-5" />
+                                    {/* Added Localities */}
+                                    {selectedLocalities.slice(0, 2).map((loc) => (
+                                        <div key={loc.id} className="flex items-center gap-1.5 px-4 py-2 bg-gray-50 text-gray-700 border border-gray-200 rounded-full text-[13px] font-medium shadow-sm hover:border-gray-300 transition-colors">
+                                            {loc.name}
+                                            <button
+                                                type="button"
+                                                onClick={() => toggleLocality(loc)}
+                                                className="text-gray-400 hover:text-red-500 ml-1 flex items-center justify-center transition-colors bg-white rounded-full p-0.5 shadow-sm"
+                                            >
+                                                <HiOutlineX className="w-3.5 h-3.5" />
+                                            </button>
+                                        </div>
+                                    ))}
+
+                                    {/* +X more Button */}
+                                    {selectedLocalities.length > 2 && (
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowLocationEditor(true)}
+                                            className="flex items-center gap-1 px-4 py-2 bg-blue-50 text-[#002B5B] border border-blue-100 rounded-full text-[13px] font-medium hover:bg-blue-100 transition-colors shadow-sm"
+                                        >
+                                            +{selectedLocalities.length - 2} more
+                                        </button>
+                                    )}
+
+                                    {/* Add Locality Button or Search Bar */}
+                                    {activeCity ? (
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowLocationEditor(true)}
+                                            className="flex items-center gap-1.5 px-5 py-2 bg-white text-[#002B5B] border-2 border-dashed border-blue-200 rounded-full text-[13px] font-medium hover:bg-blue-50 hover:border-[#002B5B] transition-all"
+                                        >
+                                            + Add Locality
+                                        </button>
+                                    ) : (
+                                        <div className="relative w-full group">
+                                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                                <HiSearch className="h-5 w-5 text-[#002B5B] group-hover:scale-110 transition-transform duration-300" />
+                                            </div>
+                                            <input
+                                                type="text"
+                                                readOnly
+                                                onClick={() => setShowLocationEditor(true)}
+                                                placeholder="Search in a City, Locality or Project..."
+                                                className="block w-full pl-12 pr-10 py-3.5 border-2 border-gray-100 rounded-2xl leading-5 bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#002B5B] hover:shadow-[0_4px_20px_rgba(0,43,91,0.08)] sm:text-sm cursor-pointer transition-all duration-300"
+                                            />
+                                            <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                                <div className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* Use Current Location */}
+                                {/* <button className="flex items-center gap-2.5 text-[#ef4444] font-semibold text-[13px] hover:text-red-700 bg-red-50 hover:bg-red-100 px-4 py-2.5 rounded-xl transition-all w-full justify-center mt-2 group border border-red-100">
+                            <BiTargetLock className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                            Use my Current Location
+                        </button> */}
+                                <button className="flex items-center gap-2.5 text-[#002B5B] font-semibold text-[13px] hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2.5 rounded-xl transition-all w-full justify-center mt-2 group border border-blue-100">
+                                    <BiTargetLock className="w-5 h-5" />
+                                    Use my Current Location
                                 </button>
+                            </div>
+
+                        </div>
+
+                        {/* Suggestions or Initial Content */}
+                        <div className="bg-gray-50">
+                            {flatSuggestions.length > 0 ? (
+                                <div className="bg-white mt-2 border-y border-gray-200 shadow-sm">
+                                    <div className="px-4 py-2 bg-gray-100 border-b border-gray-200">
+                                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Suggestions</span>
+                                    </div>
+                                    <ul>
+                                        {flatSuggestions.map((item) => {
+                                            let label, icon, href;
+
+                                            if (item.type === "project") {
+                                                const p = item.data;
+                                                label = p.name;
+                                                icon = <PiBuildingApartment />;
+                                                href = formatUrl(`/properties/${p.city?.name}/${p.zone?.name}/${p.location?.name}/${p.name}/${p.id}`);
+                                            }
+
+                                            if (item.type === "location") {
+                                                const l = item.data;
+                                                label = l.name;
+                                                icon = <SlLocationPin />;
+                                                href = `/listings?locationId=${l.id}`;
+                                            }
+
+                                            if (item.type === "builder") {
+                                                const b = item.data;
+                                                label = b.name;
+                                                icon = <BsBuildingFillGear />;
+                                                href = formatUrl(`/developer/${b.name}/${b.id}`);
+                                            }
+
+                                            return (
+                                                <li key={`${item.type}-${item.data.id}`}>
+                                                    <Link
+                                                        href={href}
+                                                        onClick={() => { submitRef.current = true; }}
+                                                        className="flex items-center gap-3.5 px-5 py-3.5 text-sm hover:bg-blue-50/50 border-b border-gray-100 last:border-0 group transition-colors"
+                                                    >
+                                                        <div className="w-9 h-9 rounded-full bg-blue-50 text-[#002B5B] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#002B5B] group-hover:text-white transition-all duration-300 shadow-sm">
+                                                            {icon}
+                                                        </div>
+                                                        <div className="flex flex-col flex-1 truncate">
+                                                            <span className="font-semibold text-gray-900 truncate group-hover:text-[#002B5B] transition-colors">{label}</span>
+                                                            {item.type === "project" && <span className="text-xs text-gray-500 truncate">{item.data.location?.name}, {item.data.city?.name}</span>}
+                                                        </div>
+                                                        <span className="text-[10px] uppercase text-[#002B5B] font-bold bg-blue-50 px-2.5 py-1 rounded-md shadow-sm border border-blue-100/50">{item.type}</span>
+                                                    </Link>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                </div>
+                            ) : (
+                                <div className="px-4 py-4">
+                                    {Object.values(SEARCH_CONFIG.filters).map((config) => (
+                                        <FilterFactory key={config.key} config={config} />
+                                    ))}
+                                </div>
                             )}
                         </div>
-                    </form>
-                </div>
+                    </div>
 
-                {/* Suggestions or Initial Content */}
-                <div className="flex-1 overflow-y-auto bg-gray-50">
-                    {flatSuggestions.length > 0 ? (
-                        <div className="bg-white mt-2 border-y border-gray-200 shadow-sm">
-                            <div className="px-4 py-2 bg-gray-100 border-b border-gray-200">
-                                <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Suggestions</span>
-                            </div>
-                            <ul>
-                                {flatSuggestions.map((item) => {
-                                    let label, icon, href;
+                    {/* Footer Fixed Search Button */}
+                    <div className="p-4 bg-white border-t border-gray-100 flex gap-3 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-10">
+                        <button
+                            onClick={clearFilters}
+                            disabled={!hasFilters}
+                            className={`flex-1 py-3.5 px-4 rounded-xl font-bold text-sm border transition-all active:scale-[0.98] ${hasFilters
+                                    ? 'border-[#002B5B] text-[#002B5B] hover:bg-blue-50 hover:shadow-sm'
+                                    : 'border-gray-200 text-gray-400 bg-gray-50 opacity-70'
+                                }`}
+                        >
+                            Clear All
+                        </button>
 
-                                    if (item.type === "project") {
-                                        const p = item.data;
-                                        label = p.name;
-                                        icon = <PiBuildingApartment />;
-                                        href = formatUrl(`/properties/${p.city?.name}/${p.zone?.name}/${p.location?.name}/${p.name}/${p.id}`);
-                                    }
-
-                                    if (item.type === "location") {
-                                        const l = item.data;
-                                        label = l.name;
-                                        icon = <SlLocationPin />;
-                                        href = `/listings?locationId=${l.id}`;
-                                    }
-
-                                    if (item.type === "builder") {
-                                        const b = item.data;
-                                        label = b.name;
-                                        icon = <BsBuildingFillGear />;
-                                        href = formatUrl(`/developer/${b.name}/${b.id}`);
-                                    }
-
-                                    return (
-                                        <li key={`${item.type}-${item.data.id}`}>
-                                            <Link
-                                                href={href}
-                                                className="flex items-center gap-3 px-4 py-3 text-sm hover:bg-gray-50 border-b border-gray-100 last:border-0"
-                                            >
-                                                <div className="w-8 h-8 rounded-full bg-blue-50 text-[#002B5B] flex items-center justify-center shrink-0">
-                                                    {icon}
-                                                </div>
-                                                <div className="flex flex-col flex-1 truncate">
-                                                    <span className="font-medium text-gray-900 truncate">{label}</span>
-                                                    {item.type === "project" && <span className="text-xs text-gray-500 truncate">{item.data.location?.name}, {item.data.city?.name}</span>}
-                                                </div>
-                                                <span className="text-[10px] uppercase text-gray-400 font-semibold bg-gray-100 px-2 py-1 rounded">{item.type}</span>
-                                            </Link>
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        </div>
-                    ) : (
-                        <div className="flex-1 flex flex-col h-full bg-white mt-2 border-t border-gray-200 shadow-sm">
-                            <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
-                                <span className="text-xs font-bold text-gray-800 uppercase tracking-wider">Quick Filters</span>
-                            </div>
-                            <div className="flex-1 overflow-y-auto px-4 pb-20 scrollbar-thin">
-                                {Object.values(SEARCH_CONFIG.filters).map((config) => (
-                                    <FilterFactory key={config.key} config={config} />
-                                ))}
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                {/* Footer Fixed Search Button */}
-                <div className="p-4 bg-white border-t border-gray-200 flex gap-3">
-                    <button
-                        onClick={clearFilters}
-                        disabled={!hasFilters}
-                        className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm border transition-colors ${
-                            hasFilters 
-                                ? 'border-[#002B5B] text-[#002B5B] hover:bg-blue-50' 
-                                : 'border-gray-200 text-gray-400 bg-gray-50'
-                        }`}
-                    >
-                        Clear All
-                    </button>
-                    
-                    <button
-                        onClick={handleSearchSubmit}
-                        disabled={!activeCity || isNavigating}
-                        className={`flex-[1.5] py-3 px-4 rounded-xl font-bold text-sm shadow-lg transition-all ${
-                            activeCity 
-                            ? 'bg-[#002B5B] text-white hover:bg-[#001f42] shadow-blue-900/20' 
-                            : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
-                        }`}
-                    >
-                        {isNavigating ? 'Loading...' : isCalculating ? 'Calculating...' : `See All ${liveTotal > 0 ? liveTotal : ''} Properties`}
-                    </button>
+                        <button
+                            onClick={handleSearchSubmit}
+                            disabled={!activeCity || isNavigating}
+                            className={`flex-[1.5] py-3.5 px-4 rounded-xl font-bold text-sm shadow-lg transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2 ${activeCity
+                                    ? 'bg-gradient-to-r from-[#002B5B] to-[#004f9f] text-white hover:from-[#001f42] hover:to-[#003b7a] shadow-blue-900/25 hover:shadow-blue-900/40'
+                                    : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
+                                }`}
+                        >
+                            {isNavigating ? 'Loading...' : isCalculating ? 'Calculating...' : (
+                                <>
+                                    <HiSearch className="w-4 h-4 opacity-80" />
+                                    <span>See All {liveTotal > 0 ? liveTotal : ''} Properties</span>
+                                </>
+                            )}
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+
+            {showLocationEditor && (
+                <LocationSelectorModal
+                    onClose={() => setShowLocationEditor(false)}
+                    selectedLocalities={selectedLocalities}
+                    toggleLocality={toggleLocality}
+                />
+            )}
+        </>
     );
 }
