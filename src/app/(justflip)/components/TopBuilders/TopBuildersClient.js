@@ -39,7 +39,7 @@ export default function TopBuildersClient({
 
     const { activeCity } = useCityStore();
 
-    const resolvedCity = activeCity || city;
+    const resolvedCity = city || activeCity;
     const resolvedCityId = resolvedCity?.id;
 
     const [enabled, setEnabled] = useState(false);
@@ -52,7 +52,7 @@ export default function TopBuildersClient({
 
     useEffect(() => {
 
-        if (!activeCity?.id || activeCity?.id === city?.id) {
+        if (city?.id || !activeCity?.id) {
             return;
         }
 
@@ -60,7 +60,7 @@ export default function TopBuildersClient({
         setBuilders([]);
         setLoading(false);
 
-    }, [resolvedCityId, city?.id]);
+    }, [activeCity?.id, resolvedCityId, city?.id]);
 
     useEffect(() => {
 

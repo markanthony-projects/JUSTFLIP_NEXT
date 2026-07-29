@@ -73,7 +73,7 @@ export default async function ZonePage({ params }) {
           </Suspense>
 
           <Suspense fallback={<TopBuildersSkeleton />}>
-            <BuildersSection builders={builders} />
+            <BuildersSection builders={builders} city={zoneData?.city} />
           </Suspense>
 
           <Suspense fallback={<PropertySupplySkeleton />}>

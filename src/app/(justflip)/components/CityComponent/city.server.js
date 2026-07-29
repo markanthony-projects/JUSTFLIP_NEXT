@@ -10,7 +10,7 @@ export const getCityPageData = cache(async (id) => {
   try {
     const results = await Promise.allSettled([
       CityService.getCityById(id),
-      BuilderService.fetchBuilders({ id, page: 1, limit: 20 }),
+      BuilderService.fetchTopBuilders({ cityId: id, limit: 20 }),
       ReviewService.getReviews({ type: "city", typeId: id }),
       ProjectService.fetchProjectsTrends({ typeId: id, type: "city", limit: 10, page: 1, }),
     ]);
@@ -49,20 +49,24 @@ export const getZonePageData = cache(async (id) => {
   }
 
   try {
-    const results = await Promise.allSettled([
+    const initialResults = await Promise.allSettled([
       ZoneService.getZoneById(id),
-      BuilderService.fetchBuilders({ id, page: 1, limit: 20 }),
       ReviewService.getReviews({ type: "zone", typeId: id }),
       ProjectService.fetchProjectsTrends({ typeId: id, type: "zone", limit: 10, page: 1, }),
     ]);
 
-    const zoneData = results[0].status === "fulfilled" ? results[0].value : null;
-    const builderRes = results[1].status === "fulfilled" ? results[1].value : null;
-    const reviewData = results[2].status === "fulfilled" ? results[2].value : null;
-    const trends = results[3].status === "fulfilled" ? results[3].value : null;
+    const zoneData = initialResults[0].status === "fulfilled" ? initialResults[0].value : null;
+    const reviewData = initialResults[1].status === "fulfilled" ? initialResults[1].value : null;
+    const trends = initialResults[2].status === "fulfilled" ? initialResults[2].value : null;
+    const builderResult = zoneData?.city?.id
+      ? await Promise.allSettled([
+        BuilderService.fetchTopBuilders({ cityId: zoneData.city.id, limit: 20 })
+      ])
+      : [];
+    const builderRes = builderResult[0]?.status === "fulfilled" ? builderResult[0].value : null;
 
 
-    results.forEach((res, index) => {
+    initialResults.forEach((res, index) => {
       if (res.status === "rejected") {
         console.error("Zone API Failure", {
           apiIndex: index,
@@ -71,6 +75,13 @@ export const getZonePageData = cache(async (id) => {
         });
       }
     });
+    if (builderResult[0]?.status === "rejected") {
+      console.error("Zone Builder API Failure", {
+        error: builderResult[0].reason?.message || builderResult[0].reason,
+        cityId: zoneData?.city?.id,
+        zoneId: id,
+      });
+    }
 
 
     return {
@@ -89,21 +100,32 @@ export const getLocationPageData = cache(async (id) => {
   try {
     const results = await Promise.allSettled([
       LocationService.fetchLocationById({ id }),
-      BuilderService.fetchBuilders({ id, page: 1, limit: 20 }),
       ReviewService.getReviews({ type: "location", typeId: id }),
       ProjectService.fetchProjectsTrends({ typeId: id, type: "location", limit: 10, page: 1, }),
     ]);
 
     const locationData = results[0].status === "fulfilled" ? results[0].value : null;
-    const builderRes = results[1].status === "fulfilled" ? results[1].value : null;
-    const reviewData = results[2].status === "fulfilled" ? results[2].value : null;
-    const trends = results[3].status === "fulfilled" ? results[3].value : null;
+    const reviewData = results[1].status === "fulfilled" ? results[1].value : null;
+    const trends = results[2].status === "fulfilled" ? results[2].value : null;
+    const builderResult = locationData?.city?.id
+      ? await Promise.allSettled([
+        BuilderService.fetchTopBuilders({ cityId: locationData.city.id, limit: 20 })
+      ])
+      : [];
+    const builderRes = builderResult[0]?.status === "fulfilled" ? builderResult[0].value : null;
 
     results.forEach((res, index) => {
       if (res.status === "rejected") {
         console.error(`API ${index} failed:`, res.reason);
       }
     });
+    if (builderResult[0]?.status === "rejected") {
+      console.error("Location Builder API Failure", {
+        error: builderResult[0].reason?.message || builderResult[0].reason,
+        cityId: locationData?.city?.id,
+        locationId: id,
+      });
+    }
 
 
     return {
