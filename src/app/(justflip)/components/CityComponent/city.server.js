@@ -1,4 +1,5 @@
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import CityService from "@/src/services/CityService";
 import * as BuilderService from "@/src/services/BuilderService";
 import ReviewService from "@/src/services/ReviewService";
@@ -119,30 +120,41 @@ export const getLocationPageData = cache(async (id) => {
   }
 });
 
-export const getProjectPageData = cache(async (id) => {
+export const getProjectPageData = unstable_cache(async (id) => {
   try {
     const projectData = await ProjectService.fetchProjectById(id);
-    const locationId = projectData?.location?.id;
-
-    const results = await Promise.allSettled([
-      ReviewService.getReviews({ type: "project", typeId: id }),
-      locationId ? LocationService.fetchLocationById({ id: locationId }) : Promise.resolve(null),
-      locationId ? ProjectService.fetchSimilarProjects({ id: locationId, page: 1, limit: 20 }) : Promise.resolve([]),
-    ]);
-
-    const reviewData = results[0].status === "fulfilled" ? results[0].value : null;
-    const locationData = results[1].status === "fulfilled" ? results[1].value : null;
-    const similarProjects = results[2].status === "fulfilled" ? results[2].value : null;
-
-    results.forEach((res, index) => {
-      if (res.status === "rejected") {
-        console.error(`API ${index} failed:`, res.reason);
-      }
-    });
-
-    return { projectData, reviewData, locationData, similarProjects };
-
+    return { projectData };
   } catch (error) {
     console.error("Project Page Error:", { message: error.message, stack: error.stack, id, });
+    return { projectData: null };
+  }
+}, ['project-page-data'], { revalidate: 3600 });
+
+export const getProjectReviews = cache(async (id) => {
+  try {
+    return await ReviewService.getReviews({ type: "project", typeId: id });
+  } catch (error) {
+    console.error("Project Reviews Error:", error);
+    return null;
+  }
+});
+
+export const getLocationDetails = cache(async (locationId) => {
+  if (!locationId) return null;
+  try {
+    return await LocationService.fetchLocationById({ id: locationId });
+  } catch (error) {
+    console.error("Location Details Error:", error);
+    return null;
+  }
+});
+
+export const getSimilarProjects = cache(async (locationId) => {
+  if (!locationId) return [];
+  try {
+    return await ProjectService.fetchSimilarProjects({ id: locationId, page: 1, limit: 20 });
+  } catch (error) {
+    console.error("Similar Projects Error:", error);
+    return [];
   }
 });
