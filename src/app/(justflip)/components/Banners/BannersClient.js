@@ -311,7 +311,7 @@ function SlideImage({
                     fill
                     priority={priority}
                     fetchPriority={priority ? "high" : "auto"}
-                    sizes="100vw"
+                    sizes="(max-width: 1240px) 100vw, 1240px"
                     placeholder="blur"
                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/x8AAwMCAO+ip1sAAAAASUVORK5CYII="
                     draggable={false}
