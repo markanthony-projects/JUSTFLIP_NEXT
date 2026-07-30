@@ -1,5 +1,5 @@
 import Logo from "../../components/Logo/Logo";
-import NearestCity from "@/src/components/NearestCity/NearestCity.server";
+import NearestCity from "@/src/components/NearestCity/NearestCity.client";
 import SearchBar from "../../components/SearchBar/SearchBar.server";
 import BaseHeaderClient from "./BaseHeader.client";
 import { HEADER_VARIANTS } from "./header.config";

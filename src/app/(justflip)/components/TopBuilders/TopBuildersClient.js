@@ -42,7 +42,7 @@ export default function TopBuildersClient({
     const resolvedCity = city || activeCity;
     const resolvedCityId = resolvedCity?.id;
 
-    const [enabled, setEnabled] = useState(false);
+
     const [loading, setLoading] = useState(false);
     const [builders, setBuilders] = useState(initialBuilders || []);
 
@@ -51,60 +51,42 @@ export default function TopBuildersClient({
     }, [resolvedCity?.name]);
 
     useEffect(() => {
+        // If server provided city data, we don't need to fetch on client
+        if (city?.id) return;
 
-        if (city?.id || !activeCity?.id) {
-            return;
-        }
-
-        setEnabled(false);
-        setBuilders([]);
-        setLoading(false);
-
-    }, [activeCity?.id, resolvedCityId, city?.id]);
-
-    useEffect(() => {
-
-        if (!enabled || !resolvedCityId) return;
-
-        let mounted = true;
-
-        const fetchBuilders = async () => {
-
-            try {
-
-                setLoading(true);
-
-                const response =
-                    await BuilderService.fetchTopBuilders({
-                        cityId: resolvedCityId,
+        // Fetch when activeCity is available
+        if (activeCity?.id) {
+            let mounted = true;
+            
+            const fetchBuilders = async () => {
+                try {
+                    setLoading(true);
+                    const response = await BuilderService.fetchTopBuilders({
+                        cityId: activeCity.id,
                         limit: 20
                     });
-
-                if (mounted) {
-                    setBuilders(response?.builders || []);
+                    
+                    if (mounted) {
+                        setBuilders(response?.builders || []);
+                    }
+                } catch (error) {
+                    console.error(error);
+                } finally {
+                    if (mounted) {
+                        setLoading(false);
+                    }
                 }
+            };
+            
+            fetchBuilders();
+            
+            return () => {
+                mounted = false;
+            };
+        }
+    }, [activeCity?.id, city?.id]);
 
-            } catch (error) {
 
-                console.error(error);
-
-            } finally {
-
-                if (mounted) {
-                    setLoading(false);
-                }
-
-            }
-
-        };
-
-        fetchBuilders();
-
-        return () => {
-            mounted = false;
-        };
-
-    }, [enabled, resolvedCityId]);
 
     return (
         <section>
@@ -165,7 +147,7 @@ export default function TopBuildersClient({
 
                                         <div>
 
-                                            <h3 className="text-sm font-semibold md:font-bold line-clamp-2">
+                                            <h3 className="text-sm font-semibold md:font-bold truncate">
                                                 {builder?.name}
                                             </h3>
 

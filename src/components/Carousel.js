@@ -660,23 +660,22 @@ export default function Carousel({
 
         if (!track) return;
 
+        let timeoutId;
         const observer =
             new ResizeObserver(() => {
-                measure();
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    measure();
+                }, 100);
             });
 
         observer.observe(track);
-
-        Array
-            .from(track.children)
-            .forEach((child) => {
-                observer.observe(child);
-            });
 
         measure();
 
         return () => {
             observer.disconnect();
+            clearTimeout(timeoutId);
         };
 
     }, [items, measure]);
