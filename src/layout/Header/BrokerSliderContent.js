@@ -137,9 +137,9 @@ export default function BrokerSliderContent() {
     const handleLogout = async () => {
         await logout();
 
-        if(useBrokerPropertyFormStore.getState().clearStore){
-            useBrokerPropertyFormStore.getState().clearStore()
-        }
+        // if(useBrokerPropertyFormStore.getState().clearStore){
+        //     useBrokerPropertyFormStore.getState().clearStore()
+        // }
 
         closeSlider();
         router.push("/");

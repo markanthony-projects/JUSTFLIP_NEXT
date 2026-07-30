@@ -61,9 +61,9 @@ const determineUnitType = (bedrooms, commonBathrooms) => {
   return '5+BHK'
 }
 
-const buildInitialFormData = (brokerId, residenceType, transactionType) => ({
+const buildInitialFormData = (ownerId, residenceType, transactionType) => ({
   residenceType: residenceType || 'Residential',
-  brokerId,
+  ownerId,
   type: '',
   transactionTag: '',
   name: '',
@@ -112,6 +112,7 @@ function PublishPropertyClient ({ initialCities }) {
   const [isMapOpen, setIsMapOpen] = useState(false)
   const [errors, setErrors] = useState({})
 
+  const [showDraftModal, setShowDraftModal] = useState(false)
   // Location search
   const [locationQuery, setLocationQuery] = useState('')
   const [locationSuggestions, setLocationSuggestions] = useState([])
@@ -140,6 +141,28 @@ function PublishPropertyClient ({ initialCities }) {
     [],
     transactionType
   )
+
+  useEffect(() => {
+    if(isMounted && hydrated && currentStep > 1){
+      setShowDraftModal(true)
+    }
+  },[isMounted,hydrated])
+
+  const handleStartFresh = useCallback(() => {
+      clearStore();
+      setFormData(buildInitialFormData(userId, residenceType, transactionType));
+      setCurrentStep(1);
+      setProjectQuery("");
+      setLocationQuery("");
+      setErrors({});
+      setShowDraftModal(false);
+  }, [clearStore, setFormData, setCurrentStep, userId, residenceType, transactionType]);
+
+  const handleContinueDraft = () => {
+    setShowDraftModal(false)
+  }
+
+
 
   useEffect(() => {
     if(isMounted && !isLoading){
@@ -533,6 +556,41 @@ function PublishPropertyClient ({ initialCities }) {
 
   return (
     <div className='py-4 md:py-8 min-h-screen w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden'>
+        {showDraftModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <div className="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl space-y-6 border border-slate-100 relative overflow-hidden">
+                        {/* Accent Bar matching form header */}
+                        <div className="absolute top-0 left-0 w-full h-1.5" />
+                        
+                        <div className="space-y-2 pt-2">
+                            <h3 className="text-xl md:text-2xl font-extrabold text-[#002B5B] tracking-tight">
+                                Continue Previous Draft?
+                            </h3>
+                            <p className="text-sm font-medium text-slate-500 leading-relaxed">
+                                You left off at <strong className="text-[#002B5B]">Step {currentStep}: {STEP_TITLES[currentStep]?.title}</strong>. 
+                                Would you like to resume your saved progress or start fresh?
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-2">
+                            <button
+                                type="button"
+                                onClick={handleStartFresh}
+                                className="w-full sm:w-auto px-5 py-2.5 text-sm font-bold border border-[#002B5B] text-[#002B5B] rounded-xl hover:bg-slate-50 transition-all duration-200"
+                            >
+                                Start Fresh
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleContinueDraft}
+                                className="w-full sm:w-auto px-5 py-2.5 text-sm font-bold bg-[#002B5B] text-white rounded-xl hover:bg-[#001D3D] transition-all duration-200 shadow-lg shadow-blue-900/20"
+                            >
+                                Continue Draft
+                            </button>
+                        </div>
+                    </div>
+                </div>
+      )}
       {/* Breadcrumb */}
       <div className='mb-4 md:mb-6'>
         <Breadcrumb items={[{ label: 'Upload Property' }]} />

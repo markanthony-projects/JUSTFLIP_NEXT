@@ -1,11 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import User from "./User";
 import Broker from "./Broker";
 
 export default function LoginTabs() {
     const [loginType, setLoginType] = useState("user");
+
+    useEffect(() => {
+        const type = sessionStorage.getItem("loginType")
+        
+        if(type === "agent" || type === "user"){
+            setLoginType(type)
+            sessionStorage.removeItem("loginType")
+        }
+    },[])
 
     return (
         <>

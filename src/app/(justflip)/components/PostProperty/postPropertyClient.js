@@ -162,6 +162,11 @@ const PostPropertyClient = () => {
             return;
         }
 
+        if(uploaderRole === "Developer"){
+            router.push("/contact-us");
+            return;
+        }
+
         if(!isAuthenticated){
             sessionStorage.setItem(
                 "postPropertyData",
@@ -170,10 +175,18 @@ const PostPropertyClient = () => {
                     residenceType,
                     transactionType
                 })
+            );
+
+            sessionStorage.setItem(
+                "loginType",
+                uploaderRole === "Broker" ? "agent" : "user"
             )
+
+            router.push("/login");
+            return;
         }
 
-        proceedToNextPage()
+        proceedToNextPage();
     }
 
     const handleLoginSuccess = () => {
