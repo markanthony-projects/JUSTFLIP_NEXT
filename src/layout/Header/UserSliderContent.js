@@ -136,9 +136,9 @@ export default function UserSliderContent() {
     const handleLogout = async () => {
         await logout();
 
-        if(useUserPropertyFormStore.getState().clearStore){
-            useUserPropertyFormStore.getState().clearStore()
-        }
+        // if(useUserPropertyFormStore.getState().clearStore){
+        //     useUserPropertyFormStore.getState().clearStore()
+        // }
 
         closeSlider();
         router.push("/");
