@@ -117,7 +117,7 @@ export default function TopBuildersClient({
                         {`Top Real Estate Builders in ${cityText}`}
                     </h2>
 
-                    <Link href="/developers" className="text-[#002B5B] flex items-center gap-1 items-center py-0.5 px-1 rounded-xs hover:bg-[#002B5B]/5 hover:underline transition-all duration-300 ease-in-out">
+                    <Link aria-label="View More" href="/developers" className="text-[#002B5B] flex items-center gap-1 items-center py-0.5 px-1 rounded-xs hover:bg-[#002B5B]/5 hover:underline transition-all duration-300 ease-in-out">
                         <span className="sr-only sm:not-sr-only text-xs font-semibold">View More</span>
                         <MdReadMore className="text-xl" />
                     </Link>

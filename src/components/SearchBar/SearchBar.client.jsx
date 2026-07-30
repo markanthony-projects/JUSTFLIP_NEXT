@@ -173,7 +173,7 @@ export default function SearchBarClient() {
                     <TextField
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        // aria-label = {searchPlaceholderList[aria].aria}
+                        aria-label="Search for projects, builders, or locations"
                         className="border-none focus:ring-0 text-xs md:text-sm"
                     />
 

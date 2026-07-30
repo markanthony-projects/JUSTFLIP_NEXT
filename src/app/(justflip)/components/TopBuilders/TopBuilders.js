@@ -41,12 +41,13 @@ import TopBuildersClient from "./TopBuildersClient";
 
 export default async function TopBuilders({ city }) {
 
-    if (!city?.id) return null;
-
-    const data = await BuilderService.fetchTopBuilders({
-        cityId: city?.id,
-        limit: 20
-    });
+    let data = null;
+    if (city?.id) {
+        data = await BuilderService.fetchTopBuilders({
+            cityId: city.id,
+            limit: 20
+        });
+    }
 
     return (
         <TopBuildersClient

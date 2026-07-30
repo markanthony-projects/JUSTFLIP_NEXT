@@ -58,6 +58,7 @@ export const TextField = ({
     disabled,
     className,
     inputClassName,
+    ...props
 }) => {
     return (
         <FieldWrapper label={label} error={error} required={required}>
@@ -67,7 +68,8 @@ export const TextField = ({
                 onChange={onChange}
                 placeholder={placeholder}
                 disabled={disabled}
-                aria-label={label || placeholder || "text input"}
+                aria-label={props["aria-label"] || label || placeholder}
+                {...props}
                 className={cx(
                     baseInputStyles,
                     disabled && "bg-gray-100 cursor-not-allowed text-xs",

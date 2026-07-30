@@ -34,6 +34,7 @@ function FavouriteButton({
       type="button"
       aria-pressed={isFavourite}
       aria-label={isFavourite ? "Remove from saved properties" : "Save property"}
+      title={isFavourite ? "Remove from saved properties" : "Save property"}
       onClick={handleClick}
       className={clsx(
         "relative flex cursor-pointer items-center justify-center gap-1 transition",
@@ -64,6 +65,11 @@ function FavouriteButton({
         ) : (
           <IoIosHeartEmpty color="red" className="text-lg" />
         )}
+      </span>
+
+      {/* Visually hidden text for screen readers to guarantee accessible name */}
+      <span className="sr-only">
+        {isFavourite ? "Remove from saved properties" : "Save property"}
       </span>
 
       {showLabel && (

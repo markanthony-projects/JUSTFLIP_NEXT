@@ -1,7 +1,6 @@
 import SearchBar from "@/src/components/SearchBar/SearchBar.server";
 import InchargeHeader from "@/src/layout/Header/InchargeHeader.server";
 import Banners from "../(justflip)/components/Banners/Banners";
-import { cookies } from "next/headers";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import { SkeletonBlock } from "../(justflip)/components/Skelton/SkeletonSection";
@@ -27,9 +26,7 @@ export const metadata = constructMetadata({
 export const revalidate = 3600;
 
 export default async function JustFlipHomePage() {
-    const cookieStore = await cookies();
-    const raw = cookieStore.get("activeCity")?.value;
-    const city = raw ? JSON.parse(raw) : null;
+    const city = null;
 
     const websiteSchema = buildWebsiteSchema();
     const breadcrumbSchema = buildBreadcrumbSchema([{ label: "Home", href: "/" }]);
