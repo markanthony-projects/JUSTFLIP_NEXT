@@ -673,8 +673,6 @@ export default function Carousel({
                 observer.observe(child);
             });
 
-        measure();
-
         return () => {
             observer.disconnect();
         };
@@ -787,6 +785,7 @@ export default function Carousel({
             {showArrows && hasLeft && (
                 <button
                     onClick={scrollPrev}
+                    aria-label="Previous slide"
                     className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 z-20 h-8 w-6 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
                 >
                     <FiChevronLeft size={22} />
@@ -798,6 +797,7 @@ export default function Carousel({
             {showArrows && hasRight && (
                 <button
                     onClick={scrollNext}
+                    aria-label="Next slide"
                     className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 h-8 w-6 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
                 >
                     <FiChevronRight size={22} />
@@ -813,14 +813,17 @@ export default function Carousel({
             {/* Dots */}
 
             {showDots && snapPoints.length > 1 && (
-                <div className="mt-4 flex items-center justify-center gap-2">
+                <div className="mt-4 flex items-center justify-center">
 
                     {snapPoints.map((_, index) => (
                         <button
                             key={index}
                             onClick={() => scrollToIndex(index)}
-                            className={`h-2 rounded-full transition-all duration-300 ${currentIndex === index ? "w-5 bg-black" : "w-2 bg-black/30"}`}
-                        />
+                            aria-label={`Go to slide ${index + 1}`}
+                            className="h-6 w-6 focus:outline-none group flex items-center justify-center"
+                        >
+                            <div className={`h-2 rounded-full transition-all duration-300 ${currentIndex === index ? "w-5 bg-black" : "w-2 bg-black/30 group-hover:bg-black/50"}`} />
+                        </button>
                     ))}
 
                 </div>

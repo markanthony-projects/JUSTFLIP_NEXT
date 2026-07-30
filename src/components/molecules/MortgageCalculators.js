@@ -195,6 +195,7 @@ export default function MortgageCalculator() {
                                 max="30"
                                 value={years}
                                 onChange={(e) => setYears(+e.target.value)}
+                                aria-label="Loan Tenure Years"
                                 className="h-2 w-full cursor-pointer accent-[#0d4d96]"
                             />
 
@@ -225,6 +226,7 @@ export default function MortgageCalculator() {
                                 max="11"
                                 value={months}
                                 onChange={(e) => setMonths(+e.target.value)}
+                                aria-label="Loan Tenure Months"
                                 className="h-2 w-full cursor-pointer accent-[#0d4d96]"
                             />
 
@@ -255,6 +257,7 @@ export default function MortgageCalculator() {
                                 max="30"
                                 value={interestRate}
                                 onChange={(e) => setInterestRate(+e.target.value)}
+                                aria-label="Interest Rate"
                                 className="h-2 w-full cursor-pointer accent-[#0d4d96]"
                             />
 

@@ -25,6 +25,7 @@ const nextConfig = {
     qualities: [75, 85, 100],
   },
   experimental: {
+    optimizePackageImports: ["react-icons"],
     serverActions: {
       allowedOrigins: [
         "localhost:3000",

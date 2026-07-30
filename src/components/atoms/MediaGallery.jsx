@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { PiX } from "react-icons/pi";
 
 import Modal from "@/src/components/ui/Modal.jsx"; // ← the base modal above
@@ -81,11 +82,12 @@ function ActiveMediaViewer({ item }) {
                     <source src={item.url} />
                 </video>
             ) : (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                     src={item.url}
                     alt={caption || (isFloor ? "Floor plan" : "Image")}
-                    className={`max-h-full max-w-full object-contain shadow-md ${isFloor ? "border rounded-xl" : "rounded-xl"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 80vw"
+                    className={`object-contain shadow-md ${isFloor ? "border rounded-xl" : "rounded-xl"
                         }`}
                 />
             )}
@@ -120,8 +122,7 @@ function Thumbnail({ item, isActive, onClick }) {
                     </div>
                 </>
             ) : (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={item.url} alt={caption} className="w-full h-full object-cover" />
+                <Image src={item.url} alt={caption} fill sizes="150px" className="object-cover" />
             )}
             <Caption text={caption} />
         </div>

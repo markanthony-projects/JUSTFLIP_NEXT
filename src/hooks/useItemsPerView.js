@@ -23,8 +23,6 @@ export function useItemsPerView({
             setItemsPerView(prev => (prev === next ? prev : next));
         };
 
-        calculate();
-
         const ro = new ResizeObserver(calculate);
         ro.observe(el);
 

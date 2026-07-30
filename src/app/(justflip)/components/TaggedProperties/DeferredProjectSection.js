@@ -114,7 +114,7 @@ export default function DeferredProjectSection({ city, tag }) {
                     </h2>
 
                     <Link href={`/search?q=${resolvedCity?.name || ""}&tag=${tag || ""}`} className="text-[#002B5B] flex items-center gap-1 items-center py-0.5 px-1 rounded-xs hover:bg-[#002B5B]/5 hover:underline transition-all duration-300 ease-in-out">
-                        <span className="hidden sm:block text-xs font-semibold">View More</span>
+                        <span className="sr-only sm:not-sr-only text-xs font-semibold">View More</span>
                         <MdReadMore className="text-xl" />
                     </Link>
 

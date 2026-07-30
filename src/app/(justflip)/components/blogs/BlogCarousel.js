@@ -58,14 +58,16 @@ import { useEffect, useState, useRef } from "react";
                 ))}
             </div>
 
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 bg-white/10 px-3 py-2 backdrop-blur-3xl rounded-3xl">
+            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex bg-white/10 px-2 py-1 backdrop-blur-3xl rounded-3xl">
                 {blogs?.map((_, i) => (
                     <button
                         key={i}
                         onClick={() => setCurrent(i)}
-                        className={`h-2 w-2 rounded-full transition-all ${current === i ? "bg-white w-4" : "bg-white/50"
-                            }`}
-                    />
+                        aria-label={`Slide ${i + 1}`}
+                        className="h-6 w-6 focus:outline-none group flex items-center justify-center"
+                    >
+                        <div className={`h-2 rounded-full transition-all ${current === i ? "bg-white w-4" : "w-2 bg-white/50 group-hover:bg-white/80"}`} />
+                    </button>
                 ))}
             </div>
         </div>

@@ -11,17 +11,22 @@ const cx = (...classes) => classes.filter(Boolean).join(" ");
    Base Wrapper (Label + Error)
 -------------------------------------------------- */
 const FieldWrapper = ({ label, error, required, children }) => {
-    return (
-        <div className="flex flex-col gap-0.5 w-full">
-            {label && (
-                <label className="text-xs font-medium text-black">
-                    {label}
-                    {required && <span className="text-red-700 ml-1">*</span>}
-                </label>
-            )}
+    return label ? (
+        <label className="flex flex-col gap-0.5 w-full">
+            <span className="text-xs font-medium text-black">
+                {label}
+                {required && <span className="text-red-700 ml-1">*</span>}
+            </span>
 
             {children}
 
+            {error && (
+                <p className="text-xs text-red-500">{error}</p>
+            )}
+        </label>
+    ) : (
+        <div className="flex flex-col gap-0.5 w-full">
+            {children}
             {error && (
                 <p className="text-xs text-red-500">{error}</p>
             )}
@@ -62,6 +67,7 @@ export const TextField = ({
                 onChange={onChange}
                 placeholder={placeholder}
                 disabled={disabled}
+                aria-label={label || placeholder || "text input"}
                 className={cx(
                     baseInputStyles,
                     disabled && "bg-gray-100 cursor-not-allowed text-xs",
