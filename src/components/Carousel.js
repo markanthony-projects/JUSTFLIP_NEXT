@@ -786,6 +786,7 @@ export default function Carousel({
 
             {showArrows && hasLeft && (
                 <button
+                    aria-label="Previous"
                     onClick={scrollPrev}
                     className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 z-20 h-8 w-6 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
                 >
@@ -797,6 +798,7 @@ export default function Carousel({
 
             {showArrows && hasRight && (
                 <button
+                    aria-label="Next"
                     onClick={scrollNext}
                     className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 h-8 w-6 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
                 >
