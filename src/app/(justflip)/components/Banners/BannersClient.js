@@ -238,8 +238,10 @@ export default function BannersClient({ banners = [] }) {
                             key={index}
                             onClick={() => transition(index)}
                             aria-label={`Slide ${index + 1}`}
-                            className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex ? "w-6 bg-white" : "w-2 bg-white/50 hover:bg-white/80"}`}
-                        />
+                            className="h-6 w-6 flex items-center justify-center focus:outline-none"
+                        >
+                            <div className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex ? "w-6 bg-white" : "w-2 bg-white/50 group-hover:bg-white/80"}`} />
+                        </button>
                     ))}
 
                 </div>

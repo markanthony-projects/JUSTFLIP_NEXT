@@ -62,10 +62,12 @@ import { useEffect, useState, useRef } from "react";
                 {blogs?.map((_, i) => (
                     <button
                         key={i}
+                        aria-label={`Slide ${i + 1}`}
                         onClick={() => setCurrent(i)}
-                        className={`h-2 w-2 rounded-full transition-all ${current === i ? "bg-white w-4" : "bg-white/50"
-                            }`}
-                    />
+                        className="h-6 w-6 flex items-center justify-center focus:outline-none group"
+                    >
+                        <div className={`h-2 rounded-full transition-all duration-300 ${current === i ? "w-6 bg-white" : "w-2 bg-white/50 group-hover:bg-white/80"}`} />
+                    </button>
                 ))}
             </div>
         </div>

@@ -820,9 +820,12 @@ export default function Carousel({
                     {snapPoints.map((_, index) => (
                         <button
                             key={index}
+                            aria-label={`Slide ${index + 1}`}
                             onClick={() => scrollToIndex(index)}
-                            className={`h-2 rounded-full transition-all duration-300 ${currentIndex === index ? "w-5 bg-black" : "w-2 bg-black/30"}`}
-                        />
+                            className="h-6 w-6 flex items-center justify-center focus:outline-none"
+                        >
+                            <div className={`h-2 rounded-full transition-all duration-300 ${currentIndex === index ? "w-5 bg-black" : "w-2 bg-black/30"}`} />
+                        </button>
                     ))}
 
                 </div>

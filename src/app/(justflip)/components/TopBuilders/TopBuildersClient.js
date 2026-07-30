@@ -14,8 +14,8 @@ import { MdKeyboardDoubleArrowRight, MdReadMore } from "react-icons/md";
 function BuilderSkeleton() {
     function CardSkeleton() {
         return (
-            <div className="w-70 rounded-lg flex items-center p-2 border border-gray-200 gap-4 animate-pulse">
-                <div className="h-15 w-15 md:h-20 md:w-20 rounded-md bg-gray-200" />
+            <div className="w-[280px] rounded-lg flex items-center p-2 border border-gray-200 gap-4 animate-pulse">
+                <div className="h-16 w-16 md:h-20 md:w-20 rounded-md bg-gray-200" />
                 <div className="flex-1 space-y-2">
                     <div className="h-4 w-32 bg-gray-200 rounded" />
                     <div className="h-3 w-20 bg-gray-200 rounded" />
@@ -130,13 +130,7 @@ export default function TopBuildersClient({
 
             </div>
 
-            <LazyHydrate
-                key={resolvedCityId}
-                rootMargin="500px"
-                placeholder={<BuilderSkeleton />}
-                onVisible={() => setEnabled(true)}
-            >
-
+            <div className="mt-4">
                 {loading || !builders.length ? (
 
                     <BuilderSkeleton />
@@ -158,9 +152,9 @@ export default function TopBuildersClient({
                             return (
                                 <Link href={`/developers/${formatUrl(builder?.name)}-${builder?.id}`}>
 
-                                    <div className="w-70 rounded-lg flex items-center p-2 border border-gray-200 hover:shadow-md transition gap-4">
+                                    <div className="w-[280px] rounded-lg flex items-center p-2 border border-gray-200 hover:shadow-md transition gap-4">
 
-                                        <div className="shadow h-15 w-15 md:h-20 md:w-20 overflow-hidden rounded-md relative">
+                                        <div className="shadow h-16 w-16 md:h-20 md:w-20 overflow-hidden rounded-md relative flex-shrink-0">
                                             <Image
                                                 src={logo}
                                                 alt={`${builder?.name || "builder"} logo`}
@@ -191,7 +185,7 @@ export default function TopBuildersClient({
 
                 )}
 
-            </LazyHydrate>
+            </div>
 
         </section>
     );
