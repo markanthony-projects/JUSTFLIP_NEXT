@@ -50,64 +50,23 @@ export default function BannersClient({ banners = [] }) {
 
     /*
     |--------------------------------------------------------------------------
-    | Autoplay
-    |--------------------------------------------------------------------------
-    */
-
-    const startAutoplay = useCallback(() => {
-
-        clearInterval(autoplayRef.current);
-
-        if (total <= 1) return;
-
-        autoplayRef.current = setInterval(() => {
-
-            setCurrentIndex((prev) => {
-
-                if (animatingRef.current) return prev;
-
-                animatingRef.current = true;
-
-                setPreviousIndex(prev);
-
-                const next =
-                    (prev + 1) % total;
-
-                clearTimeout(cleanupRef.current);
-
-                cleanupRef.current = setTimeout(() => {
-
-                    setPreviousIndex(null);
-                    animatingRef.current = false;
-
-                }, TRANSITION_DURATION);
-
-                return next;
-
-            });
-
-        }, AUTOPLAY_DELAY);
-
-    }, [total]);
-
-    /*
-    |--------------------------------------------------------------------------
-    | Init
+    | Autoplay (Managed automatically by useEffect when currentIndex changes)
     |--------------------------------------------------------------------------
     */
 
     useEffect(() => {
 
-        startAutoplay();
+        if (total <= 1) return;
+
+        autoplayRef.current = setInterval(() => {
+            transition((currentIndex + 1) % total);
+        }, AUTOPLAY_DELAY);
 
         return () => {
-
             clearInterval(autoplayRef.current);
-            clearTimeout(cleanupRef.current);
-
         };
 
-    }, [startAutoplay]);
+    }, [currentIndex, total, transition]);
 
     /*
     |--------------------------------------------------------------------------
@@ -121,8 +80,6 @@ export default function BannersClient({ banners = [] }) {
             (currentIndex + 1) % total
         );
 
-        startAutoplay();
-
     };
 
     const prev = () => {
@@ -130,8 +87,6 @@ export default function BannersClient({ banners = [] }) {
         transition(
             (currentIndex - 1 + total) % total
         );
-
-        startAutoplay();
 
     };
 
@@ -295,7 +250,7 @@ function SlideImage({
                     fill
                     priority={priority}
                     fetchPriority={priority ? "high" : "auto"}
-                    sizes="(max-width: 1240px) 100vw, 1240px"
+                    sizes="100vw"
                     placeholder="blur"
                     blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/x8AAwMCAO+ip1sAAAAASUVORK5CYII="
                     draggable={false}
