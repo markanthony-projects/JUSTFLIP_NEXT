@@ -40,8 +40,8 @@ function MobileBottomNavContent() {
         }
     };
 
-    console.log(user)
-    console.log(authType)
+    // console.log(user)
+    // console.log(authType)
 
     const handleSavedClick = () => {
         if(!isAuthenticated){

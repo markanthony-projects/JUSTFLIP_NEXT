@@ -1,29 +1,44 @@
 "use client";
 import React, { memo } from "react";
 
-const BulletItem = memo(function BulletItem({ title, description }) {
+const BulletItem = memo(function BulletItem({ title, description, tone }) {
+    const toneStyle = {
+        positive: "bg-green-50 border-green-100",
+        negative: "bg-amber-50 border-amber-100"
+    }
+
     return (
-        <div className="my-4 flex  gap-3 items-start">
-            <div className="flex items-center justify-center">
-                <span className="border border-gray-400 rounded-full p-2 flex items-center justify-center">
-                    <span className="w-3 h-3 bg-[#002B5B] rounded-full"></span>
-                </span>
+        <div className={`flex gap-3 p-2 ${toneStyle[tone]} hover:shadow-md transition`}>
+            {/* icon */}
+            <div className={`w-10 h-10 flex items-center justify-center rounded-full bg-white shadow`}>
+                <div className={`w-3 h-3 rounded-full ${ tone === "positive" ? "bg-green-600" : "bg-orange-500" }`} />
             </div>
 
-            <div className="min-w-0">
-                <p className="text-[14px] text-[#002B5B] font-medium leading-[19.6px] break-words"> {title}</p>
-                <p className="text-[12px] text-[#585858] leading-[16.8px] mt-1">{description}</p>
+            {/* Content */}
+            <div className="flex-1 min-w-0">
+                <p className="text-[15px] font-semibold text-gray-800">
+                {title}
+                </p>
+                <p className="text-[13px] text-gray-500 mt-1 leading-relaxed">
+                {description}
+                </p>
             </div>
         </div>
     );
 });
 
-const SectionHeader = ({ title, icon }) => {
+const SectionHeader = ({ title, icon, tone }) => {
+    const toneStyles = {
+        positive: "text-green-700",
+        negative: "text-orange-600",
+    };
+
     return (
-        <div>
-            <h2 className="text-sm font-medium pb-2 flex items-center gap-2">
-                {icon}{title}</h2>
-            <div className="border-b border-[#BABABA]" />
+        <div className="flex items-center justify-between mb-4">
+        <h2 className={`flex items-center gap-2 font-semibold ${toneStyles[tone]}`}>
+            {icon}
+            {title}
+        </h2>
         </div>
     );
 };
@@ -53,14 +68,16 @@ const HighlightLocation = ({ data = {} , name="" }) => {
     return (
         <section className="w-full">
             <h1 className="text-[#333] text-[18px] font-medium py-2">
-                Highlights of {name && `${name} - `}{locationName}
+                {name && `${name} - `}{locationName} as a City  
             </h1>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-3 md:p-6 border border-[#BABABA] rounded-xl min-h-[200px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 md:p-6 rounded-2xl bg-white shadow border border-gray-200">
+                {/* advantages */}
                 <div>
                     <SectionHeader
                         title="What Stands Out"
                         icon={<ThumbUpIcon />}
+                        tone="positive"
                     />
 
                     {advantages.length > 0 ? (
@@ -69,6 +86,7 @@ const HighlightLocation = ({ data = {} , name="" }) => {
                                 key={`adv-${index}`}
                                 title={item?.title}
                                 description={item?.description}
+                                tone="positive"
                             />
                         ))
                     ) : (
@@ -83,6 +101,7 @@ const HighlightLocation = ({ data = {} , name="" }) => {
                     <SectionHeader
                         title="What Goes Unnoticed"
                         icon={<ThumbDownIcon />}
+                        tone="negative"
                     />
 
                     {disadvantages.length > 0 ? (
@@ -91,6 +110,7 @@ const HighlightLocation = ({ data = {} , name="" }) => {
                                 key={`dis-${index}`}
                                 title={item?.title}
                                 description={item?.description}
+                                tone="negative"
                             />
                         ))
                     ) : (
