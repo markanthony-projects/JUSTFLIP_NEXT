@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { getImageProps } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -167,9 +167,8 @@ export default function BannersClient({ banners = [] }) {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 prefetch={false}
-                                className={`absolute inset-0 block ${!active && 'pointer-events-none'}`}
+                                className="absolute inset-0 block"
                                 tabIndex={active ? 0 : -1}
-                                aria-hidden={!active}
                             >
 
                                 <SlideImage
@@ -232,17 +231,15 @@ export default function BannersClient({ banners = [] }) {
             {/* Indicators */}
 
             {total > 1 && (
-                <div className="absolute bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center">
+                <div className="absolute bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2">
 
                     {banners.map((_, index) => (
                         <button
                             key={index}
                             onClick={() => transition(index)}
                             aria-label={`Slide ${index + 1}`}
-                            className="h-6 w-6 focus:outline-none group flex items-center justify-center"
-                        >
-                            <div className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex ? "w-6 bg-white" : "w-2 bg-white/50 group-hover:bg-white/80"}`} />
-                        </button>
+                            className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex ? "w-6 bg-white" : "w-2 bg-white/50 hover:bg-white/80"}`}
+                        />
                     ))}
 
                 </div>
@@ -265,21 +262,6 @@ function SlideImage({
     visible
 }) {
 
-    const commonProps = {
-        alt: banner?.alt || banner?.name || "Banner",
-        fill: true,
-        sizes: "100vw",
-        priority,
-    };
-
-    const mobileSrcSet = banner?.meta?.mobileUrl
-        ? getImageProps({ ...commonProps, src: banner.meta.mobileUrl }).props.srcSet
-        : null;
-
-    const tabSrcSet = banner?.meta?.tabUrl
-        ? getImageProps({ ...commonProps, src: banner.meta.tabUrl }).props.srcSet
-        : null;
-
     return (
         <div className="absolute inset-0">
 
@@ -287,19 +269,19 @@ function SlideImage({
 
                 {/* Mobile */}
 
-                {mobileSrcSet && (
+                {banner?.meta?.mobileUrl && (
                     <source
                         media="(max-width: 767px)"
-                        srcSet={mobileSrcSet}
+                        srcSet={banner.meta.mobileUrl}
                     />
                 )}
 
                 {/* Tablet */}
 
-                {tabSrcSet && (
+                {banner?.meta?.tabUrl && (
                     <source
                         media="(max-width: 1023px)"
-                        srcSet={tabSrcSet}
+                        srcSet={banner.meta.tabUrl}
                     />
                 )}
 

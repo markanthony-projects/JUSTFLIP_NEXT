@@ -4,7 +4,6 @@ import CompareButton from "@/src/components/atoms/CompareButton";
 import { useCompareStore } from "@/src/stores/useCompare.store";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
 
 
 export default function PropertyHeader({ project }) {
@@ -87,8 +86,8 @@ export default function PropertyHeader({ project }) {
                     <div className="fixed bottom-18 right-12 md:right-16 z-30 bg-gray-500/10 backdrop-blur-xl border border-white/20 shadow-xl  rounded-lg  p-2  animate-in fade-in slide-in-from-bottom-4">
                         <div className="flex gap-4 overflow-x-auto">
                             {items?.map((property) => (
-                                <div className="relative min-w-[160px] h-24 border border-gray-300 rounded-lg overflow-hidden">
-                                    <Image src={property?.medias?.find((d) => d.title === "banner")?.url || '/assets/project-banner.webp'} alt={property?.name} fill sizes="160px" className="object-cover" />
+                                <div className="relative min-w-[160px] border border-gray-300 rounded-lg overflow-hidden">
+                                    <img src={property?.medias?.find((d) => d.title === "banner")?.url} alt={property?.name} className="w-full h-24 object-cover" />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                                     <span className="absolute bottom-1 left-1 right-1 text-white text-xs line-clamp-1 truncate">
                                         {property?.name}

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, useTransition, useMemo } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import { BsBuildingFillGear } from "react-icons/bs";
 import { PiBuildingApartment } from "react-icons/pi";
 import { SlLocationPin } from "react-icons/sl";
@@ -84,27 +84,6 @@ const emptySuggestions = {
     locations: [],
 };
 
-const PlaceholderCarousel = () => {
-    const [placeholderIndex, setPlaceholderIndex] = useState(0);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setPlaceholderIndex((prev) => (prev + 1) % searchPlaceholderList.length);
-        }, 2000);
-
-        return () => clearInterval(interval);
-    }, []);
-
-    return (
-        <span
-            key={placeholderIndex}
-            className="absolute left-[12px] top-1/2 -translate-y-1/2 text-[#585858] text-xs md:text-sm pointer-events-none animate-slide-up line-clamp-1  md:max-w-[180px] lg:max-w-[290px] md:my-[3px] lg:mt-0"
-        >
-            {searchPlaceholderList[placeholderIndex].placeholder}
-        </span>
-    );
-};
-
 export default function SearchBarClient() {
     const router = useRouter();
     const pathname = usePathname();
@@ -117,15 +96,26 @@ export default function SearchBarClient() {
     const [search, setSearch] = useState("");
     const [suggestions, setSuggestions] = useState(emptySuggestions);
     const [isPending, startTransition] = useTransition();
+    const [placeholderIndex, setPlaceholderIndex] = useState(0)
+
+    useEffect(() => {
+        if (search.length === 0) {
+            const interval = setInterval(() => {
+                setPlaceholderIndex((prev) => (prev + 1) % searchPlaceholderList.length);
+            }, 2000);
+
+            return () => clearInterval(interval);
+        }
+    }, [search]);
 
     const debounceRef = useRef(null);
     const containerRef = useRef(null);
 
-    const flatSuggestions = useMemo(() => [
+    const flatSuggestions = [
         ...suggestions.projects.map(p => ({ type: "project", data: p })),
         ...suggestions.locations.map(l => ({ type: "location", data: l })),
         ...suggestions.builders.map(b => ({ type: "builder", data: b })),
-    ], [suggestions]);
+    ];
 
 
     useEffect(() => {
@@ -177,7 +167,14 @@ export default function SearchBarClient() {
                         className="border-none focus:ring-0 text-xs md:text-sm"
                     />
 
-                    {!search && <PlaceholderCarousel />}
+                    {!search && (
+                        <span
+                            key={placeholderIndex}
+                            className="absolute left-[12px] top-1/2 -translate-y-1/2 text-[#585858] text-xs md:text-sm pointer-events-none animate-slide-up line-clamp-1  md:max-w-[180px] lg:max-w-[290px] md:my-[3px] lg:mt-0"
+                        >
+                            {searchPlaceholderList[placeholderIndex].placeholder}
+                        </span>
+                    )}
 
                 </div>
                 <div className="border border-gray-400 h-6 lg:h-8 mx-2" />

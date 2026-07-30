@@ -7,7 +7,6 @@ import dynamic from "next/dynamic";
 import { SkeletonBlock } from "../(justflip)/components/Skelton/SkeletonSection";
 import { TopBuildersSkeleton } from "../(justflip)/components/Skelton/TopBuildersSkeleton";
 import { BlogsSkeleton } from "../(justflip)/components/Skelton/BlogsSkelton";
-import TaggedPropertiesSkeleton from "../(justflip)/components/Skelton/TaggedPropertiesSkeleton";
 
 const PopularCities = dynamic(() => import("../(justflip)/components/PopularCities/PopularCities"), { suspense: true });
 const TaggedProperties = dynamic(() => import("../(justflip)/components/TaggedProperties/TaggedProperties"), { suspense: true });
@@ -59,7 +58,7 @@ export default async function JustFlipHomePage() {
 
             <div className="w-full min-h-screen py-1
             0 px-4 lg:px-6 lg:max-w-310 mx-auto flex flex-col gap-4 md:gap-8">
-                <Suspense fallback={<TaggedPropertiesSkeleton />}>
+                <Suspense fallback={<SkeletonBlock className="h-64 w-full" />}>
                     <TaggedProperties city={city} />
                 </Suspense>
                 
@@ -67,11 +66,11 @@ export default async function JustFlipHomePage() {
                     <TopBuilders city={city} />
                 </Suspense>
 
-                <Suspense fallback={<SkeletonBlock className="h-[800px] md:h-[500px] w-full rounded-2xl" />}>
+                <Suspense fallback={<SkeletonBlock className="h-64 w-full" />}>
                     <MortgageCalculator />
                 </Suspense>
 
-                <Suspense fallback={<SkeletonBlock className="h-[400px] md:h-[300px] w-full rounded-2xl" />}>
+                <Suspense fallback={<SkeletonBlock className="h-64 w-full" />}>
                     <PopularCities />
                 </Suspense>
 
