@@ -22,6 +22,7 @@ import Loading from '../Loading'
 import WishlistClient from '@/src/app/(justflip)/wishlist/WishlistClient'
 import BrokerPropertyDashboard from '../Broker/BrokerPropertyDashboard'
 import { useSearchParams } from 'next/navigation'
+import NotificationsSection from './NotificationsSection'
 
 // INPUT CONFIG — drives what fields show inside the modal.
 const fieldsArray = {
@@ -281,6 +282,11 @@ const ProfileMain = () => {
                     </div>
 
                   </div>
+                </motion.div>
+                <motion.div
+                  whileHover={{ y: -2 }}
+                  className="sm:block relative overflow-hidden rounded-3xl border border-slate-200 bg-white px-6 py-2 shadow-sm">
+                  <NotificationsSection />
                 </motion.div>
               </div>
             </div>

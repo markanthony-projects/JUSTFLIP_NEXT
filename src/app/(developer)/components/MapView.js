@@ -1,15 +1,35 @@
 "use client";
+
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
-import { getCoordinates } from "./getCoordinates";
+import { useMap } from "react-leaflet";
+import L from 'leaflet'
+
 const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLayer), { ssr: false });
 const OSMCustomMarker = dynamic(() => import("@/src/components/osm/OSMCustomMarker"), { ssr: false });
 
-import { useState, useEffect } from "react";
+import { getCoordinates } from "./getCoordinates";
 import { SkeletonBlock } from "@/src/app/(justflip)/components/Skelton/SkeletonSection";
 
 const DEFAULT_CENTER = { lat: 12.9716, lng: 77.5946 };
+
+//handles interaction desktop and mobile
+function MapInteractionFix() {
+  const map = useMap();
+
+  useEffect(() => {
+    const container = map.getContainer();
+
+    // Prevent scroll + click propagation
+    L.DomEvent.disableScrollPropagation(container);
+    L.DomEvent.disableClickPropagation(container);
+  }, [map]);
+
+  return null;
+}
+
 
 function MapView({ projects }) {
   const [isClient, setIsClient] = useState(false);
@@ -32,11 +52,32 @@ function MapView({ projects }) {
   }
 
   return (
-    <div className="h-[400px] rounded overflow-hidden shadow z-0">
+    <div 
+      className="h-[400px] rounded overflow-hidden shadow z-0"
+      style={{touchAction: "pan-x pan-y"}}
+    >
       <MapContainer
         center={[center.lat, center.lng]}
         zoom={12}
-        scrollWheelZoom={false}
+        wheelPxPerZoomLevel={250} 
+        zoomDelta={0.25}   
+        zoomSnap={0.25}
+        scrollWheelZoom={true}
+
+        //to stablisize panning
+        dragging={true}
+        inertia={true}
+        // inertiaDeceleration={3000}
+        // inertiaMaxSpeed={1500}
+
+        //for mobile actions
+        touchZoom={true}
+        tap={false}
+        bounceAtZoomLimits={false}
+
+        //limits for zoomin/zoomout
+        minZoom={5}
+        maxZoom={18}
         style={{ width: "100%", height: "100%" }}
       >
         <TileLayer

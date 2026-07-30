@@ -69,8 +69,8 @@ export default function DevelopersClientPage({ initialData }) {
 
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-4">
-            <div className="h-screen lg:col-span-3 flex flex-col relative ">
+        <div className="grid grid-cols-1">
+            <div className="h-screen flex flex-col relative ">
                 <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md md:px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
                     <div>
                         <h1 className="text-lg font-semibold text-[#002B5B] tracking-tight">
