@@ -141,7 +141,7 @@ export default function TopBuildersClient({
                                                 src={logo}
                                                 alt={`${builder?.name || "builder"} logo`}
                                                 className="object-contain"
-                                            // sizes="80px"
+                                                sizes="80px"
                                             />
                                         </div>
 

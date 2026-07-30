@@ -4,6 +4,7 @@ import Banners from "../(justflip)/components/Banners/Banners";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import { SkeletonBlock } from "../(justflip)/components/Skelton/SkeletonSection";
+import LazyHydrate from "@/src/components/LazyHydrate";
 import { TopBuildersSkeleton } from "../(justflip)/components/Skelton/TopBuildersSkeleton";
 import { BlogsSkeleton } from "../(justflip)/components/Skelton/BlogsSkelton";
 
@@ -11,7 +12,7 @@ const PopularCities = dynamic(() => import("../(justflip)/components/PopularCiti
 const TaggedProperties = dynamic(() => import("../(justflip)/components/TaggedProperties/TaggedProperties"), { suspense: true });
 const TopBuilders = dynamic(() => import("../(justflip)/components/TopBuilders/TopBuilders"), { suspense: true });
 const Blogs = dynamic(() => import("../(justflip)/components/Blogs"), { suspense: true });
-const MortgageCalculator = dynamic(() => import("@/src/components/molecules/MortgageCalculators"), { suspense: true });
+import MortgageCalculator from "@/src/components/molecules/MortgageCalculatorsDynamic";
 
 import { constructMetadata } from "@/src/utils/seo";
 import { buildWebsiteSchema, buildBreadcrumbSchema } from "@/src/utils/schema";
@@ -63,9 +64,9 @@ export default async function JustFlipHomePage() {
                     <TopBuilders city={city} />
                 </Suspense>
 
-                <Suspense fallback={<SkeletonBlock className="h-64 w-full" />}>
+                <LazyHydrate rootMargin="300px">
                     <MortgageCalculator />
-                </Suspense>
+                </LazyHydrate>
 
                 <Suspense fallback={<SkeletonBlock className="h-64 w-full" />}>
                     <PopularCities />
