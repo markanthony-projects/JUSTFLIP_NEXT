@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
-import { useMap } from "react-leaflet";
+import { useMap, ZoomControl } from "react-leaflet";
 import L from 'leaflet'
 
 const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false });
@@ -57,6 +57,7 @@ function MapView({ projects }) {
       style={{touchAction: "pan-x pan-y"}}
     >
       <MapContainer
+        zoomControl={false}
         center={[center.lat, center.lng]}
         zoom={12}
         wheelPxPerZoomLevel={250} 
@@ -84,6 +85,7 @@ function MapView({ projects }) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <ZoomControl className=""/>
         {projects?.map((project) => {
           const coords = getCoordinates(project);
 
