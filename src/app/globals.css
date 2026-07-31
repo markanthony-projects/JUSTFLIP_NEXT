@@ -66,6 +66,9 @@
 
 html {
     scroll-behavior: smooth;
+    font-size: 16px !important;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
 }
 
 body {
