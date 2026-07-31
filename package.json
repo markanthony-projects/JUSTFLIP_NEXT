@@ -36,8 +36,9 @@
     "tailwindcss": "^4"
   },
   "browserslist": [
-    "last 2 versions",
-    "not dead",
-    "> 0.2%"
+    "chrome >= 95",
+    "safari >= 15.4",
+    "firefox >= 95",
+    "edge >= 95"
   ]
 }
