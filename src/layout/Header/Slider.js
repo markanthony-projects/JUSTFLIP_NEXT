@@ -122,7 +122,7 @@ export default function SlideOver({
 
     return (
         <div
-            className={`fixed inset-0 z-50 isolate transition-opacity duration-300 ${isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
+            className={`fixed inset-0 z-1100 isolate transition-opacity duration-300 ${isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
             aria-modal="true"
             role="dialog"
         >

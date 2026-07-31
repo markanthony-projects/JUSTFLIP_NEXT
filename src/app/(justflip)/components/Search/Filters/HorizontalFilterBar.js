@@ -14,11 +14,7 @@ export default function HorizontalFilterBar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // const maxScroll = 300;
-      // const current = Math.min(window.scrollY, maxScroll);
-
-      // const newScale = 1 + current / maxScroll * 0.2; // 1 → 1.2
-      console.log(window.scrollY);
+      // console.log(window.scrollY);
       setExpanded(window.scrollY > 70);
     };
 
