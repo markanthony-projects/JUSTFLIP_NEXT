@@ -1,14 +1,15 @@
     "use client";
     import React from 'react'
 
-    import { motion } from 'framer-motion'
     import Image from "@/src/components/atoms/Image";
     import { createProjectUrl } from "@/src/utils/url";
     import Link from "next/link";
     import { memo, useState } from "react";
     import { MdOutlineLocationOn } from "react-icons/md";
     import FavouriteButton from '@/src/components/atoms/FavouriteButton';
-    import LoginModal from '@/src/components/organisms/LoginModal';
+    import dynamic from "next/dynamic";
+
+    const LoginModal = dynamic(() => import('@/src/components/organisms/LoginModal'), { ssr: false });
 
     const TopPropertyCard = ({ project, priority }) => {
         const [showLoginPrompt, setShowLoginPrompt] = useState(false);
@@ -22,30 +23,13 @@
 
         const bannerImage = project?.banner || (project?.medias?.find(m => m.title === 'banner') || project?.medias?.[0]);
 
-        const cardVariants = {
-            hidden: { opacity: 0, y: 40 },
-            visible: { opacity: 1, y: 0 },
-            hover: { scale: 1.05 }
-        };
-
-
         return (
             <>
                 <Link href={projectUrl} className="w-full">
-                    <motion.div 
-                        variants={cardVariants}
-                        initial="hidden"
-                        animate="visible"
-                        whileHover="hover"
-                        transition={{ duration: 0.1 }}
-                        // style={{
-                        //     width: 200,
-                        //     height: 200,
-                        //     background: "black",
-                        // }}
-                        className="group relative bg-white shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 hover:border-gray-300 rounded-lg overflow-hidden flex flex-col my-2 w-60 md:w-60 max-w-60"
+                    <div 
+                        className="group relative bg-white shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 hover:scale-105 hover:border-gray-300 rounded-lg overflow-hidden flex flex-col my-2 w-60 md:w-60 max-w-60 animate-slide-up"
                     >
-                        <div className= "h-35 md:h-35 xl:h-35 relative overflow-hidden bg-gray-100 border-b border-gray-100 60 md:w-60 max-w-60">
+                        <div className= "h-35 md:h-35 xl:h-35 relative overflow-hidden bg-gray-100 border-b border-gray-100 w-60 md:w-60 max-w-60">
                             <Image
                                 src={bannerImage?.url || '/assets/project-banner.webp'}
                                 alt={bannerImage?.alt || project.name}
@@ -98,7 +82,7 @@
                                 )}
                             </div>
                         </div>
-                    </motion.div>
+                    </div>
                 </Link>
                 <LoginModal isOpen={showLoginPrompt} closeModal={() => setShowLoginPrompt(false)} />
             </>

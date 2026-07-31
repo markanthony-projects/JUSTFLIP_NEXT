@@ -9,9 +9,12 @@ import { HiOutlineMenu, HiOutlineX, HiOutlineUserCircle } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
 import SearchBar from "@/src/components/SearchBar/SearchBar.server";
 import { useSlider } from "@/src/context/SliderContext";
-import UserSliderContent from "./UserSliderContent";
-import BrokerSliderContent from "./BrokerSliderContent";
+import dynamic from "next/dynamic";
 import Image from "next/image";
+
+const UserSliderContent = dynamic(() => import("./UserSliderContent"));
+const BrokerSliderContent = dynamic(() => import("./BrokerSliderContent"));
+
 export default function BaseHeaderClient({ children, config, }) {
     const pathname = usePathname();
     const router = useRouter();

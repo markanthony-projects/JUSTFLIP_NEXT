@@ -9,12 +9,13 @@ import { FiPlusSquare, FiUser } from "react-icons/fi";
 import { useAuthStore } from "@/src/stores/auth.store";
 import { useSlider, isOpen } from "@/src/context/SliderContext";
 import { useSearchStore } from "@/src/stores/search.store";
-import UserSliderContent from "./Header/UserSliderContent";
-import BrokerSliderContent from "./Header/BrokerSliderContent";
+const UserSliderContent = dynamic(() => import("./Header/UserSliderContent"));
+const BrokerSliderContent = dynamic(() => import("./Header/BrokerSliderContent"));
 
 import { toast } from "../utils/toast";
 
-import MobileSearchModal from "@/src/app/(justflip)/components/Search/MobileSearchModal";
+import dynamic from "next/dynamic";
+const MobileSearchModal = dynamic(() => import("@/src/app/(justflip)/components/Search/MobileSearchModal"));
 import { Suspense } from "react";
 
 
