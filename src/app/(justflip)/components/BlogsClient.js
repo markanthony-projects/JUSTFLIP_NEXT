@@ -3,10 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import Carousel from "@/src/components/Carousel";
+import dynamic from "next/dynamic";
+const Carousel = dynamic(() => import("@/src/components/Carousel"), { ssr: false });
 import LazyHydrate from "@/src/components/LazyHydrate";
 
-import BlogCard from "@/src/components/molecules/BlogCard";
+const BlogCard = dynamic(() => import("@/src/components/molecules/BlogCard"), { ssr: false });
 
 import { MdKeyboardDoubleArrowRight, MdReadMore } from "react-icons/md";
 import { BlogsSkeleton } from "./Skelton/BlogsSkelton";
@@ -24,7 +25,7 @@ export default function BlogsClient({ tag, initialBlogs }) {
                     Explore blogs to simplify your home buying
                 </h2>
 
-                <Link href="/blogs" className="text-[#002B5B] flex items-center gap-1 items-center py-0.5 px-1 rounded-xs hover:bg-[#002B5B]/5 hover:underline transition-all duration-300 ease-in-out">
+                <Link aria-label="View More" href="/blogs" className="text-[#002B5B] flex items-center gap-1 items-center py-0.5 px-1 rounded-xs hover:bg-[#002B5B]/5 hover:underline transition-all duration-300 ease-in-out">
                     <span className="hidden sm:block text-xs font-semibold">View More</span>
                     <MdReadMore className="text-xl" />
                 </Link>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { HiHome, HiOutlineBookmark, HiOutlineChatAlt2, HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 import { TbCrown } from "react-icons/tb";
@@ -8,12 +9,13 @@ import { FiPlusSquare, FiUser } from "react-icons/fi";
 import { useAuthStore } from "@/src/stores/auth.store";
 import { useSlider, isOpen } from "@/src/context/SliderContext";
 import { useSearchStore } from "@/src/stores/search.store";
-import UserSliderContent from "./Header/UserSliderContent";
-import BrokerSliderContent from "./Header/BrokerSliderContent";
+const UserSliderContent = dynamic(() => import("./Header/UserSliderContent"));
+const BrokerSliderContent = dynamic(() => import("./Header/BrokerSliderContent"));
 
 import { toast } from "../utils/toast";
 
-import MobileSearchModal from "@/src/app/(justflip)/components/Search/MobileSearchModal";
+import dynamic from "next/dynamic";
+const MobileSearchModal = dynamic(() => import("@/src/app/(justflip)/components/Search/MobileSearchModal"));
 import { Suspense } from "react";
 
 
@@ -40,8 +42,8 @@ function MobileBottomNavContent() {
         }
     };
 
-    console.log(user)
-    console.log(authType)
+    // console.log(user)
+    // console.log(authType)
 
     const handleSavedClick = () => {
         if(!isAuthenticated){
@@ -61,7 +63,7 @@ function MobileBottomNavContent() {
     const MenuIcon = (props) => {
         if (isAuthenticated) {
             return user?.profilePhoto ? (
-                <img src={user.profilePhoto} alt="Profile" className={`rounded-full object-cover w-6 h-6 ${props.className || ""}`} />
+                <Image src={user.profilePhoto} alt="Profile" width={24} height={24} className={`rounded-full object-cover w-6 h-6 ${props.className || ""}`} />
             ) : (
                 <FiUser className={props.className} />
             );
@@ -114,7 +116,7 @@ function MobileBottomNavContent() {
                         <div className="relative flex items-center justify-center">
                             <item.icon className="text-2xl" />
                             {item.badge && (
-                                <div className="absolute -bottom-2 bg-green-500 text-white text-[8px] font-bold px-1 rounded-sm tracking-wider">
+                                <div className="absolute -bottom-2 bg-green-700 text-white text-[8px] font-bold px-1 rounded-sm tracking-wider">
                                     {item.badge}
                                 </div>
                             )}

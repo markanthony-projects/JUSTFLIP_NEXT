@@ -157,14 +157,14 @@ export default function SearchBarClient() {
     }
 
     return (
-        <div ref={containerRef} className="relative w-full max-w-4xl bg-white rounded-lg shadow-lg flex h-10 lg:h-12 border border-gray-300" >
+        <div ref={containerRef} className="relative w-full max-w-4xl bg-white rounded-lg shadow-lg flex h-12 lg:h-14 border border-gray-300" >
             <div className="flex-1 flex items-center p-1">
                 <div className="relative w-full overflow-hidden">
                     <TextField
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        // aria-label = {searchPlaceholderList[aria].aria}
-                        className="border-none focus:ring-0 text-xs md:text-sm"
+                        aria-label="Search for projects, builders, or locations"
+                        className="border-none focus:ring-0 text-xs md:text-sm !h-full min-h-[44px]"
                     />
 
                     {!search && (

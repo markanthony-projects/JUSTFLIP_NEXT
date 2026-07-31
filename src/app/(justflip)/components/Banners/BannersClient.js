@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -50,64 +50,23 @@ export default function BannersClient({ banners = [] }) {
 
     /*
     |--------------------------------------------------------------------------
-    | Autoplay
-    |--------------------------------------------------------------------------
-    */
-
-    const startAutoplay = useCallback(() => {
-
-        clearInterval(autoplayRef.current);
-
-        if (total <= 1) return;
-
-        autoplayRef.current = setInterval(() => {
-
-            setCurrentIndex((prev) => {
-
-                if (animatingRef.current) return prev;
-
-                animatingRef.current = true;
-
-                setPreviousIndex(prev);
-
-                const next =
-                    (prev + 1) % total;
-
-                clearTimeout(cleanupRef.current);
-
-                cleanupRef.current = setTimeout(() => {
-
-                    setPreviousIndex(null);
-                    animatingRef.current = false;
-
-                }, TRANSITION_DURATION);
-
-                return next;
-
-            });
-
-        }, AUTOPLAY_DELAY);
-
-    }, [total]);
-
-    /*
-    |--------------------------------------------------------------------------
-    | Init
+    | Autoplay (Managed automatically by useEffect when currentIndex changes)
     |--------------------------------------------------------------------------
     */
 
     useEffect(() => {
 
-        startAutoplay();
+        if (total <= 1) return;
+
+        autoplayRef.current = setInterval(() => {
+            transition((currentIndex + 1) % total);
+        }, AUTOPLAY_DELAY);
 
         return () => {
-
             clearInterval(autoplayRef.current);
-            clearTimeout(cleanupRef.current);
-
         };
 
-    }, [startAutoplay]);
+    }, [currentIndex, total, transition]);
 
     /*
     |--------------------------------------------------------------------------
@@ -121,8 +80,6 @@ export default function BannersClient({ banners = [] }) {
             (currentIndex + 1) % total
         );
 
-        startAutoplay();
-
     };
 
     const prev = () => {
@@ -130,8 +87,6 @@ export default function BannersClient({ banners = [] }) {
         transition(
             (currentIndex - 1 + total) % total
         );
-
-        startAutoplay();
 
     };
 
@@ -238,8 +193,10 @@ export default function BannersClient({ banners = [] }) {
                             key={index}
                             onClick={() => transition(index)}
                             aria-label={`Slide ${index + 1}`}
-                            className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex ? "w-6 bg-white" : "w-2 bg-white/50 hover:bg-white/80"}`}
-                        />
+                            className="h-6 w-6 flex items-center justify-center focus:outline-none"
+                        >
+                            <div className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex ? "w-6 bg-white" : "w-2 bg-white/50 group-hover:bg-white/80"}`} />
+                        </button>
                     ))}
 
                 </div>
@@ -262,47 +219,50 @@ function SlideImage({
     visible
 }) {
 
+    const common = {
+        alt: banner?.alt || banner?.name || "Banner",
+        fill: true,
+        priority: priority,
+        fetchPriority: priority ? "high" : "auto",
+        sizes: "100vw",
+        placeholder: "blur",
+        blurDataURL: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=",
+        draggable: false,
+        className: `object-cover pointer-events-none transition-transform duration-7000 ease-out ${visible ? "scale-100" : "scale-[1.04]"}`,
+    };
+
+    const {
+        props: { srcSet: desktopSrcSet, ...desktopRest },
+    } = getImageProps({ ...common, src: banner?.url || "/assets/project-banner.webp" });
+
+    const mobileProps = banner?.meta?.mobileUrl ? getImageProps({ ...common, src: banner.meta.mobileUrl }) : null;
+    const tabProps = banner?.meta?.tabUrl ? getImageProps({ ...common, src: banner.meta.tabUrl }) : null;
+
     return (
         <div className="absolute inset-0">
-
             <picture>
-
                 {/* Mobile */}
-
-                {banner?.meta?.mobileUrl && (
+                {mobileProps && (
                     <source
                         media="(max-width: 767px)"
-                        srcSet={banner.meta.mobileUrl}
+                        srcSet={mobileProps.props.srcSet}
                     />
                 )}
 
                 {/* Tablet */}
-
-                {banner?.meta?.tabUrl && (
+                {tabProps && (
                     <source
-                        media="(max-width: 1023px)"
-                        srcSet={banner.meta.tabUrl}
+                        media="(min-width: 768px) and (max-width: 1023px)"
+                        srcSet={tabProps.props.srcSet}
                     />
                 )}
 
                 {/* Desktop */}
-
-                <Image
-                    src={banner?.url}
-                    alt={banner?.alt || banner?.name || "Banner"}
-                    fill
-                    priority={priority}
-                    fetchPriority={priority ? "high" : "auto"}
-                    sizes="(max-width: 1240px) 100vw, 1240px"
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/x8AAwMCAO+ip1sAAAAASUVORK5CYII="
-                    draggable={false}
-                    className={`object-cover pointer-events-none transition-transform duration-7000 ease-out ${visible ? "scale-100" : "scale-[1.04]"}`}
+                <img
+                    srcSet={desktopSrcSet}
+                    {...desktopRest}
                 />
-
             </picture>
-
         </div>
     );
-
 }
