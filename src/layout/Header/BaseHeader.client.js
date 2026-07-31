@@ -7,11 +7,14 @@ import { FiMenu, FiUser } from "react-icons/fi";
 import { useAuthStore } from "@/src/stores/auth.store";
 import { HiOutlineMenu, HiOutlineX, HiOutlineUserCircle } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
-import SearchBar from "@/src/components/SearchBar/SearchBar.server";
 import { useSlider } from "@/src/context/SliderContext";
-import UserSliderContent from "./UserSliderContent";
-import BrokerSliderContent from "./BrokerSliderContent";
+import dynamic from "next/dynamic";
 import Image from "next/image";
+
+const SearchBar = dynamic(() => import("@/src/components/SearchBar/SearchBar.server"));
+const UserSliderContent = dynamic(() => import("./UserSliderContent"));
+const BrokerSliderContent = dynamic(() => import("./BrokerSliderContent"));
+
 export default function BaseHeaderClient({ children, config, }) {
     const pathname = usePathname();
     const router = useRouter();

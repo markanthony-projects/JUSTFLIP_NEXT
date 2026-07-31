@@ -233,7 +233,7 @@ function SlideImage({
 
     const {
         props: { srcSet: desktopSrcSet, ...desktopRest },
-    } = getImageProps({ ...common, src: banner?.url });
+    } = getImageProps({ ...common, src: banner?.url || "/assets/project-banner.webp" });
 
     const mobileProps = banner?.meta?.mobileUrl ? getImageProps({ ...common, src: banner.meta.mobileUrl }) : null;
     const tabProps = banner?.meta?.tabUrl ? getImageProps({ ...common, src: banner.meta.tabUrl }) : null;
