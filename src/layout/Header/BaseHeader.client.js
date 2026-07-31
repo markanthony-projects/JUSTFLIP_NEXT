@@ -9,6 +9,7 @@ import { HiOutlineMenu, HiOutlineX, HiOutlineUserCircle } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
 import { useSlider } from "@/src/context/SliderContext";
 import dynamic from "next/dynamic";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 
 const SearchBar = dynamic(() => import("@/src/components/SearchBar/SearchBar.server"));
