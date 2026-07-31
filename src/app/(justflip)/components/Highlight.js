@@ -10,7 +10,7 @@ const BulletItem = memo(function BulletItem({ title, description, tone }) {
     return (
         <div className={`flex gap-3 p-2 ${toneStyle[tone]} hover:shadow-md transition`}>
             {/* icon */}
-            <div className={`w-10 h-10 flex items-center justify-center rounded-full bg-white shadow`}>
+            <div className={`w-6 h-6 flex items-center justify-center rounded-full bg-transparent shadow-sm`}>
                 <div className={`w-3 h-3 rounded-full ${ tone === "positive" ? "bg-green-600" : "bg-orange-500" }`} />
             </div>
 
