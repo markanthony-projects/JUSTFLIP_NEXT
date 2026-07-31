@@ -157,7 +157,7 @@ export default function SearchBarClient() {
     }
 
     return (
-        <div ref={containerRef} className="relative w-full max-w-4xl bg-white rounded-lg shadow-lg flex h-10 lg:h-12 border border-gray-300" >
+        <div ref={containerRef} className="relative w-full max-w-4xl bg-white rounded-lg shadow-lg flex h-10 lg:h-12 border border-gray-300 z-100" >
             <div className="flex-1 flex items-center p-1">
                 <div className="relative w-full overflow-hidden">
                     <TextField
