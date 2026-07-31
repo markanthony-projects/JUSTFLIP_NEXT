@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { HiHome, HiOutlineBookmark, HiOutlineChatAlt2, HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
 import { TbCrown } from "react-icons/tb";
@@ -61,7 +62,7 @@ function MobileBottomNavContent() {
     const MenuIcon = (props) => {
         if (isAuthenticated) {
             return user?.profilePhoto ? (
-                <img src={user.profilePhoto} alt="Profile" className={`rounded-full object-cover w-6 h-6 ${props.className || ""}`} />
+                <Image src={user.profilePhoto} alt="Profile" width={24} height={24} className={`rounded-full object-cover w-6 h-6 ${props.className || ""}`} />
             ) : (
                 <FiUser className={props.className} />
             );
