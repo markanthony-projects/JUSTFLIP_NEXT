@@ -23,6 +23,7 @@ export default function BlogCard({ blog }) {
                         src={blog.image.url}
                         alt={blog.image?.alt || blog.heading || "blog"}
                         className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-[1.03]"
+                        sizes="350px"
                     />
                 ) : (
                     <div className="w-full h-full bg-gray-100" />

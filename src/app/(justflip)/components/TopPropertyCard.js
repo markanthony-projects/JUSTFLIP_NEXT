@@ -35,6 +35,7 @@
                                 alt={bannerImage?.alt || project.name}
                                 className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                                 priority={priority}
+                                sizes="250px"
                             />
 
                             <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent pointer-events-none z-0"></div>
