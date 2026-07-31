@@ -669,13 +669,14 @@ export default function Carousel({
                 }, 100);
             });
 
-        observer.observe(track);
-
-        measure();
+        let initialTimeoutId = setTimeout(() => {
+            measure();
+        }, 100);
 
         return () => {
             observer.disconnect();
             clearTimeout(timeoutId);
+            clearTimeout(initialTimeoutId);
         };
 
     }, [items, measure]);

@@ -25,6 +25,7 @@ const nextConfig = {
     qualities: [75, 85, 100],
   },
   experimental: {
+    optimizeCss: true,
     serverActions: {
       allowedOrigins: [
         "localhost:3000",
