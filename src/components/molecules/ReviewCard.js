@@ -9,12 +9,12 @@ export default function ReviewCard({ review }) {
 
   if (!review) return null;
 
-  // Handle potential variations in property names from different API payloads
   const reviewerName = review?.reviewer?.name || review?.userName || review?.name || "Anonymous";
   const comment = (review?.comment || review?.description || review?.text || "").trim();
   const rating = review?.rating ?? review?.stars ?? 0;
 
-  const hasComment = comment.length > 0;
+  if (!comment) return null;
+
   const shouldTruncate = comment.length > 100;
 
   const toggleExpanded = () => {
@@ -22,41 +22,42 @@ export default function ReviewCard({ review }) {
   };
 
   return (
-    <div className="bg-white shadow-md p-3 rounded-lg border border-gray-200 w-full h-fit">
-      <div className="flex items-center gap-2">
+    <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-2xs w-full h-fit hover:border-slate-300 transition-colors">
+      <div className="flex items-center gap-2.5">
         <Avatar name={reviewerName} />
         <div>
-          <p className="font-semibold text-sm">{reviewerName}</p>
-          {/* Passed readOnly={true} so submitted stars cannot be modified */}
-          <StarRating value={rating} readOnly={true} />
+          <p className="font-semibold text-sm text-slate-800 leading-tight">
+            {reviewerName}
+          </p>
+          <div className="mt-0.5">
+            <StarRating value={rating} readOnly={true} />
+          </div>
         </div>
       </div>
 
-      {/* Conditionally render the comment section only if a non-empty comment exists */}
-      {hasComment && (
-        <div className="pt-2 text-sm text-gray-600">
-          <p
-            className={
-              !expanded && shouldTruncate
-                ? "line-clamp-2 break-all overflow-hidden"
-                : "break-all"
-            }
-          >
-            {comment}
-          </p>
+      {/* Comment Section */}
+      <div className="pt-2 text-sm text-slate-600">
+        <p
+          className={
+            !expanded && shouldTruncate
+              ? "line-clamp-2 break-words overflow-hidden leading-relaxed"
+              : "break-words leading-relaxed"
+          }
+        >
+          {comment}
+        </p>
 
-          {shouldTruncate && (
-            <button
-              type="button"
-              onClick={toggleExpanded}
-              className="text-xs text-blue-600 hover:underline mt-1"
-              aria-expanded={expanded}
-            >
-              {expanded ? "Show less" : "Read more"}
-            </button>
-          )}
-        </div>
-      )}
+        {shouldTruncate && (
+          <button
+            type="button"
+            onClick={toggleExpanded}
+            className="text-xs font-medium text-blue-600 hover:text-blue-700 hover:underline mt-1 focus:outline-hidden"
+            aria-expanded={expanded}
+          >
+            {expanded ? "Show less" : "Read more"}
+          </button>
+        )}
+      </div>
     </div>
   );
 }
