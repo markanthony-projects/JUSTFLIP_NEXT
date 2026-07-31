@@ -3,10 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 
-import Carousel from "@/src/components/Carousel";
+import dynamic from "next/dynamic";
+const Carousel = dynamic(() => import("@/src/components/Carousel"), { ssr: false });
 import LazyHydrate from "@/src/components/LazyHydrate";
 
-import BlogCard from "@/src/components/molecules/BlogCard";
+const BlogCard = dynamic(() => import("@/src/components/molecules/BlogCard"), { ssr: false });
 
 import { MdKeyboardDoubleArrowRight, MdReadMore } from "react-icons/md";
 import { BlogsSkeleton } from "./Skelton/BlogsSkelton";

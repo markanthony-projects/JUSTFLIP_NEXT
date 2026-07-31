@@ -33,7 +33,7 @@ export default function PopularCityCard({ city }) {
                             <Image
                                 src={city?.banner}
                                 alt={city?.name}
-                                sizes="280px"
+                                sizes="100px"
                                 className="object-cover"
                             />
 

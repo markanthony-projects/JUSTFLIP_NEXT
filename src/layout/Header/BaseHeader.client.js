@@ -7,10 +7,14 @@ import { FiMenu, FiUser } from "react-icons/fi";
 import { useAuthStore } from "@/src/stores/auth.store";
 import { HiOutlineMenu, HiOutlineX, HiOutlineUserCircle } from "react-icons/hi";
 import { FaSearch } from "react-icons/fa";
-import SearchBar from "@/src/components/SearchBar/SearchBar.server";
 import { useSlider } from "@/src/context/SliderContext";
-import UserSliderContent from "./UserSliderContent";
-import BrokerSliderContent from "./BrokerSliderContent";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+
+const SearchBar = dynamic(() => import("@/src/components/SearchBar/SearchBar.server"));
+const UserSliderContent = dynamic(() => import("./UserSliderContent"));
+const BrokerSliderContent = dynamic(() => import("./BrokerSliderContent"));
+
 export default function BaseHeaderClient({ children, config, }) {
     const pathname = usePathname();
     const router = useRouter();
@@ -92,7 +96,7 @@ export default function BaseHeaderClient({ children, config, }) {
                                     className="h-12 w-12 flex items-center justify-center rounded-full bg-white/20 overflow-hidden ring-2 ring-white/50 hover:ring-white transition-all"
                                 >
                                     {user?.profilePhoto ? (
-                                        <img src={user.profilePhoto} alt="Profile" className="h-full w-full object-cover" />
+                                        <Image src={user.profilePhoto} alt="Profile" width={48} height={48} className="h-full w-full object-cover" />
                                     ) : (
                                         <FiUser className="text-xl" />
                                     )}

@@ -2,9 +2,10 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import dynamic from "next/dynamic";
 import LazyHydrate from "@/src/components/LazyHydrate";
-import Carousel from "@/src/components/Carousel";
-import PopularCityCard from "@/src/components/Cards/PopularCityCard";
+const Carousel = dynamic(() => import("@/src/components/Carousel"), { ssr: false });
+const PopularCityCard = dynamic(() => import("@/src/components/Cards/PopularCityCard"), { ssr: false });
 
 import SiteService from "@/src/services/SiteService";
 

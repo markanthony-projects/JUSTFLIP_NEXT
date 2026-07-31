@@ -4,8 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { MdKeyboardDoubleArrowRight, MdReadMore } from "react-icons/md";
 
+import dynamic from "next/dynamic";
 import LazyHydrate from "@/src/components/LazyHydrate";
-import ProjectCarousel from "./ProjectCarousel";
+const ProjectCarousel = dynamic(() => import("./ProjectCarousel"), { ssr: false });
 import { PropertyCardSkeletonList } from "../Skelton/PropertyCardSkeleton";
 
 import { useCityStore } from "@/src/stores/city.store";

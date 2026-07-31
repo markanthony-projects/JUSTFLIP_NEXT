@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -219,47 +219,50 @@ function SlideImage({
     visible
 }) {
 
+    const common = {
+        alt: banner?.alt || banner?.name || "Banner",
+        fill: true,
+        priority: priority,
+        fetchPriority: priority ? "high" : "auto",
+        sizes: "100vw",
+        placeholder: "blur",
+        blurDataURL: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=",
+        draggable: false,
+        className: `object-cover pointer-events-none transition-transform duration-7000 ease-out ${visible ? "scale-100" : "scale-[1.04]"}`,
+    };
+
+    const {
+        props: { srcSet: desktopSrcSet, ...desktopRest },
+    } = getImageProps({ ...common, src: banner?.url || "/assets/project-banner.webp" });
+
+    const mobileProps = banner?.meta?.mobileUrl ? getImageProps({ ...common, src: banner.meta.mobileUrl }) : null;
+    const tabProps = banner?.meta?.tabUrl ? getImageProps({ ...common, src: banner.meta.tabUrl }) : null;
+
     return (
         <div className="absolute inset-0">
-
             <picture>
-
                 {/* Mobile */}
-
-                {banner?.meta?.mobileUrl && (
+                {mobileProps && (
                     <source
                         media="(max-width: 767px)"
-                        srcSet={banner.meta.mobileUrl}
+                        srcSet={mobileProps.props.srcSet}
                     />
                 )}
 
                 {/* Tablet */}
-
-                {banner?.meta?.tabUrl && (
+                {tabProps && (
                     <source
-                        media="(max-width: 1023px)"
-                        srcSet={banner.meta.tabUrl}
+                        media="(min-width: 768px) and (max-width: 1023px)"
+                        srcSet={tabProps.props.srcSet}
                     />
                 )}
 
                 {/* Desktop */}
-
-                <Image
-                    src={banner?.url}
-                    alt={banner?.alt || banner?.name || "Banner"}
-                    fill
-                    priority={priority}
-                    fetchPriority={priority ? "high" : "auto"}
-                    sizes="100vw"
-                    placeholder="blur"
-                    blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/x8AAwMCAO+ip1sAAAAASUVORK5CYII="
-                    draggable={false}
-                    className={`object-cover pointer-events-none transition-transform duration-7000 ease-out ${visible ? "scale-100" : "scale-[1.04]"}`}
+                <img
+                    srcSet={desktopSrcSet}
+                    {...desktopRest}
                 />
-
             </picture>
-
         </div>
     );
-
 }
