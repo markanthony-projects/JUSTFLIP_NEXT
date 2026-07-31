@@ -22,6 +22,7 @@ export default function DeferredProjectSection({ city, tag }) {
     const [enabled, setEnabled] = useState(false);
     const [loading, setLoading] = useState(false);
     const [projects, setProjects] = useState([]);
+    const [fetchedCityId, setFetchedCityId] = useState(null);
 
     const cityText = useMemo(() => {
         return resolvedCity?.name ? `in ${resolvedCity.name}` : "";
@@ -79,6 +80,7 @@ export default function DeferredProjectSection({ city, tag }) {
 
                 if (mounted) {
                     setProjects(response || []);
+                    setFetchedCityId(resolvedCityId);
                 }
 
             } catch (error) {
@@ -102,6 +104,12 @@ export default function DeferredProjectSection({ city, tag }) {
         };
 
     }, [enabled, resolvedCityId, tag]);
+
+    const isDataForCurrentCity = fetchedCityId === resolvedCityId;
+
+    if (enabled && isDataForCurrentCity && !loading && !projects.length) {
+        return null;
+    }
 
     return (
         <section>
