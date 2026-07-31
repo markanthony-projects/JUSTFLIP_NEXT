@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Logo from "../../components/Logo/Logo";
-import NearestCity from "../../components/NearestCity/NearestCity.server";
+import NearestCity from "../../components/NearestCity/NearestCity.client";
 import BaseHeaderClient from "./BaseHeader.client";
 import { HEADER_VARIANTS } from "./header.config";
 import logo from "@/public/assets/Justfliplogo.svg"

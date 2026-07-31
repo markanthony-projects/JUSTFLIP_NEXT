@@ -660,23 +660,22 @@ export default function Carousel({
 
         if (!track) return;
 
+        let timeoutId;
         const observer =
             new ResizeObserver(() => {
-                measure();
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    measure();
+                }, 100);
             });
 
         observer.observe(track);
-
-        Array
-            .from(track.children)
-            .forEach((child) => {
-                observer.observe(child);
-            });
 
         measure();
 
         return () => {
             observer.disconnect();
+            clearTimeout(timeoutId);
         };
 
     }, [items, measure]);
@@ -786,6 +785,7 @@ export default function Carousel({
 
             {showArrows && hasLeft && (
                 <button
+                    aria-label="Previous"
                     onClick={scrollPrev}
                     className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 z-20 h-8 w-6 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
                 >
@@ -797,6 +797,7 @@ export default function Carousel({
 
             {showArrows && hasRight && (
                 <button
+                    aria-label="Next"
                     onClick={scrollNext}
                     className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 h-8 w-6 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
                 >
@@ -818,9 +819,12 @@ export default function Carousel({
                     {snapPoints.map((_, index) => (
                         <button
                             key={index}
+                            aria-label={`Slide ${index + 1}`}
                             onClick={() => scrollToIndex(index)}
-                            className={`h-2 rounded-full transition-all duration-300 ${currentIndex === index ? "w-5 bg-black" : "w-2 bg-black/30"}`}
-                        />
+                            className="h-6 w-6 flex items-center justify-center focus:outline-none"
+                        >
+                            <div className={`h-2 rounded-full transition-all duration-300 ${currentIndex === index ? "w-5 bg-black" : "w-2 bg-black/30"}`} />
+                        </button>
                     ))}
 
                 </div>

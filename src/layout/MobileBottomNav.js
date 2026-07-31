@@ -114,7 +114,7 @@ function MobileBottomNavContent() {
                         <div className="relative flex items-center justify-center">
                             <item.icon className="text-2xl" />
                             {item.badge && (
-                                <div className="absolute -bottom-2 bg-green-500 text-white text-[8px] font-bold px-1 rounded-sm tracking-wider">
+                                <div className="absolute -bottom-2 bg-green-700 text-white text-[8px] font-bold px-1 rounded-sm tracking-wider">
                                     {item.badge}
                                 </div>
                             )}

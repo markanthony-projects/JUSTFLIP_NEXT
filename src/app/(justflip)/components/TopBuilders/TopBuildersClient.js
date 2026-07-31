@@ -14,8 +14,8 @@ import { MdKeyboardDoubleArrowRight, MdReadMore } from "react-icons/md";
 function BuilderSkeleton() {
     function CardSkeleton() {
         return (
-            <div className="w-70 rounded-lg flex items-center p-2 border border-gray-200 gap-4 animate-pulse">
-                <div className="h-15 w-15 md:h-20 md:w-20 rounded-md bg-gray-200" />
+            <div className="w-[280px] rounded-lg flex items-center p-2 border border-gray-200 gap-4 animate-pulse">
+                <div className="h-16 w-16 md:h-20 md:w-20 rounded-md bg-gray-200" />
                 <div className="flex-1 space-y-2">
                     <div className="h-4 w-32 bg-gray-200 rounded" />
                     <div className="h-3 w-20 bg-gray-200 rounded" />
@@ -42,7 +42,7 @@ export default function TopBuildersClient({
     const resolvedCity = city || activeCity;
     const resolvedCityId = resolvedCity?.id;
 
-    const [enabled, setEnabled] = useState(false);
+
     const [loading, setLoading] = useState(false);
     const [builders, setBuilders] = useState(initialBuilders || []);
 
@@ -51,60 +51,42 @@ export default function TopBuildersClient({
     }, [resolvedCity?.name]);
 
     useEffect(() => {
+        // If server provided city data, we don't need to fetch on client
+        if (city?.id) return;
 
-        if (city?.id || !activeCity?.id) {
-            return;
-        }
-
-        setEnabled(false);
-        setBuilders([]);
-        setLoading(false);
-
-    }, [activeCity?.id, resolvedCityId, city?.id]);
-
-    useEffect(() => {
-
-        if (!enabled || !resolvedCityId) return;
-
-        let mounted = true;
-
-        const fetchBuilders = async () => {
-
-            try {
-
-                setLoading(true);
-
-                const response =
-                    await BuilderService.fetchTopBuilders({
-                        cityId: resolvedCityId,
+        // Fetch when activeCity is available
+        if (activeCity?.id) {
+            let mounted = true;
+            
+            const fetchBuilders = async () => {
+                try {
+                    setLoading(true);
+                    const response = await BuilderService.fetchTopBuilders({
+                        cityId: activeCity.id,
                         limit: 20
                     });
-
-                if (mounted) {
-                    setBuilders(response?.builders || []);
+                    
+                    if (mounted) {
+                        setBuilders(response?.builders || []);
+                    }
+                } catch (error) {
+                    console.error(error);
+                } finally {
+                    if (mounted) {
+                        setLoading(false);
+                    }
                 }
+            };
+            
+            fetchBuilders();
+            
+            return () => {
+                mounted = false;
+            };
+        }
+    }, [activeCity?.id, city?.id]);
 
-            } catch (error) {
 
-                console.error(error);
-
-            } finally {
-
-                if (mounted) {
-                    setLoading(false);
-                }
-
-            }
-
-        };
-
-        fetchBuilders();
-
-        return () => {
-            mounted = false;
-        };
-
-    }, [enabled, resolvedCityId]);
 
     return (
         <section>
@@ -117,7 +99,7 @@ export default function TopBuildersClient({
                         {`Top Real Estate Builders in ${cityText}`}
                     </h2>
 
-                    <Link href="/developers" className="text-[#002B5B] flex items-center gap-1 items-center py-0.5 px-1 rounded-xs hover:bg-[#002B5B]/5 hover:underline transition-all duration-300 ease-in-out">
+                    <Link aria-label="View More" href="/developers" className="text-[#002B5B] flex items-center gap-1 items-center py-0.5 px-1 rounded-xs hover:bg-[#002B5B]/5 hover:underline transition-all duration-300 ease-in-out">
                         <span className="hidden sm:block text-xs font-semibold">View More</span>
                         <MdReadMore className="text-xl" />
                     </Link>
@@ -130,13 +112,7 @@ export default function TopBuildersClient({
 
             </div>
 
-            <LazyHydrate
-                key={resolvedCityId}
-                rootMargin="500px"
-                placeholder={<BuilderSkeleton />}
-                onVisible={() => setEnabled(true)}
-            >
-
+            <div className="mt-4">
                 {loading || !builders.length ? (
 
                     <BuilderSkeleton />
@@ -158,20 +134,20 @@ export default function TopBuildersClient({
                             return (
                                 <Link href={`/developers/${formatUrl(builder?.name)}-${builder?.id}`}>
 
-                                    <div className="w-70 rounded-lg flex items-center p-2 border border-gray-200 hover:shadow-md transition gap-4">
+                                    <div className="w-[280px] rounded-lg flex items-center p-2 border border-gray-200 hover:shadow-md transition gap-4">
 
-                                        <div className="shadow h-15 w-15 md:h-20 md:w-20 overflow-hidden rounded-md relative">
+                                        <div className="shadow h-16 w-16 md:h-20 md:w-20 overflow-hidden rounded-md relative flex-shrink-0">
                                             <Image
                                                 src={logo}
                                                 alt={`${builder?.name || "builder"} logo`}
                                                 className="object-contain"
-                                            // sizes="80px"
+                                                sizes="80px"
                                             />
                                         </div>
 
                                         <div>
 
-                                            <h3 className="text-sm font-semibold md:font-bold line-clamp-2">
+                                            <h3 className="text-sm font-semibold md:font-bold truncate">
                                                 {builder?.name}
                                             </h3>
 
@@ -191,7 +167,7 @@ export default function TopBuildersClient({
 
                 )}
 
-            </LazyHydrate>
+            </div>
 
         </section>
     );
