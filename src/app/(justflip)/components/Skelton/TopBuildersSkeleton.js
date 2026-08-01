@@ -29,7 +29,7 @@ const CarouselSkeleton = ({ count = 3 }) => {
   );
 };
 
-export const TopBuildersSkeleton = memo(() => {
+export const TopBuildersSkeleton = () => {
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -41,4 +41,4 @@ export const TopBuildersSkeleton = memo(() => {
       <CarouselSkeleton />
     </div>
   );
-});
+};
