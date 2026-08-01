@@ -119,9 +119,15 @@ const ProfileMain = () => {
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
         return 'enter a valid email.'
     }
-    if (key === 'phone' && value && value.trim().length === 10) {
-      if (!/^(?:\+91)?[6-9]\d{9}$/.test(value)) {
-        return 'enter a valid phone number'
+    if (key === 'phone' && value ) {
+      if (!/^\d{10}$/.test(value)) return 'phone number must be 10 digits'
+      if (!/^[6-9]/.test(value)) {
+        // return 'enter a valid Indian(starts with 6-9) phone number'
+        return(
+          <>
+            <p>enter a valid Indian <span className='text-amber-500 text-[11px]'>(*starts with 6-9)</span> phone number</p>
+          </>
+        )
       }
     }
     return ''
@@ -139,9 +145,6 @@ const ProfileMain = () => {
         newErrors[key] = error
         isValid = false
       }
-      // if(fields.include('email' || 'number')){
-      //     isValid = true
-      // }
     })
 
     const emailFilled = formValues.email && formValues.email.trim() > 0
@@ -169,7 +172,7 @@ const ProfileMain = () => {
         payload[key] = formValues[key]
       }
     })
-    console.log('payload being sent : ', payload)
+    // console.log('payload being sent : ', payload)
 
     try {
       const response = await JUSTFLIP.put('/user/update', payload)
@@ -183,7 +186,7 @@ const ProfileMain = () => {
     } catch (error) {
       console.log('type of error : ', error)
       addToast({
-        message: error.response?.data?.error || 'update failed',
+        message: error.response?.data?.message || 'update failed',
         type: 'error'
       })
     }
