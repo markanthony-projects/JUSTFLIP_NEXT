@@ -14,8 +14,8 @@ export default function SingleSelectFilter({ config }) {
   };
 
   return (
-    <div className="py-4 border-b border-gray-100 last:border-0">
-      <h3 className="text-sm font-bold text-gray-900 mb-3">{config.label}</h3>
+    <div className="py-2 border-b border-gray-100 last:border-0">
+      <h3 className="text-sm font-bold text-gray-900 mb-2">{config.label}</h3>
       <div className="space-y-2">
         {config.options.map((option) => {
           const isSelected = currentValue === option.value;

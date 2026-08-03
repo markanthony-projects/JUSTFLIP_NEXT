@@ -31,9 +31,9 @@ export default function PropertyTypeFilter({ config }) {
     };
 
     return (
-        <div className="py-4 border-b border-gray-100 last:border-0">
-            <h3 className="text-sm font-bold text-gray-900 mb-3">{config.label}</h3>
-            <div className="grid grid-cols-2 gap-3">
+        <div className="py-2 border-b border-gray-100 last:border-0">
+            <h3 className="text-sm font-bold text-gray-900 mb-2">{config.label}</h3>
+            <div className="grid grid-cols-4 gap-2">
                 {config.options.map((option) => {
                     const isSelected = selectedValues.includes(option.value);
                     const icon = iconMap[option.value];
@@ -42,7 +42,7 @@ export default function PropertyTypeFilter({ config }) {
                             key={option.value}
                             type="button"
                             onClick={() => handleToggle(option.value)}
-                            className={`flex flex-col items-center justify-center gap-2 p-3 rounded-xl border transition-all ${
+                            className={`flex flex-col items-center justify-center gap-1 p-2 px-3 rounded-xl border transition-all ${
                                 isSelected 
                                 ? 'bg-blue-50 border-[#002B5B] text-[#002B5B] shadow-sm' 
                                 : 'bg-white border-gray-200 text-gray-500 hover:border-[#002B5B] hover:bg-gray-50'
