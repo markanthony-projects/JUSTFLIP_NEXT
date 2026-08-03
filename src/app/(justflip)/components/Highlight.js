@@ -1,127 +1,158 @@
 "use client";
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 
 const BulletItem = memo(function BulletItem({ title, description, tone }) {
-    const toneStyle = {
-        positive: "bg-green-50 border-green-100",
-        negative: "bg-amber-50 border-amber-100"
-    }
+  return (
+    <div className="flex gap-3 p-2 sm:p-2.5 rounded-lg">
+      {/* Bullet Dot Badge */}
+      <div className="w-8 h-8 sm:w-9 sm:h-9 flex-shrink-0 flex items-center justify-center rounded-full bg-white shadow-sm mt-0.5">
+        <div
+          className={`w-2.5 h-2.5 rounded-full ${
+            tone === "positive" ? "bg-[#0B8019]" : "bg-[#E65100]"
+          }`}
+        />
+      </div>
 
-    return (
-        <div className={`flex gap-3 p-2 ${toneStyle[tone]} hover:shadow-md transition`}>
-            {/* icon */}
-            <div className={`w-10 h-10 flex items-center justify-center rounded-full bg-white shadow`}>
-                <div className={`w-3 h-3 rounded-full ${ tone === "positive" ? "bg-green-600" : "bg-orange-500" }`} />
-            </div>
-
-            {/* Content */}
-            <div className="flex-1 min-w-0">
-                <p className="text-[15px] font-semibold text-gray-800">
-                {title}
-                </p>
-                <p className="text-[13px] text-gray-500 mt-1 leading-relaxed">
-                {description}
-                </p>
-            </div>
-        </div>
-    );
+      {/* Content */}
+      <div className="flex-1 min-w-0">
+        <p className="text-[14px] sm:text-[15px] font-bold text-gray-900 leading-snug">
+          {title}
+        </p>
+        <p className="text-[12px] sm:text-[13px] text-gray-600 mt-1 leading-relaxed">
+          {description}
+        </p>
+      </div>
+    </div>
+  );
 });
 
-const SectionHeader = ({ title, icon, tone }) => {
-    const toneStyles = {
-        positive: "text-green-700",
-        negative: "text-orange-600",
-    };
+const SectionHeader = ({ title, icon, tone, isOpen, onToggle }) => {
+  const toneStyles = {
+    positive: "text-[#0B8019]",
+    negative: "text-[#C7641C]",
+  };
 
-    return (
-        <div className="flex items-center justify-between mb-4">
-        <h2 className={`flex items-center gap-2 font-semibold ${toneStyles[tone]}`}>
-            {icon}
-            {title}
-        </h2>
-        </div>
-    );
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      className="w-full flex items-center justify-between mb-2.5 sm:mb-3 focus:outline-none group md:cursor-default"
+    >
+      <div className={`flex items-center gap-2 sm:gap-2.5 font-bold text-[15px] sm:text-[16px] ${toneStyles[tone]}`}>
+        {icon}
+        <span>{title}</span>
+      </div>
+
+      {/* Accordion Chevron Icon (Visible on mobile only) */}
+      <svg
+        className={`w-5 h-5 text-gray-500 transition-transform duration-200 md:hidden ${
+          isOpen ? "rotate-180" : "rotate-0"
+        }`}
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+  );
 };
 
 const ThumbUpIcon = () => (
-    <span>
-        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
-            <path d="M6.33333 11.0286V21.6953C6.33333 22.0489 6.19286 22.3881 5.94281 22.6381C5.69276 22.8882 5.35362 23.0286 5 23.0286H2.33333C1.97971 23.0286 1.64057 22.8882 1.39052 22.6381C1.14048 22.3881 1 22.0489 1 21.6953V12.362C1 12.0084 1.14048 11.6692 1.39052 11.4192C1.64057 11.1691 1.97971 11.0286 2.33333 11.0286H6.33333C7.74782 11.0286 9.10437 10.4667 10.1046 9.46655C11.1048 8.46635 11.6667 7.1098 11.6667 5.69531V4.36198C11.6667 3.65474 11.9476 2.97646 12.4477 2.47636C12.9478 1.97626 13.6261 1.69531 14.3333 1.69531C15.0406 1.69531 15.7189 1.97626 16.219 2.47636C16.719 2.97646 17 3.65474 17 4.36198V11.0286H21C21.7072 11.0286 22.3855 11.3096 22.8856 11.8097C23.3857 12.3098 23.6667 12.9881 23.6667 13.6953L22.3333 20.362C22.1416 21.1799 21.7778 21.8823 21.2969 22.3633C20.8159 22.8442 20.2438 23.0777 19.6667 23.0286H10.3333C9.27247 23.0286 8.25505 22.6072 7.50491 21.8571C6.75476 21.1069 6.33333 20.0895 6.33333 19.0286" fill="#0B8019" />
-            <path d="M6.33333 11.0286V21.6953C6.33333 22.0489 6.19286 22.3881 5.94281 22.6381C5.69276 22.8882 5.35362 23.0286 5 23.0286H2.33333C1.97971 23.0286 1.64057 22.8882 1.39052 22.6381C1.14048 22.3881 1 22.0489 1 21.6953V12.362C1 12.0084 1.14048 11.6692 1.39052 11.4192C1.64057 11.1691 1.97971 11.0286 2.33333 11.0286H6.33333ZM6.33333 11.0286C7.74782 11.0286 9.10438 10.4667 10.1046 9.46655C11.1048 8.46635 11.6667 7.1098 11.6667 5.69531V4.36198C11.6667 3.65474 11.9476 2.97646 12.4477 2.47636C12.9478 1.97626 13.6261 1.69531 14.3333 1.69531C15.0406 1.69531 15.7189 1.97626 16.219 2.47636C16.719 2.97646 17 3.65474 17 4.36198V11.0286H21C21.7072 11.0286 22.3855 11.3096 22.8856 11.8097C23.3857 12.3098 23.6667 12.9881 23.6667 13.6953L22.3333 20.362C22.1416 21.1799 21.7778 21.8823 21.2969 22.3633C20.8159 22.8442 20.2438 23.0777 19.6667 23.0286H10.3333C9.27247 23.0286 8.25505 22.6072 7.50491 21.8571C6.75476 21.1069 6.33333 20.0895 6.33333 19.0286" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-    </span>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="#0B8019" className="sm:w-[22px] sm:h-[22px]" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.58 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z" />
+  </svg>
 );
 
 const ThumbDownIcon = () => (
-    <span>
-        <svg height="24" viewBox="0 0 25 24" width="25" fill="none" xmlns="http://www.w3.org/2000/svg"   >
-            <path d="M18.6667 13.6979V3.03125C18.6667 2.67763 18.8071 2.33849 19.0572 2.08844C19.3072 1.83839 19.6464 1.69792 20 1.69792H22.6667C23.0203 1.69792 23.3594 1.83839 23.6095 2.08844C23.8595 2.33849 24 2.67763 24 3.03125V12.3646C24 12.7182 23.8595 13.0573 23.6095 13.3074C23.3594 13.5574 23.0203 13.6979 22.6667 13.6979H18.6667C17.2522 13.6979 15.8956 14.2598 14.8954 15.26C13.8952 16.2602 13.3333 17.6168 13.3333 19.0313V20.3646C13.3333 21.0718 13.0524 21.7501 12.5523 22.2502C12.0522 22.7503 11.3739 23.0312 10.6667 23.0312C9.95942 23.0312 9.28115 22.7503 8.78105 22.2502C8.28095 21.7501 8 21.0718 8 20.3646V13.6979H4C3.29276 13.6979 2.61448 13.417 2.11438 12.9169C1.61429 12.4168 1.33333 11.7385 1.33333 11.0313L2.66667 4.36458C2.85842 3.54662 3.22217 2.84426 3.70313 2.3633C4.1841 1.88234 4.75622 1.64882 5.33333 1.69792H14.6667C15.7275 1.69792 16.7449 2.11934 17.4951 2.86949C18.2452 3.61964 18.6667 4.63705 18.6667 5.69792" fill="#C7641C" />
-            <path d="M18.6667 13.6979V3.03125C18.6667 2.67763 18.8071 2.33849 19.0572 2.08844C19.3072 1.83839 19.6464 1.69792 20 1.69792H22.6667C23.0203 1.69792 23.3594 1.83839 23.6095 2.08844C23.8595 2.33849 24 2.67763 24 3.03125V12.3646C24 12.7182 23.8595 13.0573 23.6095 13.3074C23.3594 13.5574 23.0203 13.6979 22.6667 13.6979H18.6667ZM18.6667 13.6979C17.2522 13.6979 15.8956 14.2598 14.8954 15.26C13.8952 16.2602 13.3333 17.6168 13.3333 19.0313V20.3646C13.3333 21.0718 13.0524 21.7501 12.5523 22.2502C12.0522 22.7503 11.3739 23.0312 10.6667 23.0312C9.95942 23.0312 9.28115 22.7503 8.78105 22.2502C8.28095 21.7501 8 21.0718 8 20.3646V13.6979H4C3.29276 13.6979 2.61448 13.417 2.11438 12.9169C1.61429 12.4168 1.33333 11.7385 1.33333 11.0313L2.66667 4.36458C2.85842 3.54662 3.22217 2.84426 3.70313 2.3633C4.18409 1.88234 4.75622 1.64882 5.33333 1.69792H14.6667C15.7275 1.69792 16.7449 2.11934 17.4951 2.86949C18.2452 3.61964 18.6667 4.63705 18.6667 5.69792" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-    </span>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="#C7641C" className="sm:w-[22px] sm:h-[22px]" xmlns="http://www.w3.org/2000/svg">
+    <path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z" />
+  </svg>
 );
 
+const HighlightLocation = ({ data = {}, name = "" }) => {
+  const { advantages = [], disadvantages = [], name: locationName = "Unknown Location" } = data;
 
-const HighlightLocation = ({ data = {} , name="" }) => {
-    const { advantages = [], disadvantages = [], name: locationName = "Unknown Location" } = data;
+  const [isAdvOpen, setIsAdvOpen] = useState(true);
+  const [isDisOpen, setIsDisOpen] = useState(false);
 
-    return (
-        <section className="w-full">
-            <h1 className="text-[#333] text-[18px] font-medium py-2">
-                {name && `${name} - `}{locationName} as a City  
-            </h1>
+  return (
+    <section className="w-full max-w-5xl mx-auto px-2 sm:px-0">
+      {/* City Title */}
+      <h1 className="text-gray-900 text-[16px] sm:text-[18px] font-bold py-1.5 sm:py-2 mb-2 sm:mb-3">
+        {name ? `${name} - ` : ""}{locationName} as a City
+      </h1>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 md:p-6 rounded-2xl bg-white shadow border border-gray-200">
-                {/* advantages */}
-                <div>
-                    <SectionHeader
-                        title="What Stands Out"
-                        icon={<ThumbUpIcon />}
-                        tone="positive"
-                    />
+      {/* Outer Card Wrapper */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 p-3.5 sm:p-5 md:p-6 rounded-2xl bg-white shadow-sm border border-gray-200">
+        
+        {/* Left Column (Positive) */}
+        <div className="flex flex-col">
+          {/* Header outside the box with accordion toggle */}
+          <SectionHeader
+            title="What Stands Out"
+            icon={<ThumbUpIcon />}
+            tone="positive"
+            isOpen={isAdvOpen}
+            onToggle={() => setIsAdvOpen((prev) => !prev)}
+          />
 
-                    {advantages.length > 0 ? (
-                        advantages.map((item, index) => (
-                            <BulletItem
-                                key={`adv-${index}`}
-                                title={item?.title}
-                                description={item?.description}
-                                tone="positive"
-                            />
-                        ))
-                    ) : (
-                        <p className="text-sm text-gray-400 mt-4">
-                            No highlights available
-                        </p>
-                    )}
-                </div>
+          {/* Green Box Container */}
+          <div
+            className={`bg-[#f2f8f3] p-2 sm:p-2.5 rounded-xl flex-1 space-y-1 transition-all duration-300 ${
+              isAdvOpen ? "block" : "hidden md:block"
+            }`}
+          >
+            {advantages.length > 0 ? (
+              advantages.map((item, index) => (
+                <BulletItem
+                  key={`adv-${index}`}
+                  title={item?.title}
+                  description={item?.description}
+                  tone="positive"
+                />
+              ))
+            ) : (
+              <p className="text-xs sm:text-sm text-gray-400 p-2">No highlights available</p>
+            )}
+          </div>
+        </div>
 
-                {/* Disadvantages */}
-                <div>
-                    <SectionHeader
-                        title="What Goes Unnoticed"
-                        icon={<ThumbDownIcon />}
-                        tone="negative"
-                    />
+        {/* Right Column (Negative) */}
+        <div className="flex flex-col">
+          {/* Header outside the box with accordion toggle */}
+          <SectionHeader
+            title="What Goes Unnoticed"
+            icon={<ThumbDownIcon />}
+            tone="negative"
+            isOpen={isDisOpen}
+            onToggle={() => setIsDisOpen((prev) => !prev)}
+          />
 
-                    {disadvantages.length > 0 ? (
-                        disadvantages.map((item, index) => (
-                            <BulletItem
-                                key={`dis-${index}`}
-                                title={item?.title}
-                                description={item?.description}
-                                tone="negative"
-                            />
-                        ))
-                    ) : (
-                        <p className="text-sm text-gray-400 mt-4">
-                            No issues reported
-                        </p>
-                    )}
-                </div>
-            </div>
-        </section>
-    );
+          {/* Yellow Box Container */}
+          <div
+            className={`bg-[#fff9ef] p-2 sm:p-2.5 rounded-xl flex-1 space-y-1 transition-all duration-300 ${
+              isDisOpen ? "block" : "hidden md:block"
+            }`}
+          >
+            {disadvantages.length > 0 ? (
+              disadvantages.map((item, index) => (
+                <BulletItem
+                  key={`dis-${index}`}
+                  title={item?.title}
+                  description={item?.description}
+                  tone="negative"
+                />
+              ))
+            ) : (
+              <p className="text-xs sm:text-sm text-gray-400 p-2">No issues reported</p>
+            )}
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
 };
 
 export default memo(HighlightLocation);
