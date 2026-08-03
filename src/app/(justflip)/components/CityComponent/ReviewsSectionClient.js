@@ -8,7 +8,8 @@ import { useAuthStore } from "@/src/stores/auth.store";
 import { useReviewStore } from "@/src/stores/review.store";
 import { toast } from "@/src/utils/toast";
 
-export default function ReviewsSectionClient({  typeId, typeName, type, reviews: initialReviews }) {
+export default function ReviewsSectionClient({ typeId, typeName, type, reviews: initialReviews }) {
+    console.log("ReviewsSection Debug:", { type, typeName, typeId });
     const [modalOpen, setModalOpen] = useState(false);
     const [loginOpen, setLoginOpen] = useState(false);
     const { authType } = useAuthStore();
@@ -22,15 +23,19 @@ export default function ReviewsSectionClient({  typeId, typeName, type, reviews:
         }
     }, [initialReviews, setReviews]);
 
+    // Handle "city" specifically; everything else defaults to "project" behavior
+    const isCity = type === "city";
+    const entityLabel = isCity ? "City" : "Project";
+
     const handleRating = () => {
         if (authType === "visitor"){
-            setModalOpen(true)
-        } else if(authType === "broker"){
-            toast.warn("Only Buyers can leave Property review")
-        }else {
-            setLoginOpen(true)
+            setModalOpen(true);
+        } else if (authType === "broker"){
+            toast.warn(`Only Buyers can leave ${entityLabel} review`);
+        } else {
+            setLoginOpen(true);
         }
-    }
+    };
     
     return (
         <section className="">
@@ -42,16 +47,24 @@ export default function ReviewsSectionClient({  typeId, typeName, type, reviews:
             </div>
 
             {/* Use reviews from the store for real-time updates */}
-            <ReviewsList reviews={storeReviews} />
-            <RatingModal typeName={typeName} type={type}  typeId={typeId} isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+            <ReviewsList reviews={storeReviews} type={isCity ? "city" : "project"} />
+            
+            <RatingModal 
+                typeName={typeName} 
+                type={isCity ? "city" : "project"} 
+                typeId={typeId} 
+                isOpen={modalOpen} 
+                onClose={() => setModalOpen(false)} 
+            />
+            
             <LoginModal
                 isOpen={loginOpen}
                 closeModal={() => setLoginOpen(false)}
                 onSuccess={() => {
-                    if(useAuthStore.getState().authType === "visitor"){
-                        setModalOpen(true)
-                    }else{
-                        toast.warn("Brokers are not eligible to leave property reviews.")
+                    if (useAuthStore.getState().authType === "visitor"){
+                        setModalOpen(true);
+                    } else {
+                        toast.warn(`Brokers are not eligible to leave ${entityLabel.toLowerCase()} reviews.`);
                     }
                 }}
             />
