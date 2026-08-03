@@ -76,7 +76,7 @@ export default function BaseHeaderClient({ children, config, }) {
     ];
 
     return (
-        <header className={`${isHome ? (config.sticky ? "fixed " : "relative") : "sticky"} top-0 left-0 z-50 w-full py-4  ${config.bg} transition-all duration-300 ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`} >
+        <header className={`${isHome ? (config.sticky ? "fixed " : "relative") : "sticky"} top-0 left-0 z-50 w-full py-2 md:py-2 lg:py-2.5 ${config.bg} transition-all duration-300 ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`} >
             <div className="flex gap-2 sm:gap-4 items-center justify-between flex-1 px-2 md:px-4 w-full mx-auto md:max-w-[1440px]">
                 {children}
 
@@ -106,30 +106,7 @@ export default function BaseHeaderClient({ children, config, }) {
                         )}
                     </nav>
 
-                    <div className=" inset-y-0 right-2 flex items-center lg:hidden">
-                        {!isAuthenticated && (
-                            <button
-                                type="button"
-                                aria-label="Menu"
-                                onClick={toggleMobileMenu}
-                                className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white"
-                            >
-                                {isMobileMenuOpen ? (<>
-                                    <HiOutlineX
-                                        className=" text-white  block h-6 w-6"
-                                        aria-hidden="true"
-                                    /> <span className="sr-only">Menu</span>
-                                </>
-                                ) : (<>
-                                    <HiOutlineMenu
-                                        className="text-white block h-6 w-6"
-                                        aria-hidden="true"
-                                    /> <span className="sr-only">Menu</span>
-                                </>
-                                )}
-                            </button>
-                        )}
-                    </div>
+
 
 
                     {isMobileMenuOpen && (
@@ -177,12 +154,7 @@ export default function BaseHeaderClient({ children, config, }) {
                 </div>
 
             </div>
-            { config?.showSearch && (
-                    <div className={`relative  md:hidden  w-full flex-1 px-2  pt-1  w-full  mx-auto md:max-w-[1440px] `}>
-                        <SearchBar />
-                    </div>
-                )
-            }
+
         </header>
     );
 }
