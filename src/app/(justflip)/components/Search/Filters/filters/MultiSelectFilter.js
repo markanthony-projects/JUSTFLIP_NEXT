@@ -23,9 +23,9 @@ export default function MultiSelectFilter({ config, onClose }) {
   };
 
   return (
-    <div className="flex flex-col py-4 border-b border-gray-100 last:border-0">
-      <h3 className="text-sm font-bold text-gray-900 mb-3">{config.label}</h3>
-      <div className="flex flex-wrap gap-2 mb-4">
+    <div className="flex flex-col py-2 border-b border-gray-100 last:border-0">
+      <h3 className="text-sm font-bold text-gray-900 mb-2">{config.label}</h3>
+      <div className="flex flex-wrap gap-2">
         {config.options.map((option) => {
           const isSelected = selectedValues.includes(option.value);
           return (

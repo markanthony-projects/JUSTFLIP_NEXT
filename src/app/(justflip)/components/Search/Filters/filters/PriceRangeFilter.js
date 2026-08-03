@@ -39,8 +39,8 @@ export default function PriceRangeFilter({ config }) {
   };
 
   return (
-    <div className="py-4 border-b border-gray-100 last:border-0">
-      <h3 className="text-sm font-bold text-gray-900 mb-3">{config.label}</h3>
+    <div className="py-2 border-b border-gray-100 last:border-0">
+      <h3 className="text-sm font-bold text-gray-900 mb-2">{config.label}</h3>
       
       <div className="flex items-center gap-2 mb-3">
         <div className="flex-1">
@@ -77,7 +77,7 @@ export default function PriceRangeFilter({ config }) {
             <button
               key={index}
               onClick={() => handlePreset(preset)}
-              className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+              className={`px-3.5 py-1.5 text-[14px] rounded-full border transition-colors ${
                 isActive 
                   ? 'bg-blue-50 border-[#002B5B] text-[#002B5B]' 
                   : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'

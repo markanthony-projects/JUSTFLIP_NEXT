@@ -34,11 +34,9 @@ export default function MobileSearchModal() {
     const [search, setSearch] = useState("");
     const [suggestions, setSuggestions] = useState(emptySuggestions);
     const [isPending, startTransition] = useTransition();
-    const [showCityDropdown, setShowCityDropdown] = useState(false);
     const [showLocalityDropdown, setShowLocalityDropdown] = useState(false);
     const [showLocationEditor, setShowLocationEditor] = useState(false);
     const [selectedLocalities, setSelectedLocalities] = useState([]);
-    const [loadingCities, setLoadingCities] = useState(false);
     const [liveTotal, setLiveTotal] = useState(total);
     const [isCalculating, setIsCalculating] = useState(false);
 
@@ -70,19 +68,11 @@ export default function MobileSearchModal() {
     useEffect(() => {
         if (isSearchModalOpen) {
             document.body.style.overflow = "hidden";
-            // If city list is empty, fetch it so user can pick one
-            if (cityList.length === 0) {
-                setLoadingCities(true);
-                fetchCityList().then((cities) => {
-                    setCityList(cities);
-                    setLoadingCities(false);
-                });
-            }
         } else {
             document.body.style.overflow = "auto";
         }
         return () => { document.body.style.overflow = "auto"; };
-    }, [isSearchModalOpen, cityList.length, setCityList]);
+    }, [isSearchModalOpen]);
 
     // Handle suggestions
     useEffect(() => {
@@ -133,7 +123,7 @@ export default function MobileSearchModal() {
     const handleSearchSubmit = (e) => {
         e?.preventDefault();
         if (!activeCity) {
-            setShowCityDropdown(true);
+            setShowLocationEditor(true);
             return;
         }
         setQuery(search);
@@ -149,12 +139,6 @@ export default function MobileSearchModal() {
                 router.push(`/search`);
             }
         });
-    };
-
-    const handleSelectCity = (city) => {
-        setActiveCity(city);
-        document.cookie = `activeCity=${encodeURIComponent(JSON.stringify(city))}; path=/; max-age=31536000; SameSite=Lax`;
-        setShowCityDropdown(false);
     };
 
     const flatSuggestions = [
@@ -173,9 +157,9 @@ export default function MobileSearchModal() {
 
     return (
         <>
-            <div className={`fixed inset-0 z-[110] bg-white flex flex-col animate-slide-up md:hidden`}>
+            <div className={`fixed inset-0 z-[110] bg-white flex flex-col animate-slide-up md:hidden h-[100dvh] w-full`}>
                 {/* Header */}
-                <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 shadow-sm bg-white z-10">
+                <div className="flex items-center justify-between px-5 py-3 pt-[max(1rem,env(safe-area-inset-top))] border-b border-gray-100 shadow-sm bg-white z-10">
                     <h2 className="text-xl font-extrabold text-[#002B5B] tracking-tight">Search Properties</h2>
                     <button onClick={closeSearchModal} className="p-2 -mr-2 bg-gray-50 text-gray-500 hover:bg-gray-100 hover:text-gray-900 rounded-full transition-colors">
                         <HiOutlineX className="w-5 h-5" />
@@ -183,12 +167,12 @@ export default function MobileSearchModal() {
                 </div>
 
                 <div className="flex-1 flex flex-col overflow-hidden bg-gray-50">
-                    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-24 scrollbar-hide">
+                    <div className="flex-1 overflow-y-auto overflow-x-hidden pb-20 scrollbar-hide">
                         {/* Search Form Area */}
-                        <div className="bg-white p-4 pb-2 shadow-sm border-b border-gray-200">
+                        <div className="bg-white p-1.5 pb-2 shadow-sm border-b border-gray-200">
                             {/* Top section: You are searching in ... Edit */}
                             {activeCity && (
-                                <div className="flex justify-between items-center px-2 py-1 mb-4 bg-blue-50/40 rounded-lg">
+                                <div className="flex justify-between items-center px-2 py-1 mb-1 bg-blue-50/40 rounded-lg">
                                     <p className="text-[13px] text-gray-500">
                                         You are searching in <span className="font-semibold text-[#002B5B]">{activeCity.name}</span>
                                     </p>
@@ -201,38 +185,16 @@ export default function MobileSearchModal() {
                                 </div>
                             )}
 
-                            {/* City Dropdown List */}
-                            {showCityDropdown && (
-                                <div className="mt-2 mb-3 bg-white border border-gray-200 rounded-xl shadow-lg max-h-48 overflow-y-auto">
-                                    {loadingCities ? (
-                                        <div className="p-4 text-sm text-center text-gray-500">Loading cities...</div>
-                                    ) : (
-                                        <ul className="py-1">
-                                            {cityList.map((city) => (
-                                                <li
-                                                    key={city.id}
-                                                    onClick={() => handleSelectCity(city)}
-                                                    className={`px-4 py-3 text-sm cursor-pointer border-b border-gray-50 last:border-0 flex items-center justify-between ${activeCity?.id === city.id ? 'bg-blue-50 text-[#002B5B] font-semibold' : 'text-gray-700 hover:bg-gray-50'}`}
-                                                >
-                                                    {city.name}
-                                                    {activeCity?.id === city.id && <div className="w-2 h-2 rounded-full bg-[#002B5B]" />}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </div>
-                            )}
-
                             {/* City/Localities/Projects Card */}
-                            <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-gray-100 p-5 mb-2 transition-all">
+                            <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-gray-100 p-4 mb-2 transition-all">
                                 <h3 className="text-[15px] font-bold text-gray-800 mb-4 flex items-center gap-2">
                                     City, Localities & Projects
                                 </h3>
 
-                                <div className="flex flex-wrap gap-2.5 mb-5">
+                                <div className="flex flex-wrap gap-2.5 mb-2">
                                     {/* Selected City Pill */}
                                     {activeCity && (
-                                        <div className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-[#e8f6f3] to-[#d1f2eb] text-gray-800 border border-[#1abc9c]/50 rounded-full text-[13px] font-medium shadow-sm">
+                                        <div className="flex items-center gap-0.5 px-2 py-1.5 !text-xs font-medium bg-gradient-to-r from-[#e8f6f3] to-[#d1f2eb] text-gray-800 border border-[#1abc9c]/50 rounded-full text-[13px] shadow-sm">
                                             {activeCity.name}
                                             <button
                                                 type="button"
@@ -249,7 +211,7 @@ export default function MobileSearchModal() {
 
                                     {/* Added Localities */}
                                     {selectedLocalities.slice(0, 2).map((loc) => (
-                                        <div key={loc.id} className="flex items-center gap-1.5 px-4 py-2 bg-gray-50 text-gray-700 border border-gray-200 rounded-full text-[13px] font-medium shadow-sm hover:border-gray-300 transition-colors">
+                                        <div key={loc.id} className="flex items-center gap-0.5 px-2 py-1.5 !text-xs bg-gray-50 text-gray-700 border border-gray-200 rounded-full text-[13px] font-medium shadow-sm hover:border-gray-300 transition-colors">
                                             {loc.name}
                                             <button
                                                 type="button"
@@ -266,7 +228,7 @@ export default function MobileSearchModal() {
                                         <button
                                             type="button"
                                             onClick={() => setShowLocationEditor(true)}
-                                            className="flex items-center gap-1 px-4 py-2 bg-blue-50 text-[#002B5B] border border-blue-100 rounded-full text-[13px] font-medium hover:bg-blue-100 transition-colors shadow-sm"
+                                            className="flex items-center gap-1 px-2 py-1.5 bg-blue-50 !text-xs text-[#002B5B] border border-blue-100 rounded-full text-[13px] font-medium hover:bg-blue-100 transition-colors shadow-sm"
                                         >
                                             +{selectedLocalities.length - 2} more
                                         </button>
@@ -277,21 +239,21 @@ export default function MobileSearchModal() {
                                         <button
                                             type="button"
                                             onClick={() => setShowLocationEditor(true)}
-                                            className="flex items-center gap-1.5 px-5 py-2 bg-white text-[#002B5B] border-2 border-dashed border-blue-200 rounded-full text-[13px] font-medium hover:bg-blue-50 hover:border-[#002B5B] transition-all"
+                                            className="flex items-center !text-xs gap-1 px-5 py-2 bg-white text-[#002B5B] border-2 border-dashed border-blue-200 rounded-full text-[13px] font-medium hover:bg-blue-50 hover:border-[#002B5B] transition-all"
                                         >
                                             + Add Locality
                                         </button>
                                     ) : (
                                         <div className="relative w-full group">
                                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                <HiSearch className="h-5 w-5 text-[#002B5B] group-hover:scale-110 transition-transform duration-300" />
+                                                <HiSearch className="h-4 w-4 text-[#002B5B] group-hover:scale-110 transition-transform duration-300" />
                                             </div>
                                             <input
                                                 type="text"
                                                 readOnly
                                                 onClick={() => setShowLocationEditor(true)}
                                                 placeholder="Search in a City, Locality or Project..."
-                                                className="block w-full pl-12 pr-10 py-3.5 border-2 border-gray-100 rounded-2xl leading-5 bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#002B5B] hover:shadow-[0_4px_20px_rgba(0,43,91,0.08)] sm:text-sm cursor-pointer transition-all duration-300"
+                                                className="text-sm block w-full pl-12 pr-10 py-2.5 border-2 border-gray-100 rounded-2xl leading-5 bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#002B5B] hover:shadow-[0_4px_20px_rgba(0,43,91,0.08)] sm:text-sm cursor-pointer transition-all duration-300"
                                             />
                                             <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                                                 <div className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></div>
@@ -301,11 +263,7 @@ export default function MobileSearchModal() {
                                 </div>
 
                                 {/* Use Current Location */}
-                                {/* <button className="flex items-center gap-2.5 text-[#ef4444] font-semibold text-[13px] hover:text-red-700 bg-red-50 hover:bg-red-100 px-4 py-2.5 rounded-xl transition-all w-full justify-center mt-2 group border border-red-100">
-                            <BiTargetLock className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                            Use my Current Location
-                        </button> */}
-                                <button className="flex items-center gap-2.5 text-[#002B5B] font-semibold text-[13px] hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2.5 rounded-xl transition-all w-full justify-center mt-2 group border border-blue-100">
+                                <button className="flex items-center gap-2.5 text-[#002B5B] font-semibold text-[11px] hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-1 py-1.5 rounded-xl transition-all w-full justify-center mt-1 group border border-blue-100">
                                     <BiTargetLock className="w-5 h-5" />
                                     Use my Current Location
                                 </button>
@@ -367,7 +325,7 @@ export default function MobileSearchModal() {
                                     </ul>
                                 </div>
                             ) : (
-                                <div className="px-4 py-4">
+                                <div className="px-4 py-2">
                                     {Object.values(SEARCH_CONFIG.filters).map((config) => (
                                         <FilterFactory key={config.key} config={config} />
                                     ))}
@@ -377,13 +335,13 @@ export default function MobileSearchModal() {
                     </div>
 
                     {/* Footer Fixed Search Button */}
-                    <div className="p-4 bg-white border-t border-gray-100 flex gap-3 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-10">
+                    <div className="p-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-white border-t border-gray-100 flex gap-3 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-10">
                         <button
                             onClick={clearFilters}
                             disabled={!hasFilters}
-                            className={`flex-1 py-3.5 px-4 rounded-xl font-bold text-sm border transition-all active:scale-[0.98] ${hasFilters
-                                    ? 'border-[#002B5B] text-[#002B5B] hover:bg-blue-50 hover:shadow-sm'
-                                    : 'border-gray-200 text-gray-400 bg-gray-50 opacity-70'
+                            className={`flex-1 py-3 px-4 rounded-xl font-bold text-[14px] border transition-all active:scale-[0.98] ${hasFilters
+                                ? 'border-[#002B5B] text-[#002B5B] hover:bg-blue-50 hover:shadow-sm'
+                                : 'border-gray-200 text-gray-400 bg-gray-50 opacity-70'
                                 }`}
                         >
                             Clear All
@@ -392,9 +350,9 @@ export default function MobileSearchModal() {
                         <button
                             onClick={handleSearchSubmit}
                             disabled={!activeCity || isNavigating}
-                            className={`flex-[1.5] py-3.5 px-4 rounded-xl font-bold text-sm shadow-lg transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2 ${activeCity
-                                    ? 'bg-gradient-to-r from-[#002B5B] to-[#004f9f] text-white hover:from-[#001f42] hover:to-[#003b7a] shadow-blue-900/25 hover:shadow-blue-900/40'
-                                    : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
+                            className={`flex-[2] py-3.5 px-[9px] rounded-xl font-bold text-[14px] shadow-lg transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-1 ${activeCity
+                                ? 'bg-gradient-to-r from-[#002B5B] to-[#004f9f] text-white hover:from-[#001f42] hover:to-[#003b7a] shadow-blue-900/25 hover:shadow-blue-900/40'
+                                : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
                                 }`}
                         >
                             {isNavigating ? 'Loading...' : isCalculating ? 'Calculating...' : (
