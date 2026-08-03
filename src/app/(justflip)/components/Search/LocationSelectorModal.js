@@ -138,7 +138,7 @@ export default function LocationSelectorModal({ onClose, selectedLocalities, tog
                     /* Active City Views */
                     <>
                         {/* Recently Searched */}
-                        <div className="p-4 border-b border-gray-100">
+                        {/* <div className="p-4 border-b border-gray-100">
                             <h3 className="text-sm font-bold text-[#002B5B] mb-3">Recently Searched</h3>
                             <div className="flex flex-wrap gap-2">
                                 {RECENTLY_SEARCHED.map((item) => (
@@ -150,10 +150,10 @@ export default function LocationSelectorModal({ onClose, selectedLocalities, tog
                                     </button>
                                 ))}
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* Top Localities */}
-                        <div className="p-4 border-b border-gray-100">
+                        <div className="p-4 border-b border-gray-100 mt-4">
                             <h3 className="text-sm font-bold text-[#002B5B] mb-3">Top Localities in {activeCity.name}</h3>
                             <div className="flex flex-wrap gap-2 items-center">
                                 {visibleLocalities.map((loc) => {
@@ -162,7 +162,7 @@ export default function LocationSelectorModal({ onClose, selectedLocalities, tog
                                         <button 
                                             key={loc.id}
                                             onClick={() => toggleLocality(loc)}
-                                            className={`px-4 py-1.5 rounded-full text-[13px] font-medium transition-colors border ${
+                                            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
                                                 isSelected 
                                                 ? 'bg-blue-50 text-[#002B5B] border-[#002B5B]' 
                                                 : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'

@@ -6,6 +6,7 @@ import RatingModal from "@/src/components/organisms/RatingModal";
 import LoginModal from "@/src/components/organisms/LoginModal";
 import { useAuthStore } from "@/src/stores/auth.store";
 import { useReviewStore } from "@/src/stores/review.store";
+import { toast } from "@/src/utils/toast";
 
 export default function ReviewsSectionClient({  typeId, typeName, type, reviews: initialReviews }) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -22,9 +23,11 @@ export default function ReviewsSectionClient({  typeId, typeName, type, reviews:
     }, [initialReviews, setReviews]);
 
     const handleRating = () => {
-        if (authType === "visitor" || authType === "broker") {
+        if (authType === "visitor"){
             setModalOpen(true)
-        } else {
+        } else if(authType === "broker"){
+            toast.warn("Only Buyers can leave Property review")
+        }else {
             setLoginOpen(true)
         }
     }
@@ -44,7 +47,13 @@ export default function ReviewsSectionClient({  typeId, typeName, type, reviews:
             <LoginModal
                 isOpen={loginOpen}
                 closeModal={() => setLoginOpen(false)}
-                onSuccess={() => setModalOpen(true)}
+                onSuccess={() => {
+                    if(useAuthStore.getState().authType === "visitor"){
+                        setModalOpen(true)
+                    }else{
+                        toast.warn("Brokers are not eligible to leave property reviews.")
+                    }
+                }}
             />
         </section>
     );
