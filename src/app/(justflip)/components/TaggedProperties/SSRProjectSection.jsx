@@ -19,6 +19,7 @@ export default function SSRProjectSection({ city, tag, projects: initialProjects
 
     const [projects, setProjects] = useState(initialProjects || []);
     const [loading, setLoading] = useState(false);
+    const [fetchedCityId, setFetchedCityId] = useState(city?.id);
 
     const cityText = useMemo(() => {
         return resolvedCity?.name ? `in ${resolvedCity.name}` : "";
@@ -52,6 +53,7 @@ export default function SSRProjectSection({ city, tag, projects: initialProjects
 
                 if (mounted) {
                     setProjects(response || []);
+                    setFetchedCityId(activeCity?.id);
                 }
 
             } catch (error) {
@@ -75,6 +77,13 @@ export default function SSRProjectSection({ city, tag, projects: initialProjects
         };
 
     }, [activeCity?.id, city?.id, tag]);
+
+    const currentCityId = activeCity?.id || city?.id;
+    const isDataForCurrentCity = fetchedCityId === currentCityId;
+
+    if (isDataForCurrentCity && !loading && !projects.length) {
+        return null;
+    }
 
     return (
         <section>
