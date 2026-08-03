@@ -189,8 +189,8 @@ export default function LoginModal({ isOpen, closeModal, onSuccess }) {
 
 
 
-                    <div className={`w-60 md:w-full relative  ${!showOtp ? "pointer-events-none opacity-0" : "opacity-100 h-60"} `}                   >
-                        <div className={`absolute left-0 w-full z-50 bottom-0 transform transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${showForm ? "translate-y-0 scale-100 opacity-100" : "translate-y-10 scale-95 opacity-0 pointer-events-none"}`}>
+                    <div className={`w-full relative ${!showOtp ? "pointer-events-none opacity-0 hidden" : "opacity-100"}`}                   >
+                        <div className={`w-full transform transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${showForm ? "translate-y-0 scale-100 opacity-100" : "translate-y-10 scale-95 opacity-0 pointer-events-none"}`}>
                             <h1 className='text-xl lg:text-2xl text-center text-[#002B5B] font-bold py-1'>
                                 Confirm Your Phone Number
                             </h1>
