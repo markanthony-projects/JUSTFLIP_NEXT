@@ -93,7 +93,7 @@ async function PropertyDetails({ params }) {
     });
 
     return (
-        <div className=''>
+        <div className='w-full max-w-full overflow-x-hidden px-2 md:px-4'>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateSchema) }} />
 
             <Breadcrumb items={breadcrumbItems} />
@@ -167,7 +167,7 @@ async function PropertyDetails({ params }) {
                 </div>
             </div>
 
-            <section className="lg:hidden block  -bottom-13 right-5 fixed z-10">
+            <section className="lg:hidden block">
                 <FloatingActions data={projectData} />
             </section>
             <Suspense fallback={<SimilarPropertiesSkeleton />}>
