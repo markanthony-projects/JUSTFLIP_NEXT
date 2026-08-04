@@ -9,6 +9,18 @@ import FilterFactory from './FilterFactory';
 export default function HorizontalFilterBar() {
   const { activeCity, setActiveCity } = useCityStore();
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [expanded, setExpanded] = useState(false);
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // console.log(window.scrollY);
+      setExpanded(window.scrollY > 70);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [])
   
   // Close dropdown when clicking outside
   const barRef = useRef(null);
@@ -27,10 +39,16 @@ export default function HorizontalFilterBar() {
   };
 
   return (
-    <div ref={barRef} className="w-full bg-[#002B5B] py-3 px-4 hidden lg:flex items-center gap-3 flex-wrap z-50 relative">
+    <div style={{ transform: `scale(${expanded})` }}
+      ref={barRef} 
+      className={`border-t border-gray-400  w-screen left-1/2 -translate-x-1/2 
+      bg-[#002B5B] py-3 px-4 hidden lg:flex items-center gap-3 flex-wrap z-50 
+      relative transition-all duration-300 origin-top top-0  ${
+      expanded ? "py-6" : "py-2"}`}
+    >
       
       {/* Location / Search Box */}
-      <div className="flex items-center bg-white rounded-full px-4 py-1.5 h-10 shadow-sm min-w-[300px]">
+      <div className="flex items-center bg-white rounded-full px-4 py-1.5 h-10 shadow-sm min-w-75">
         <button className="flex items-center gap-2 text-gray-800 text-sm font-medium hover:text-[#002B5B] transition-colors">
           Buy <HiChevronDown className="text-[#002B5B]" />
         </button>

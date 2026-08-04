@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import { useSearchStore } from '@/src/stores/search.store';
 import { SEARCH_CONFIG } from '@/src/services/search/searchConfig';
@@ -77,11 +79,11 @@ export default function FilterChips() {
   if (activeChips.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap items-center gap-2 mt-3">
+    <div className="flex flex-wrap items-center gap-2 ">
       {activeChips.map(chip => (
         <span 
           key={chip.id}
-          className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 border border-blue-100 text-[#002B5B] text-xs font-medium rounded-full"
+          className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-blue-50 border border-blue-100 text-[#002B5B] text-xs font-medium rounded-full"
         >
           {chip.label}
           <button

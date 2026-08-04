@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+
+/* for maps button to have a lower z-index it controls all leaflet components.*/
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 400 !important; 
+}
+
 :root {
 
     /* Colors */

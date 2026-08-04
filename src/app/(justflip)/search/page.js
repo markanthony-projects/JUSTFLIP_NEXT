@@ -1,3 +1,4 @@
+import HorizontalFilterBar from '../components/Search/Filters/HorizontalFilterBar';
 import SearchPageClient from '../components/Search/SearchPageClient';
 import { constructMetadata } from '@/src/utils/seo';
 
@@ -20,6 +21,9 @@ export default async function SearchPage({ searchParams }) {
   // Server-side initial fetch for SEO and faster FCP
   // Pass serializable params to client component
   return (
-    <SearchPageClient initialSearchParams={params} />
+    <div>
+      <SearchPageClient initialSearchParams={params}/>
+    </div>
   );
+  
 }
