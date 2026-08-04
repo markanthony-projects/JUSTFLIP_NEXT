@@ -10,6 +10,7 @@ const cx = (...c) => c.filter(Boolean).join(" ");
 export default function NearestCityClient({
     initialCity,
     placeholder = "Near Me",
+    buttonClassName = "bg-transparent text-white border border-white/40"
 }) {
     const { activeCity, setActiveCity, setCityList, cityList } = useCityStore();
     const [open, setOpen] = useState(false);
@@ -70,7 +71,7 @@ export default function NearestCityClient({
                 onClick={() => setOpen((v) => !v)}
                 className={cx(
                     "w-full h-full cursor-pointer px-2 rounded-md text-xs flex justify-between items-center",
-                    "bg-transparent text-white border border-white/40"
+                    buttonClassName
                 )}
             >
                 <span className="truncate">
@@ -89,16 +90,18 @@ export default function NearestCityClient({
             </button>
 
             {loading && (
-                <div className="absolute z-50 mt-1 w-full bg-white rounded-md shadow-sm">
-                    <ul className="p-2">
-                        <li className="text-xs">Loading…</li>
-                    </ul>
+                <div className="absolute z-50 mt-2 left-0 min-w-[160px] bg-white rounded-xl shadow-xl border border-gray-100 py-4 px-4">
+                    <div className="flex items-center justify-center space-x-1.5 animate-pulse">
+                        <div className="w-1.5 h-1.5 bg-[#002B5B]/40 rounded-full"></div>
+                        <div className="w-1.5 h-1.5 bg-[#002B5B]/60 rounded-full"></div>
+                        <div className="w-1.5 h-1.5 bg-[#002B5B]/80 rounded-full"></div>
+                    </div>
                 </div>
             )}
 
             {open && !loading && (
-                <div className="absolute z-50 mt-1 w-full bg-white rounded-md shadow-sm">
-                    <ul className="max-h-60 overflow-auto p-2">
+                <div className="absolute z-50 mt-2 left-0 min-w-[180px] bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden transform transition-all origin-top-left">
+                    <ul className="max-h-[300px] overflow-auto py-1.5 scrollbar-thin scrollbar-thumb-gray-200">
                         {cityList.map((city) => (
                             <li
                                 key={city?.id}
@@ -110,13 +113,18 @@ export default function NearestCityClient({
                                     setOpen(false);
                                 }}
                                 className={cx(
-                                    "px-2 py-1 rounded-sm text-xs cursor-pointer",
+                                    "px-4 py-2.5 text-[13px] cursor-pointer transition-colors duration-150 flex items-center justify-between",
                                     activeCity?.id === city?.id
-                                        ? "bg-black/15 text-blue-600"
-                                        : "hover:bg-gray-100"
+                                        ? "bg-[#F4F9FF] text-[#002B5B] font-semibold"
+                                        : "text-gray-700 hover:bg-gray-50"
                                 )}
                             >
                                 {city.name}
+                                {activeCity?.id === city?.id && (
+                                    <svg className="w-4 h-4 text-[#002B5B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                )}
                             </li>
                         ))}
                     </ul>

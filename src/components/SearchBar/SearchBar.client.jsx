@@ -12,71 +12,72 @@ import { TextField } from "../Inputs";
 import { useRouter, usePathname } from "next/navigation";
 import { useSearchStore } from "@/src/stores/search.store";
 import { useCityStore } from "@/src/stores/city.store";
+import NearestCity from "@/src/components/NearestCity/NearestCity.client";
 
 //this list should be outside so that it doesn't gets recreated on every render.
 //if this is ketp inside the useEffect tha depends on it will run infinitely.
 const searchPlaceholderList = [
-        {
-            title: "Projects in Bengaluru",
-            placeholder: "Search projects like 'Sobha Dream Acres'…",
-            aria: "Search Real Estate Projects in Bengaluru"
-        },
-        {
-            title: "New Launch in Bengaluru",
-            placeholder: "Search new launch projects in Bengaluru…",
-            aria: "Search New Launch Projects in Bengaluru"
-        },
-        {
-            title: "Luxury Homes",
-            placeholder: "Search luxury homes in Bengaluru…",
-            aria: "Search Luxury Properties"
-        },
-        {
-            title: "Top Localities",
-            placeholder: "Search Indiranagar, Whitefield, Koramangala, HSR Layout…",
-            aria: "Search Popular Localities in Bengaluru"
-        },
-        {
-            title: "IT Hub Locations",
-            placeholder: "Search Whitefield, Electronic City, ORR Belt…",
-            aria: "Search IT Hub Locations"
-        },
-        {
-            title: "Near Tech Parks",
-            placeholder: "Search near Ecospace, Manyata Tech Park, ITPL…",
-            aria: "Search Properties Near Tech Parks"
-        },
-        {
-            title: "Near Metro",
-            placeholder: "Search near Metro stations like MG Road, KR Puram…",
-            aria: "Search Properties Near Metro"
-        },
-        {
-            title: "Near Landmarks",
-            placeholder: "Search near Airport, Silk Board, Majestic…",
-            aria: "Search Properties Near Landmarks"
-        },
-        {
-            title: "Flats / Apartments",
-            placeholder: "Search Flats & Apartments in Bengaluru…",
-            aria: "Search Flats and Apartments"
-        },
-        {
-            title: "Villas / Row Houses",
-            placeholder: "Search Villas & Row Houses…",
-            aria: "Search Villas"
-        },
-        {
-            title: "Top Developers",
-            placeholder: "Search Prestige, Sobha, Brigade, Puravankara…",
-            aria: "Search Developers in Bengaluru"
-        },
-        {
-            title: "Ready to Move",
-            placeholder: "Search Ready-to-Move Homes in Bengaluru…",
-            aria: "Search Ready to Move Homes"
-        }
-    ];
+    {
+        title: "Projects in Bengaluru",
+        placeholder: "Search projects like 'Sobha Dream Acres'…",
+        aria: "Search Real Estate Projects in Bengaluru"
+    },
+    {
+        title: "New Launch in Bengaluru",
+        placeholder: "Search new launch projects in Bengaluru…",
+        aria: "Search New Launch Projects in Bengaluru"
+    },
+    {
+        title: "Luxury Homes",
+        placeholder: "Search luxury homes in Bengaluru…",
+        aria: "Search Luxury Properties"
+    },
+    {
+        title: "Top Localities",
+        placeholder: "Search Indiranagar, Whitefield, Koramangala, HSR Layout…",
+        aria: "Search Popular Localities in Bengaluru"
+    },
+    {
+        title: "IT Hub Locations",
+        placeholder: "Search Whitefield, Electronic City, ORR Belt…",
+        aria: "Search IT Hub Locations"
+    },
+    {
+        title: "Near Tech Parks",
+        placeholder: "Search near Ecospace, Manyata Tech Park, ITPL…",
+        aria: "Search Properties Near Tech Parks"
+    },
+    {
+        title: "Near Metro",
+        placeholder: "Search near Metro stations like MG Road, KR Puram…",
+        aria: "Search Properties Near Metro"
+    },
+    {
+        title: "Near Landmarks",
+        placeholder: "Search near Airport, Silk Board, Majestic…",
+        aria: "Search Properties Near Landmarks"
+    },
+    {
+        title: "Flats / Apartments",
+        placeholder: "Search Flats & Apartments in Bengaluru…",
+        aria: "Search Flats and Apartments"
+    },
+    {
+        title: "Villas / Row Houses",
+        placeholder: "Search Villas & Row Houses…",
+        aria: "Search Villas"
+    },
+    {
+        title: "Top Developers",
+        placeholder: "Search Prestige, Sobha, Brigade, Puravankara…",
+        aria: "Search Developers in Bengaluru"
+    },
+    {
+        title: "Ready to Move",
+        placeholder: "Search Ready-to-Move Homes in Bengaluru…",
+        aria: "Search Ready to Move Homes"
+    }
+];
 
 const emptySuggestions = {
     projects: [],
@@ -157,42 +158,45 @@ export default function SearchBarClient() {
     }
 
     return (
-        <div ref={containerRef} className="relative w-full max-w-4xl bg-white rounded-lg shadow-lg flex h-12 lg:h-14 border border-gray-300" >
-            <div className="flex-1 flex items-center p-1">
-                <div className="relative w-full overflow-hidden">
-                    <TextField
+        <div ref={containerRef} className="relative w-full max-w-4xl bg-white rounded-full sm:rounded-lg shadow-sm sm:shadow-lg flex h-[40px] sm:h-12 lg:h-14 border border-gray-200 sm:border-gray-300 min-w-0 sm:p-1" >
+            <div className="flex-1 flex items-center pl-2 sm:pl-1 pr-0 min-w-0 h-full">
+                <div className="flex items-center justify-center shrink-0 sm:hidden w-[75px] h-full">
+                    <NearestCity buttonClassName="bg-transparent text-[#002B5B] font-semibold text-[12px] w-full h-full !px-0" />
+                </div>
+                <div className="border-l border-gray-300 h-5 mx-2 shrink-0 sm:hidden" />
+                <div className="relative w-full flex-1 min-w-0 h-full">
+                    <input
+                        type="text"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         aria-label="Search for projects, builders, or locations"
-                        className="border-none focus:ring-0 text-xs md:text-sm !h-full min-h-[44px]"
+                        className="w-full h-full border-none focus:ring-0 outline-none text-[13px] md:text-sm bg-transparent pl-[0px] sm:pl-[12px]"
                     />
 
                     {!search && (
                         <span
                             key={placeholderIndex}
-                            className="absolute left-[12px] top-1/2 -translate-y-1/2 text-[#585858] text-xs md:text-sm pointer-events-none animate-slide-up line-clamp-1  md:max-w-[180px] lg:max-w-[290px] md:my-[3px] lg:mt-0"
+                            className="absolute left-[0px] sm:left-[12px] top-1/2 -translate-y-1/2 text-[#777] text-[12px] sm:text-xs md:text-sm pointer-events-none animate-slide-up line-clamp-1  md:max-w-[180px] lg:max-w-[290px]"
                         >
-                            {searchPlaceholderList[placeholderIndex].placeholder}
+                            {searchPlaceholderList[placeholderIndex]?.placeholder}
                         </span>
                     )}
-
                 </div>
-                <div className="border border-gray-400 h-6 lg:h-8 mx-2" />
+
+                <div className="hidden sm:block border-l border-gray-300 h-6 mx-2 shrink-0" />
 
                 <button
                     type="submit"
                     aria-label="Search"
-                    className=" transition-all duration-200 ease-in-out  transform hover:scale-[1.03] active:scale-95 inline-flex items-center justify-center gap-2 px-4 h-full rounded-lg bg-[#002B5B] text-white text-sm font-medium       transition-all duration-200     "
+                    className="transition-all duration-200 ease-in-out transform hover:scale-[1.03] active:scale-95 inline-flex items-center justify-center gap-2 w-[32px] h-[32px] sm:w-auto sm:px-6 sm:h-full rounded-full sm:rounded-lg bg-[#002B5B] text-white text-sm font-medium shrink-0 ml-1 sm:ml-0 z-10"
                     onClick={handleSearchRedirect}
                 >
-                    <FaSearch className="text-lg" />
+                    <FaSearch className="text-[14px] sm:text-base" />
 
                     <span className="hidden sm:inline">
                         Search
                     </span>
                 </button>
-
-
 
                 {!!flatSuggestions.length && (
                     <div className="absolute top-full left-0 mt-1 w-full bg-white border-none rounded-lg shadow-xl z-50 max-h-60 overflow-auto scrollbar-xs">
