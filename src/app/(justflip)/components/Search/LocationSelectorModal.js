@@ -8,26 +8,21 @@ import { useCityStore } from '@/src/stores/city.store';
 import { RECENTLY_SEARCHED, TOP_LOCALITIES, TOP_PROJECTS } from '@/src/utils/mockLocationData';
 import Image from 'next/image';
 import { HiOutlineOfficeBuilding } from 'react-icons/hi';
-import { fetchCityList } from '@/src/components/NearestCity/nearest-city.actions';
+import { ensureCityList } from '@/src/components/NearestCity/city-list.loader';
 import SiteService from '@/src/services/SiteService';
 
 export default function LocationSelectorModal({ onClose, selectedLocalities, toggleLocality }) {
-    const { activeCity, setActiveCity, cityList, setCityList } = useCityStore();
+    const { activeCity, setActiveCity, cityList } = useCityStore();
     const [searchQuery, setSearchQuery] = useState('');
-    const [loadingCities, setLoadingCities] = useState(false);
     const [showAllLocalities, setShowAllLocalities] = useState(false);
     const [popularCities, setPopularCities] = useState([]);
     const [loadingPopular, setLoadingPopular] = useState(false);
 
+    /* Deduped at module level: shared with the NearestCity dropdown. */
     useEffect(() => {
-        if (cityList.length === 0) {
-            setLoadingCities(true);
-            fetchCityList().then(cities => {
-                setCityList(cities);
-                setLoadingCities(false);
-            });
-        }
-    }, [cityList.length, setCityList]);
+        if (cityList.length) return;
+        ensureCityList();
+    }, [cityList.length]);
 
     useEffect(() => {
         setLoadingPopular(true);

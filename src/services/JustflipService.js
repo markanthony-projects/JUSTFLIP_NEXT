@@ -32,8 +32,8 @@ class JustflipService {
     }
 
     static async findNearestCity(lat, lng) {
-        let latitude = lat || 12.9716;
-        let longitude = lng || 77.5946;
+        const latitude = Number.isFinite(lat) ? lat : 12.9716;
+        const longitude = Number.isFinite(lng) ? lng : 77.5946;
 
         try {
             const { data } = await JUSTFLIP.get("/city/nearest", { params: { lat: latitude, lng: longitude } });
@@ -44,14 +44,17 @@ class JustflipService {
         }
     }
 
-
+    /**
+     * Resolve the city from the caller's IP.
+     * Called from the browser the backend reads the real remote address, so no
+     * headers are needed. Called on the server we forward the client IP instead.
+     */
     static async fetchNearestCityByIP(ip) {
         try {
             const { data } = await JUSTFLIP.get("/city/remoteAddr", {
-                headers: {
-                    "cf-connecting-ip": ip,
-                    "x-forwarded-for": ip,
-                }
+                headers: ip
+                    ? { "cf-connecting-ip": ip, "x-forwarded-for": ip }
+                    : undefined,
             });
 
             return data?.city ?? null;

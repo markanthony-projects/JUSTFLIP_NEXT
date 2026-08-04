@@ -127,7 +127,7 @@ export default function SlideOver({
             role="dialog"
         >
             <div
-                className="absolute inset-0 bg-black/21 backdrop-blur-xs transition-opacity duration-300"
+                className="absolute inset-0 app-overlay transition-opacity duration-300"
                 onClick={onClose}
                 aria-hidden="true"
             />

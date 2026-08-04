@@ -1,20 +1,25 @@
 import Logo from "../../components/Logo/Logo";
 import NearestCity from "@/src/components/NearestCity/NearestCity.client";
 import SearchBar from "../../components/SearchBar/SearchBar.server";
+import { SEARCH_BAR_SLOT } from "../../components/SearchBar/search-bar.slot";
 import BaseHeaderClient from "./BaseHeader.client";
-import { HEADER_VARIANTS } from "./header.config";
+import { HEADER_PILL_SKIN, HEADER_VARIANTS } from "./header.config";
 
 export default function Header() {
     return (
-        <BaseHeaderClient config={HEADER_VARIANTS.normal} >
-            <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-                <Logo className="w-[80px] h-[28px] sm:w-26 sm:h-10" />
-                <div className="hidden sm:block shrink-0">
-                    <NearestCity />
+        <BaseHeaderClient config={HEADER_VARIANTS.normal}>
+            {/* Logo is desktop only — on mobile the bar is the search field alone.
+                The city selector appears beside it only from `lg`, where there is
+                room for it without crowding the centred search bar; below that it
+                lives inside the bar itself. */}
+            <div className="hidden sm:flex items-center gap-4 shrink-0">
+                <Logo priority />
+                <div className="hidden lg:block">
+                    <NearestCity buttonClassName={HEADER_PILL_SKIN} />
                 </div>
             </div>
 
-            <div className="flex-1 w-full min-w-0 sm:max-w-[300px] md:max-w-[400px] lg:max-w-[500px] xl:max-w-[550px] mr-auto md:mr-0 ml-3 sm:ml-4">
+            <div className={`${SEARCH_BAR_SLOT} top-1/2 -translate-y-1/2`}>
                 <SearchBar />
             </div>
         </BaseHeaderClient>

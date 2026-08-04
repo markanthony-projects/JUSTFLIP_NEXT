@@ -1,4 +1,5 @@
 import SearchBar from "@/src/components/SearchBar/SearchBar.server";
+import { SEARCH_BAR_SLOT } from "@/src/components/SearchBar/search-bar.slot";
 import InchargeHeader from "@/src/layout/Header/InchargeHeader.server";
 import Banners from "../(justflip)/components/Banners/Banners";
 import { Suspense } from "react";
@@ -47,7 +48,7 @@ export default async function JustFlipHomePage() {
                 <div className="absolute top-0 left-0 w-full z-20 bg-linear-to-b from-black/90 via-black/60 to-transparent">
                     <InchargeHeader />
                 </div>
-                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 z-30 w-full px-2 sm:px-0 sm:w-150 lg:w-112.5 xl:w-150">
+                <div className={`${SEARCH_BAR_SLOT} -bottom-6 z-30`}>
                     <SearchBar />
                 </div>
             </section>

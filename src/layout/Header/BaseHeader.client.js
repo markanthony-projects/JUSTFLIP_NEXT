@@ -6,6 +6,7 @@ import Link from "next/link";
 import { FiMenu, FiUser } from "react-icons/fi";
 import { useAuthStore } from "@/src/stores/auth.store";
 import { useSlider } from "@/src/context/SliderContext";
+import { HEADER_PILL } from "./header.config";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 
@@ -73,15 +74,24 @@ export default function BaseHeaderClient({ children, config, }) {
     ];
 
     return (
-        <header className={`${isHome ? (config.sticky ? "fixed " : "relative") : "sticky"} top-0 left-0 z-50 w-full h-[60px] flex items-center ${config.bg} transition-all duration-300 ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`} >
-            <div className="flex gap-2 sm:gap-4 items-center justify-between flex-1 px-2 md:px-4 w-full h-full mx-auto md:max-w-[1440px]">
+        <header className={`${isHome ? (config.sticky ? "fixed " : "relative") : "sticky"} top-0 left-0 z-50 w-full h-15 flex items-center ${config.bg} transition-all duration-300 ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`} >
+            {/* `relative` anchors the absolutely-centred search bar slot. */}
+            <div className="relative flex h-full flex-1 gap-2 sm:gap-4 items-center justify-between px-2 md:px-4 w-full mx-auto md:max-w-[1440px]">
                 {children}
 
-                <div className="">
-                    <nav className="hidden lg:flex flex-1 items-center justify-end gap-4 text-xs text-white">
+                <div className="shrink-0">
+                    {/* Mobile CTA — the desktop nav below carries the same link
+                        from `lg` up, so this is hidden there to avoid a duplicate. */}
+                    {config.mobileCta && (
+                        <Link href={config.mobileCta.href} className={`lg:hidden ${HEADER_PILL}`}>
+                            {config.mobileCta.label}
+                        </Link>
+                    )}
+
+                    <nav className="hidden lg:flex flex-1 items-center justify-end gap-3 text-white">
                         {!isAuthenticated &&
                             config.navItems.map(({ href, label }) => (
-                                <Link key={href} href={href} className="relative overflow-hidden px-3 py-1 rounded-sm hover:bg-white/20" >
+                                <Link key={href} href={href} className={HEADER_PILL}>
                                     {label}
                                 </Link>
                             ))}
@@ -90,15 +100,15 @@ export default function BaseHeaderClient({ children, config, }) {
                             <div className="relative">
                                 <button
                                     onClick={handleSliderOpen}
-                                    className="h-12 w-12 flex items-center justify-center rounded-full bg-white/20 overflow-hidden ring-2 ring-white/50 hover:ring-white transition-all"
+                                    className="h-10 w-10 flex items-center justify-center rounded-full bg-white/20 overflow-hidden ring-2 ring-white/50 hover:ring-white transition-all"
                                 >
                                     {user?.profilePhoto ? (
-                                        <Image src={user.profilePhoto} alt="Profile" width={48} height={48} className="h-full w-full object-cover" />
+                                        <Image src={user.profilePhoto} alt="Profile" width={40} height={40} className="h-full w-full object-cover" />
                                     ) : (
                                         <FiUser className="text-xl" />
                                     )}
                                 </button>
-                                <span className="absolute bottom-0 right-0 block h-3.5 w-3.5 rounded-full bg-[#10B981] ring-2 ring-blue-900"></span>
+                                <span className="absolute bottom-0 right-0 block h-3 w-3 rounded-full bg-[#10B981] ring-2 ring-blue-900"></span>
                             </div>
                         )}
                     </nav>
@@ -114,7 +124,7 @@ export default function BaseHeaderClient({ children, config, }) {
                         >
                             <div
                                 onClick={(e) => e.stopPropagation()}
-                                className={`p-2 mb-19 transition-all duration-300 ease-in-out  ${config.showProfile ? "top-[99px] md:top-[55px]" : "top-[55px] md:top-[55px]"}  space-y-1 absolute left-0 w-full bg-gray-500/10 backdrop-blur-3xl`}
+                                className="p-2 mb-19 transition-all duration-300 ease-in-out top-15 space-y-1 absolute left-0 w-full bg-gray-500/10 backdrop-blur-3xl"
                             >
                                 {navigation
                                     ?.filter((item) => item.show !== false)
@@ -127,7 +137,7 @@ export default function BaseHeaderClient({ children, config, }) {
                                                     item.action();
                                                     setMobileMenuOpen(false);
                                                 }}
-                                                className="block w-full text-left px-3 py-2 rounded-md text-base text-white font-medium"
+                                                className={`w-full ${HEADER_PILL}`}
                                             >
                                                 {item.name}
                                             </button>
@@ -139,7 +149,7 @@ export default function BaseHeaderClient({ children, config, }) {
                                                     handleNavLinkClick(item.to);
                                                     setMobileMenuOpen(false);
                                                 }}
-                                                className="block px-3 py-2 rounded-md text-base text-white font-medium"
+                                                className={`w-full ${HEADER_PILL}`}
                                             >
                                                 {item.name}
                                             </Link>
