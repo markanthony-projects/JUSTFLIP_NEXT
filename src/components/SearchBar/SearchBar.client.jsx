@@ -85,7 +85,14 @@ const emptySuggestions = {
     locations: [],
 };
 
-export default function SearchBarClient() {
+/**
+ * The bar renders identically everywhere it is used — header and hero. Height
+ * is fixed at 42px on mobile and 45px from `sm` up.
+ *
+ * @param showCitySelector Mobile-only city selector inside the bar. Off when the
+ *   surrounding header already shows one.
+ */
+export default function SearchBarClient({ showCitySelector = true }) {
     const router = useRouter();
     const pathname = usePathname();
     const { setQuery, query } = useSearchStore();
@@ -158,47 +165,57 @@ export default function SearchBarClient() {
     }
 
     return (
-        <div ref={containerRef} className="relative w-full max-w-4xl bg-white rounded-full sm:rounded-lg shadow-sm sm:shadow-lg flex h-[40px] sm:h-12 lg:h-14 border border-gray-200 sm:border-gray-300 min-w-0 sm:p-1" >
-            <div className="flex-1 flex items-center pl-2 sm:pl-1 pr-0 min-w-0 h-full">
-                <div className="flex items-center justify-center shrink-0 sm:hidden w-[75px] h-full">
-                    <NearestCity buttonClassName="bg-transparent text-[#002B5B] font-semibold text-[12px] w-full h-full !px-0" />
-                </div>
-                <div className="border-l border-gray-300 h-5 mx-2 shrink-0 sm:hidden" />
-                <div className="relative w-full flex-1 min-w-0 h-full">
-                    <input
-                        type="text"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        aria-label="Search for projects, builders, or locations"
-                        className="w-full h-full border-none focus:ring-0 outline-none text-[13px] md:text-sm bg-transparent pl-[0px] sm:pl-[12px]"
-                    />
+        <div
+            ref={containerRef}
+            className="relative w-full max-w-4xl min-w-0 flex items-center h-[42px] sm:h-[45px] py-1 pl-3 pr-1 bg-white rounded-full sm:rounded-lg border border-gray-200 sm:border-gray-300 shadow-sm sm:shadow-lg"
+        >
+            {showCitySelector && (
+                <>
+                    <div className="shrink-0 lg:hidden w-[62px] sm:w-[84px] h-full">
+                        <NearestCity
+                            className="relative w-full h-full"
+                            buttonClassName="h-full bg-transparent text-[#002B5B] font-semibold text-[11px] sm:text-[12px] gap-0.5 sm:gap-1"
+                        />
+                    </div>
+                    <div className="w-px h-4 sm:h-5 bg-gray-300 shrink-0 mx-2 lg:hidden" />
+                </>
+            )}
 
-                    {!search && (
-                        <span
-                            key={placeholderIndex}
-                            className="absolute left-[0px] sm:left-[12px] top-1/2 -translate-y-1/2 text-[#777] text-[12px] sm:text-xs md:text-sm pointer-events-none animate-slide-up line-clamp-1  md:max-w-[180px] lg:max-w-[290px]"
-                        >
-                            {searchPlaceholderList[placeholderIndex]?.placeholder}
-                        </span>
-                    )}
-                </div>
+            <div className="relative flex-1 min-w-0 h-full">
+                <input
+                    type="text"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    aria-label="Search for projects, builders, or locations"
+                    className="w-full h-full border-none focus:ring-0 outline-none text-[13px] md:text-sm bg-transparent"
+                />
 
-                <div className="hidden sm:block border-l border-gray-300 h-6 mx-2 shrink-0" />
-
-                <button
-                    type="submit"
-                    aria-label="Search"
-                    className="transition-all duration-200 ease-in-out transform hover:scale-[1.03] active:scale-95 inline-flex items-center justify-center gap-2 w-[32px] h-[32px] sm:w-auto sm:px-6 sm:h-full rounded-full sm:rounded-lg bg-[#002B5B] text-white text-sm font-medium shrink-0 ml-1 sm:ml-0 z-10"
-                    onClick={handleSearchRedirect}
-                >
-                    <FaSearch className="text-[14px] sm:text-base" />
-
-                    <span className="hidden sm:inline">
-                        Search
+                {!search && (
+                    <span
+                        key={placeholderIndex}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 text-[#777] text-[12px] sm:text-xs md:text-sm pointer-events-none animate-slide-up line-clamp-1 md:max-w-[180px] lg:max-w-[290px]"
+                    >
+                        {searchPlaceholderList[placeholderIndex]?.placeholder}
                     </span>
-                </button>
+                )}
+            </div>
 
-                {!!flatSuggestions.length && (
+            <div className="hidden sm:block w-px h-6 bg-gray-300 shrink-0 mx-3" />
+
+            <button
+                type="submit"
+                aria-label="Search"
+                className="shrink-0 inline-flex items-center justify-center gap-2 w-8 h-8 sm:w-auto sm:h-full sm:px-5 rounded-full sm:rounded-md bg-[#002B5B] text-white text-sm font-medium transition-transform duration-200 ease-in-out hover:scale-[1.03] active:scale-95 z-10"
+                onClick={handleSearchRedirect}
+            >
+                <FaSearch className="text-[13px] sm:text-sm" />
+
+                <span className="hidden sm:inline">
+                    Search
+                </span>
+            </button>
+
+            {!!flatSuggestions.length && (
                     <div className="absolute top-full left-0 mt-1 w-full bg-white border-none rounded-lg shadow-xl z-50 max-h-60 overflow-auto scrollbar-xs">
                         {flatSuggestions.map((item) => {
                             let label, icon, href;
@@ -241,7 +258,6 @@ export default function SearchBarClient() {
                         })}
                     </div>
                 )}
-            </div>
         </div>
     );
 }

@@ -7,7 +7,6 @@ import { BiTargetLock } from "react-icons/bi";
 import { useSearchStore } from "@/src/stores/search.store";
 import { useCityStore } from "@/src/stores/city.store";
 import { fetchSuggestionsAction } from "@/src/components/SearchBar/search.actions";
-import { fetchCityList } from "@/src/components/NearestCity/nearest-city.actions";
 import Link from "next/link";
 import { formatUrl } from "@/src/utils/URLFormatter";
 import { PiBuildingApartment } from "react-icons/pi";
@@ -28,7 +27,7 @@ const emptySuggestions = {
 
 export default function MobileSearchModal() {
     const { isSearchModalOpen, closeSearchModal, setQuery, clearFilters, filters, total } = useSearchStore();
-    const { activeCity, setActiveCity, cityList, setCityList } = useCityStore();
+    const { activeCity, setActiveCity } = useCityStore();
     const router = useRouter();
 
     const [search, setSearch] = useState("");

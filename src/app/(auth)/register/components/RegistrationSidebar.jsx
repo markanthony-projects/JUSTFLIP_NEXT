@@ -47,7 +47,7 @@ export default function RegistrationSidebar() {
         </div>
 
         <div className="mt-auto pt-16">
-          <Logo className="w-32 h-auto" />
+          <Logo className="w-28 h-10.5 md:w-32 md:h-12" />
         </div>
       </div>
     </div>

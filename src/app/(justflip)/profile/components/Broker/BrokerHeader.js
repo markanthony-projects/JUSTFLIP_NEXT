@@ -342,11 +342,13 @@ const BrokerHeader = ({onEditClick, onUpdateClick}) => {
 
       {/* Mission & Vision Modal */}
       {isMissionModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-2xl p-6 md:p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto shadow-2xl relative"
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 app-overlay">
+          {/* Values mirror the .animate-modal keyframes so every modal enters alike. */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="bg-white rounded-2xl p-6 md:p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto shadow-2xl relative scrollbar-modern"
           >
             <button 
               onClick={() => setIsMissionModalOpen(false)}

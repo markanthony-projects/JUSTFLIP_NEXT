@@ -40,11 +40,11 @@ export default function Modal({ isOpen, onClose, children, maxWidth = "max-w-md"
         <div className="fixed inset-0 z-50 flex items-center justify-center"
             onMouseDown={handleOutsideClick}
         >
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+            <div className="absolute inset-0 app-overlay" />
 
             <div
                 ref={modalRef}
-                className={`relative z-30 w-[95%] ${maxWidth} ${className} rounded-2xl bshadow-xl  animate-modal max-h-[90vh] overflow-y-auto`}
+                className={`relative z-30 w-[95%] ${maxWidth} ${className} rounded-2xl bshadow-xl  animate-modal max-h-[90vh] overflow-y-auto scrollbar-modern`}
             >
             <div className="absolute right-0 top-0 z-30">
                 <Button onClick={onClose} />

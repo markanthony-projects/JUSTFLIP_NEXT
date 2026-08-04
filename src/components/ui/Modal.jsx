@@ -15,6 +15,7 @@ import { createPortal } from "react-dom";
  * height?      string             Tailwind h-* / max-h-*   (default "h-[80vh] md:h-[95vh]")
  * className?   string             Extra classes on the panel
  * closeOnBackdrop?  boolean       Close when clicking backdrop (default true)
+ * zIndexClass? string             Tailwind z-* on the backdrop (default "z-50")
  */
 export default function Modal({
     isOpen,
@@ -24,6 +25,7 @@ export default function Modal({
     height = "h-[80vh] md:h-[95vh]",
     className = "",
     closeOnBackdrop = true,
+    zIndexClass = "z-50",
 }) {
     const panelRef = useRef(null);
 
@@ -64,10 +66,10 @@ export default function Modal({
             aria-modal="true"
             onClick={handleBackdropClick}
             className={`
-                fixed inset-0 z-50
+                fixed inset-0 ${zIndexClass}
                 flex items-center justify-center
                 px-2 md:px-4
-                bg-black/60 backdrop-blur-sm
+                app-overlay
                 transition-opacity duration-200
             `}
         >
@@ -75,7 +77,7 @@ export default function Modal({
                 ref={panelRef}
                 className={`
                     relative bg-white rounded-2xl shadow-2xl outline-none
-                    flex flex-col overflow-hidden
+                    flex flex-col overflow-hidden animate-modal
                     w-full ${maxWidth} ${height} ${className}
                 `}
             >
