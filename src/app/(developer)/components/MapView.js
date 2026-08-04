@@ -80,6 +80,7 @@ function MapView({ projects }) {
         minZoom={5}
         maxZoom={18}
         style={{ width: "100%", height: "100%" }}
+        className=""
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
