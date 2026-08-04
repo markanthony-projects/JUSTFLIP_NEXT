@@ -66,16 +66,6 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* 1. Sticky Search Bar Area */}
-      <div className="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm py-0 lg:py-0">
-        <HorizontalFilterBar />
-        <div className="container mx-auto px-4 lg:px-8 max-w-7xl py-3">
-          <div>
-            <FilterChips />
-          </div>
-        </div>
-      </div>
-
       {/* 2. Main Content Area */}
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl py-6 flex-1 flex gap-6">
         

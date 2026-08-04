@@ -22,7 +22,7 @@ const ProjectCard = ({ project, priority }) => {
     return (
         <>
             <Link href={projectUrl} className="w-full">
-                <div className="group relative bg-white shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 hover:border-gray-300 rounded-lg overflow-hidden flex flex-col my-2 w-75 md:w-75 max-w-75">
+                <div className="group relative bg-white shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 hover:border-gray-300 rounded-2xl overflow-hidden flex flex-col my-2 w-70 md:w-75 max-w-75">
                     <div className= "h-38 md:h-38 xl:h-38 relative overflow-hidden bg-gray-100 border-b border-gray-100 w-75 md:w-75 max-w-75">
                         <Image
                             src={bannerImage?.url || '/assets/project-banner.webp'}
@@ -41,7 +41,7 @@ const ProjectCard = ({ project, priority }) => {
                                     {locationName}
                                 </span>
                             </div>
-                            <div className="absolute top-0 -right-3 m-3">
+                            <div className="absolute top-0 right-3 m-3  md:-right-3 md:m-3">
                                 <FavouriteButton
                                     project={project}
                                     onAuthRequired={() => setShowLoginPrompt(true)}
