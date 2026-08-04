@@ -9,12 +9,34 @@ export const useReviewStore = create((set, get) => ({
   reviews: {
     reviews: [],
     average: 0,
+    aspects: [],
     pagination: { totalReviews: 0 },
     counts: {},
   },
   isLoading: false,
   isSubmitting: false,
   error: null,
+
+  // Hydrate initial data from server on page load
+  hydrateStore: (serverData) => {
+    if (!serverData) return;
+    set((state) => {
+      // Don't overwrite if store already has submitted user reviews
+      if (state.reviews?.reviews?.length > (serverData?.reviews?.length || 0)) {
+        return state;
+      }
+
+      return {
+        reviews: {
+          reviews: serverData?.reviews || [],
+          average: serverData?.global?.average || serverData?.average || 0,
+          aspects: serverData?.aspects || [],
+          pagination: serverData?.pagination || { totalReviews: 0 },
+          counts: serverData?.counts || {},
+        },
+      };
+    });
+  },
 
   setReviews: (data) => {
     if (!data) return;
@@ -32,6 +54,7 @@ export const useReviewStore = create((set, get) => ({
       const reviewData = data?.global || {
         reviews: [],
         average: 0,
+        aspects: [],
         pagination: { totalReviews: 0 },
         counts: {},
       };
@@ -57,7 +80,7 @@ export const useReviewStore = create((set, get) => ({
 
     try {
       let endpoint = "";
-      let payload = { rating, comment: review };
+      let payload = { rating, comment: review, aspects };
 
       switch (type?.toLowerCase()) {
         case "city":
@@ -87,11 +110,11 @@ export const useReviewStore = create((set, get) => ({
         const currentTotal = state.reviews?.pagination?.totalReviews || 0;
         const currentCounts = { ...(state.reviews?.counts || {}) };
 
-        // 1. Create the new review object
         const newReview = {
           id: Date.now(),
           rating: Number(rating),
           comment: review,
+          aspects: aspects || {},
           reviewer: { name: "You" },
           createdAt: new Date().toISOString(),
         };
@@ -99,10 +122,8 @@ export const useReviewStore = create((set, get) => ({
         const updatedReviews = [newReview, ...currentReviews];
         const newTotal = currentTotal + 1;
 
-        // 2. Recalculate dynamic star counts (1-5)
         currentCounts[rating] = (currentCounts[rating] || 0) + 1;
 
-        // 3. Recalculate overall average
         const totalRatingSum = updatedReviews.reduce(
           (sum, r) => sum + (Number(r?.rating) || 0),
           0
