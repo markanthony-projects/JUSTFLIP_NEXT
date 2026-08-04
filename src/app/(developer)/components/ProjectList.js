@@ -21,6 +21,22 @@ function ProjectList({ projects, loading }) {
                 renderItem={(project, i) => {
                     if (!project?.units || project?.units?.length === 0) return null;
                     const { minPrice, maxPrice } = getLowestAndHighestPrice(project?.units)
+
+                    const hasMin = Number.isFinite(Number(minPrice)) && Number(minPrice) > 0;
+                    const hasMax = Number.isFinite(Number(maxPrice)) && Number(maxPrice) > 0;
+
+                    const isPriceOnRequest = 
+                        (!hasMin && !hasMax) && 
+                        (
+                            project?.units?.some((u) => u.priceStatus === "ON_REQUEST") || 
+                            project?.units?.every((u) => !u.price || u.price === 0)
+                        );
+
+                    const formattedPrice = isPriceOnRequest || !hasMin
+                        ? "Price On Request"
+                        : minPrice === maxPrice || !hasMax
+                        ? `₹ ${convertToCurrency(minPrice)}`
+                        : `₹ ${convertToCurrency(minPrice)} - ${convertToCurrency(maxPrice)}`;
           
                     const projectUrl = createProjectUrl(
                         project?.city?.name,
@@ -46,11 +62,7 @@ function ProjectList({ projects, loading }) {
                                             {project?.name}
                                         </h3>
                                         <p className="text-gray-800 text-[10px]">
-                                            {minPrice === maxPrice
-                                                ? ` ₹ ${convertToCurrency(minPrice)}`
-                                                : ` ₹ ${convertToCurrency(minPrice)} - ${convertToCurrency(
-                                                    maxPrice
-                                                )}`}
+                                            {formattedPrice}
                                         </p>
                                         <p className="text-gray-800 text-[10px] ">{project?.location?.name}</p>
                                     </div>

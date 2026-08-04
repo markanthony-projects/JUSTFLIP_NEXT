@@ -26,7 +26,9 @@ function ProjectOverview({ project = {} }) {
         const minInterior = Math.min(...interiors);
         const maxInterior = Math.max(...interiors);
         const avgPrice = minInterior > 0 ? (lowestPrice / minInterior).toFixed(0) : 0;
-        const interiorRange = minInterior && maxInterior ? minInterior === maxInterior ? `${minInterior} sq.ft` : `${minInterior} - ${maxInterior} sq.ft` : "-";
+        const hasMin = Number.isFinite(Number(minInterior)) && Number(minInterior) > 0;
+        const hasMax = Number.isFinite(Number(maxInterior)) && Number(maxInterior) > 0;
+        const interiorRange = !hasMin ? "On Request" : minInterior === maxInterior || !hasMax ? `${minInterior} sq.ft` : `${minInterior} - ${maxInterior} sq.ft`;
         const lowerType = project?.type?.toLowerCase();
         let configText = "-";
 
@@ -248,7 +250,7 @@ function ProjectOverview({ project = {} }) {
                             </clipPath>
                         </defs>
                     </svg>
-                    <ProjectOverviewItem label="Avg. Price" value={`${currency} ${avgPrice} / sq.ft`} />
+                    <ProjectOverviewItem label="Avg. Price" value={Number.isFinite(avgPrice) && avgPrice > 0 ? `${currency} ${avgPrice} / sq.ft` : "On Request"} />
                 </div>
                 <div className="flex items-center">
                     <svg
