@@ -28,7 +28,7 @@ export default function ReviewsSectionClient({ typeId, typeName, type, reviews: 
     const entityLabel = isCity ? "City" : "Project";
 
     const handleRating = () => {
-        if (authType === "visitor"){
+        if (authType === "visitor" || (isCity && authType === "broker")){
             setModalOpen(true);
         } else if (authType === "broker"){
             toast.warn(`Only Buyers can leave ${entityLabel} review`);
@@ -61,7 +61,8 @@ export default function ReviewsSectionClient({ typeId, typeName, type, reviews: 
                 isOpen={loginOpen}
                 closeModal={() => setLoginOpen(false)}
                 onSuccess={() => {
-                    if (useAuthStore.getState().authType === "visitor"){
+                    const currentAuth = useAuthStore.getState().authType;
+                    if (currentAuth === "visitor" || (isCity && currentAuth === "broker")){
                         setModalOpen(true);
                     } else {
                         toast.warn(`Brokers are not eligible to leave ${entityLabel.toLowerCase()} reviews.`);

@@ -113,15 +113,25 @@ export default function ExploreMap({ project }) {
                         onLoadingChange={setIsLoading}
                     />
                 </div>
-                <div className="lg:col-span-2 md:col-span-2">
-                    <div className="flex border-b border-gray-200">
+                <div className="lg:col-span-2 w-full bg-white border border-gray-100 shadow-sm rounded-2xl p-3 md:p-4 lg:sticky lg:top-4">
+                    {/* Added flex-1 and rounded-lg to buttons below */}
+                    <div className="flex bg-gray-100 p-1 rounded-xl gap-1">
                         {data?.map(({ label, value }) => (
-                            <button key={value} onClick={() => setActiveTab(value)} className={`px-4 py-2 text-sm font-semibold transition-all duration-200 ${activeTab === value ? "text-[#002B5B] border-b-2 border-[#002B5B]" : "text-gray-500 hover:text-[#002B5B] border-b-2 border-transparent"}`} >
+                            <button 
+                                key={value} 
+                                onClick={() => setActiveTab(value)} 
+                                className={`flex-1 py-2 text-xs md:text-sm font-semibold rounded-lg transition-all duration-200 ${
+                                    activeTab === value 
+                                        ? "bg-white text-[#002B5B] shadow-sm" 
+                                        : "text-gray-500 hover:text-gray-900"
+                                }`}
+                            >
                                 {label}
                             </button>
                         ))}
                     </div>
-                    <div className="">
+
+                    <div className="mt-3">
                         {isLoading ? (
                             <div className="space-y-4 py-2">
                                 {Array.from({ length: 3 }).map((_, i) => (
@@ -131,13 +141,13 @@ export default function ExploreMap({ project }) {
                         ) : (
                             <>
                                 {activeTab === "transit" && (
-                                    <Accordion items={transitData} />
+                                    <Accordion items={transitData} defaultOpenIndex={0}/>
                                 )}
                                 {activeTab === "essentials" && (
-                                    <Accordion items={essentialsData} />
+                                    <Accordion items={essentialsData} defaultOpenIndex={0}/>
                                 )}
                                 {activeTab === "utility" && (
-                                    <Accordion items={utilityData} />
+                                    <Accordion items={utilityData} defaultOpenIndex={0}/>
                                 )}
                             </>
                         )}
