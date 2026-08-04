@@ -3,10 +3,11 @@ import Carousel from "@/src/components/Carousel";
 import { convertToCurrency, getLowestAndHighestPrice } from "@/src/utils/RenderFunction";
 import Link from "next/link";
 import { MdArrowForward } from "react-icons/md";
+import { createProjectUrl } from "@/src/utils/url";
 
 
 function ProjectList({ projects, loading }) {
- 
+    console.log(projects)
     return (
         <div className="relative md:bg-[#F4F9FA] rounded-b-md flex mt-2 items-center gap-1 min-h-[190px] md:px-2">
             <Carousel
@@ -21,9 +22,16 @@ function ProjectList({ projects, loading }) {
                     if (!project?.units || project?.units?.length === 0) return null;
                     const { minPrice, maxPrice } = getLowestAndHighestPrice(project?.units)
           
+                    const projectUrl = createProjectUrl(
+                        project?.city?.name,
+                        project?.zone?.name,
+                        project?.location?.name,
+                        project?.name,
+                        project?.id
+                    );
 
                     return (
-                        <Link href="" key={project?.id} >
+                        <Link href={projectUrl} key={project?.id} >
                             <div className="border border-gray-300 rounded-lg overflow-hidden bg-white shadow-md px-2 gap-2  h-[76px] flex items-center   justify-between">
                                 <div className="flex items-center  gap-4">
                                     <div
