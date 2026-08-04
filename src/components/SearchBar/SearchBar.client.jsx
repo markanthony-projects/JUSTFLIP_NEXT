@@ -158,7 +158,7 @@ export default function SearchBarClient() {
     }
 
     return (
-        <div ref={containerRef} className="relative w-full max-w-4xl bg-white rounded-full sm:rounded-lg shadow-sm sm:shadow-lg flex h-[40px] sm:h-12 lg:h-14 border border-gray-200 sm:border-gray-300 min-w-0 sm:p-1" >
+        <div ref={containerRef} className="relative w-full max-w-4xl bg-white rounded-full sm:rounded-lg shadow-sm sm:shadow-lg flex h-[40px] sm:h-[48px] lg:h-[50px] border border-gray-200 sm:border-gray-300 min-w-0 sm:p-1" >
             <div className="flex-1 flex items-center pl-2 sm:pl-1 pr-0 min-w-0 h-full">
                 <div className="flex items-center justify-center shrink-0 sm:hidden w-[75px] h-full">
                     <NearestCity buttonClassName="bg-transparent text-[#002B5B] font-semibold text-[12px] w-full h-full !px-0" />

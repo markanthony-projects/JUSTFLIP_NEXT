@@ -5,13 +5,10 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { FiMenu, FiUser } from "react-icons/fi";
 import { useAuthStore } from "@/src/stores/auth.store";
-import { HiOutlineMenu, HiOutlineX, HiOutlineUserCircle } from "react-icons/hi";
-import { FaSearch } from "react-icons/fa";
 import { useSlider } from "@/src/context/SliderContext";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 
-const SearchBar = dynamic(() => import("@/src/components/SearchBar/SearchBar.server"));
 const UserSliderContent = dynamic(() => import("./UserSliderContent"));
 const BrokerSliderContent = dynamic(() => import("./BrokerSliderContent"));
 
@@ -76,8 +73,8 @@ export default function BaseHeaderClient({ children, config, }) {
     ];
 
     return (
-        <header className={`${isHome ? (config.sticky ? "fixed " : "relative") : "sticky"} top-0 left-0 z-50 w-full py-2 md:py-2 lg:py-2.5 ${config.bg} transition-all duration-300 ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`} >
-            <div className="flex gap-2 sm:gap-4 items-center justify-between flex-1 px-2 md:px-4 w-full mx-auto md:max-w-[1440px]">
+        <header className={`${isHome ? (config.sticky ? "fixed " : "relative") : "sticky"} top-0 left-0 z-50 w-full h-[60px] flex items-center ${config.bg} transition-all duration-300 ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`} >
+            <div className="flex gap-2 sm:gap-4 items-center justify-between flex-1 px-2 md:px-4 w-full h-full mx-auto md:max-w-[1440px]">
                 {children}
 
                 <div className="">
