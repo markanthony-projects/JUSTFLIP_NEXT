@@ -509,8 +509,8 @@ function BrokerPropertyClient({ initialCities = [] }) {
     return (
         <div className="py-4 md:py-8 min-h-screen w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
             {showDraftModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-                    <div className="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl space-y-6 border border-slate-100 relative overflow-hidden">
+                <div className="fixed inset-0 z-50 flex items-center justify-center app-overlay p-4">
+                    <div className="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl space-y-6 border border-slate-100 relative overflow-hidden animate-modal">
                         {/* Accent Bar matching form header */}
                         <div className="absolute top-0 left-0 w-full h-1.5" />
                         

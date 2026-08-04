@@ -30,7 +30,7 @@ const LoginPage = () => {
 
             <div className="relative z-10 w-full  px-4 animate-in fade-in zoom-in mx-auto duration-700">
                 <div className="flex justify-center">
-                    <Logo className="w-48 h-16 md:w-56 md:h-20" />
+                    <Logo className="w-40 h-14 sm:w-48 sm:h-16 md:w-56 md:h-20" priority />
                 </div>
                 <div className="flex items-start flex-1 min-h-[420px] w-full justify-center relative">
                     <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl p-8 md:p-7 border border-white/20 w-[420px]">

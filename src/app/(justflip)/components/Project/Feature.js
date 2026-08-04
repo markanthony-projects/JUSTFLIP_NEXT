@@ -24,7 +24,7 @@ export default function Features({ project }) {
         <section className="">
             <h2 className="m-2 text-sm font-bold">Features</h2>
 
-            <div className="flex flex-wrap m-2">
+            <div className="grid grid-cols-2 my-2 lg:flex lg:flex-wrap lg:m-2 gap-y-2">
                 {visibleAmenities.map((item, index) => (
                     <FeatureItem key={item?.id || index} item={item} />
                 ))}

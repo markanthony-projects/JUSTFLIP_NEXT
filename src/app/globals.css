@@ -99,38 +99,92 @@ body::-webkit-scrollbar {
     display: none;
 }
 
-.scrollbar-modern {
-    scrollbar-width: thin;
-    scroll-behavior: smooth;
-    scrollbar-color: #d1d5db transparent;
+
+/* ====== Scrollbars ======
+   Hidden everywhere by default. Scrolling still works — only the bar is gone.
+   Opt back in with .scrollbar-modern (alias: .scrollbar-thin) on the specific
+   container that should show one. */
+
+* {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }
 
-.scrollbar-modern::-webkit-scrollbar {
+*::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* --- Opt-in: light, trackless, no arrow buttons --- */
+
+.scrollbar-modern,
+.scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #d7dbe2 transparent;
+    scroll-behavior: smooth;
+}
+
+/* Class beats the `*` rule above on specificity, so display must be restored
+   explicitly — width/height alone would not bring the bar back. */
+.scrollbar-modern::-webkit-scrollbar,
+.scrollbar-thin::-webkit-scrollbar {
+    display: block;
+    width: 8px;
+    height: 8px;
+}
+
+.scrollbar-modern::-webkit-scrollbar-track,
+.scrollbar-thin::-webkit-scrollbar-track,
+.scrollbar-modern::-webkit-scrollbar-corner,
+.scrollbar-thin::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+.scrollbar-modern::-webkit-scrollbar-thumb,
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #d7dbe2;
+    border-radius: 9999px;
+    /* Transparent border + content-box clip insets the thumb so it reads as
+       floating rather than filling the gutter edge to edge. */
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.scrollbar-modern::-webkit-scrollbar-thumb:hover,
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: #b9c0cb;
+}
+
+.scrollbar-modern::-webkit-scrollbar-button,
+.scrollbar-thin::-webkit-scrollbar-button {
+    display: none;
     width: 0;
     height: 0;
 }
 
-.scrollbar-modern::-webkit-scrollbar-button {
-    display: none;
+
+/* ====== Modal / drawer overlay ======
+   Single source of truth so every dimmed surface matches. Pair it with
+   .animate-modal on the panel for the standard modal entrance. */
+
+@keyframes overlayFade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
-.scrollbar-modern::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.scrollbar-modern::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: #d1d5db;
-}
-
-.scrollbar-modern::-webkit-scrollbar-thumb:hover {
-    background-color: #9ca3af;
-}
-
-.scrollbar-modern::-webkit-scrollbar-button {
-    width: 0 !important;
-    height: 0 !important;
-    display: none !important;
+.app-overlay {
+    /* The tint is deliberately lighter than a plain dim: at high opacity the
+       blur is invisible, so the two are balanced against each other — enough
+       veil to separate the modal, enough transparency to read as frosted. */
+    background-color: rgb(15 23 42 / 0.4);
+    backdrop-filter: blur(6px) saturate(120%);
+    -webkit-backdrop-filter: blur(6px) saturate(120%);
+    animation: overlayFade 0.25s ease-out;
 }
 
 
@@ -182,14 +236,23 @@ body::-webkit-scrollbar {
 }
 
 
-/* ====== Scrollbar Utilities ====== */
+/* ====== Scrollbar Utilities ======
+   Kept as explicit no-ops. Hiding is the global default now, so these class
+   names — already scattered across carousels and filmstrips — simply match it
+   rather than silently doing nothing. */
 
-.scrollbar-hidden {
+.scrollbar-hidden,
+.scrollbar-hide,
+.scrollbar-none,
+.scrollbar-xs {
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
 
-body::-webkit-scrollbar, .scrollbar-hidden::-webkit-scrollbar {
+.scrollbar-hidden::-webkit-scrollbar,
+.scrollbar-hide::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar,
+.scrollbar-xs::-webkit-scrollbar {
     display: none;
 }
 

@@ -245,7 +245,7 @@ function SlideImage({
                 {mobileProps && (
                     <source
                         media="(max-width: 767px)"
-                        srcSet={mobileProps.props.srcSet}
+                        srcSet={mobileProps.props.srcSet || mobileProps.props.src}
                     />
                 )}
 
@@ -253,7 +253,7 @@ function SlideImage({
                 {tabProps && (
                     <source
                         media="(min-width: 768px) and (max-width: 1023px)"
-                        srcSet={tabProps.props.srcSet}
+                        srcSet={tabProps.props.srcSet || tabProps.props.src}
                     />
                 )}
 

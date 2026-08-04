@@ -86,14 +86,15 @@ const BrokerEditModal = ({ isOpen, onClose }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="absolute inset-0 bg-gray-900/40 backdrop-blur-sm"
+          className="absolute inset-0 app-overlay"
         />
 
-        {/* Modal */}
+        {/* Modal — values mirror the .animate-modal keyframes. */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          initial={{ opacity: 0, scale: 0.96, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 20 }}
+          exit={{ opacity: 0, scale: 0.96, y: 20 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
           className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
         >
           {/* Header */}
@@ -108,7 +109,7 @@ const BrokerEditModal = ({ isOpen, onClose }) => {
           </div>
 
           {/* Body */}
-          <div className="p-6 overflow-y-auto custom-scrollbar">
+          <div className="p-6 overflow-y-auto scrollbar-modern">
             <form id="edit-profile-form" onSubmit={handleSubmit} className="space-y-6">
               
               {/* Personal Info */}
