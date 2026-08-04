@@ -6,6 +6,9 @@
 .leaflet-bottom {
   z-index: 400 !important; 
 }
+.leaflet-container {
+  z-index: 0;
+}
 
 :root {
 
