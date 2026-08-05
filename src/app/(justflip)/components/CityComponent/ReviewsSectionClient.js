@@ -9,7 +9,6 @@ import { useReviewStore } from "@/src/stores/review.store";
 import { toast } from "@/src/utils/toast";
 
 export default function ReviewsSectionClient({ typeId, typeName, type, reviews: initialReviews }) {
-    console.log("ReviewsSection Debug:", { type, typeName, typeId });
     const [modalOpen, setModalOpen] = useState(false);
     const [loginOpen, setLoginOpen] = useState(false);
     const { authType } = useAuthStore();
