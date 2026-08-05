@@ -3,10 +3,11 @@ import Carousel from "@/src/components/Carousel";
 import { convertToCurrency, getLowestAndHighestPrice } from "@/src/utils/RenderFunction";
 import Link from "next/link";
 import { MdArrowForward } from "react-icons/md";
+import { createProjectUrl } from "@/src/utils/url";
 
 
 function ProjectList({ projects, loading }) {
- 
+    console.log(projects)
     return (
         <div className="relative md:bg-[#F4F9FA] rounded-b-md flex mt-2 items-center gap-1 min-h-[190px] md:px-2">
             <Carousel
@@ -20,10 +21,33 @@ function ProjectList({ projects, loading }) {
                 renderItem={(project, i) => {
                     if (!project?.units || project?.units?.length === 0) return null;
                     const { minPrice, maxPrice } = getLowestAndHighestPrice(project?.units)
+
+                    const hasMin = Number.isFinite(Number(minPrice)) && Number(minPrice) > 0;
+                    const hasMax = Number.isFinite(Number(maxPrice)) && Number(maxPrice) > 0;
+
+                    const isPriceOnRequest = 
+                        (!hasMin && !hasMax) && 
+                        (
+                            project?.units?.some((u) => u.priceStatus === "ON_REQUEST") || 
+                            project?.units?.every((u) => !u.price || u.price === 0)
+                        );
+
+                    const formattedPrice = isPriceOnRequest || !hasMin
+                        ? "Price On Request"
+                        : minPrice === maxPrice || !hasMax
+                        ? `₹ ${convertToCurrency(minPrice)}`
+                        : `₹ ${convertToCurrency(minPrice)} - ${convertToCurrency(maxPrice)}`;
           
+                    const projectUrl = createProjectUrl(
+                        project?.city?.name,
+                        project?.zone?.name,
+                        project?.location?.name,
+                        project?.name,
+                        project?.id
+                    );
 
                     return (
-                        <Link href="" key={project?.id} >
+                        <Link href={projectUrl} key={project?.id} >
                             <div className="border border-gray-300 rounded-lg overflow-hidden bg-white shadow-md px-2 gap-2  h-[76px] flex items-center   justify-between">
                                 <div className="flex items-center  gap-4">
                                     <div
@@ -38,11 +62,7 @@ function ProjectList({ projects, loading }) {
                                             {project?.name}
                                         </h3>
                                         <p className="text-gray-800 text-[10px]">
-                                            {minPrice === maxPrice
-                                                ? ` ₹ ${convertToCurrency(minPrice)}`
-                                                : ` ₹ ${convertToCurrency(minPrice)} - ${convertToCurrency(
-                                                    maxPrice
-                                                )}`}
+                                            {formattedPrice}
                                         </p>
                                         <p className="text-gray-800 text-[10px] ">{project?.location?.name}</p>
                                     </div>
