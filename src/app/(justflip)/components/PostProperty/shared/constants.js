@@ -57,8 +57,8 @@ export const possessionStatusOptions = [
 ];
 
 export const yesNoOptions = [
-    { label: 'Yes', value: 'Yes' },
-    { label: 'No', value: 'No' },
+    { label: 'Yes', value: 'true' },
+    { label: 'No', value: 'false' },
 ];
 
 export const inputClass ="w-full h-[48px] px-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium   text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-[#002B5B]/10 focus:border-[#002B5B] hover:border-slate-300 transition-all shadow-sm";
@@ -85,7 +85,7 @@ export const getInputFields = (type, cityOptions = [], locations = [], transacti
         { name: "possessionStatus", label: "Possession Status", type: "select", options: possessionStatusOptions, required: true },
         { name: "expectedPrice", label: "Expected Price (₹)", type: "number", required: true },
         { name: "maxPrice", label: "Max Price (₹)", type: "number", required: false },
-        { name: "advanceAmount", label: "Advance Amount (₹)", type: "number", required: false },
+        { name: "advanceAmount", label: "Advance Amount (₹)", type: "number", required: true },
         { name: "isNegotiable", label: "Price Negotiable", type: "select", required: false, options: yesNoOptions },
         { name: "coordinates", label: "Location On Map", type: "map", required: false },
     ];

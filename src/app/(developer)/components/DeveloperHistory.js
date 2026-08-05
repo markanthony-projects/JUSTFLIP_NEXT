@@ -4,12 +4,9 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa'
 
 const DeveloperHistory = ({ history = [] }) => {
-//   console.log(history)
-
   const [activeIndex, setActiveIndex] = useState(0)
   const [animating, setAnimating] = useState(false)
   const timelineData = history
-//   console.log(timelineData)
 
   const nextYear = () => {
     if (!animating && timelineData.length) {

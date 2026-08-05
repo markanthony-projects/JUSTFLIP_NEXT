@@ -1,26 +1,36 @@
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
 import { HiChevronDown, HiMenuAlt4 } from 'react-icons/hi';
+import { LuSlidersHorizontal } from 'react-icons/lu';
 import { useCityStore } from '@/src/stores/city.store';
 import { useSearchStore } from '@/src/stores/search.store';
 import { SEARCH_CONFIG } from '@/src/services/search/searchConfig';
 import FilterFactory from './FilterFactory';
+import DesktopMoreFiltersModal from './DesktopMoreFiltersModal';
 
 export default function HorizontalFilterBar() {
   const { activeCity, setActiveCity } = useCityStore();
+  const { toggleFilterSheet, toggleSearchModal } = useSearchStore();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [expanded, setExpanded] = useState(false);
 
 
   useEffect(() => {
-    const handleScroll = () => {
-      // console.log(window.scrollY);
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = (e) => {
       setExpanded(window.scrollY > 70);
+      
+      // If the actual window scroll position changes, the user is scrolling the main page
+      if (Math.abs(window.scrollY - lastScrollY) > 5) {
+        setActiveDropdown(null);
+        lastScrollY = window.scrollY;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [])
+    window.addEventListener("scroll", handleScroll, true);
+    return () => window.removeEventListener("scroll", handleScroll, true);
+  }, []);
   
   // Close dropdown when clicking outside
   const barRef = useRef(null);
@@ -39,21 +49,28 @@ export default function HorizontalFilterBar() {
   };
 
   return (
-    <div style={{ transform: `scale(${expanded})` }}
-      ref={barRef} 
-      className={`border-t border-gray-400  w-screen left-1/2 -translate-x-1/2 
-      bg-[#002B5B] py-3 px-4 hidden lg:flex items-center gap-3 flex-wrap z-50 
-      relative transition-all duration-300 origin-top top-0  ${
-      expanded ? "py-6" : "py-2"}`}
+    <div ref={barRef} 
+      className={`border-t border-gray-400 w-screen left-1/2 -translate-x-1/2 
+      bg-[#002B5B] h-15 z-50 relative transition-all duration-300 origin-top top-0`}
     >
+      <div 
+        onScroll={() => setActiveDropdown(null)}
+        className="px-4 flex items-center gap-2 sm:gap-3 flex-nowrap lg:flex-wrap overflow-x-auto lg:overflow-visible no-scrollbar h-full w-full relative"
+      >
       
-      {/* Location / Search Box */}
-      <div className="flex items-center bg-white rounded-full px-4 py-1.5 h-10 shadow-sm min-w-75">
-        <button className="flex items-center gap-2 text-gray-800 text-sm font-medium hover:text-[#002B5B] transition-colors">
-          Buy <HiChevronDown className="text-[#002B5B]" />
+      {/* Mobile Sticky Filter Button */}
+      <div className="sticky -left-4 z-20 bg-[#002B5B] pr-2 -ml-4 flex items-center shrink-0 md:hidden h-full">
+        <button 
+          onClick={toggleSearchModal}
+          className="flex items-center justify-center ml-2 w-10 h-10 bg-gray-100 rounded-[10px] border border-gray-200 text-gray-800 hover:shadow-md transition-shadow"
+        >
+          <LuSlidersHorizontal className="w-[18px] h-[18px]" />
         </button>
-        <div className="w-px h-5 bg-gray-300 mx-3"></div>
-        <div className="flex items-center gap-2 bg-gray-100 rounded px-2 py-0.5 mr-2">
+      </div>
+
+      {/* City & Search Box Pill */}
+      <div className="flex shrink-0 items-center bg-white rounded-full px-2 py-1.5 h-10 shadow-sm min-w-40 md:min-w-75">
+        <div className="flex items-center gap-2 bg-gray-100 rounded px-2 py-0.5 mr-2 ml-1">
           <span className="text-sm text-gray-700">{activeCity ? activeCity.name : 'Select City'}</span>
           {activeCity && (
             <button onClick={() => setActiveCity(null)} className="text-gray-400 hover:text-red-500 text-xs">✕</button>
@@ -80,10 +97,10 @@ export default function HorizontalFilterBar() {
         onToggle={() => toggleDropdown('propertyType')} 
       />
       <FilterPill 
-        configKey="bhk" 
+        configKey="unitType" 
         label="BHK" 
-        isOpen={activeDropdown === 'bhk'} 
-        onToggle={() => toggleDropdown('bhk')} 
+        isOpen={activeDropdown === 'unitType'} 
+        onToggle={() => toggleDropdown('unitType')} 
       />
       <FilterPill 
         configKey="uploader" 
@@ -93,27 +110,22 @@ export default function HorizontalFilterBar() {
       />
       
       {/* More Filters */}
-      <div className="relative ml-auto">
+      <div className="relative ml-auto shrink-0 hidden md:block">
         <button 
-          onClick={() => toggleDropdown('furnishing')}
+          onClick={() => toggleDropdown('moreFilters')}
           className="flex items-center gap-2 bg-white rounded-full px-4 h-10 text-sm font-medium text-gray-800 hover:shadow-md transition-shadow border border-white"
         >
           <HiMenuAlt4 className="text-gray-600" />
           More Filters
-          <HiChevronDown className={`text-[#002B5B] transition-transform ${activeDropdown === 'furnishing' ? 'rotate-180' : ''}`} />
+          <HiChevronDown className={`text-[#002B5B] transition-transform ${activeDropdown === 'moreFilters' ? 'rotate-180' : ''}`} />
         </button>
-        {activeDropdown === 'furnishing' && (
-          <div className="absolute top-[calc(100%+12px)] right-0 bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] border border-gray-100 min-w-[320px] z-[60]">
-            {/* Tooltip Arrow */}
-            <div className="absolute -top-2 right-6 w-4 h-4 bg-white border-l border-t border-gray-100 transform rotate-45"></div>
-            
-            <div className="relative z-10 bg-white rounded-xl overflow-hidden max-h-[400px] overflow-y-auto p-5">
-              <FilterFactory config={SEARCH_CONFIG.filters['furnishing']} onClose={() => toggleDropdown('furnishing')} />
-            </div>
-          </div>
-        )}
+        <DesktopMoreFiltersModal 
+          isOpen={activeDropdown === 'moreFilters'} 
+          onClose={() => toggleDropdown('moreFilters')} 
+        />
       </div>
 
+      </div>
     </div>
   );
 }
@@ -126,7 +138,7 @@ function FilterPill({ configKey, label, isOpen, onToggle }) {
   const isActive = !!filters[configKey] || (configKey === 'priceRange' && (!!filters.minPrice || !!filters.maxPrice));
 
   return (
-    <div className="relative">
+    <div className="relative shrink-0">
       <button 
         onClick={onToggle}
         className={`flex items-center gap-2 rounded-full px-4 h-10 text-sm font-medium transition-all border ${
@@ -144,9 +156,9 @@ function FilterPill({ configKey, label, isOpen, onToggle }) {
 
       {/* Dropdown Popover */}
       {isOpen && (
-        <div className="absolute top-[calc(100%+12px)] left-0 bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] border border-gray-100 min-w-[320px] z-[60]">
+        <div className="fixed top-[64px] left-4 right-4 w-auto lg:absolute lg:top-[calc(100%+12px)] lg:left-0 lg:right-auto lg:min-w-[320px] bg-white rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] border border-gray-100 z-[60]">
           {/* Tooltip Arrow */}
-          <div className="absolute -top-2 left-6 w-4 h-4 bg-white border-l border-t border-gray-100 transform rotate-45"></div>
+          <div className="hidden lg:block absolute -top-2 left-6 w-4 h-4 bg-white border-l border-t border-gray-100 transform rotate-45"></div>
           
           <div className="relative z-10 bg-white rounded-xl overflow-hidden max-h-[400px] overflow-y-auto p-5">
             <FilterFactory config={config} onClose={onToggle} />
