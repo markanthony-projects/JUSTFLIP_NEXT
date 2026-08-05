@@ -6,14 +6,23 @@ import { safeNumber, formatDate, getCurrencySymbol, } from "@/src/utils/project.
 
 function ProjectOverview({ project = {} }) {
     const units = project?.units || [];
+    // console.log("units",units)
 
     const { avgPrice, interiorRange, configText } = useMemo(() => {
         if (!units.length) { return { avgPrice: 0, interiorRange: "-", configText: "-", } }
         const prices = [];
         const interiors = [];
         const unitNumbers = new Set();
+        let isOnRequest = false;
+        let areaAvailable = false
 
         for (const u of units) {
+            const status = u?.priceStatus
+            const areaStatus = u?.areaStatus
+            // console.log("area Status",areaStatus)
+            // console.log("status",status)
+            if(status === "ON_REQUEST") isOnRequest = true;
+            if(areaStatus === "AVAILABLE") areaAvailable = true;
             const price = safeNumber(u?.minPrice);
             const area = safeNumber(u?.interiorArea);
             if (price) prices.push(price);
@@ -25,10 +34,10 @@ function ProjectOverview({ project = {} }) {
         const lowestPrice = Math.min(...prices);
         const minInterior = Math.min(...interiors);
         const maxInterior = Math.max(...interiors);
-        const avgPrice = minInterior > 0 ? (lowestPrice / minInterior).toFixed(0) : 0;
-        const hasMin = Number.isFinite(Number(minInterior)) && Number(minInterior) > 0;
-        const hasMax = Number.isFinite(Number(maxInterior)) && Number(maxInterior) > 0;
-        const interiorRange = !hasMin ? "On Request" : minInterior === maxInterior || !hasMax ? `${minInterior} sq.ft` : `${minInterior} - ${maxInterior} sq.ft`;
+        const price = minInterior > 0 ? (lowestPrice / minInterior).toFixed(0) : 0;
+        const avgPrice = isOnRequest ? "On Request" : price;
+        const area = minInterior && maxInterior ? minInterior === maxInterior ? `${minInterior} sq.ft` : `${minInterior} - ${maxInterior} sq.ft` : "-";
+        let interiorRange = areaAvailable ? area : "On Request"
         const lowerType = project?.type?.toLowerCase();
         let configText = "-";
 
@@ -250,7 +259,7 @@ function ProjectOverview({ project = {} }) {
                             </clipPath>
                         </defs>
                     </svg>
-                    <ProjectOverviewItem label="Avg. Price" value={Number.isFinite(avgPrice) && avgPrice > 0 ? `${currency} ${avgPrice} / sq.ft` : "On Request"} />
+                    <ProjectOverviewItem label="Avg. Price" value={avgPrice === "On Request" ? "On Request" : `${currency} ${avgPrice} / sq.ft`} />
                 </div>
                 <div className="flex items-center">
                     <svg

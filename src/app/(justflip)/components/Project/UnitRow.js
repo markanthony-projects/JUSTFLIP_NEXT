@@ -3,35 +3,40 @@ import React from "react";
 export default function UnitRow({ product, getCurrencySymbol, onView }) {
   const currencySymbol = getCurrencySymbol(product.currency);
 
-  // console.log("product",product)
+  const hasMinPrice = Boolean(product?.minPrice && String(product.minPrice).trim() !== "");
+  const hasMaxPrice = Boolean(product?.maxPrice && String(product.maxPrice).trim() !== "");
 
-  // const area =
-  //   product.minArea === product.maxArea
-  //     ? `${product.minArea} sq.ft`
-  //     : `${product.minArea} - ${product.maxArea} sq.ft`;
+  let price = "On Request";
 
-  // const price =
-  //   product.minPrice === product.maxPrice || !product.maxPrice
-  //     ? `${currencySymbol} ${product.minPrice}`
-  //     : `${currencySymbol} ${product.minPrice} - ${currencySymbol} ${product.maxPrice}`;
+  if (hasMinPrice && hasMaxPrice) {
+      price = product.minPrice === product.maxPrice
+          ? `${currencySymbol} ${product.minPrice}`
+          : `${currencySymbol} ${product.minPrice} - ${product.maxPrice}`;
+  } else if (hasMinPrice) {
+      price = `${currencySymbol} ${product.minPrice}`;
+  } else if (hasMaxPrice) {
+      price = `${currencySymbol} ${product.maxPrice}`;
+  }
 
-  // 1. Validate if valid prices exist
-  const hasMinPrice = product?.minPrice !== "" && product?.minPrice !== null && !isNaN(Number(product?.minPrice)) && Number(product?.minPrice) > 0;
-  const hasMaxPrice = product?.maxPrice !== "" && product?.maxPrice !== null && !isNaN(Number(product?.maxPrice)) && Number(product?.maxPrice) > 0;
 
-  // 2. Determine price display text
-  const price = !hasMinPrice
-    ? "On Request"
-    : product.minPrice === product.maxPrice || !hasMaxPrice
-    ? `${currencySymbol} ${product.minPrice}`
-    : `${currencySymbol} ${product.minPrice} - ${currencySymbol} ${product.maxPrice}`;
+  const isValidNumber = (val) => {
+      return val !== null && val !== undefined && val !== "" && !isNaN(Number(val)) && Number(val) > 0;
+  };
 
-  // 3. Optional: Format area display text (e.g., "1885 - 1927 sq.ft")
-  const area = product?.minArea && product?.maxArea
-    ? product.minArea === product.maxArea
-      ? `${product.minArea} sq.ft`
-      : `${product.minArea} - ${product.maxArea} sq.ft`
-    : "On Request";
+  const hasMinArea = isValidNumber(product?.minArea);
+  const hasMaxArea = isValidNumber(product?.maxArea);
+
+  let area = "On Request";
+
+  if (hasMinArea && hasMaxArea) {
+      area = Number(product.minArea) === Number(product.maxArea)
+          ? `${product.minArea} sq.ft`
+          : `${product.minArea} - ${product.maxArea} sq.ft`;
+  } else if (hasMinArea) {
+      area = `${product.minArea} sq.ft`;
+  } else if (hasMaxArea) {
+      area = `${product.maxArea} sq.ft`;
+  }
 
   return (
     <tr className="bg-white text-black">
