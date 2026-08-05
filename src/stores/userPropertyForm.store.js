@@ -13,7 +13,7 @@ export const initialFormData = {
     cityId: null,
     locationId: null,
     coordinates: { lat: 0, lng: 0 },
-    possessionStatus: "",
+    possessionStatus: "",  
     description: "",
     medias: [],
     units: [
