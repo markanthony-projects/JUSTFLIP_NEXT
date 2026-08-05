@@ -230,13 +230,15 @@ function derivePropertyData(properties) {
             : rawType.charAt(0).toUpperCase() + rawType.slice(1).toLowerCase() + "s";
     const unitSummaryLabel = `${unitNumbers.join(", ")} BHK ${propertyLabel}`;
 
+    const isPriceOnRequest = !minPrice && !maxPrice && units?.some(u => u.priceStatus === "ON_REQUEST");
+
     return {
         minPrice, maxPrice, defaultCurrency,
         uniqueSortedUnitTypes, others_images: allImages,
         primaryImageUrl, secondaryImageUrl, thirdImageUrl,
         floorPlan, floorPlanFirst,
         videos, banner, logo,
-        lat, lng, address, builder, unitSummaryLabel,
+        lat, lng, address, builder, unitSummaryLabel, isPriceOnRequest
     };
 }
 
@@ -344,7 +346,7 @@ function Description({ project: properties }) {
         others_images, primaryImageUrl, secondaryImageUrl, thirdImageUrl,
         floorPlan, floorPlanFirst,
         videos, logo,
-        lat, lng, address, builder, unitSummaryLabel,
+        lat, lng, address, builder, unitSummaryLabel, isPriceOnRequest
     } = derived;
 
     const mapsHref = `https://maps.google.com/maps?q=${lat},${lng}`;
@@ -427,10 +429,19 @@ function Description({ project: properties }) {
                 </div>
 
                 {/* Price range */}
-                <div className="text-left md:text-right flex flex-col">
+                {/* <div className="text-left md:text-right flex flex-col">
                     <p className="text-xs text-gray-400">PRICE RANGE</p>
                     <p className="text-xl font-medium">{priceText}</p>
                     <span className="text-sm text-gray-600 font-light">{unitSummaryLabel}</span>
+                </div> */}
+                <div className="text-left md:text-right flex flex-col">
+                    <div>
+                        <p className="text-xs text-gray-400">PRICE RANGE</p>
+                        <p className="text-xl font-medium">{isPriceOnRequest ? "On Request" : priceText}</p>
+                    </div>
+                    {unitSummaryLabel && (
+                        <span className="text-sm text-gray-600 font-light">{unitSummaryLabel}</span>
+                    )}
                 </div>
             </div>
 
@@ -445,7 +456,7 @@ function Description({ project: properties }) {
                             alt={properties?.name}
                             fill
                             priority
-                            className="object-cover"
+                            objectFit="fill"
                         />
                     </div>
 

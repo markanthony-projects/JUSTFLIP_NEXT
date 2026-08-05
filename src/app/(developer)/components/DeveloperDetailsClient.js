@@ -3,11 +3,15 @@ import Image from '@/src/components/atoms/Image'
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import Modal from '@/src/components/organisms/Modal';
 import React, { useState } from 'react'
-import DeveloperGallery from './DeveloperGallery';
 import Map from './Map';
+import KeyEmployees from './KeyEmployees';
+import DeveloperHistory from './DeveloperHistory';
 
 function DeveloperDetailsClient(initialData) {
-  const [builder] = useState(initialData?.initialData)
+  console.log("initialData", initialData?.initialData) //the data about the builder 
+  const [ builder ] = useState(initialData?.initialData)
+  console.log(builder, "builder");
+  
   const [isOpen, setIsOpen] = useState(false)
   const breadcrumbItems = [{ label: "Developers", href: "/developers" }, { label: builder?.name },];
   const logo = builder?.medias?.find((item) => item.title === "logo");
@@ -75,6 +79,16 @@ function DeveloperDetailsClient(initialData) {
 
         </Modal>
       </div>
+
+      { builder?.employees?.length > 0 && 
+        (<div className='flex-1 px-2 md:px-4 py-4  w-full  mx-auto md:max-w-360'>
+          <KeyEmployees employees={builder?.employees} />
+      </div>)}
+
+      {builder?.histories?.length > 0 && 
+        (<div className="px-4 py-4 md:px-10 mb-2 w-full  mx-auto md:max-w-360">
+        <DeveloperHistory history={builder?.histories}/>
+      </div>)}
 
       <div className='flex-1 px-2 md:px-4 py-4  w-full  mx-auto md:max-w-[1440px]'>
         <section className="">

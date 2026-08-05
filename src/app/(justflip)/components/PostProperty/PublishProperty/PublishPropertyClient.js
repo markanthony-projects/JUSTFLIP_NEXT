@@ -19,33 +19,16 @@ import PublishPropertySidebar from './PublishPropertySidebar'
 import dynamic from 'next/dynamic'
 import { getInputFields, STEP_TITLES } from '../shared/constants'
 
-const BrokerPropertyMap = dynamic(
-  () => import('../BrokerProperty/BrokerPropertyMap'),
-  { ssr: false }
-)
-import {
-  furnishOptions,
-  propertyOptions,
-  facingOptions,
-  transactionTagsOptions,
-  numberOptions,
-  possessionStatusOptions,
-  yesNoOptions,
-  inputClass,
-  UNIT_FIELDS
-} from './constants'
-import { CgLayoutGrid } from 'react-icons/cg'
-import SearchDropdown from '@/src/components/atoms/SearchableDropdown'
-import CustomSelect from '@/src/components/atoms/CustomSelector'
+const PublishPropertyMap = dynamic( () => import('./PublishPropertyMap'),{ ssr: false } )
+import { UNIT_FIELDS } from './constants'
+
 import * as ProjectService from '@/src/services/ProjectService'
-import { FiMapPin } from 'react-icons/fi'
 
 //the local components import
 import UserPropertySideBarStepper from './UserPropertySideBarStepper'
 import PublishPropertyStepper from './PublishPropertyStepper'
 import UserPropertyFormRenderer from './UserPropertyFormRenderer'
 import PublishPropertyMedia from './PublishPropertyMedia'
-import BrokerPropertyFormRenderer from '../BrokerProperty/BrokerPropertyFormRenderer'
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -76,6 +59,7 @@ const buildInitialFormData = (ownerId, residenceType, transactionType) => ({
   locationId: null,
   medias: [],
   units: [{ floorPlans: [] }]
+  
 })
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -103,6 +87,7 @@ function PublishPropertyClient ({ initialCities }) {
     clearStore,
     hydrated
   } = useUserPropertyFormStore()
+  // console.log('PublishPropertyClient formData:', formData)  
 
   // Prevent rendering until hydration is complete to avoid hydration mismatch errors
   const [isMounted, setIsMounted] = useState(false)
@@ -501,7 +486,6 @@ function PublishPropertyClient ({ initialCities }) {
   const handleSubmit = async e => {
     e.preventDefault()
     if (!validateStep()) return
-    // if (!formData.brokerId) { toast.error("Broker ID is required!"); return; }
 
     const unLabeled = formData.medias.find(m => !m.alt?.trim())
     if (unLabeled) {
@@ -515,6 +499,7 @@ function PublishPropertyClient ({ initialCities }) {
 
     const payload = {
       ...formData,
+      uploadedBy: userId || null,
       units: (() => {
         const units = [...(formData.units || [{}])]
         const unit = { ...units[0] }
@@ -711,7 +696,7 @@ function PublishPropertyClient ({ initialCities }) {
         </div>
       </div>
 
-      <BrokerPropertyMap
+      <PublishPropertyMap
         isOpen={isMapOpen}
         onClose={() => setIsMapOpen(false)}
         coordinates={formData?.coordinates}
