@@ -8,6 +8,7 @@ import Image from "@/src/components/atoms/Image";
 import { JUSTFLIP } from "@/src/lib/axios/api";
 import { formatDisplayPrice } from "@/src/utils/RenderFunction";
 import { formatUrl } from "@/src/utils/URLFormatter";
+import { createProjectUrl } from "@/src/utils/url";
 
 const ITEMS_PER_PAGE = 12;
 const ITEMS_PER_COLUMN = 3;
@@ -154,7 +155,7 @@ const getProjectHref = (property) => {
   const location = property?.location?.name || "location";
   const name = property?.name || "property";
 
-  return `/properties/${formatUrl(city)}/${formatUrl(zone)}/${formatUrl(location)}/${formatUrl(name)}-${property?.id}`;
+  return createProjectUrl(city,zone,location,name,property?.id);
 };
 
 const getFormattedPrice = (property, fallbackCurrency) => {

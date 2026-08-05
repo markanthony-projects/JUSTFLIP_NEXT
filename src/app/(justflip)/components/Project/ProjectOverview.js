@@ -7,6 +7,7 @@ import { safeNumber, formatDate, getCurrencySymbol, } from "@/src/utils/project.
 function ProjectOverview({ project = {} }) {
     const units = project?.units || [];
     // console.log("units",units)
+    // console.log(project)
 
     const { avgPrice, interiorRange, configText } = useMemo(() => {
         if (!units.length) { return { avgPrice: 0, interiorRange: "-", configText: "-", } }
@@ -92,7 +93,7 @@ function ProjectOverview({ project = {} }) {
                             </clipPath>
                         </defs>
                     </svg>
-                    <ProjectOverviewItem label="Project Area" value={`${project?.landParcel || "-"} Acres`} />
+                    <ProjectOverviewItem label="Project Area" value={parseFloat(project?.landParcel) >  0 ? `${project?.landParcel || "-"} Acres` : "On Request"} />
                 </div>
                 <div className="flex items-center">
                     <svg

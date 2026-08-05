@@ -7,7 +7,7 @@ import { createProjectUrl } from "@/src/utils/url";
 
 
 function ProjectList({ projects, loading }) {
-    console.log(projects)
+    // console.log(projects)
     return (
         <div className="relative md:bg-[#F4F9FA] rounded-b-md flex mt-2 items-center gap-1 min-h-[190px] md:px-2">
             <Carousel

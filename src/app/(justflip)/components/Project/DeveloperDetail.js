@@ -13,10 +13,12 @@ export default function DeveloperDetail({ project, data }) {
         const id = project?.builder?.id;
         const url = createDeveloperDetailsUrl(name,id)
         return url ? url : "#"
-    }, [project]);
+    }, [project?.builder?.name,project?.builder?.id]);
 
     const description = project?.builder?.description ?? '';
     const isLong = description.length > 1000;
+
+    const isExternalUrl = developerUrl !== "#";
 
     const displayText = expanded ? description : isLong ? `${description.slice(0, 1000)}...` : description;
 
@@ -37,7 +39,7 @@ export default function DeveloperDetail({ project, data }) {
                         />
                     </div>
 
-                    <Link href={developerUrl} className="w-full text-center text-xs h-9 flex items-center justify-center rounded-full bg-[#002B5B] text-white hover:bg-[#001f42] transition"    >
+                    <Link href={developerUrl} target={isExternalUrl ? "_blank" : undefined} rel={isExternalUrl ? "noopener noreferrer" : undefined} className="w-full text-center text-xs h-9 flex items-center justify-center rounded-full bg-[#002B5B] text-white hover:bg-[#001f42] transition"    >
                         Explore more
                     </Link>
                 </div>
