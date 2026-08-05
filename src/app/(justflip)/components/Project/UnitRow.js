@@ -39,18 +39,75 @@ export default function UnitRow({ product, getCurrencySymbol, onView }) {
   }
 
   return (
-    <tr className="bg-white text-black">
-      <td className="px-4 py-3 text-xs md:text-sm">{product.category}</td>
-      <td className="px-4 py-3 text-xs md:text-sm">{area}</td>
-      <td className="px-4 py-3 text-xs md:text-sm">{price}</td>
-      <td className="px-4 py-3 text-xs md:text-sm">
-        <button
-          onClick={onView}
-          className="bg-[#002B5B] text-white px-2 py-1 rounded-md text-xs md:text-sm hover:opacity-90 transition"
+    <div className="border border-slate-200/60 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between overflow-hidden max-w-[340px] w-full">
+      {/* Upper Content Section */}
+      <div className="p-4 sm:p-5 pb-3">
+        {/* Category Header */}
+        <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight mb-1">
+          {product.category}
+        </h3>
+
+        {/* Price Range */}
+        <div className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight mb-2">
+          {price}
+        </div>
+
+        {/* Area with Icon */}
+        <div className="flex items-center text-slate-500 text-xs sm:text-sm font-normal gap-1">
+          <svg
+            className="w-3.5 h-3.5 text-slate-500 shrink-0"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19 19L5 5v14h14zM8 16h2m-2-3h4m-4-3h2"
+            />
+          </svg>
+          <span>{area}</span>
+        </div>
+      </div>
+
+      {/* Bottom Action Bar */}
+      <button
+        type="button"
+        onClick={onView}
+        className="w-full sm:px-5 px-5 pb-3 flex items-center justify-between text-[#002B5B] hover:bg-slate-50 transition-colors text-left group"
+      >
+        <div className="flex items-center gap-2 font-semibold text-xs sm:text-sm">
+          <svg
+            className="w-3.5 h-3.5 text-[#002B5B]"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2.5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+            />
+          </svg>
+          <span>Floor Plan</span>
+        </div>
+
+        <svg
+          className="w-3.5 h-3.5 text-[#002B5B] transform group-hover:translate-x-0.5 transition-transform"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth="2"
         >
-          View Floor Plan
-        </button>
-      </td>
-    </tr>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M14 5l7 7m0 0l-7 7m7-7H3"
+          />
+        </svg>
+      </button>
+    </div> 
   );
 }
