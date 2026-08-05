@@ -8,9 +8,9 @@ import KeyEmployees from './KeyEmployees';
 import DeveloperHistory from './DeveloperHistory';
 
 function DeveloperDetailsClient(initialData) {
-  console.log("initialData", initialData?.initialData) //the data about the builder 
+  // console.log("initialData", initialData?.initialData) //the data about the builder 
   const [ builder ] = useState(initialData?.initialData)
-  console.log(builder, "builder");
+  // console.log(builder, "builder");
   
   const [isOpen, setIsOpen] = useState(false)
   const breadcrumbItems = [{ label: "Developers", href: "/developers" }, { label: builder?.name },];
