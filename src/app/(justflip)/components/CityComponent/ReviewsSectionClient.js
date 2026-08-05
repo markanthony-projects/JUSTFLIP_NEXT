@@ -39,7 +39,7 @@ export default function ReviewsSectionClient({ typeId, typeName, type, reviews: 
     return (
         <section className="">
             <div className="flex justify-between mb-4">
-                <h2 className="text-lg font-semibold">Reviews</h2>
+                <h2 className="text-sm md:text-lg font-semibold">Reviews</h2>
                 <button onClick={handleRating} className="border-b text-sm">
                     Write a Review
                 </button>

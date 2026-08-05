@@ -24,7 +24,7 @@ export default function DeveloperDetail({ project, data }) {
 
     return (
         <section className="">
-            <h2 className="text-base font-semibold pb-4">
+            <h2 className="pb-4 text-sm font-semibold p-2 md:text-lg">
                 Developer's Legacy
             </h2>
 
@@ -58,7 +58,7 @@ export default function DeveloperDetail({ project, data }) {
             </div>
 
             <div className=''> 
-            <h2 className="text-[16px] font-semibold py-4">
+            <h2 className="text-sm font-semibold py-4 md:text-lg">
                 Know {project?.location?.name} Better!
             </h2>
                 <p className="text-xs font-normal text-justify">

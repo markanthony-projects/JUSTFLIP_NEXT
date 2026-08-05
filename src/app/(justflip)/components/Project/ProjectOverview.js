@@ -56,7 +56,7 @@ function ProjectOverview({ project = {} }) {
 
     return (
         <section>
-            <h2 className=" text-sm font-bold p-2">Project Overview</h2>
+            <h2 className="text-sm font-semibold p-2 md:text-lg">Project Overview</h2>
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 bg-white px-2 rounded-lg">
                 <div className="flex items-center">
                     <svg
