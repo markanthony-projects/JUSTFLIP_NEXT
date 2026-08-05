@@ -20,18 +20,18 @@ export const initialFormData = {
         {
             flatsCount: null,
             furnishing: "",
-            interiorArea: "",
-            exteriorArea: "",
+            interiorArea: null,
+            exteriorArea: null,
             facing: "",
-            bedrooms: "",
-            balconies: "",
-            commonBathrooms: "",
-            attachedBathrooms: "",
+            bedrooms: null,
+            balconies: null,
+            commonBathrooms: null,
+            attachedBathrooms: null,
             unit_type: "flat",
-            advanceAmount: "",
-            expectedPrice: "",
+            advanceAmount: null,
+            expectedPrice: null,
             maxPrice: null,
-            isNegotiable: "",
+            isNegotiable: true,
             floorPlans: []
         }
     ]

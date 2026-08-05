@@ -50,7 +50,7 @@ const buildInitialFormData = (ownerId, residenceType, transactionType) => ({
   type: '',
   transactionTag: '',
   name: '',
-  linkedProjectId: '',
+  linkedProjectId: null,
   possessionStatus: '',
   coordinates: { lat: null, lng: null },
   subLocality: '',
@@ -58,8 +58,7 @@ const buildInitialFormData = (ownerId, residenceType, transactionType) => ({
   cityId: null,
   locationId: null,
   medias: [],
-  units: [{ floorPlans: [] }]
-  
+  units: [{ floorPlans: [] }],
 })
 
 // ─── Component ────────────────────────────────────────────────────────────────

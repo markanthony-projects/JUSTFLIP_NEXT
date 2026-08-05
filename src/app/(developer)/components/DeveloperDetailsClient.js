@@ -2,7 +2,7 @@
 import Image from '@/src/components/atoms/Image'
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import Modal from '@/src/components/organisms/Modal';
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Map from './Map';
 import KeyEmployees from './KeyEmployees';
 import DeveloperHistory from './DeveloperHistory';
@@ -11,11 +11,16 @@ function DeveloperDetailsClient(initialData) {
   // console.log("initialData", initialData?.initialData) //the data about the builder 
   const [ builder ] = useState(initialData?.initialData)
   // console.log(builder, "builder");
-  
   const [isOpen, setIsOpen] = useState(false)
   const breadcrumbItems = [{ label: "Developers", href: "/developers" }, { label: builder?.name },];
   const logo = builder?.medias?.find((item) => item.title === "logo");
   const banner = builder?.medias?.find((item) => item.title === "banner");
+
+  const maxLength = 500
+  const isLong = builder?.description?.length > maxLength
+  const shortText = isLong 
+                    ? builder.description.slice(0, maxLength) + "..."
+                    : builder?.description
 
   return (
     <div className=''>
@@ -47,16 +52,18 @@ function DeveloperDetailsClient(initialData) {
                 {builder?.startedAt && <span className="text-white text-[12px] ml-2">Since {builder?.startedAt} </span>}
               </h1>
 
-              <p className="mt-3 text-[12px] md:text-base text-justify line-clamp-12">
-                {builder?.description}
-              </p>
-
-              <button
-                onClick={() => setIsOpen(true)}
-                className="text-white underline font-semibold mt-2"
-              >
-                Read more
-              </button>
+              <div>
+                <p className="mt-3 text-[12px] md:text-base text-justify line-clamp-12">
+                  {shortText}
+                  {isLong && <span
+                    onClick={() => setIsOpen(true)}
+                    className="text-white underline font-semibold ml-1 hover:cursor-pointer"
+                    >
+                    Read more
+                  </span>}
+                </p>
+              </div>
+              
             </figcaption>
           </figure>
         </div>
