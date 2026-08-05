@@ -154,7 +154,7 @@ const getProjectHref = (property) => {
   const location = property?.location?.name || "location";
   const name = property?.name || "property";
 
-  return `/properties/${formatUrl(city)}/${formatUrl(zone)}/${formatUrl(location)}/${formatUrl(name)}/${property?.id}`;
+  return `/properties/${formatUrl(city)}/${formatUrl(zone)}/${formatUrl(location)}/${formatUrl(name)}-${property?.id}`;
 };
 
 const getFormattedPrice = (property, fallbackCurrency) => {

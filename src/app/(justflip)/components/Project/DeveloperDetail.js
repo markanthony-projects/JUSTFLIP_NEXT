@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from '@/src/components/atoms/Image';
+import { createDeveloperDetailsUrl } from '@/src/utils/url';
 
 export default function DeveloperDetail({ project, data }) {
     const [expanded, setExpanded] = useState(false);
@@ -10,8 +11,8 @@ export default function DeveloperDetail({ project, data }) {
     const developerUrl = useMemo(() => {
         const name = project?.builder?.name;
         const id = project?.builder?.id;
-        if (!name || !id) return '#';
-        return `/`;
+        const url = createDeveloperDetailsUrl(name,id)
+        return url ? url : "#"
     }, [project]);
 
     const description = project?.builder?.description ?? '';
