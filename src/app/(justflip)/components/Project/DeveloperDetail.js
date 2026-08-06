@@ -11,7 +11,7 @@ export default function DeveloperDetail({ project, data }) {
         const name = project?.builder?.name;
         const id = project?.builder?.id;
         if (!name || !id) return '#';
-        return `/`;
+        return `/developers/${name}-${id}`;
     }, [project]);
 
     const description = project?.builder?.description ?? '';
