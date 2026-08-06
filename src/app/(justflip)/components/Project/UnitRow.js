@@ -39,9 +39,9 @@ export default function UnitRow({ product, getCurrencySymbol, onView }) {
   }
 
   return (
-    <div className="border border-slate-200/60 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between overflow-hidden max-w-[340px] w-full">
+    <div className="border border-slate-200/60 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow flex flex-col h-fit overflow-hidden max-w-[340px] w-full">
       {/* Upper Content Section */}
-      <div className="p-4 sm:p-5 pb-3">
+      <div className="px-4 pt-4 sm:px-5 sm:pt-5 pb-3">
         {/* Category Header */}
         <h3 className="text-base sm:text-lg font-bold text-slate-900 tracking-tight mb-1">
           {product.category}
@@ -75,7 +75,7 @@ export default function UnitRow({ product, getCurrencySymbol, onView }) {
       <button
         type="button"
         onClick={onView}
-        className="w-full sm:px-5 px-5 pb-3 flex items-center justify-between text-[#002B5B] hover:bg-slate-50 transition-colors text-left group"
+        className="w-full hover:bg-slate-50 border-t border-slate-100 relative sm:px-5 px-5 py-3 flex items-center justify-between text-[#002B5B] transition-colors text-left group"
       >
         <div className="flex items-center gap-2 font-semibold text-xs sm:text-sm">
           <svg

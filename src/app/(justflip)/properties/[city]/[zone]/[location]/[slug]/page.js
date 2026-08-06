@@ -46,6 +46,7 @@ import { constructMetadata } from "@/src/utils/seo";
 import { buildRealEstateSchema } from "@/src/utils/schema";
 import Link from 'next/link';
 import Image from 'next/image';
+import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
 const FloatingActions = dynamic(() => import('@/src/app/(justflip)/components/Project/FloatingActions'), { suspense: true });
 
@@ -102,110 +103,113 @@ async function PropertyDetails({ params }) {
     }
 
     return (
-        <div className='w-full max-w-full overflow-x-hidden px-2 md:px-4'>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateSchema) }} />
+        <>
+            <ScrollToTop />
+            <div className='w-full max-w-full overflow-x-hidden px-2 md:px-4'>
+                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateSchema) }} />
 
-            <Breadcrumb items={breadcrumbItems} />
+                <Breadcrumb items={breadcrumbItems} />
 
-            <Description project={projectData} />
+                <Description project={projectData} />
 
-            {/* <ImageBanner project={projectData} /> */}
+                {/* <ImageBanner project={projectData} /> */}
 
-            {/* <Suspense fallback={<PropertyHeaderSkeleton />} >
-                <PropertyHeader project={projectData} />
-            </Suspense>
-
-            <div className='hidden lg:block'>
-                <Suspense fallback={<FloatingActionsSkeleton />} >
-                    <SocialMedia />
+                {/* <Suspense fallback={<PropertyHeaderSkeleton />} >
+                    <PropertyHeader project={projectData} />
                 </Suspense>
-            </div> */}
 
-            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-6 xl:grid-cols-7 gap-2 lg:gap-4">
-                <div className="lg:col-span-4 xl:col-span-5 ">
-                    <div className="px-2 md:px-4 py-1 md:py-2 space-y-4 w-full rounded-xl shadow-[0px_0px_10px_1px_#dad6d6]">
-                        <Suspense fallback={<ProjectOverviewSkeleton />} >
-                            <ProjectOverview project={projectData} />
-                        </Suspense>
+                <div className='hidden lg:block'>
+                    <Suspense fallback={<FloatingActionsSkeleton />} >
+                        <SocialMedia />
+                    </Suspense>
+                </div> */}
 
-                        <div className="border-[#BABABA] border-b-[0.5px] mx-2" />
-                        <Suspense fallback={<UnitTableSkeleton />} >
-                            <UnitTable project={projectData} />
-                        </Suspense>
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-6 xl:grid-cols-7 gap-2 lg:gap-4">
+                    <div className="lg:col-span-4 xl:col-span-5 ">
+                        <div className="px-2 md:px-4 py-1 md:py-2 space-y-4 w-full rounded-xl shadow-[0px_0px_10px_1px_#dad6d6]">
+                            <Suspense fallback={<ProjectOverviewSkeleton />} >
+                                <ProjectOverview project={projectData} />
+                            </Suspense>
 
-                        <div className="border-[#BABABA] border-b-[0.5px] mx-2" />
-                        <Suspense fallback={<FeaturesSkeleton />} >
-                            <Features project={projectData} />
-                        </Suspense>
+                            <div className="border-[#BABABA] border-b-[0.5px] mx-2" />
+                            <Suspense fallback={<UnitTableSkeleton />} >
+                                <UnitTable project={projectData} />
+                            </Suspense>
 
-                        <div className="border-[#BABABA] border-b-[0.5px] mx-2" />
-                        <Suspense fallback={<ExploreMapSkeleton />} >
-                            <ExploreMap project={projectData} />
-                        </Suspense>
-                        <div className="border-[#BABABA] border-b-[0.5px] mx-2 hidden lg:block" />
-                        <Suspense fallback={<HighlightProjectSkeleton />} >
-                            <HighlightsProject project={projectData} />
-                        </Suspense>
+                            <div className="border-[#BABABA] border-b-[0.5px] mx-2" />
+                            <Suspense fallback={<FeaturesSkeleton />} >
+                                <Features project={projectData} />
+                            </Suspense>
 
-                        <Suspense fallback={<ReviewsSkeleton />} >
-                            <ReviewsWrapper projectId={id} projectName={projectData?.name} />
-                        </Suspense>
-                        <Suspense fallback={
-                            <>
-                                <DeveloperLegacySkeleton />
-                                <HighlightSkeleton />
-                                <PriceTrendSkeleton />
-                                <LocationImageGallerySkeleton />
-                            </>
-                        }>
-                            <LocationInfoWrapper locationId={locationId} projectData={projectData} />
-                        </Suspense>
+                            <div className="border-[#BABABA] border-b-[0.5px] mx-2" />
+                            <Suspense fallback={<ExploreMapSkeleton />} >
+                                <ExploreMap project={projectData} />
+                            </Suspense>
+                            <div className="border-[#BABABA] border-b-[0.5px] mx-2 hidden lg:block" />
+                            <Suspense fallback={<HighlightProjectSkeleton />} >
+                                <HighlightsProject project={projectData} />
+                            </Suspense>
 
+                            <Suspense fallback={<ReviewsSkeleton />} >
+                                <ReviewsWrapper projectId={id} projectName={projectData?.name} />
+                            </Suspense>
+                            <Suspense fallback={
+                                <>
+                                    <DeveloperLegacySkeleton />
+                                    <HighlightSkeleton />
+                                    <PriceTrendSkeleton />
+                                    <LocationImageGallerySkeleton />
+                                </>
+                            }>
+                                <LocationInfoWrapper locationId={locationId} projectData={projectData} />
+                            </Suspense>
+
+                        </div>
+                    </div>
+
+                    <div className="hidden lg:block lg:col-span-2 xl:col-span-2">
+                        <Link
+                            href={staticAddSection.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full relative hidden lg:block mb-4 overflow-hidden rounded-sm group"
+                        >
+                            <Image
+                                src={staticAddSection.src}
+                                alt={staticAddSection.alt}
+                                width={1200} 
+                                height={400}
+                                sizes="(min-width: 1024px) 100vw, 0vw"
+                                className="w-full h-auto object-cover rounded-sm"
+                                priority={false}
+                            />
+                            <span className="px-2 py-0.5 bg-black/25 text-xs absolute top-2 left-2 text-white/50 rounded-sm pointer-events-none">
+                                AD
+                            </span>
+                        </Link>
+                        <div className=" lg:mt-0 hidden md:flex md:flex-col gap-4" >
+                            <Suspense fallback={<CallbackFormSkeleton />}>
+                                <LeadForm data={projectData} />
+                            </Suspense>
+                            <Suspense fallback={<CompareCarouselSkeleton />} >
+                                <SimilarProjectsWrapper locationId={locationId} projectId={id} type="compare" />
+                            </Suspense>
+                        </div>
                     </div>
                 </div>
 
-                <div className="hidden lg:block lg:col-span-2 xl:col-span-2">
-                    <Link
-                        href={staticAddSection.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full relative hidden lg:block mb-4 overflow-hidden rounded-sm group"
-                    >
-                        <Image
-                            src={staticAddSection.src}
-                            alt={staticAddSection.alt}
-                            width={1200} 
-                            height={400}
-                            sizes="(min-width: 1024px) 100vw, 0vw"
-                            className="w-full h-auto object-cover rounded-sm"
-                            priority={false}
-                        />
-                        <span className="px-2 py-0.5 bg-black/25 text-xs absolute top-2 left-2 text-white/50 rounded-sm pointer-events-none">
-                            AD
-                        </span>
-                    </Link>
-                    <div className=" lg:mt-0 hidden md:flex md:flex-col gap-4" >
-                        <Suspense fallback={<CallbackFormSkeleton />}>
-                            <LeadForm data={projectData} />
-                        </Suspense>
-                        <Suspense fallback={<CompareCarouselSkeleton />} >
-                            <SimilarProjectsWrapper locationId={locationId} projectId={id} type="compare" />
-                        </Suspense>
-                    </div>
-                </div>
+                <section className="lg:hidden block">
+                    <FloatingActions data={projectData} />
+                </section>
+                <Suspense fallback={<SimilarPropertiesSkeleton />}>
+                    <SimilarProjectsWrapper locationId={locationId} projectId={id} type="similar" />
+                </Suspense>
+                <Suspense fallback={<FAQSkeleton />}>
+                    <FAQ data={projectData} />
+                </Suspense>
+
             </div>
-
-            <section className="lg:hidden block">
-                <FloatingActions data={projectData} />
-            </section>
-            <Suspense fallback={<SimilarPropertiesSkeleton />}>
-                <SimilarProjectsWrapper locationId={locationId} projectId={id} type="similar" />
-            </Suspense>
-            <Suspense fallback={<FAQSkeleton />}>
-                <FAQ data={projectData} />
-            </Suspense>
-
-        </div>
+        </>
     )
 }
 
