@@ -164,6 +164,7 @@ import LoginModal from "@/src/components/organisms/LoginModal";
 import { formatDisplayPrice, getDefaultCurrencyFromUnits, getLowestAndHighestPrice, } from "@/src/utils/RenderFunction";
 import { toast } from "@/src/utils/toast";
 import { IoIosLink } from "react-icons/io";
+import { createDeveloperDetailsUrl } from "@/src/utils/url";
 
 // ---------------------------------------------------------------------------
 // Pure helper — runs once per properties change, no hooks involved
@@ -417,7 +418,7 @@ function Description({ project: properties }) {
                         <span>
                             <span className="text-sm">By </span>
                             <a
-                                href={builder?.redirect}
+                                href={createDeveloperDetailsUrl(builder?.name,builder?.id)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-sm font-medium text-blue-500 underline"

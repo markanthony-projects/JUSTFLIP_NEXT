@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import Image from '@/src/components/atoms/Image';
+import { createDeveloperDetailsUrl } from '@/src/utils/url';
 
 export default function DeveloperDetail({ project, data }) {
     const [expanded, setExpanded] = useState(false);
@@ -10,18 +11,20 @@ export default function DeveloperDetail({ project, data }) {
     const developerUrl = useMemo(() => {
         const name = project?.builder?.name;
         const id = project?.builder?.id;
-        if (!name || !id) return '#';
-        return `/`;
-    }, [project]);
+        const url = createDeveloperDetailsUrl(name,id)
+        return url ? url : "#"
+    }, [project?.builder?.name,project?.builder?.id]);
 
     const description = project?.builder?.description ?? '';
     const isLong = description.length > 1000;
+
+    const isExternalUrl = developerUrl !== "#";
 
     const displayText = expanded ? description : isLong ? `${description.slice(0, 1000)}...` : description;
 
     return (
         <section className="">
-            <h2 className="text-base font-semibold pb-4">
+            <h2 className="pb-4 text-sm font-semibold p-2 md:text-lg">
                 Developer's Legacy
             </h2>
 
@@ -36,7 +39,7 @@ export default function DeveloperDetail({ project, data }) {
                         />
                     </div>
 
-                    <Link href={developerUrl} className="w-full text-center text-xs h-9 flex items-center justify-center rounded-full bg-[#002B5B] text-white hover:bg-[#001f42] transition"    >
+                    <Link href={developerUrl} target={isExternalUrl ? "_blank" : undefined} rel={isExternalUrl ? "noopener noreferrer" : undefined} className="w-full text-center text-xs h-9 flex items-center justify-center rounded-full bg-[#002B5B] text-white hover:bg-[#001f42] transition"    >
                         Explore more
                     </Link>
                 </div>
@@ -55,7 +58,7 @@ export default function DeveloperDetail({ project, data }) {
             </div>
 
             <div className=''> 
-            <h2 className="text-[16px] font-semibold py-4">
+            <h2 className="text-sm font-semibold py-4 md:text-lg">
                 Know {project?.location?.name} Better!
             </h2>
                 <p className="text-xs font-normal text-justify">

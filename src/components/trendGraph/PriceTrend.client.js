@@ -26,7 +26,7 @@ export default function PriceTrend({ data = [] }) {
 
     return (
         <div className="w-full  bg-white  rounded-xl">
-            <h2 className="md:text-lg font-medium">Price Trends Graph</h2>
+            <h2 className="text-sm font-semibold md:text-lg  pt-2">Price Trends Graph</h2>
 
             <div className="flex justify-between items-center py-2">
                 <h2 className="text-xs font-normal flex items-center gap-2">

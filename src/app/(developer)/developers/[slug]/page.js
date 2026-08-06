@@ -4,6 +4,7 @@ import { parseDevelopersDetailsUrl } from "@/src/utils/url";
 import DeveloperDetailsClient from "../../components/DeveloperDetailsClient";
 import { constructMetadata } from "@/src/utils/seo";
 import { buildDeveloperSchema } from "@/src/utils/schema";
+import ScrollToTop from "@/src/components/atoms/ScrollToTop";
 
 export async function generateMetadata({ params }) {
     const { slug } = await params;
@@ -38,6 +39,8 @@ export default async function DeveloperDetails({ params }) {
     });
 
     return (
+        <>
+        <ScrollToTop />
         <div className="relative">
             <script
                 type="application/ld+json"
@@ -45,5 +48,6 @@ export default async function DeveloperDetails({ params }) {
             />
             <DeveloperDetailsClient initialData={builder} />
         </div>
+        </>
     );
 }

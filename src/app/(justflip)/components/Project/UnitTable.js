@@ -5,7 +5,6 @@ import UnitRow from "./UnitRow";
 import FloorPlanModal from "./FloorPlanModal";
 import { convertToCurrency, getCurrencySymbol } from "@/src/utils/RenderFunction";
 
-const headers = ["Unit Type", "Area", "Price", "Floor Plan"];
 
 export default function UnitTable({ project }) {
     const [modalData, setModalData] = useState({ isOpen: false, floorPlans: [], currentIndex: 0 });
@@ -61,29 +60,23 @@ export default function UnitTable({ project }) {
     }, []);
 
     return (
-        <div className="overflow-x-auto" >
-            <div className="relative ">
-                <table className="w-full text-left text-gray-600 overflow-y-auto">
-                    <thead className="text-white bg-[#002B5B]">
-                        <tr >
-                            {headers?.map((header) => (
-                                <th
-                                    key={header}
-                                    className="px-4 min-w-[150px]  py-3 text-sm font-semibold first:rounded-l last:rounded-r"
-                                >
-                                    {header}
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
+        <div className="w-full">
+            
+            <h2 className="text-sm font-semibold pb-2 pl-2 md:text-lg">
+                Floor Plans & Pricing
+            </h2>
 
-                    <tbody>
-                        {products?.map((product, index) => (
-                            <UnitRow key={index} product={product} getCurrencySymbol={getCurrencySymbol} onView={() => openModal(product.floorPlans)} />
-                        ))}
-                    </tbody>
-                </table>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {products?.map((product, index) => (
+                    <UnitRow 
+                        key={index} 
+                        product={product} 
+                        getCurrencySymbol={getCurrencySymbol} 
+                        onView={() => openModal(product.floorPlans)} 
+                    />
+                ))}
             </div>
+            
 
             <FloorPlanModal {...modalData} onClose={closeModal} onNext={nextSlide} onPrev={prevSlide} />
         </div>
