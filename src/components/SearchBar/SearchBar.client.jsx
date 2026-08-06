@@ -225,7 +225,7 @@ export default function SearchBarClient({ showCitySelector = true }) {
                                 label = p.name;
                                 icon = <PiBuildingApartment />;
                                 href = formatUrl(
-                                    `/properties/${p.city?.name}/${p.zone?.name}/${p.location?.name}/${p.name}/${p.id}`
+                                    `/properties/${p.city?.name}/${p.zone?.name}/${p.location?.name}/${p.name}-${p.id}`
                                 );
                             }
 
@@ -240,7 +240,7 @@ export default function SearchBarClient({ showCitySelector = true }) {
                                 const b = item.data;
                                 label = b.name;
                                 icon = <BsBuildingFillGear />;
-                                href = formatUrl(`/developer/${b.name}/${b.id}`);
+                                href = formatUrl(`/developers/${b.name}-${b.id}`);
                             }
 
                             return (
