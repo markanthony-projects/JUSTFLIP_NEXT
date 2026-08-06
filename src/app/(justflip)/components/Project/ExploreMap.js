@@ -16,6 +16,8 @@ import { AccordionItemSkeleton } from "@/src/app/(justflip)/components/Skelton/E
 import { SkeletonBlock } from "@/src/app/(justflip)/components/Skelton/SkeletonSection";
 
 export default function ExploreMap({ project }) {
+    // console.log(project);
+    
     const [isLoading, setIsLoading] = useState(false);
     const [busStations, setBusStations] = useState([]);
     const [airports, setAirports] = useState([]);
@@ -90,6 +92,7 @@ export default function ExploreMap({ project }) {
     ];
 
     const [activeTab, setActiveTab] = useState(data[0]?.value || "");
+    const [ item, setItem ] = useState(null)
 
 
     return (
@@ -102,6 +105,17 @@ export default function ExploreMap({ project }) {
                 <div className="lg:col-span-3">
                     <MapView 
                         project={project} 
+                        activeTab={activeTab}
+
+                        busStations={busStations}
+                        airports={airports}
+                        trainStations={trainStations}
+                        hospitals={hospitals}
+                        schools={schools}
+                        movieTheaters={movieTheaters}
+                        shoppingMalls={shoppingMalls}
+                        superMarkets={superMarkets}
+
                         setBusStations={setBusStations} 
                         setAirports={setAirports} 
                         setTrainStations={setTrainStations} 

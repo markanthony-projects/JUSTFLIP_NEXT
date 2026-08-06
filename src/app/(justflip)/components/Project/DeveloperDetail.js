@@ -22,7 +22,7 @@ export default function DeveloperDetail({ project, data }) {
     return (
         <section className="">
             <h2 className="text-base font-semibold pb-4">
-                Developer's Legacy
+                {`Developer's Legacy`}
             </h2>
 
             <div className="grid md:grid-cols-[200px_1fr] gap-4  items-start">
