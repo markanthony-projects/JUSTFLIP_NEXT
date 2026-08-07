@@ -100,8 +100,7 @@ const DeveloperHistory = ({ history = [] }) => {
             <AnimatePresence mode="wait">
                 <motion.div
                     key={timelineData[activeIndex]?.year}
-                    className="md:absolute z-30 left-[40%] md:w-[320px] rounded-xl 
-                                bg-white/30 backdrop-blur-md border-white/20 max-h-52 overflow-y-auto text-justify w-full lg:w-125 md:min-h-30 text-[10px] md:text-xs border p-2 md:p-4 shadow-lg md:left-1/2"
+                    className="md:absolute z-30 left-[40%] md:w-[320px] rounded-xl bg-white/30 backdrop-blur-md border-white/20 max-h-52 overflow-y-auto text-justify w-full lg:w-125 md:min-h-30 text-[10px] md:text-xs border p-2 md:p-4 shadow-lg md:left-1/2"
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x  : -30 }}

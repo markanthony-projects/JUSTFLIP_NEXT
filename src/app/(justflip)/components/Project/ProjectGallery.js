@@ -20,7 +20,7 @@ const LocationImageGallery = ({ data }) => {
 
     return (
         <div className="">
-            <h2 className="text-[16px] font-semibold pb-2"> {data?.name} - At a Glance </h2>
+            <h2 className="text-sm font-semibold py-4 md:text-lg"> {data?.name} - At a Glance </h2>
 
             <div className="w-full">
                 <div className="bg-white rounded-lg ">

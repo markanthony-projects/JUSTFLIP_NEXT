@@ -1,7 +1,7 @@
 "use client";
 
 import StarRating from "@/src/components/atoms/StarRating";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 const RATING_COLORS = {
   5: "bg-[#54954E]",
@@ -12,6 +12,7 @@ const RATING_COLORS = {
 };
 
 export default function AvgRating({ reviews }) {
+  const [activeRating, setActiveRating] = useState(null)
   // Normalize review array safely
   const reviewList = useMemo(() => {
     if (Array.isArray(reviews)) return reviews;
@@ -80,11 +81,14 @@ export default function AvgRating({ reviews }) {
           const total = stats.totalReviews;
           const count = stats.counts[rating] || 0;
           const percentage = total > 0 ? (count / total) * 100 : 0;
+          const isActive = activeRating === rating
 
           return (
             <div
               key={rating}
-              className="group relative flex items-center text-sm cursor-pointer"
+              onClick={() => setActiveRating(isActive ? null : rating)}
+              onMouseLeave={()=>setActiveRating(null)}
+              className="group relative flex items-center text-sm cursor-pointer select-none"
             >
               <span className="text-gray-600 w-5 font-medium">{rating}</span>
               <span className="text-[#D9A20D]">
@@ -111,7 +115,9 @@ export default function AvgRating({ reviews }) {
               </div>
 
               {/* Hover Tooltip Popup */}
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none bg-gray-900 text-white text-xs py-1 px-2.5 rounded shadow-md whitespace-nowrap z-10">
+              <div className={`absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none bg-gray-900 text-white text-xs py-1 px-2.5 rounded shadow-md whitespace-nowrap z-10 ${
+                isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+              }`}>
                 {count} {count === 1 ? "review" : "reviews"} ({percentage.toFixed(0)}%)
                 {/* Tooltip Arrow */}
                 <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
