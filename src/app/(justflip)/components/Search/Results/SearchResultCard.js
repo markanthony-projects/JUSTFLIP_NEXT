@@ -17,10 +17,10 @@ const SearchResultCard = ({ project, priority }) => {
   const projectName = project?.name || "";
 
   const projectUrl = createProjectUrl(
-    cityName, 
-    zoneName, 
-    locationName, 
-    projectName, 
+    cityName,
+    zoneName,
+    locationName,
+    projectName,
     project?.id
   );
 
@@ -30,7 +30,7 @@ const SearchResultCard = ({ project, priority }) => {
   // Calculate pricing
   const minPrice = project.minPrice || Math.min(...(project.units?.map(u => u.minPrice) || [0]));
   const maxPrice = project.maxPrice || Math.max(...(project.units?.map(u => u.maxPrice) || [0]));
-  
+
   const formatPrice = (val) => {
     if (!val || val === Infinity || val === -Infinity) return 'On Request';
     if (val >= 10000000) return `₹${(val / 10000000).toFixed(2)} Cr`;
@@ -55,7 +55,7 @@ const SearchResultCard = ({ project, priority }) => {
 
   return (
     <div className="w-full bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow duration-300 mb-4 flex flex-col md:flex-row group">
-      
+
       {/* Left Image Section */}
       <div className="relative w-full md:w-[35%] lg:w-[30%] h-[250px] md:h-auto shrink-0 bg-gray-100">
         <Link href={projectUrl} className="block w-full h-full">
@@ -83,19 +83,19 @@ const SearchResultCard = ({ project, priority }) => {
 
       {/* Right Content Section */}
       <div className="flex-1 p-4 md:p-5 flex flex-col relative bg-white">
-        
+
         {/* Top Badges & Logo */}
         <div className="flex justify-between items-start mb-2">
           {/* Title & Location */}
-            <Link href={projectUrl} className="block mb-4">
-              <h2 className="text-xl font-bold text-gray-900 group-hover:text-[#002B5B] transition-colors line-clamp-1">
-                {projectName}
-              </h2>
-              <p className="text-sm font-medium text-gray-600 mt-0.5 line-clamp-1">
-                {locationName}, {cityName}{zoneName ? `, ${zoneName}` : ''}
-              </p>
-            </Link>
-          
+          <Link href={projectUrl} className="block mb-4">
+            <h2 className="text-xl font-bold text-gray-900 group-hover:text-[#002B5B] transition-colors line-clamp-1">
+              {projectName}
+            </h2>
+            <p className="text-sm font-medium text-gray-600 mt-0.5 line-clamp-1">
+              {locationName}, {cityName}{zoneName ? `, ${zoneName}` : ''}
+            </p>
+          </Link>
+
           {logoImage && (
             <div className="hidden sm:block w-16 h-12 relative border border-gray-100 rounded bg-white p-1 ml-4 shrink-0">
               <Image
@@ -155,8 +155,8 @@ const SearchResultCard = ({ project, priority }) => {
               <FaPhoneAlt className="text-lg" />
             </button>
           </div>
-          
-          <Link 
+
+          <Link
             href={projectUrl}
             className="px-6 py-2.5 bg-[#002B5B] text-white font-semibold rounded-lg hover:bg-[#001f42] transition-colors text-sm"
           >
