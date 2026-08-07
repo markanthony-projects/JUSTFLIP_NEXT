@@ -75,7 +75,7 @@ const KeyEmployees = ({employees=[]}) => {
                     alt={`${employee.name}, ${employee.designation}`}
                     fill
                     sizes="(max-width: 768px) 40vw, (max-width: 1024px) 33vw, 50vw"
-                    className="object-cover transform transition-all duration-700 ease-in-out grayscale group-hover:grayscale-0"
+                    className="object-cover transform transition-all duration-700 ease-in-out"
                     priority={index === 0} 
                 />
             </div>

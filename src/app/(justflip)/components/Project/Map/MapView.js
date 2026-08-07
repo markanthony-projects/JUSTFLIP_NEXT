@@ -1,7 +1,7 @@
 "use client";
 import ActionButton from "@/src/components/atoms/ActionButton";
 import { toast } from "@/src/utils/toast";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CiShare2 } from "react-icons/ci";
 import { IoCopyOutline, IoLogoWhatsapp } from "react-icons/io5";
 import dynamic from "next/dynamic";
@@ -14,7 +14,28 @@ const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLa
 const OSMCustomMarker = dynamic(() => import("@/src/components/osm/OSMCustomMarker"), { ssr: false });
 import { SkeletonBlock } from "@/src/app/(justflip)/components/Skelton/SkeletonSection";
 
-export default function MapView({ project, setBusStations, setAirports, setTrainStations, setHospitals, setSchools, setMovieTheaters, setShoppingMalls, setSuperMarkets, onLoadingChange }) {
+export default function MapView({ project, 
+    activeTab={activeTab},
+
+    busStations,
+    airports,
+    trainStations,
+    hospitals,
+    schools,
+    movieTheaters,
+    shoppingMalls,
+    superMarkets,
+
+    setBusStations, 
+    setAirports, 
+    setTrainStations, 
+    setHospitals, 
+    setSchools, 
+    setMovieTheaters, 
+    setShoppingMalls, 
+    setSuperMarkets, 
+    onLoadingChange }) {
+        
     const [mapLoaded, setMapLoaded] = useState(false);
     const coordinates = project?.coordinates || {};
     const lat = parseFloat(coordinates?.lat);
@@ -22,6 +43,8 @@ export default function MapView({ project, setBusStations, setAirports, setTrain
     const locationName = project?.location?.name || "";
     const cityName = project?.city?.name || "";
     const pinCode = project?.pincode || "";
+
+    const containerRef = useRef(null)
 
     useEffect(() => {
         setMapLoaded(true);
@@ -54,6 +77,7 @@ export default function MapView({ project, setBusStations, setAirports, setTrain
 
             try {
                 const results = await fetchNearbyPlacesBatch({ lat, lng }, types);
+                console.log(results);
                 
                 // Map results back to the respective setters
                 if (results.bus_station) setBusStations(results.bus_station.slice(0, 5));
@@ -74,6 +98,8 @@ export default function MapView({ project, setBusStations, setAirports, setTrain
 
         loadAllNearby();
     }, [mapLoaded, lat, lng, setBusStations, setAirports, setTrainStations, setHospitals, setSchools, setMovieTheaters, setShoppingMalls, setSuperMarkets, onLoadingChange]);
+    console.log(busStations);
+    
 
     const mapUrl = `https://maps.google.com/maps?q=${lat},${lng}`;
 
@@ -105,7 +131,8 @@ export default function MapView({ project, setBusStations, setAirports, setTrain
 
     return (
         <div className="lg:col-span-3 md:col-span-3">
-            <div className="h-[300px] md:h-[400px] mb-2 rounded overflow-hidden border border-gray-200 relative z-0">
+            <div ref={containerRef}
+                className="h-[300px] md:h-[400px] mb-2 rounded overflow-hidden border border-gray-200 relative z-0">
                 {!mapLoaded ? (
                     <SkeletonBlock className="absolute inset-0 w-full h-full" />
                 ) : (
@@ -114,7 +141,7 @@ export default function MapView({ project, setBusStations, setAirports, setTrain
                             key={`${lat}-${lng}`}
                             center={[lat, lng]}
                             zoom={14}
-                            scrollWheelZoom={false}
+                            scrollWheelZoom={true}
                             style={{ width: "100%", height: "100%" }}
                         >
                             <TileLayer
@@ -122,6 +149,92 @@ export default function MapView({ project, setBusStations, setAirports, setTrain
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             />
                             <OSMCustomMarker position={{ lat, lng }} label={`${locationName}, ${cityName}, ${pinCode}`} />
+
+                            {/* TRANSIT */}
+                            {activeTab === 'transit' && (
+                                <>
+                                    {busStations?.map((position,index) => (
+                                        <OSMCustomMarker
+                                            key={`bus-${index}`}
+                                            position={{
+                                                lat: position.geometry.location.lat, 
+                                                lng: position.geometry.location.lng
+                                            }}
+                                            label={position.tags?.name || "Bus Station"}
+                                            type="bus"
+                                        />
+                                    ))}
+                                    {trainStations?.map((position, index) => (
+                                        <OSMCustomMarker
+                                            key={`train-${index}`}
+                                            position={{ 
+                                                lat: position.geometry.location.lat, 
+                                                lng: position.geometry.location.lng
+                                             }}
+                                            label={position.tags?.name || "Train Station"}
+                                            type="train"
+                                        />
+                                    ))}
+
+                                    {airports?.map((position, index) => (
+                                        <OSMCustomMarker
+                                            key={`airport-${index}`}
+                                            position={{ 
+                                                lat: position.geometry.location.lat, 
+                                                lng: position.geometry.location.lng
+                                             }}
+                                            label={position.tags?.name || "Airport"}
+                                            type="airport"
+                                        />
+                                    ))}
+                                </>
+                            )}
+
+                            {activeTab === "essentials" && (
+                            <>
+                                {hospitals?.map((position, index) => (
+                                <OSMCustomMarker key={`h-${index}`}
+                                    position={{ 
+                                            lat: position.geometry.location.lat, 
+                                            lng: position.geometry.location.lng
+                                         }} />
+                                ))}
+                                {schools?.map((position, index) => (
+                                <OSMCustomMarker key={`s-${index}`} 
+                                    position={{ 
+                                        lat: position.geometry.location.lat, 
+                                        lng: position.geometry.location.lng 
+                                    }} />
+                                ))}
+                            </>
+                            )}
+
+
+                            {activeTab === "utility" && (
+                            <>
+                                {shoppingMalls?.map((position, index) => (
+                                <OSMCustomMarker key={`m-${index}`} 
+                                    position={{
+                                            lat: position.geometry.location.lat, 
+                                            lng: position.geometry.location.lng
+                                        }} />
+                                ))}
+                                {superMarkets?.map((position, index) => (
+                                <OSMCustomMarker key={`sm-${index}`} 
+                                    position={{ 
+                                            lat: position.geometry.location.lat, 
+                                            lng: position.geometry.location.lng 
+                                        }} />
+                                ))}
+                                {movieTheaters?.map((position, index) => (
+                                <OSMCustomMarker key={`mt-${index}`} 
+                                    position={{ 
+                                            lat: position.geometry.location.lat, 
+                                            lng: position.geometry.location.lng 
+                                        }} />
+                                ))}
+                            </>
+                            )}
                         </MapContainer>
                     )
                 )}

@@ -14,7 +14,6 @@ export default function DeveloperDetail({ project, data }) {
         const url = createDeveloperDetailsUrl(name,id)
         return url ? url : "#"
     }, [project?.builder?.name,project?.builder?.id]);
-
     const description = project?.builder?.description ?? '';
     const isLong = description.length > 1000;
 
