@@ -90,38 +90,35 @@ const Contact = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto my-6 px-4 sm:px-6 lg:px-8 font-sans antialiased">
-      {/* Outer Card Wrapper */}
-      <div className="bg-white text-slate-800 rounded-3xl shadow-lg border border-slate-100 overflow-hidden">
+    <div className="w-full max-w-7xl mx-auto my-2 sm:my-6 sm:px-6 lg:px-8 font-sans antialiased">
+      {/* Container - borderless and padding-free on mobile, card style on desktop */}
+      <div className="bg-transparent sm:bg-white text-slate-800 sm:rounded-3xl sm:shadow-lg sm:border sm:border-slate-100 overflow-hidden">
         
         {/* Header Section */}
-        <section className="px-6 sm:px-10 md:px-12 pt-10 pb-2">
+        <section className="px-0 sm:px-10 md:px-12 pt-2 sm:pt-10 pb-4">
           <div className="max-w-3xl">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#002B5B]">
               Contact Us
             </h1>
-            <p className="mt-3 text-base sm:text-lg text-[#64748B] font-medium leading-relaxed">
+            <p className="mt-2 sm:mt-3 text-sm sm:text-lg text-[#64748B] font-medium leading-relaxed">
               Whether you&apos;re looking to buy, sell, or rent, our property specialists are here to assist you every step of the way.
             </p>
           </div>
         </section>
 
         {/* Main Content Grid */}
-        <section className="p-6 sm:p-10 md:p-12 flex flex-col-reverse lg:grid lg:grid-cols-12 gap-8 items-stretch">
+        <section className="p-0 sm:p-10 md:p-12 pb-6 flex flex-col-reverse lg:grid lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
           
           {/* Left Side Info Card */}
-          <div className="lg:col-span-5 bg-slate-50/80 border border-slate-200/60 p-6 sm:p-8 rounded-2xl flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-slate-50/80 border border-slate-200/60 p-5 sm:p-8 rounded-2xl flex flex-col justify-between">
             <div className="space-y-6">
               <div>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-[#002B5B] mb-2">
                   How can we help you?
                 </h2>
-                {/* <p className="text-[#64748B] text-sm font-medium leading-relaxed">
-                  Reach out directly via email or phone, or fill in the form and our team will get back to you shortly.
-                </p> */}
               </div>
 
-              <div className="space-y-6 pt-5">
+              <div className="space-y-5 sm:space-y-6 pt-2 sm:pt-5">
                 <div className="flex items-center space-x-4">
                   <div className="p-3.5 bg-white text-[#002B5B] rounded-2xl border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
                     <FiMail className="w-5 h-5" />
@@ -178,7 +175,8 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-7 bg-white border border-slate-200/60 p-6 sm:p-8 rounded-2xl shadow-xs flex flex-col justify-between">
+          {/* Right Side Form Container */}
+          <div className="lg:col-span-7 bg-transparent sm:bg-white border-0 sm:border sm:border-slate-200/60 p-0 sm:p-8 rounded-2xl sm:shadow-xs flex flex-col justify-between">
             {isSubmitted ? (
               <div className="text-center py-12 space-y-4 my-auto">
                 <FiCheckCircle className="w-16 h-16 text-emerald-500 mx-auto" />
@@ -330,3 +328,5 @@ const Contact = () => {
 };
 
 export default Contact;
+
+
