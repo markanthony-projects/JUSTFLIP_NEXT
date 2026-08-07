@@ -1,6 +1,7 @@
 import ProjectSection from '../TaggedProperties/ProjectSection'
 
 function SimilarProject({ data }) {
+    if(!data || data.length === 0) return null
     return (
         <div className="">
             <div className="pt-6">

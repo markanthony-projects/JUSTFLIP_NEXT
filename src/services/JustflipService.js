@@ -14,7 +14,9 @@ class JustflipService {
 
     static async suggestions(query, cityId) {
         try {
-            const { data } = await JUSTFLIP.get(`/project/search`, { params: { query, cityId } });
+            const params = {query}
+            if(cityId) params.cityId = cityId
+            const { data } = await JUSTFLIP.get(`/project/search`, { params });
             return data;
         } catch (error) {
             handleApiError(error);

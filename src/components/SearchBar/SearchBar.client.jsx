@@ -8,14 +8,11 @@ import { SlLocationPin } from "react-icons/sl";
 import { FaSearch } from "react-icons/fa";
 import { fetchSuggestionsAction } from "./search.actions";
 import { formatUrl } from "@/src/utils/URLFormatter";
-import { TextField } from "../Inputs";
 import { useRouter, usePathname } from "next/navigation";
 import { useSearchStore } from "@/src/stores/search.store";
 import { useCityStore } from "@/src/stores/city.store";
 import NearestCity from "@/src/components/NearestCity/NearestCity.client";
 
-//this list should be outside so that it doesn't gets recreated on every render.
-//if this is ketp inside the useEffect tha depends on it will run infinitely.
 const searchPlaceholderList = [
     {
         title: "Projects in Bengaluru",
@@ -85,17 +82,10 @@ const emptySuggestions = {
     locations: [],
 };
 
-/**
- * The bar renders identically everywhere it is used — header and hero. Height
- * is fixed at 42px on mobile and 45px from `sm` up.
- *
- * @param showCitySelector Mobile-only city selector inside the bar. Off when the
- *   surrounding header already shows one.
- */
 export default function SearchBarClient({ showCitySelector = true }) {
     const router = useRouter();
     const pathname = usePathname();
-    const { setQuery, query } = useSearchStore();
+    const { setQuery } = useSearchStore();
     const { activeCity } = useCityStore();
 
     const pathSegments = pathname?.split('/').filter(Boolean) || [];
@@ -103,8 +93,8 @@ export default function SearchBarClient({ showCitySelector = true }) {
 
     const [search, setSearch] = useState("");
     const [suggestions, setSuggestions] = useState(emptySuggestions);
-    const [isPending, startTransition] = useTransition();
-    const [placeholderIndex, setPlaceholderIndex] = useState(0)
+    const [, startTransition] = useTransition();
+    const [placeholderIndex, setPlaceholderIndex] = useState(0);
 
     useEffect(() => {
         if (search.length === 0) {
@@ -119,12 +109,28 @@ export default function SearchBarClient({ showCitySelector = true }) {
     const debounceRef = useRef(null);
     const containerRef = useRef(null);
 
+    // Filters locations if the API object includes city details
+    const filteredLocations = (suggestions.locations || []).filter((loc) => {
+        if (!activeCity) return true;
+
+        const locCityId = loc.cityId || loc.city_id || loc.city?.id;
+        const locCityName = loc.cityName || loc.city_name || loc.city?.name;
+
+        if (locCityId && activeCity.id) {
+            return String(locCityId).toLowerCase() === String(activeCity.id).toLowerCase();
+        }
+        if (locCityName && activeCity.name) {
+            return locCityName.toLowerCase() === activeCity.name.toLowerCase();
+        }
+
+        return true;
+    });
+
     const flatSuggestions = [
         ...suggestions.projects.map(p => ({ type: "project", data: p })),
-        ...suggestions.locations.map(l => ({ type: "location", data: l })),
+        ...filteredLocations.map(l => ({ type: "location", data: l })),
         ...suggestions.builders.map(b => ({ type: "builder", data: b })),
     ];
-
 
     useEffect(() => {
         if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -137,7 +143,7 @@ export default function SearchBarClient({ showCitySelector = true }) {
         debounceRef.current = setTimeout(() => {
             startTransition(async () => {
                 const res = await fetchSuggestionsAction(search, activeCity?.id);
-                setSuggestions(res);
+                setSuggestions(res || emptySuggestions);
             });
         }, 300);
 
@@ -162,7 +168,7 @@ export default function SearchBarClient({ showCitySelector = true }) {
         } else {
             router.push(`/search`);
         }
-    }
+    };
 
     return (
         <div
@@ -216,48 +222,48 @@ export default function SearchBarClient({ showCitySelector = true }) {
             </button>
 
             {!!flatSuggestions.length && (
-                    <div className="absolute top-full left-0 mt-1 w-full bg-white border-none rounded-lg shadow-xl z-50 max-h-60 overflow-auto scrollbar-xs">
-                        {flatSuggestions.map((item) => {
-                            let label, icon, href;
+                <div className="absolute top-full left-0 mt-1 w-full bg-white border-none rounded-lg shadow-xl z-50 max-h-60 overflow-auto scrollbar-xs">
+                    {flatSuggestions.map((item) => {
+                        let label, icon, href;
 
-                            if (item.type === "project") {
-                                const p = item.data;
-                                label = p.name;
-                                icon = <PiBuildingApartment />;
-                                href = formatUrl(
-                                    `/properties/${p.city?.name}/${p.zone?.name}/${p.location?.name}/${p.name}-${p.id}`
-                                );
-                            }
-
-                            if (item.type === "location") {
-                                const l = item.data;
-                                label = l.name;
-                                icon = <SlLocationPin />;
-                                href = `/listings?locationId=${l.id}`;
-                            }
-
-                            if (item.type === "builder") {
-                                const b = item.data;
-                                label = b.name;
-                                icon = <BsBuildingFillGear />;
-                                href = formatUrl(`/developers/${b.name}-${b.id}`);
-                            }
-
-                            return (
-                                <Link
-                                    key={`${item.type}-${item.data.id}`}
-                                    href={href}
-                                    className="flex justify-between px-4 py-2 text-xs hover:bg-gray-100"
-                                >
-                                    <span>{label}</span>
-                                    <span className="flex gap-1 text-gray-500">
-                                        {icon} {item.type}
-                                    </span>
-                                </Link>
+                        if (item.type === "project") {
+                            const p = item.data;
+                            label = p.name;
+                            icon = <PiBuildingApartment />;
+                            href = formatUrl(
+                                `/properties/${p.city?.name}/${p.zone?.name}/${p.location?.name}/${p.name}-${p.id}`
                             );
-                        })}
-                    </div>
-                )}
+                        }
+
+                        if (item.type === "location") {
+                            const l = item.data;
+                            label = l.name;
+                            icon = <SlLocationPin />;
+                            href = `/search?q=${encodeURIComponent(l.name)}&locationId=${l.id}`;
+                        }
+
+                        if (item.type === "builder") {
+                            const b = item.data;
+                            label = b.name;
+                            icon = <BsBuildingFillGear />;
+                            href = formatUrl(`/developers/${b.name}-${b.id}`);
+                        }
+
+                        return (
+                            <Link
+                                key={`${item.type}-${item.data.id}`}
+                                href={href}
+                                className="flex justify-between px-4 py-2 text-xs hover:bg-gray-100"
+                            >
+                                <span>{label}</span>
+                                <span className="flex gap-1 text-gray-500">
+                                    {icon} {item.type}
+                                </span>
+                            </Link>
+                        );
+                    })}
+                </div>
+            )}
         </div>
     );
 }
