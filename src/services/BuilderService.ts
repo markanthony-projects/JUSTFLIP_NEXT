@@ -3,6 +3,7 @@
 import { JUSTFLIP } from "../lib/axios/api";
 import { handleApiError } from "../lib/axios/apiError";
 import { Project, Builder } from "../types";
+import { cache } from "react";
 
 export async function fetchBuilders(
     { cityId, page = 1, limit = 15 }: { cityId?: string | number; page?: number; limit?: number } = {}
@@ -11,8 +12,7 @@ export async function fetchBuilders(
         const { data } = await JUSTFLIP.get("/builder/top", {
             params: { cityId, page, limit }
         });
-
-        return data;
+        return data?.builders || [];
     } catch (error: any) {
         handleApiError(error);
         throw error;
@@ -26,8 +26,7 @@ export async function fetchTopBuilders(
         const { data } = await JUSTFLIP.get("/builder/top", {
             params: { cityId, zoneId, locationId, limit }
         });
-
-        return data;
+        return data?.builders || [];
     } catch (error: any) {
         handleApiError(error);
         throw error;
@@ -62,7 +61,7 @@ export async function fetchDevelopers(
     }
 }
 
-export async function fetchDeveloperById(id: string | number): Promise<Builder | null> {
+export const fetchDeveloperById = cache(async (id: string | number): Promise<any> => {
     try {
         const { data } = await JUSTFLIP.get(`/builder/${id}`);
         return data;
@@ -70,7 +69,7 @@ export async function fetchDeveloperById(id: string | number): Promise<Builder |
         handleApiError(error);
         throw error;
     }
-}
+});
 
 export async function fetchProjectByDeveloperId(
     { id, limit = 20, page = 1, tag }: { id: string | number; limit?: number; page?: number; tag?: string }

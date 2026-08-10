@@ -22,7 +22,7 @@ const nextConfig = {
     ],
     // unoptimized: false,
     // formats: ["image/avif", "image/webp"],
-    // qualities: [75, 85, 100],
+    qualities: [75, 85, 100],
     unoptimized: true,
   },
   experimental: {

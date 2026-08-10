@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: DeveloperDetailsProps) {
         title,
         description,
         canonical: url,
-        image: builder?.medias?.find(m => m.title === "logo")?.url || 'https://justflip.in/logo.png',
+        image: builder?.medias?.find((m: any) => m.title === "logo")?.url || 'https://justflip.in/logo.png',
         type: 'profile'
     });
 }
@@ -33,13 +33,13 @@ export const revalidate = 3600;
 export default async function DeveloperDetails({ params }: DeveloperDetailsProps) {
     const { slug } = await params;
     const { name, id } = parseDevelopersDetailsUrl(slug);
-    const builder = await BuilderService.fetchDeveloperById(id);
-
+    const data = await BuilderService.fetchDeveloperById(id);
+    const builder = data?.builder
     const developerSchema = buildDeveloperSchema({
         name: builder?.name || name,
         description: builder?.description,
         slug: slug,
-        logo: builder?.medias?.find(m => m.title === "logo")?.url
+        logo: builder?.medias?.find((m: any) => m.title === "logo")?.url
     });
 
     return (
