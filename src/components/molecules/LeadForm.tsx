@@ -46,7 +46,7 @@ const LeadForm = ({ data }: LeadFormProps) => {
 
         startTransition(async () => {
             try {
-                const res = await JUSTFLIP.post("/api/lead", { ...formData, projectId: data?.id });
+                const res = await JUSTFLIP.post("/lead", { ...formData, projectId: data?.id });
                 setFormData({ name: "", email: "", phone: "" });
                 toast.success(res.data?.message || "Submitted successfully");
             } catch (err: any) {
