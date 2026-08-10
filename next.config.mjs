@@ -11,7 +11,7 @@ const nextConfig = {
     fetches: {
       fullUrl: true,
     },
-  },
+  },  
   images: {
     remotePatterns: [
       {

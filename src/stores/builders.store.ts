@@ -1,0 +1,162 @@
+import { create } from "zustand";
+import * as BuilderService from "../services/BuilderService";
+import { Builder, Project } from "../types";
+
+export interface BuilderPagination {
+  total: number;
+  limit: number;
+  page: number;
+  totalPages: number;
+}
+
+export interface BuilderState {
+  developers: Builder[];
+  selectedDeveloper: Builder | null;
+  projects: Project[];
+  pagination: BuilderPagination | null;
+  page: number;
+  hasMore: boolean;
+  loading: boolean;
+  isFetching: boolean;
+  error: string | null;
+}
+
+export interface BuilderActions {
+  fetchDevelopers: (params: { page?: number; limit?: number; search?: string }) => Promise<void>;
+  fetchDeveloperById: (id: string | number) => Promise<void>;
+  fetchProjectByDeveloperId: (params: { id: string | number; page?: number; limit?: number; tag?: string }) => Promise<void>;
+  reset: () => void;
+}
+
+export const useDeveloperStore = create<BuilderState & BuilderActions>((set, get) => ({
+  developers: [],
+  selectedDeveloper: null,
+  projects: [],
+  pagination: null,
+  page: 1,
+  hasMore: true,
+  loading: false,
+  isFetching: false,
+  error: null,
+
+  fetchDevelopers: async ({ page = 1, limit = 20, search = "" }) => {
+    const { isFetching, developers } = get();
+    if (isFetching) return;
+
+    set({ isFetching: true, loading: page === 1, error: null });
+
+    try {
+      const data = await BuilderService.fetchDevelopers({
+        page,
+        limit,
+        search,
+      });
+
+      const builders = data?.builders || [];
+      const total = data?.total || 0;
+      const perPage = data?.limit || limit;
+
+      const totalPages = Math.ceil(total / perPage);
+
+      set({
+        developers:
+          page === 1
+            ? builders
+            : [...developers, ...builders],
+
+        pagination: {
+          total,
+          limit: perPage,
+          page,
+          totalPages,
+        },
+
+        page,
+        hasMore: page < totalPages,
+        loading: false,
+        isFetching: false,
+      });
+    } catch (err: any) {
+      set({
+        error: err?.message || "Failed to fetch developers",
+        loading: false,
+        isFetching: false,
+      });
+    }
+  },
+
+  fetchDeveloperById: async (id) => {
+    set({ loading: true, error: null });
+
+    try {
+      const data = await BuilderService.fetchDeveloperById(id);
+
+      set({
+        selectedDeveloper: data,
+        loading: false,
+      });
+    } catch (err: any) {
+      set({
+        error: err?.message || "Failed to fetch developer details",
+        loading: false,
+      });
+    }
+  },
+
+
+
+  fetchProjectByDeveloperId: async ({ id, page = 1, limit = 20, tag }) => {
+    const { projects, isFetching } = get();
+    if (isFetching) return;
+
+    set({ isFetching: true, loading: page === 1 });
+
+    try {
+      const data =
+        await BuilderService.fetchProjectByDeveloperId({
+          id,
+          page,
+          limit,
+          tag
+        });
+
+
+      const newProjects = data?.projects || data || [];
+
+      const merged =
+        page === 1
+          ? newProjects
+          : [
+            ...projects,
+            ...newProjects.filter(
+              (p: any) => !projects.some((x) => x.id === p.id)
+            ),
+          ];
+
+      set({
+        projects: merged,
+        page,
+        hasMore: newProjects.length === limit,
+        loading: false,
+        isFetching: false,
+      });
+    } catch (err: any) {
+      set({
+        error: err?.message || "Failed to fetch developer projects",
+        loading: false,
+        isFetching: false,
+      });
+    }
+  },
+
+
+  reset: () =>
+    set({
+      developers: [],
+      selectedDeveloper: null,
+      projects: [],
+      page: 1,
+      hasMore: true,
+      pagination: null,
+    }),
+}));

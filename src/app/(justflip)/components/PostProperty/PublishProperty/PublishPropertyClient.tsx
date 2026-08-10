@@ -1,0 +1,710 @@
+'use client'
+
+import React, { useCallback, useEffect, useState, useMemo, useRef } from 'react'
+import { useRouter } from 'next/navigation'
+import { useFileUpload } from '@/src/hooks/useFileUpload'
+import LocationService from '@/src/services/LocationService'
+import { JUSTFLIP } from '@/src/lib/axios/api'
+
+//stores
+import { useAuthStore } from '@/src/stores/auth.store'
+import { useUserPropertyFormStore, UserPropertyFormData, PropertyUnit } from '@/src/stores/userPropertyForm.store'
+import { toast } from '@/src/utils/toast'
+import Breadcrumb from '@/src/components/organisms/breadCrumb'
+
+//icons
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import { VscGitStashApply } from 'react-icons/vsc'
+import PublishPropertySidebar from './PublishPropertySidebar'
+import dynamic from 'next/dynamic'
+import { getInputFields, STEP_TITLES } from '../shared/constants'
+
+const PublishPropertyMap = dynamic( () => import('./PublishPropertyMap'),{ ssr: false } )
+import { UNIT_FIELDS } from './constants'
+
+import * as ProjectService from '@/src/services/ProjectService'
+
+//the local components import
+import UserPropertySideBarStepper from './UserPropertySideBarStepper'
+import PublishPropertyStepper from './PublishPropertyStepper'
+import UserPropertyFormRenderer from './UserPropertyFormRenderer'
+import PublishPropertyMedia from './PublishPropertyMedia'
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+const determineUnitType = (bedrooms: number | string, commonBathrooms: number | string) => {
+  const bed = Number(bedrooms)
+  const bath = Number(commonBathrooms)
+  if (isNaN(bed)) return ''
+  if (bed === 1) return '1BHK'
+  if (bed === 2) return bed > bath ? '1.5BHK' : '2BHK'
+  if (bed === 3) return bed > bath ? '2.5BHK' : '3BHK'
+  if (bed === 4) return bed > bath ? '3.5BHK' : '4BHK'
+  if (bed === 5) return bed > bath ? '4.5BHK' : '5BHK'
+  return '5+BHK'
+}
+
+const buildInitialFormData = (ownerId: string | null, residenceType: string, transactionType: string): UserPropertyFormData => ({
+  residenceType: residenceType || 'Residential',
+  ownerId,
+  uploadedBy: null,
+  type: transactionType || 'Sale',
+  transactionTag: '',
+  name: '',
+  possessionStatus: '',
+  description: '',
+  coordinates: { lat: 0, lng: 0 },
+  subLocality: '',
+  address: '',
+  cityId: null,
+  locationId: null,
+  medias: [],
+  units: [{ floorPlans: [] as any[] } as any],
+})
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
+function PublishPropertyClient ({ initialCities }: { initialCities?: any[] }) {
+  // console.log('PublishPropertyClient initialCities:', initialCities)
+  const router = useRouter()
+  const { user, isLoading } = useAuthStore()
+  const { uploadFiles, loading: isUploading } = useFileUpload()
+
+  const userId = user?.id || user?.centralUserId || null
+
+  // Residence / transaction types from session (set after mount)
+  const [residenceType, setResidenceType] = useState('Residential')
+  const [transactionType, setTransactionType] = useState('Sale')
+
+  // Residence / transaction types from session (set after mount)
+  // const suggestionRef = useRef(null);
+
+  const {
+    formData,
+    setFormData,
+    currentStep,
+    setCurrentStep,
+    clearStore,
+    hydrated
+  } = useUserPropertyFormStore()
+  // console.log('PublishPropertyClient formData:', formData)  
+
+  // Prevent rendering until hydration is complete to avoid hydration mismatch errors
+  const [isMounted, setIsMounted] = useState(false)
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+  const [isMapOpen, setIsMapOpen] = useState(false)
+  const [errors, setErrors] = useState<Record<string, string | null>>({})
+
+  const [showDraftModal, setShowDraftModal] = useState(false)
+  // Location search
+  const [locationQuery, setLocationQuery] = useState('')
+  const [locationSuggestions, setLocationSuggestions] = useState<{ label: string; value: string }[]>([])
+  const [showLocationDropdown, setShowLocationDropdown] = useState(false)
+
+  // Project search
+  const [projectQuery, setProjectQuery] = useState('')
+  const [projectSuggestions, setProjectSuggestions] = useState<{ name: string; id: string }[]>([])
+  const [showProjectDropdown, setShowProjectDropdown] = useState(false)
+
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const searchTimeout = useRef<NodeJS.Timeout | null>(null)
+
+  // const [showSuggestions, setShowSuggestions] = useState(false);
+  // const [locationSearch, setLocationSearch] = useState("");
+  // const [showProjectSuggestions, setShowProjectSuggestions] = useState(false);
+
+  // City options from prop (server-fetched)
+  const cityOptions = (initialCities || []).map(c => ({
+    label: c.city_Name || c.name,
+    value: c.id
+  }))
+  const inputFields = getInputFields(
+    formData.type,
+    cityOptions,
+    [],
+    transactionType
+  )
+
+  useEffect(() => {
+    if(isMounted && hydrated && currentStep > 1){
+      setShowDraftModal(true)
+    }
+  },[isMounted,hydrated])
+
+  const handleStartFresh = useCallback(() => {
+      clearStore();
+      setFormData(buildInitialFormData(userId, residenceType, transactionType));
+      setCurrentStep(1);
+      setProjectQuery("");
+      setLocationQuery("");
+      setErrors({});
+      setShowDraftModal(false);
+  }, [clearStore, setFormData, setCurrentStep, userId, residenceType, transactionType]);
+
+  const handleContinueDraft = () => {
+    setShowDraftModal(false)
+  }
+
+
+
+  useEffect(() => {
+    if(isMounted && !isLoading){
+      if(!user){
+        toast.info("Please Login to publish a property.")
+        router.push("/login")
+      }
+    }
+  },[user, isLoading, isMounted, router])
+
+  // ── Effects ───────────────────────────────────────
+  // Read sessionStorage on mount
+  useEffect(() => {
+    const rt = sessionStorage.getItem('residenceType')
+    const tt = sessionStorage.getItem('transactionType')
+    if (rt) setResidenceType(rt)
+    if (tt) {
+      setTransactionType(tt)
+      setFormData(prev => ({
+        ...prev,
+        transactionTag: tt,
+        residenceType: rt || prev.residenceType
+      }))
+    }
+  }, [setFormData])
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setShowProjectDropdown(false)
+        setShowLocationDropdown(false)
+      }
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  // ── Project Search ────────────────────────────────
+
+  const handleProjectSearch = async (val: string) => {
+    setProjectQuery(val)
+    setFormData(prev => ({ ...prev, name: val, linkedProjectId: '' }))
+    setErrors(prev => ({ ...prev, name: null }))
+
+    if (!val.trim()) {
+      setProjectSuggestions([])
+      setShowProjectDropdown(false)
+      return
+    }
+
+    if (searchTimeout.current) clearTimeout(searchTimeout.current)
+    searchTimeout.current = setTimeout(async () => {
+      try {
+        const results = await ProjectService.fetchProjectsBySearch({
+          search: val
+        })
+        // results is an array of project objects → map to { name, id }
+        const mapped = (results || []).map(p => ({ name: p.name, id: p.id }))
+        setProjectSuggestions(mapped)
+        setShowProjectDropdown(mapped.length > 0)
+      } catch (err) {
+        console.error('Project search failed', err)
+        setProjectSuggestions([])
+      }
+    }, 400)
+  }
+
+  const handleSelectProject = (suggestion: { name: string; id: string }) => {
+    setProjectQuery(suggestion.name)
+    setFormData(prev => ({
+      ...prev,
+      name: suggestion.name,
+      linkedProjectId: suggestion.id
+    }))
+    setShowProjectDropdown(false)
+  }
+
+  // ── Location Search ───────────────────────────────
+
+  const handleLocationSearch = async (search: string) => {
+    setLocationQuery(search)
+    setErrors(prev => ({ ...prev, locationId: null }))
+
+    if (!search.trim()) {
+      setFormData(prev => ({ ...prev, locationId: null }))
+      setLocationSuggestions([])
+      setShowLocationDropdown(false)
+      return
+    }
+
+    if (searchTimeout.current) clearTimeout(searchTimeout.current)
+    searchTimeout.current = setTimeout(async () => {
+      try {
+        const results = await LocationService.fetchLocation({
+          search,
+          cityId: formData.cityId || ''
+        })
+        // results is an array of location objects → map to { label, value }
+        const mapped = (results || []).map(loc => ({
+          label: loc.name || loc.actual_Location,
+          value: loc.id
+        }))
+        setLocationSuggestions(mapped)
+        setShowLocationDropdown(mapped.length > 0)
+      } catch (err) {
+        console.error('Location search failed', err)
+        setLocationSuggestions([])
+      }
+    }, 400)
+  }
+
+  const handleSelectLocation = (suggestion: { label: string; value: string }) => {
+    setLocationQuery(suggestion.label)
+    setFormData(prev => ({ ...prev, locationId: suggestion.value }))
+    setShowLocationDropdown(false)
+  }
+
+  // ── Field change handler ──────────────────────────
+
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setErrors(prev => ({ ...prev, [name]: null }))
+
+    // Project name → delegate to handleProjectSearch, but we need it here too
+    // (FormRenderer calls handleChange for project-search via synthetic event)
+    if (name === 'name') {
+      handleProjectSearch(value)
+      return
+    }
+
+    // City change → reset location search
+    if (name === 'cityId') {
+      setLocationQuery('')
+      setLocationSuggestions([])
+      setShowLocationDropdown(false)
+      setFormData(prev => ({ ...prev, cityId: value, locationId: null }))
+      return
+    }
+
+    // Unit-level fields
+    if (UNIT_FIELDS.includes(name)) {
+      setFormData(prev => ({
+        ...prev,
+        units: [{ ...prev.units[0], [name]: value }]
+      }))
+      return
+    }
+
+    // Everything else
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Map save ──────────────────────────────────────
+
+  const handleMapSave = (coords: { lat: number | null; lng: number | null }) => {
+    setFormData(prev => ({ ...prev, coordinates: coords as { lat: number; lng: number } }))
+  }
+
+  // ── Media upload ──────────────────────────────────
+  const [uploadingCategory, setUploadingCategory] = useState<string | null>(null)
+
+  const handleUpload = async (fieldName: string, multiple: boolean, files: FileList | File[]) => {
+    const mapTitle: Record<string, string> = {
+      exterior_view_images_URL: 'banner',
+      others_images: 'other',
+      video_URL: 'video'
+    }
+
+    const title = mapTitle[fieldName] || 'other'
+    const fileType = title === 'video' ? 'video' : 'image'
+
+    // Only one banner allowed
+    if (title === 'banner' && formData.medias.some(m => m.title === 'banner')) {
+      toast.warn('Only one banner image is allowed.')
+      return
+    }
+
+    if (!files || files.length === 0) return
+    try {
+      setUploadingCategory(fieldName)
+      const uploaded = await uploadFiles({
+        files: Array.from(files),
+        directory: 'Property',
+        fileType
+      })
+      if (!uploaded || uploaded.length === 0) return
+
+      const newItems = uploaded.map(item => ({
+        url: item.url,
+        type: fileType,
+        title,
+        alt: ''
+      }))
+
+      setFormData(prev => ({
+        ...prev,
+        medias: [...prev.medias, ...newItems]
+      }))
+    } catch (err) {
+      toast.error('File upload failed.')
+      console.error(err)
+    } finally {
+      setUploadingCategory(null)
+    }
+  }
+
+  const handleRemoveMedia = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      medias: prev.medias.filter((_, i) => i !== index)
+    }))
+  }
+
+  const handleMediaMetaChange = (index: number, key: string, value: string) => {
+    setFormData(prev => {
+      const updated = [...prev.medias]
+      updated[index] = { ...updated[index], [key]: value }
+      return { ...prev, medias: updated }
+    })
+  }
+
+  // ── Floor plans ───────────────────────────────────
+
+  const [isUploadingFloorPlans, setIsUploadingFloorPlans] = useState(false)
+
+  const handleFloorPlan = async (unitIndex: number, files: FileList | File[]) => {
+    if (!files || files.length === 0) return
+    try {
+      setIsUploadingFloorPlans(true)
+      // uploadFiles returns a flat array: [{ url, type, title, alt }]
+      const uploaded = await uploadFiles({
+        files: Array.from(files).filter(f => f.type.startsWith('image/')),
+        directory: 'FloorPlan',
+        fileType: 'image'
+      })
+      if (!uploaded || uploaded.length === 0) return
+
+      const plans = uploaded.map(item => ({
+        url: item.url,
+        type: 'image',
+        title: 'floorPlan',
+        alt: '',
+        unit: '' // Default to empty string for unit Type
+      }))
+
+      setFormData(prev => {
+        const units = [...prev.units]
+        if (!units[unitIndex]) units[unitIndex] = { floorPlans: [] as any[] } as unknown as PropertyUnit
+        units[unitIndex] = {
+          ...units[unitIndex],
+          floorPlans: [...(units[unitIndex].floorPlans || []), ...plans]
+        }
+        return { ...prev, units }
+      })
+    } catch (err) {
+      toast.error('Floor plan upload failed.')
+      console.error(err)
+    } finally {
+      setIsUploadingFloorPlans(false)
+    }
+  }
+
+  const handleRemoveFloorPlan = (unitIndex: number, imageIndex: number) => {
+    setFormData(prev => {
+      const units = [...prev.units]
+      units[unitIndex].floorPlans = units[unitIndex].floorPlans.filter(
+        (_, i) => i !== imageIndex
+      )
+      return { ...prev, units }
+    })
+  }
+
+  const handleFloorPlanAltChange = (unitIndex: number, imageIndex: number, value: string) => {
+    setFormData(prev => {
+      const units = [...prev.units]
+      units[unitIndex].floorPlans[imageIndex] = {
+        ...units[unitIndex].floorPlans[imageIndex],
+        alt: value
+      }
+      return { ...prev, units }
+    })
+  }
+
+  const handleFloorPlanUnitChange = (unitIndex: number, imageIndex: number, value: string) => {
+    setFormData(prev => {
+      const units = [...prev.units]
+      units[unitIndex].floorPlans[imageIndex] = {
+        ...units[unitIndex].floorPlans[imageIndex],
+        unit: value
+      }
+      return { ...prev, units }
+    })
+  }
+
+  // ── Validation ────────────────────────────────────
+
+  const getStepErrors = () => {
+    const fields = inputFields[currentStep] || []
+    const newErrors: Record<string, string> = {}
+    fields.forEach(({ name, label, required }: { name: string; label: string; required: boolean }) => {
+      if (!required) return
+      const value = UNIT_FIELDS.includes(name)
+        ? (formData?.units?.[0] as Record<string, any>)?.[name]
+        : (formData as Record<string, any>)?.[name]
+      if (!value || (typeof value === 'string' && !value.trim())) {
+        newErrors[name] = `${label} is required`
+      }
+    })
+    // Special: locationId comes from dropdown, not a named input
+    const locationField = (inputFields[currentStep] || []).find(
+      (f: { name: string; required: boolean }) => f.name === 'locationId'
+    )
+    if (locationField?.required && !formData.locationId) {
+      newErrors.locationId = 'Area / Location is required'
+    }
+    return newErrors
+  }
+
+  const validateStep = () => {
+    const errs = getStepErrors()
+    setErrors(errs)
+    return Object.keys(errs).length === 0
+  }
+
+  const isStepValid = () => {
+    const errs = getStepErrors()
+    return Object.keys(errs).length === 0
+  }
+
+  const handleNext = () => {
+    if (validateStep()) setCurrentStep(s => s + 1)
+  }
+  const handlePrevious = () => setCurrentStep(s => s - 1)
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!validateStep()) return
+
+    const unLabeled = formData.medias.find(m => !m.alt?.trim())
+    if (unLabeled) {
+      toast.error('Please provide a label for all uploaded media.')
+      return
+    }
+
+    const { type } = formData
+    const bedrooms = formData?.units?.[0]?.bedrooms
+    const commonBathrooms = formData?.units?.[0]?.commonBathrooms
+
+    const payload = {
+      ...formData,
+      uploadedBy: userId || null,
+      units: (() => {
+        const units = [...(formData.units || [{}])]
+        const unit = { ...units[0] }
+        if (
+          ['apartment', 'villa', 'residentialhouse'].includes(
+            type?.toLowerCase()
+          )
+        ) {
+          unit.unit_type = determineUnitType(bedrooms as number, commonBathrooms as number)
+        }
+        units[0] = unit
+        return units
+      })()
+    }
+
+    try {
+      const res = await JUSTFLIP.post('/project', payload)
+      toast.success(res?.data?.message || 'Property uploaded successfully!')
+      setFormData(
+        buildInitialFormData(userId, residenceType, transactionType)
+      )
+      setProjectQuery('')
+      setLocationQuery('')
+      setCurrentStep(1)
+      clearStore()
+      router.push('/profile')
+    } catch (err) {
+      console.error('Submit failed:', err)
+      toast.error(
+        (err as any)?.response?.data?.message ||
+          'Something went wrong. Please try again.'
+      )
+    }
+  }
+
+  // ─── Render ───────────────────────────────────────
+
+  if (!isMounted || !hydrated) return null // Avoid hydration mismatch
+
+  return (
+    <div className='py-4 md:py-8 min-h-screen w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden'>
+        {showDraftModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center app-overlay p-4">
+                    <div className="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl space-y-6 border border-slate-100 relative overflow-hidden animate-modal">
+                        {/* Accent Bar matching form header */}
+                        <div className="absolute top-0 left-0 w-full h-1.5" />
+                        
+                        <div className="space-y-2 pt-2">
+                            <h3 className="text-xl md:text-2xl font-extrabold text-[#002B5B] tracking-tight">
+                                Continue Previous Draft?
+                            </h3>
+                            <p className="text-sm font-medium text-slate-500 leading-relaxed">
+                                You left off at <strong className="text-[#002B5B]">Step {currentStep}: {STEP_TITLES[currentStep as keyof typeof STEP_TITLES]?.title}</strong>. 
+                                Would you like to resume your saved progress or start fresh?
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-2">
+                            <button
+                                type="button"
+                                onClick={handleStartFresh}
+                                className="w-full sm:w-auto px-5 py-2.5 text-sm font-bold border border-[#002B5B] text-[#002B5B] rounded-xl hover:bg-slate-50 transition-all duration-200"
+                            >
+                                Start Fresh
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleContinueDraft}
+                                className="w-full sm:w-auto px-5 py-2.5 text-sm font-bold bg-[#002B5B] text-white rounded-xl hover:bg-[#001D3D] transition-all duration-200 shadow-lg shadow-blue-900/20"
+                            >
+                                Continue Draft
+                            </button>
+                        </div>
+                    </div>
+                </div>
+      )}
+      {/* Breadcrumb */}
+      <div className='mb-4 md:mb-6'>
+        <Breadcrumb items={[{ label: 'Upload Property' }]} />
+      </div>
+
+      <div
+        className='flex flex-col lg:flex-row justify-between gap-6 items-start'
+        ref={dropdownRef}
+      >
+        {/* left sidebar */}
+        <div className='hidden md:flex flex-col gap-6'>
+          <UserPropertySideBarStepper currentStep={currentStep} />
+        </div>
+        <div className='block md:hidden w-full'>
+          <PublishPropertySidebar compact/>
+        </div>
+
+        {/* main form container */}
+        <div className='w-full lg:w-auto flex-1 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex flex-col p-4 md:p-6 lg:p-8 gap-4 md:gap-6 lg:gap-8 relative overflow-hidden border'>
+          {/* decorative top accent */}
+          <div className='absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-[#002B5B] via-[#057748] to-[#002B5B]' />
+
+          <div className='border-b border-slate-100/60 pb-3 space-y-3 mt-0'>
+            <div>
+              <h2 className='text-[22px] md:text-[28px] font-extrabold text-[#002B5B] tracking-tight'>
+                {STEP_TITLES[currentStep as keyof typeof STEP_TITLES]?.title}
+              </h2>
+              <p className='text-[14px] md:text-[15px] font-medium text-slate-500 mt-1'>
+                {STEP_TITLES[currentStep as keyof typeof STEP_TITLES]?.subtitle}
+              </p>
+            </div>
+            <div className='block md:hidden'>
+              <PublishPropertyStepper currentStep={currentStep} />
+            </div>
+          </div>
+
+          {currentStep !== 4 && (
+            <UserPropertyFormRenderer
+              fields={inputFields[currentStep] || []}
+              formData={formData}
+              errors={errors}
+              handleChange={handleChange}
+              openMap={() => setIsMapOpen(true)}
+              // Project search
+              projectSuggestions={projectSuggestions}
+              showProjectDropdown={showProjectDropdown}
+              setShowProjectDropdown={setShowProjectDropdown}
+              onSelectProject={handleSelectProject}
+              onProjectSearch={handleProjectSearch}
+              projectQuery={projectQuery}
+              // Location search
+              locationSuggestions={locationSuggestions}
+              showLocationDropdown={showLocationDropdown}
+              setShowLocationDropdown={setShowLocationDropdown}
+              onLocationSearch={handleLocationSearch}
+              onSelectLocation={handleSelectLocation}
+              locationQuery={locationQuery}
+            />
+          )}
+
+          {currentStep === 4 && (
+            <PublishPropertyMedia
+              formData={formData}
+              handleUpload={handleUpload}
+              handleRemoveMedia={handleRemoveMedia}
+              handleMediaMetaChange={handleMediaMetaChange}
+              handleFloorPlan={handleFloorPlan}
+              handleRemoveFloorPlan={handleRemoveFloorPlan}
+              handleFloorPlanAltChange={handleFloorPlanAltChange}
+              handleFloorPlanUnitChange={handleFloorPlanUnitChange}
+              isUploadingFloorPlans={isUploadingFloorPlans}
+              uploadingCategory={uploadingCategory}
+            />
+          )}
+
+          {/* navigation */}
+          <div className='flex items-center justify-between gap-4 mt-auto pt-4 border-t border-slate-100'>
+            <div>
+              {currentStep > 1 && (
+                <button
+                  type='button'
+                  onClick={handlePrevious}
+                  className='h-11 px-6 flex items-center gap-2 text-sm font-bold border border-[#002B5B] text-[#002B5B] rounded-xl hover:bg-[#002B5B] hover:text-white transition-all duration-300'
+                >
+                  <IoIosArrowBack /> Previous
+                </button>
+              )}
+            </div>
+            <div>
+              {currentStep < 4 && (
+                <button
+                  type='button'
+                  onClick={handleNext}
+                  disabled={!isStepValid()}
+                  className='h-11 px-6 flex items-center gap-2 text-sm font-bold bg-[#002B5B] text-white rounded-xl hover:bg-[#001D3D] transition-all duration-300 shadow-lg shadow-blue-900/20 disabled:opacity-50 disabled:cursor-not-allowed'
+                >
+                  Next <IoIosArrowForward />
+                </button>
+              )}
+              {currentStep === 4 && (
+                <button
+                  type='button'
+                  onClick={handleSubmit}
+                  disabled={isUploading}
+                  className='h-11 px-6 flex items-center gap-2 text-sm font-bold bg-[#057748] text-white rounded-xl hover:bg-[#04633c] transition-all duration-300 shadow-lg shadow-green-900/20 disabled:opacity-60'
+                >
+                  {isUploading ? (
+                    'Uploading…'
+                  ) : (
+                    <>
+                      <VscGitStashApply size={16} /> Submit Property
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <PublishPropertyMap
+        isOpen={isMapOpen}
+        onClose={() => setIsMapOpen(false)}
+        coordinates={formData?.coordinates}
+        onSave={handleMapSave}
+      />
+    </div>
+  )
+}
+
+export default PublishPropertyClient
+
