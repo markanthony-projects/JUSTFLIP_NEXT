@@ -23,7 +23,7 @@ const ProjectCard = ({ project, priority }: ProjectCardProps) => {
 
     const projectUrl = createProjectUrl(
         project.city?.name || "",
-        project.location?.zone?.name || "",
+        project.zone?.name || "",
         project.location?.name || "",
         project.name || "",
         project.id || ""
