@@ -12,7 +12,7 @@ const sections = [
             { label: "Price Trends", url: "/price-trends" },
             { label: "Post Your Property", url: "/post-property" },
             { label: "Real Estate Investments", url: "/investments" },
-            { label: "Builders in India", url: "/builders" },
+            { label: "Builders in India", url: "/developers" },
             { label: "Area Converter", url: "/area-converter" },
             { label: "Customer Service", url: "/contact-us" },
         ],
