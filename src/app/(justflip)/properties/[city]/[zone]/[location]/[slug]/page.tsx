@@ -78,6 +78,10 @@ export const revalidate = 1800;
 async function PropertyDetails({ params }: ProjectPageProps) {
     const { city, zone, location, slug } = await params;
     const { cityName, zoneName, locationName, name, id } = parseProjectUrl(city, zone, location, slug)
+    
+    // TEMPORARY ARTIFICIAL DELAY: Sleeps for 10 seconds to allow you to inspect the loading skeleton
+    // await new Promise(resolve => setTimeout(resolve, 10000));
+    
     const data = await getProjectPageData(id);
 
     if (!data || !data.projectData) {
