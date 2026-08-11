@@ -194,9 +194,7 @@ export default function MapView({ project,
         };
 
         loadAllNearby();
-    }, [mapLoaded, lat, lng, setBusStations, setAirports, setTrainStations, setHospitals, setSchools, setMovieTheaters, setShoppingMalls, setSuperMarkets, onLoadingChange]);
-    console.log(busStations);
-    
+    }, [mapLoaded, lat, lng, setBusStations, setAirports, setTrainStations, setHospitals, setSchools, setMovieTheaters, setShoppingMalls, setSuperMarkets, onLoadingChange]);    
 
     const mapUrl = `https://maps.google.com/maps?q=${lat},${lng}`;
 
