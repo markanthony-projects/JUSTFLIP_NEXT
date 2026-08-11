@@ -1,5 +1,6 @@
 import SiteService from "@/src/services/SiteService";
 import PopularCitiesClient from "./PopularCitiesClient";
+import ScrollToTop from "@/src/components/atoms/ScrollToTop";
 
 export default async function PopularCities() {
 
@@ -20,6 +21,8 @@ export default async function PopularCities() {
                     Explore Properties Across India’s Most Popular Cities
                 </h2>
             </div>
+
+            <ScrollToTop />
 
             <PopularCitiesClient
                 initialCities={cities}
