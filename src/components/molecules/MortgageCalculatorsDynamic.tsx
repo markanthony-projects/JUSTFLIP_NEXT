@@ -1,13 +1,13 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { SkeletonBlock } from "@/src/app/(justflip)/components/Skelton/SkeletonSection";
+import { MortgageCalculatorSkeleton } from "@/src/app/(justflip)/components/Skelton/MortgageCalculatorSkeleton";
 
 const MortgageCalculators = dynamic(
     () => import("./MortgageCalculators"),
     { 
         ssr: false,
-        loading: () => <SkeletonBlock className="h-64 w-full" />
+        loading: () => <MortgageCalculatorSkeleton />
     }
 );
 
