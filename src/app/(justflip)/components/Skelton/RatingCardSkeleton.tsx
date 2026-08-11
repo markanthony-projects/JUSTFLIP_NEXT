@@ -3,58 +3,66 @@ import { memo } from "react";
 
 const CircularRatingSkeleton = memo(() => {
   return (
-    <div className="grid place-items-center">
-      <SkeletonBlock className="w-[55px] h-[55px] rounded-full mb-2" />
-      <SkeletonBlock className="h-3 w-12" />
+    <div className="flex flex-col items-center justify-center">
+      <div className="relative flex items-center justify-center mb-1">
+        <SkeletonBlock className="w-[60px] h-[60px] !rounded-full" />
+      </div>
+      <SkeletonBlock className="h-[11px] w-16 mt-1" />
     </div>
   );
 });
+
+CircularRatingSkeleton.displayName = "CircularRatingSkeleton";
 
 const PriceCardSkeleton = memo(() => {
   return (
-    <div className="w-full lg:w-[260px] p-3 border border-gray-200 rounded-lg h-[106px] flex justify-between">
-      <div className="flex flex-col justify-between ">
-        <SkeletonBlock className="h-3 w-20" />
-        <SkeletonBlock className="h-5 w-28" />
-        <SkeletonBlock className="h-3 w-24 mt-2" />
+    <div className="w-full lg:w-[260px] p-3 border border-gray-300 rounded-2xl flex justify-between items-center h-[106px]">
+      <div>
+        <SkeletonBlock className="h-[16px] w-10 mb-1" />
+        <SkeletonBlock className="h-[28px] w-24 mb-1" />
+        <SkeletonBlock className="h-[16px] w-32 pt-1" />
       </div>
-
-      <SkeletonBlock className="w-10 h-10 rounded-full" />
+      <SkeletonBlock className="w-11 h-11 !rounded-full shrink-0" />
     </div>
   );
 });
 
-const PriceCarouselSkeleton = memo(({ count = 1 }: { count?: number }) => {
-  return (
-    <div className="flex gap-3">
-      {Array.from({ length: count }).map((_, i) => (
-        <PriceCardSkeleton key={i} />
-      ))}
-    </div>
-  );
-});
+PriceCardSkeleton.displayName = "PriceCardSkeleton";
 
 export const RatingCardSkeleton = memo(() => {
   return (
-    <div className="lg:p-4 lg:border border-gray-300 lg:rounded-xl bg-white w-full">
-            <div className="flex items-end gap-2 border-b border-gray-300 pb-2">
-        <SkeletonBlock className="w-6 h-6" />
-        <SkeletonBlock className="h-8 w-16" />
-        <SkeletonBlock className="h-4 w-16" />
+    <div className="lg:px-5 lg:rounded-2xl lg:shadow-sm bg-white w-full p-2 md:p-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.03)]">
+      
+      {/* Global Average Rating Display */}
+      <div className="flex items-center space-x-2 border-gray-100 border-b pb-1 mb-1">
+        <SkeletonBlock className="w-10 h-10 !rounded-xl" />
+        <div className="flex flex-col justify-center">
+          <div className="flex items-baseline space-x-1.5">
+            <SkeletonBlock className="h-[28px] w-12" />
+            <SkeletonBlock className="h-[14px] w-14" />
+          </div>
+        </div>
       </div>
 
-      <div className="flex gap-8 mt-4 justify-between">
+      {/* Circular Ratings Breakdown */}
+      <div className="flex gap-8 lg:justify-between pt-2">
         {Array.from({ length: 3 }).map((_, i) => (
           <CircularRatingSkeleton key={i} />
         ))}
       </div>
 
-      <div>
-        <SkeletonBlock className="h-4 w-32 my-4" />
-        <div className="flex items-center justify-center h-[128px] w-full  overflow-x-auto">
-          <PriceCarouselSkeleton />
+      {/* Price Trends Carousel */}
+      <div className="mt-3 md:mt-4">
+        <div className="flex items-center justify-between mb-2">
+          <SkeletonBlock className="h-[14px] w-24" />
+        </div>
+        <div className="flex items-center justify-center h-[108px] mx-auto w-full lg:w-[260px]">
+          <PriceCardSkeleton />
         </div>
       </div>
+
     </div>
   );
 });
+
+RatingCardSkeleton.displayName = "RatingCardSkeleton";

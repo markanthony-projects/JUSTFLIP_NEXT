@@ -26,6 +26,8 @@ const PropertySupply = dynamic(() => import("../../components/PropertySupply"));
 const FAQ = dynamic(() => import("../../components/FAQ"));
 import { constructMetadata } from "@/src/utils/seo";
 import { Metadata } from 'next';
+import ScrollToTop from "@/src/components/atoms/ScrollToTop";
+
 
 type CityPageProps = {
   params: Promise<{ city: string }>;
@@ -53,6 +55,10 @@ export const revalidate = 1800;
 export default async function CityPage({ params }: CityPageProps) {
   const { city } = await params;
   const { name, id } = parseCityUrl(city);
+
+  // TEMPORARY ARTIFICIAL DELAY: Sleeps for 10 seconds to allow you to inspect the loading skeleton
+  // await new Promise(resolve => setTimeout(resolve, 10000));
+
   const data = await getCityPageData(id);
 
   if (!data || !data.cityData) {
@@ -64,13 +70,14 @@ export default async function CityPage({ params }: CityPageProps) {
   const bannerImage = cityData?.medias?.find((o: any) => o.title === 'logo');
 
   return (
-    <div className="">
+    <>
+      <ScrollToTop />
       <Breadcrumb items={breadcrumbItems} />
       <div className="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-4 gap-6 mx-auto">
 
         <div className="lg:col-span-4 xl:col-span-3 space-y-4">
           <HeaderTop data={cityData} bannerImage={bannerImage} />
-          <div className="block lg:hidden">
+          <div className="block lg:hidden space-y-4">
             <Suspense fallback={<TopPropertySkeleton />}>
               <TopProperty typeId={id} type={"city"} />
             </Suspense>
@@ -95,13 +102,14 @@ export default async function CityPage({ params }: CityPageProps) {
             <ReviewsSectionClient typeName={name} typeId={id} type="city" reviews={reviewList} />
           </Suspense>
 
+          <Suspense fallback={<GallerySkeleton />}>
+            <Gallery data={cityData} />
+          </Suspense>
+
           <Suspense fallback={<BlogsSkeleton />}>
             <Blogs tag="Popular Blogs" />
           </Suspense>
 
-          <Suspense fallback={<GallerySkeleton />}>
-            <Gallery data={cityData} />
-          </Suspense>
           <Suspense fallback={<FAQSkeleton />}>
             <FAQ data={cityData} />
           </Suspense>
@@ -118,6 +126,6 @@ export default async function CityPage({ params }: CityPageProps) {
         </div>
         
       </div>
-    </div>
+    </>
   );
 }
