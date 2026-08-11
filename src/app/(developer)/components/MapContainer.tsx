@@ -47,23 +47,28 @@ function MapContainer({ builder }: MapContainerProps) {
     }, [projects, activeTab]);
 
     return (
-        <section className="w-full p-4">
-            <MapView projects={projects} />
+        <section className="w-full">
+            {/* Map Wrapper */}
+            <div className="rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100">
+                <MapView projects={projects} />
+            </div>
 
             <div ref={sentinelRef} />
 
-            <div className="border-1 rounded-lg mt-4 p-0.5 md:p-1 border-gray-700 overflow-x-auto scrollbar-hide ">
+            {/* Segmented Control Tabs */}
+            <div className="mt-8 mb-6 overflow-x-auto scrollbar-hide">
                 <TabsSection
                     value={activeTab}
                     onChange={setActiveTab}
-                    containerClass="rounded-md md:rounded-lg"
-                    indicatorClass="h-full bg-[#002b5b] rounded-md md:rounded-lg shadow"
-                    tabClass="text-black text-[10px] md:text-[14px]"
-                    activeTabClass="text-white"
-                    height="h-8 md:h-10"
+                    containerClass="rounded-xl bg-gray-100/80 p-1.5 shadow-inner max-w-3xl mx-auto border border-gray-200"
+                    indicatorClass="h-full bg-[#002B5B] rounded-lg shadow-md"
+                    tabClass="text-gray-600 hover:text-[#002B5B] text-[13px] md:text-[15px] font-medium transition-colors"
+                    activeTabClass="text-white hover:text-white font-bold"
+                    height="h-10 md:h-12"
                 />
             </div>
 
+            {/* Projects List */}
             <ProjectList projects={filteredProjects} loading={loading} />
         </section>
     );
