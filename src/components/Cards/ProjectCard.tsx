@@ -14,7 +14,6 @@ export interface ProjectCardProps {
 }
 
 const ProjectCard = ({ project, priority }: ProjectCardProps) => {
-    console.log("Project....",project)
     const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
     if (!project) return null;
@@ -31,13 +30,6 @@ const ProjectCard = ({ project, priority }: ProjectCardProps) => {
     );
 
     const bannerImage = project?.banner || (project?.medias?.find((m: any) => m.title === 'banner') || project?.medias?.[0]);
-
-    console.log("Card Data for:", project?.name, {
-        city: project?.city?.name,
-        zone: project?.location?.zone?.name,
-        locality: project?.location?.name,
-        id: project?.id || project?._id
-    });
 
     return (
         <>
