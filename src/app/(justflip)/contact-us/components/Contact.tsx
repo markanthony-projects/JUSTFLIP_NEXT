@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { FiMail, FiPhone, FiMapPin, FiSend, FiCheckCircle } from "react-icons/fi";
-import { HiOutlineHome, HiOutlineTag, HiOutlineKey, HiOutlineRefresh } from "react-icons/hi";
+import { HiOutlineHome, HiOutlineTag, HiOutlineKey, HiOutlineRefresh, HiOutlineQuestionMarkCircle } from "react-icons/hi";
 import { JUSTFLIP } from "@/src/lib/axios/api";
 
 const Contact = () => {
@@ -15,7 +15,7 @@ const Contact = () => {
   }
 
   const [formData, setFormData] = useState<ContactFormData>({
-    transaction: "sell",
+    transaction: "general",
     name: "",
     email: "",
     phone: "",
@@ -30,8 +30,8 @@ const Contact = () => {
   const assistanceOptions = [
     { label: "Buy", value: "buy", icon: HiOutlineHome },
     { label: "Sell", value: "sell", icon: HiOutlineTag },
-    { label: "Rent", value: "rent", icon: HiOutlineKey },
     { label: "Re-Sale", value: "resale", icon: HiOutlineRefresh },
+    { label: "General Query", value: "general", icon: HiOutlineQuestionMarkCircle },
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -211,21 +211,23 @@ const Contact = () => {
                   <label className="block text-[11px] font-bold uppercase tracking-wider text-[#8C9BAB] mb-2.5">
                     Transaction Type
                   </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                     {assistanceOptions.map((option) => {
                       const isSelected = formData.transaction === option.value;
+                      const Icon = option.icon;
                       return (
                         <button
                           type="button"
                           key={option.value}
                           onClick={() => handleTransactionSelect(option.value)}
-                          className={`py-3 px-4 rounded-xl text-sm font-bold border transition-all duration-200 text-center cursor-pointer ${
+                          className={`w-full py-2.5 px-2 rounded-xl text-xs sm:text-xs font-bold border transition-all duration-200 flex items-center justify-center space-x-1.5 cursor-pointer min-w-0 ${
                             isSelected
                               ? "bg-[#002B5B] text-white border-[#002B5B] shadow-md shadow-[#002B5B]/20"
                               : "bg-white text-[#8C9BAB] border-slate-200 hover:bg-slate-50 hover:text-[#092242]"
                           }`}
                         >
-                          {option.label}
+                          <Icon className="w-3.5 h-3.5 shrink-0" />
+                          <span className="whitespace-nowrap">{option.label}</span>
                         </button>
                       );
                     })}

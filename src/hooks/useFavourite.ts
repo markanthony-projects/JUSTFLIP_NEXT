@@ -12,8 +12,9 @@ export const useFavourite = (project: Project | Record<string, any>) => {
     const modifyFavourite = useFavouritesStore((s: any) => s.modifyFavourite);
 
     const isFavourite = useMemo(() => {
-        return project?.id ? list.includes(project.id) : false;
-    }, [list, project?.id]);
+        if(!token || !project?.id) return false
+        return list.includes(project.id);
+    }, [token, list, project?.id]);
 
     const toggleFavourite = useCallback(
         async (e?: React.MouseEvent | any) => {
