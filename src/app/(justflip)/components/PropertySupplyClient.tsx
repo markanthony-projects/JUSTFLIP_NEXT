@@ -151,11 +151,11 @@ const getInitialTabData = (initialProjects: any, activeTab: string) => {
 
 const getProjectHref = (property: any) => {
   const city = property?.city?.name || "city";
-  const zone = property?.zone?.name || "zone";
+  const zone = property?.zone?.name || property?.location?.zone?.name || "zone";
   const location = property?.location?.name || "location";
   const name = property?.name || "property";
 
-  return createProjectUrl(city,zone,location,name,property?.id);
+  return createProjectUrl(city, zone, location, name, property?.id || property?._id);
 };
 
 const getFormattedPrice = (property: any, fallbackCurrency: string) => {
@@ -241,7 +241,7 @@ export default function PropertySupplyClient({ initialProjects, typeName, typeId
             propertyType: activeTab,
             ...(selectedPriceRange && {
               minPrice: selectedPriceRange.min,
-              maxPrice: selectedPriceRange.max,
+              ...(selectedPriceRange.max !== null && { maxPrice: selectedPriceRange.max }),
             }),
             ...scopeParam,
           },

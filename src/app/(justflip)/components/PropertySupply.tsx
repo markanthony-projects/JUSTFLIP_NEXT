@@ -5,7 +5,7 @@ export default async function PropertySupply({ type, typeName, typeId, data }: {
   const limit = 24
   const page = 1
   const inferredType = data?.zone ? "location" : data?.city ? "zone" : type
-  const resolvedType = typeName || inferredType
+  const resolvedType = type || inferredType
   const resolvedTypeId = typeId || data?.id
 
   const projects = await ProjectService.fetchExploreProjects({
