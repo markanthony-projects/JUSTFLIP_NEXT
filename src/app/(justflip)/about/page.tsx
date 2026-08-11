@@ -1,9 +1,20 @@
-import React from 'react'
+import React from 'react';
+import Breadcrumb from '@/src/components/organisms/breadCrumb';
+import About from './components/About';
 
-export const revalidate = 86400;
+const AboutPage = () => {
+  const breadcrumbItems = [
+    { label: "About Us" }
+  ];
 
-export default function AboutPage() {
-    return (
-        <div className='min-h-screen'>page</div>
-    )
-}
+  return (
+    <div className="min-h-screen bg-gray-50/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <Breadcrumb items={breadcrumbItems} />
+        <About />
+      </div>
+    </div>
+  );
+};
+
+export default AboutPage;
