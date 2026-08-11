@@ -7,7 +7,9 @@ import dynamic from "next/dynamic";
 import { SkeletonBlock } from "../(justflip)/components/Skelton/SkeletonSection";
 import LazyHydrate from "@/src/components/LazyHydrate";
 import { TopBuildersSkeleton } from "../(justflip)/components/Skelton/TopBuildersSkeleton";
-import { BlogsSkeleton } from "../(justflip)/components/Skelton/BlogsSkelton";
+import { TaggedPropertiesSkeleton } from "../(justflip)/components/Skelton/TaggedPropertiesSkeleton";
+import { PopularCitiesSkeleton } from "../(justflip)/components/Skelton/PopularCitiesSkeleton";
+import { HomeBlogsSkeleton } from "../(justflip)/components/Skelton/HomeBlogsSkeleton";
 
 import PopularCities from "../(justflip)/components/PopularCities/PopularCities";
 import TaggedProperties from "../(justflip)/components/TaggedProperties/TaggedProperties";
@@ -57,10 +59,10 @@ export default async function JustFlipHomePage() {
 
             <div className="w-full min-h-screen py-1
             0 px-4 lg:px-6 lg:max-w-310 mx-auto flex flex-col gap-4 md:gap-8">
-                <Suspense fallback={<SkeletonBlock className="h-64 w-full" />}>
+                <Suspense fallback={<TaggedPropertiesSkeleton />}>
                     <TaggedProperties city={city} />
                 </Suspense>
-                
+
                 <Suspense fallback={<TopBuildersSkeleton />}>
                     <TopBuilders city={city} />
                 </Suspense>
@@ -69,11 +71,11 @@ export default async function JustFlipHomePage() {
                     <MortgageCalculator />
                 </LazyHydrate>
 
-                <Suspense fallback={<SkeletonBlock className="h-64 w-full" />}>
+                <Suspense fallback={<PopularCitiesSkeleton />}>
                     <PopularCities />
                 </Suspense>
 
-                <Suspense fallback={<BlogsSkeleton />}>
+                <Suspense fallback={<HomeBlogsSkeleton />}>
                     <Blogs tag={"Latest Blogs"} />
                 </Suspense>
             </div>

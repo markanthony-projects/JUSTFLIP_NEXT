@@ -38,7 +38,7 @@ export const TopBuildersSkeleton = () => {
       </div>
 
       {/* Carousel */}
-      <CarouselSkeleton />
+      <CarouselSkeleton count={5} />
     </div>
   );
 };

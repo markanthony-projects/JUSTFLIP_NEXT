@@ -21,7 +21,7 @@ export default function ProjectOverviewSkeleton() {
                 <SkeletonBlock className="h-4 w-40" />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-white px-2 rounded-lg">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 bg-white px-2 rounded-lg">
                 {Array.from({ length: 6 }).map((_, index) => (
                     <OverviewItemSkeleton key={index} />
                 ))}
