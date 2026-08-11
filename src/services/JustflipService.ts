@@ -6,7 +6,7 @@ class JustflipService {
 
     static async fetchBanners(): Promise<any[]> {
         try {
-            const { data } = await JUSTFLIP.get(`/banner`, { params: { approval: 'approved' } });
+            const { data } = await JUSTFLIP.get(`/banner`, { params: { approval: 'approved' } });            
             return data?.banners || [];
         } catch (error: any) {
             handleApiError(error);

@@ -98,12 +98,22 @@ export const fetchNearbyPlacesBatch = async (
   types: string[], 
   radius: number = 5000
 ): Promise<Record<string, TransformedPlace[]>> => {
-  const cacheKey = `${lat}-${lng}-${types.sort().join(',')}-${radius}`;
-  if (requestCache.has(cacheKey)) return requestCache.get(cacheKey);
+  const sortedTypes = types.sort()
 
-  const subQueries = types.map(type => {
+  const cacheKey = `${lat.toFixed(4)}-${lng.toFixed(4)}-${sortedTypes.join(',')}-${radius}`;
+  
+  const cached = requestCache.get(cacheKey);
+
+  if (cached) {
+    return cached;
+  }
+
+  const subQueries = sortedTypes.map(type => {
     const tag = TAG_MAPPING[type] || `amenity=${type}`;
-    return `node[${tag}](around:${radius},${lat},${lng});way[${tag}](around:${radius},${lat},${lng});relation[${tag}](around:${radius},${lat},${lng});`;
+    return `
+      node[${tag}](around:${radius},${lat},${lng});
+      way[${tag}](around:${radius},${lat},${lng});
+      relation[${tag}](around:${radius},${lat},${lng});`;
   }).join('');
 
   const query = `[out:json][timeout:50];(${subQueries});out center;`;
@@ -113,12 +123,12 @@ export const fetchNearbyPlacesBatch = async (
     if (!response || !response.data || !response.data.elements) return {};
 
     const resultsMap: Record<string, TransformedPlace[]> = {};
-    types.forEach(type => resultsMap[type] = []);
+    sortedTypes.forEach(type => resultsMap[type] = []);
 
     response.data.elements.forEach((el: any) => {
-      for (const type of types) {
+      for (const type of sortedTypes) {
         const tag = TAG_MAPPING[type];
-        if (!tag) continue;
+        if (!tag || !el.tags) continue;
         const [key, val] = tag.split('=');
         if (el.tags[key] === val) {
           resultsMap[type].push(transformElement(el, type));

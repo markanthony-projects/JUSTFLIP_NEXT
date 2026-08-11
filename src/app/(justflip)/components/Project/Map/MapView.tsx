@@ -6,6 +6,8 @@ import { CiShare2 } from "react-icons/ci";
 import { IoCopyOutline, IoLogoWhatsapp } from "react-icons/io5";
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
+import L, {DivIcon} from 'leaflet'
+import ReactDOMServer from 'react-dom/server'
 import { fetchNearbyPlacesBatch } from "@/src/services/osm.service";
 
 // Dynamically import Leaflet components to avoid SSR issues
@@ -15,6 +17,16 @@ const OSMCustomMarker = dynamic(() => import("@/src/components/osm/OSMCustomMark
 import { SkeletonBlock } from "@/src/app/(justflip)/components/Skelton/SkeletonSection";
 import { Project } from "@/src/types";
 import { TransformedPlace } from "@/src/services/osm.service";
+
+//icons
+import { BsBusFront } from 'react-icons/bs';
+import { PiAirplaneTiltLight } from "react-icons/pi";
+import { IoTrainOutline } from "react-icons/io5";
+import { IoSchoolSharp } from "react-icons/io5";
+import { TiShoppingCart } from "react-icons/ti";
+import { AiTwotoneShopping } from "react-icons/ai";
+import { MdOutlineLocalMovies } from "react-icons/md";
+import { ImPlus } from "react-icons/im";
 
 interface MapViewProps {
     project: Project;
@@ -38,6 +50,66 @@ interface MapViewProps {
     setSuperMarkets: (places: TransformedPlace[]) => void;
     onLoadingChange?: (loading: boolean) => void;
 }
+
+type MarkerType =
+  | "bus"
+  | "train"
+  | "airport"
+  | "hospital"
+  | "school"
+  | "mall"
+  | "supermarket"
+  | "theater";
+
+//the icons
+const ICONS = {
+    bus: BsBusFront,
+    train: IoTrainOutline,
+    airport: PiAirplaneTiltLight,
+    hospital: ImPlus,
+    school: IoSchoolSharp,
+    mall: AiTwotoneShopping,
+    supermarket: TiShoppingCart,
+    theater: MdOutlineLocalMovies
+};
+
+// cache
+const iconCache = new Map<string, L.DivIcon>();
+
+export const getIcon = (type: keyof typeof ICONS): L.DivIcon => {
+  if (iconCache.has(type)) {
+    return iconCache.get(type)!;
+  }
+
+  const IconComponent = ICONS[type];
+
+  const iconHtml = ReactDOMServer.renderToString(
+    <IconComponent size={20} color="#2563eb" />
+  );
+
+  const icon = L.divIcon({
+    html: `
+      <div style="
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        width:32px;
+        height:32px;
+        background:white;
+        border-radius:50%;
+        box-shadow:0 2px 6px rgba(0,0,0,0.3);
+      ">
+        ${iconHtml}
+      </div>
+    `,
+    className: "",
+    iconSize: [32, 32],
+  });
+
+  iconCache.set(type, icon);
+
+  return icon;
+};
 
 export default function MapView({ project, 
     activeTab,
@@ -102,7 +174,7 @@ export default function MapView({ project,
 
             try {
                 const results = await fetchNearbyPlacesBatch({ lat, lng }, types);
-                console.log(results);
+                // console.log(results);
                 
                 // Map results back to the respective setters
                 if (results.bus_station) setBusStations(results.bus_station.slice(0, 5));
@@ -122,9 +194,7 @@ export default function MapView({ project,
         };
 
         loadAllNearby();
-    }, [mapLoaded, lat, lng, setBusStations, setAirports, setTrainStations, setHospitals, setSchools, setMovieTheaters, setShoppingMalls, setSuperMarkets, onLoadingChange]);
-    console.log(busStations);
-    
+    }, [mapLoaded, lat, lng, setBusStations, setAirports, setTrainStations, setHospitals, setSchools, setMovieTheaters, setShoppingMalls, setSuperMarkets, onLoadingChange]);    
 
     const mapUrl = `https://maps.google.com/maps?q=${lat},${lng}`;
 
@@ -185,6 +255,7 @@ export default function MapView({ project,
                                                 lat: position.geometry.location.lat() || 0, 
                                                 lng: position.geometry.location.lng() || 0
                                             }}
+                                            icon={getIcon('bus')}
                                             label={position.tags?.name || "Bus Station"}
                                             type="bus"
                                         />
@@ -196,6 +267,7 @@ export default function MapView({ project,
                                                 lat: position.geometry.location.lat() || 0, 
                                                 lng: position.geometry.location.lng() || 0
                                              }}
+                                            icon={getIcon('train')}
                                             label={position.tags?.name || "Train Station"}
                                             type="train"
                                         />
@@ -208,6 +280,7 @@ export default function MapView({ project,
                                                 lat: position.geometry.location.lat() || 0, 
                                                 lng: position.geometry.location.lng() || 0
                                              }}
+                                            icon={getIcon('airport')}
                                             label={position.tags?.name || "Airport"}
                                             type="airport"
                                         />
@@ -222,14 +295,18 @@ export default function MapView({ project,
                                     position={{ 
                                             lat: position.geometry.location.lat() || 0, 
                                             lng: position.geometry.location.lng() || 0
-                                         }} />
+                                         }} 
+                                    icon={getIcon('hospital')}
+                                />
                                 ))}
                                 {schools?.map((position, index) => (
                                 <OSMCustomMarker key={`s-${index}`} 
                                     position={{ 
                                         lat: position.geometry.location.lat() || 0, 
                                         lng: position.geometry.location.lng() || 0
-                                    }} />
+                                    }} 
+                                    icon={getIcon('school')}
+                                />
                                 ))}
                             </>
                             )}
@@ -242,21 +319,27 @@ export default function MapView({ project,
                                     position={{
                                             lat: position.geometry.location.lat() || 0, 
                                             lng: position.geometry.location.lng() || 0
-                                        }} />
+                                        }} 
+                                    icon={getIcon('mall')}
+                                />
                                 ))}
                                 {superMarkets?.map((position, index) => (
                                 <OSMCustomMarker key={`sm-${index}`} 
                                     position={{ 
                                             lat: position.geometry.location.lat() || 0, 
                                             lng: position.geometry.location.lng() || 0
-                                        }} />
+                                        }} 
+                                    icon={getIcon('supermarket')}
+                                />
                                 ))}
                                 {movieTheaters?.map((position, index) => (
                                 <OSMCustomMarker key={`mt-${index}`} 
                                     position={{ 
                                             lat: position.geometry.location.lat() || 0, 
                                             lng: position.geometry.location.lng() || 0
-                                        }} />
+                                        }} 
+                                    icon={getIcon('theater')}
+                                />
                                 ))}
                             </>
                             )}

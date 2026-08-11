@@ -55,10 +55,18 @@ const Contact = () => {
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "Email is invalid.";
     }
-    if (!formData.phone.trim()) {
+
+    const phone = formData.phone.replace(/\D/g, "")
+    if (!phone) {
       newErrors.phone = "Phone number is required.";
-    } else if (!/^\d{10}$/.test(formData.phone)) {
-      newErrors.phone = "Phone number should be 10 digits.";
+    } else {
+      const normalizedPhone = phone.startsWith("91")
+      ? phone.slice(2)
+      : phone
+
+      if (!/^[6-9]\d{9}$/.test(normalizedPhone)) {
+        newErrors.phone = "Enter a valid Indian mobile number.";
+      }
     }
     if (!formData.message.trim()) newErrors.message = "Message is required.";
 
