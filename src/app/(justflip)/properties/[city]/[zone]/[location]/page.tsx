@@ -126,14 +126,14 @@ export default async function LocationPage({ params }: LocationPageProps) {
           <Suspense fallback={<AreasNearbySkeleton />}>
             <AreasNearby locationData={locationData} />
           </Suspense>
+          <Suspense fallback={<GallerySkeleton />}>
+            <Gallery data={locationData} />
+          </Suspense>
           <Suspense fallback={<BlogsSkeleton />}>
             <Blogs tag="Popular Blogs" />
           </Suspense>
           <Suspense fallback={<MapFilterSkeleton />}>
             <GoogleMapFilter locationData={locationData} />
-          </Suspense>
-          <Suspense fallback={<GallerySkeleton />}>
-            <Gallery data={locationData} />
           </Suspense>
           <Suspense fallback={<FAQSkeleton />}>
             <FAQ data={locationData} />

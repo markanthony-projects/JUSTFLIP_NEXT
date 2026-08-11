@@ -97,13 +97,14 @@ export default async function ZonePage({ params }: ZonePageProps) {
             <ReviewsSectionClient typeName={name} typeId={id} type="zone" reviews={reviewList} />
           </Suspense>
 
+          <Suspense fallback={<GallerySkeleton />}>
+            <Gallery data={zoneData} />
+          </Suspense>
+
           <Suspense fallback={<BlogsSkeleton />}>
             <Blogs tag="Popular Blogs" />
           </Suspense>
 
-          <Suspense fallback={<GallerySkeleton />}>
-            <Gallery data={zoneData} />
-          </Suspense>
           <Suspense fallback={<FAQSkeleton />}>
             <FAQ data={zoneData} />
           </Suspense>
