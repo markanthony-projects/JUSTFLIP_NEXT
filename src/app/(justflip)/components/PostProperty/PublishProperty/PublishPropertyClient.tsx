@@ -497,35 +497,37 @@ function PublishPropertyClient ({ initialCities }: { initialCities?: any[] }) {
     const bedrooms = formData?.units?.[0]?.bedrooms
     const commonBathrooms = formData?.units?.[0]?.commonBathrooms
 
+    const computedType = determineUnitType(bedrooms as number, commonBathrooms as number)
+
     const payload = {
       ...formData,
       uploadedBy: userId || null,
-      units: (() => {
-        const units = [...(formData.units || [{}])]
-        const unit = { ...units[0] }
-        if (
-          ['apartment', 'villa', 'residentialhouse'].includes(
-            type?.toLowerCase()
-          )
-        ) {
-          unit.unit_type = determineUnitType(bedrooms as number, commonBathrooms as number)
+      units: (formData.units || [{}]).map((u: any) => {
+        const resolvedType = computedType || u.type || u.unit_type || 'Standard'
+
+        return {
+          ...u,
+          type: resolvedType,     
+          floorPlans: (u.floorPlans || []).map((fp: any) => ({
+            alt: fp.alt || `${formData.name || 'Property'} ${resolvedType} Floor Plan`,
+            url: fp.url,
+            type: 'image',         
+            unit: resolvedType,     
+            title: 'floor plan'
+          }))
         }
-        units[0] = unit
-        return units
-      })()
+      })
     }
 
     try {
       const res = await JUSTFLIP.post('/project', payload)
       toast.success(res?.data?.message || 'Property uploaded successfully!')
-      setFormData(
-        buildInitialFormData(userId, residenceType, transactionType)
-      )
+      setFormData(buildInitialFormData(userId, residenceType, transactionType))
       setProjectQuery('')
       setLocationQuery('')
       setCurrentStep(1)
       clearStore()
-      router.push('/profile')
+      router.push('/profile?tab=my-properties')
     } catch (err) {
       console.error('Submit failed:', err)
       toast.error(
@@ -534,7 +536,6 @@ function PublishPropertyClient ({ initialCities }: { initialCities?: any[] }) {
       )
     }
   }
-
   // ─── Render ───────────────────────────────────────
 
   if (!isMounted || !hydrated) return null // Avoid hydration mismatch

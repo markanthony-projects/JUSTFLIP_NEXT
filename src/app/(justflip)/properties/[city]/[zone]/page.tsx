@@ -90,7 +90,7 @@ export default async function ZonePage({ params }: ZonePageProps) {
           </Suspense>
 
           <Suspense fallback={<PropertySupplySkeleton />}>
-            <PropertySupply type="city" data={zoneData as any} typeName={name} typeId={id} />
+            <PropertySupply type="zone" data={zoneData as any} typeName={name} typeId={id} />
           </Suspense>
 
           <Suspense fallback={<ReviewsSkeleton />}>

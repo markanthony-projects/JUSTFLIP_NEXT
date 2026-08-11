@@ -11,14 +11,18 @@ import { useFavouritesStore } from '@/src/stores/favourites.store'
 import Link from 'next/link';
 
 import { FaHeart } from 'react-icons/fa6'
-import { MdKeyboardDoubleArrowRight, MdReadMore } from "react-icons/md";
+import { MdKeyboardDoubleArrowRight, MdArrowForward } from "react-icons/md";
 import ProjectCard from '@/src/components/Cards/ProjectCard';
+
+const Max_Items = 3;
 
 const SavedProperties = () => {
   const { dataList, loading, error, fetchFavouriteData } = useFavouritesStore();
   useEffect(()=>{
     fetchFavouriteData()
   }, [])
+
+  const visibleList = dataList.slice(0, Max_Items);
 
   return (
     <div className='relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm'>
@@ -39,10 +43,10 @@ const SavedProperties = () => {
 
         {dataList.length > 0 && (
           <Link
-            href="#"
+            href="/profile?tab=wishlist"
             className="flex items-center gap-1 rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-blue-600 transition-all hover:border-blue-200 hover:bg-blue-50"
           >
-            View All
+            View All ({dataList.length})
             <MdKeyboardDoubleArrowRight className="text-lg" />
           </Link>
         )}
@@ -95,7 +99,7 @@ const SavedProperties = () => {
           shrink-0 on the wrapper prevents cards from squishing inside the flex container. */}
       {!loading && !error && dataList.length > 0 && (
         <div className="flex gap-5 overflow-x-auto pb-2">
-          {dataList.map((project, index) => (
+          {visibleList.map((project, index) => (
             <div
               key={project?.id || index}
               className="shrink-0 transition-transform duration-300 hover:-translate-y-1"

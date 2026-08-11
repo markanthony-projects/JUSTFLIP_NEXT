@@ -33,7 +33,7 @@ const sections = [
     {
         title: "Explore",
         links: [
-            { label: "Blogs", url: "/blog" },
+            { label: "Blogs", url: "/blogs" },
             { label: "Sitemap", url: "/sitemap.xml", target: "_blank" },
             { label: "Mortgage Calculator", url: "/#mortgage-calculator" },
         ],
@@ -65,7 +65,6 @@ const socialLinks = [
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
-
     const phoneNumber = "918431362126";
     const email = "support@justflip.in";
 

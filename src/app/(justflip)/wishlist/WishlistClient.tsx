@@ -13,6 +13,23 @@ import { useFavouritesStore } from '@/src/stores/favourites.store';
 import { useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
+const formatPriceRange = (minVal?: string | number, maxVal?: string | number) => {
+  const min = parseFloat(String(minVal));
+  const max = parseFloat(String(maxVal));
+
+  if (isNaN(min) || min <= 0) {
+    return "Price On Request";
+  }
+
+  const minFormatted = convertToCurrency(min);
+
+  if (isNaN(max) || max <= 0 || min === max) {
+    return `₹ ${minFormatted}`;
+  }
+
+  return `₹ ${minFormatted} - ${convertToCurrency(max)}`;
+};
+
 const Wishlist = ({ isEmbedded = false }: { isEmbedded?: boolean }) => {
   const router = useRouter();
   const { user, isAuthenticated, hydrated } = useAuthStore();
@@ -112,7 +129,7 @@ const Wishlist = ({ isEmbedded = false }: { isEmbedded?: boolean }) => {
               const logoUrl = property?.medias?.find((media: any) => media?.title === "logo")?.url || property?.logoImage;
 
               return (
-                <Link href={`/properties/${property?.city?.name}/${property?.zone?.name}/${property?.location?.name}/${property?.slug || property?.name}/${property?.id}`} key={property?.id}>
+                <Link href={`/properties/${property?.city?.name}/${property?.zone?.name}/${property?.location?.name}/${property?.name}-${property?.id}`} key={property?.id}>
                   <div className="group relative rounded-2xl transition-all duration-300 ease-in-out transform hover:-translate-y-2 hover:shadow-2xl bg-white border border-gray-100 flex flex-col overflow-hidden h-full">
                     
                     {/* Image Area */}
@@ -181,7 +198,7 @@ const Wishlist = ({ isEmbedded = false }: { isEmbedded?: boolean }) => {
 
                       <div className="mt-5 flex justify-between items-end">
                         <span className="inline-block bg-[#FDF5E6] text-gray-900 px-4 py-2 rounded-lg text-sm font-bold shadow-sm group-hover:bg-[#fce5c6] transition-colors duration-300">
-                          &#8377; {minPrice === maxPrice ? convertToCurrency(minPrice) : `${convertToCurrency(minPrice)} - ${convertToCurrency(maxPrice)}`}
+                          {formatPriceRange(minPrice, maxPrice)}
                         </span>
                         
                         {/* Decorative Arrow */}

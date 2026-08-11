@@ -1,134 +1,69 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import Image from 'next/image'
 
 export interface KeyEmployeesProps {
     employees?: any[];
 }
 
-const KeyEmployees = ({employees=[]}: KeyEmployeesProps) => {    
-    const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-    const scrollRef = useRef<HTMLDivElement>(null)
-    const isHoveredRef = useRef(false)
-    const isProgrammaticRef = useRef(false)
+const KeyEmployees = ({ employees = [] }: KeyEmployeesProps) => {
 
-    const loopedEmployees = [ ...employees, ...employees]
+    if (!employees || employees.length === 0) return null;
 
-    //--------------------------for horizontal scroll --------------------------------------------------------------------------
-    useEffect(() => {
-        const container = scrollRef.current
-        if (!container) return
-        // console.log(container.scrollWidth, container.clientWidth)
-
-        const mediaQuery = window.matchMedia('(max-width: 767px)')
-        if (!mediaQuery.matches) return
-        
-        container.style.scrollBehavior = 'auto'
-        const half = container.scrollWidth/2
-        const maxUserScroll = half - container.clientWidth  //length when the user tries to scroll
-        
-        const interval = setInterval(() => {
-            if (!container || isHoveredRef.current) return
-
-            isProgrammaticRef.current = true 
-            container.scrollLeft += 1
-
-            if (container.scrollLeft >= half) {
-                container.scrollLeft -= half 
-            }
-            
-            requestAnimationFrame(() => { isProgrammaticRef.current = false })
-        }, 30)
-
-        const handleScroll = () => {
-            if (isProgrammaticRef.current) return 
-
-            //this scroll came from the USER — clamp it so they can never scroll into the duplicate half
-            if(container.scrollLeft >= maxUserScroll){
-                container.scrollLeft = maxUserScroll
-            }else if(container.scrollLeft < 0){
-                container.scrollLeft = 0
-            }
-        }
-        container.addEventListener('scroll',handleScroll)
-
-       return () => {
-        clearInterval(interval)
-        container.removeEventListener('scroll', handleScroll)
-       }
-    }, [employees]);
-
-    //-----------------------------------employeeCard component --------------------------------------------------------------
     const EmployeeCard = ({ employee, index }: { employee: any, index: number }) => (
         <figure
             role='listitem'
-            onMouseEnter={ () => setHoverIndex(index) }
-            onMouseLeave={ () => setHoverIndex(null) }
-            className={`relative transition-all group duration-500 ease-in-out shrink-0 min-h-44 md:shrink w-2/5 sm:w-[45%] md:w-1/3 lg:w-1/2
-            ${
-                hoverIndex === index
-                ? "lg:w-1/3 scale-102"
-                : hoverIndex !== null
-                ? "lg:w-1/4"
-                : "lg:w-1/2"
-            }
-            `}
+            className="group relative shrink-0 w-64 md:w-72 lg:w-80 h-80 md:h-96 rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.2)] transition-all duration-500 ease-out hover:-translate-y-2 cursor-pointer"
         >
-            <div className="relative w-full h-60 sm:h-75 md:h-60 lg:h-96">
-                <Image src={employee.image}
+            <div className="absolute inset-0 w-full h-full">
+                <Image
+                    src={employee.image}
                     alt={`${employee.name}, ${employee.designation}`}
                     fill
-                    sizes="(max-width: 768px) 40vw, (max-width: 1024px) 33vw, 50vw"
-                    className="object-cover transform transition-all duration-700 ease-in-out"
-                    priority={index === 0} 
+                    sizes="(max-width: 768px) 256px, 320px"
+                    className="object-cover transform transition-transform duration-700 ease-out group-hover:scale-110"
+                    priority={index < 3}
                 />
             </div>
-            <div className="absolute bg-linear-to-t inset-0 from-black/90 via-black/40 to-transparent"></div>
-            <figcaption className="absolute bottom-2 right-2 w-full text-white text-right p-2 rounded-md ">
-                <p className="text-[15px] md:text-xl font-semibold capitalize truncate text-start ml-1">
+            
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#001f42]/95 via-[#001f42]/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+            
+            {/* Glassmorphism Info Container */}
+            <figcaption className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 transform translate-y-2 opacity-90 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                <p className="text-white text-lg md:text-xl font-bold capitalize truncate mb-1">
                     {employee.name}
                 </p>
-                <p className="text-[15px] md:text-xl capitalize truncate text-start ml-1">
+                <p className="text-blue-300 text-sm md:text-[15px] font-medium tracking-wide uppercase truncate">
                     {employee.designation}
                 </p>
             </figcaption>
         </figure>
     )
 
-  return (
-    <div>
+    return (
         <section className='w-full' aria-labelledby='key-people-heading' role='region'>
-            <h2 id="key-people-heading" className="text-xl font-bold mb-1 text-start">
-                Key people
-            </h2>
-            <div className='text-xl font-bold md:font-normal border mb-4' />
-            
-            {/* ADDED: mobile-only marquee — visible below md, has the ref + all scroll JS attached */}
-            <div role="list"
-                ref={scrollRef}
-                onMouseEnter={() => { isHoveredRef.current = true }} 
-                onMouseLeave={() => { isHoveredRef.current = false; setHoverIndex(null) }}
-                className="md:hidden flex gap-0.5 justify-start items-center flex-nowrap overflow-x-auto snap-x snap-mandatory scrollbar-hide"
-            >
-                {loopedEmployees.map((employee, index) => (
-                    <EmployeeCard key={`${employee.id ?? employee.name}-${index}`} employee={employee} index={index} />
-                ))}
+            <div className="mb-8 md:mb-10">
+                <h2 id="key-people-heading" className="text-3xl font-bold text-[#002B5B] tracking-tight">
+                    Key People
+                </h2>
+                <div className="h-1 w-16 bg-gradient-to-r from-[#002B5B] to-blue-400 rounded-full mt-3"></div>
             </div>
-
-            {/* ADDED: desktop-only static row — visible md and up, NO ref, NO scroll JS, pure hover-grow like your original */}
-            <div role="list"
-                className="hidden md:flex gap-0.5 justify-center items-center flex-nowrap"
+            
+            {/* Native smooth horizontal scroll container */}
+            <div 
+                role="list"
+                className="flex gap-6 overflow-x-auto pb-8 pt-4 px-2 -mx-2 snap-x snap-mandatory scrollbar-modern"
+                style={{ scrollbarWidth: 'thin' }}
             >
                 {employees.map((employee, index) => (
-                    <EmployeeCard key={`${employee.id ?? employee.name}-desktop-${index}`} employee={employee} index={index} />
+                    <div key={`${employee.id ?? employee.name}-${index}`} className="snap-start">
+                        <EmployeeCard employee={employee} index={index} />
+                    </div>
                 ))}
             </div>
         </section>
-    </div>
-  )
+    )
 }
-
-
-
 
 export default KeyEmployees

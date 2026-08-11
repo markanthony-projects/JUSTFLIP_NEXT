@@ -23,6 +23,7 @@ import WishlistClient from '@/src/app/(justflip)/wishlist/WishlistClient'
 import BrokerPropertyDashboard from '../Broker/BrokerPropertyDashboard'
 import { useSearchParams } from 'next/navigation'
 import NotificationsSection from './NotificationsSection'
+import UserPropertyDashboard from './UserPropertyDashboard'
 
 // INPUT CONFIG — drives what fields show inside the modal.
 const fieldsArray = {
@@ -292,7 +293,7 @@ const ProfileMain = () => {
 
           {activeNav === 'my-properties' && (
              <div className='bg-white/70 backdrop-blur-xl rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 relative overflow-hidden'>
-               <BrokerPropertyDashboard />
+               <UserPropertyDashboard />
              </div>
           )}
 
