@@ -40,9 +40,17 @@ export const useBlogStore = create<BlogState & BlogActions>((set, get) => ({
 
   getBlogs: async ({ page = 1, limit = 20, tag }: { page?: number; limit?: number; tag?: string } = {}) => {
     try {
+      console.log("Tag....", tag);
+
       set({ loadingBlogs: true, error: null });
 
-      const { blogs, pagination } = await BlogService.fetchBlogs({ page, limit, tag });
+      let formattedTag = tag;
+
+      if (tag === "Trending Blogs") formattedTag = "Trending Blog";
+      if (tag === "New Blogs") formattedTag = "New Blog";
+      if (tag === "Upcoming Blogs") formattedTag = "Upcoming Blog";
+
+      const { blogs, pagination } = await BlogService.fetchBlogs({ page, limit, tag: formattedTag });
 
       set((state) => ({
         blogs: page === 1 ? blogs : [...state.blogs, ...blogs],
