@@ -26,7 +26,7 @@ function BlogMain({
     hasMore,
 
 }: BlogMainProps) {
-    const categories = ["Trending Blogs", "Upcoming Blogs", "New Blogs"];
+    const categories = ["Trending Blog", "Upcoming Blog", "New Blog"];
 
     const loadMore = useCallback(() => {
         if (!loadingBlogs && hasMore) {
@@ -40,9 +40,9 @@ function BlogMain({
     });
 
     const categoryTagMap: Record<string, string> = {
-        "Trending Blogs": "Trending Blog",
-        "New Blogs": "New Blog",
-        "Upcoming Blogs": "Upcoming Blog",
+        "Trending Blog": "Trending Blog",
+        "New Blog": "New Blog",
+        "Upcoming Blog": "Upcoming Blog",
     };
 
     const filteredBlogs = useMemo(() => {
