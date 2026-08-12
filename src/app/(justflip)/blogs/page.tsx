@@ -14,10 +14,10 @@ export interface BlogsPageProps {
 
 export async function generateMetadata(props: BlogsPageProps): Promise<Metadata> {
     const searchParams = await props.searchParams;
-    const category = (searchParams?.category as string) || "Trending Blogs";
+    const category = (searchParams?.category as string) || "Trending Blog";
     const title = `${category} - Real Estate News, Market Trends & Guides | JustFlip`;
     const description = `Read the latest ${category.toLowerCase()} about real estate in India and Dubai. Discover top market trends, property buying guides, and expert investment tips on JustFlip.`;
-    const url = `/blogs${category !== "Trending Blogs" ? `?category=${category}` : ''}`;
+    const url = `/blogs${category !== "Trending Blog" ? `?category=${category}` : ''}`;
 
     return constructMetadata({
         title,
@@ -31,7 +31,7 @@ export const revalidate = 3600;
 async function Blogs(props: BlogsPageProps) {
     const searchParams = await props.searchParams;
     const page = searchParams?.page ? parseInt(searchParams.page as string) : 1;
-    const category = (searchParams?.category as string) || "Trending Blogs";
+    const category = (searchParams?.category as string) || "Trending Blog";
 
     let initialBlogData: { blogs: Blog[] } = { blogs: [] };
     try {
