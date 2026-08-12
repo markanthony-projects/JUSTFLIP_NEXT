@@ -13,14 +13,16 @@
     const LoginModal = dynamic(() => import('@/src/components/organisms/LoginModal'), { ssr: false });
 
     const TopPropertyCard = ({ project, priority }: { project: Project; priority?: boolean }) => {
+        console.log("Project.....",project)
         const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
         if (!project) return null;
         const locationName = project?.location?.name || "";
         const projectName = project?.name || "";
 
+        const zoneName = project?.location?.zone?.name || project?.zone?.name
 
-        const projectUrl = createProjectUrl(project?.city?.name || "", project?.location?.zone?.name || "", project?.location?.name || "", project?.name, project?.id)
+        const projectUrl = createProjectUrl(project?.city?.name || "", zoneName || "", project?.location?.name || "", project?.name, project?.id)
 
         const bannerImage = project?.banner || (project?.medias?.find((m: Media) => m.title === 'banner') || project?.medias?.[0]);
 
