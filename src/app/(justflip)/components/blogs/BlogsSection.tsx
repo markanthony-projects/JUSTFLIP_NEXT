@@ -14,7 +14,7 @@ export interface BlogsSectionProps {
     initialCategory?: string;
 }
 
-function BlogsSection({ initialBlogs = [], initialCategory = "Trending Blogs" }: BlogsSectionProps) {
+function BlogsSection({ initialBlogs = [], initialCategory = "Trending Blog" }: BlogsSectionProps) {
     const { blogs, getBlogs, loadingBlogs, hasMore } = useBlogStore();
 
     const [category, setCategory] = useState(initialCategory);
@@ -23,7 +23,6 @@ function BlogsSection({ initialBlogs = [], initialCategory = "Trending Blogs" }:
     const initialized = useRef(false);
 
     useEffect(() => {
-        // console.log("Current category.....", category);
         if (!initialized.current) {
             useBlogStore.setState({ 
                 blogs: initialBlogs, 
