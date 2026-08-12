@@ -34,7 +34,7 @@ const DeveloperHistory = ({ history = [] }: DeveloperHistoryProps) => {
         <h2 className="text-3xl font-bold text-[#002B5B] tracking-tight">
             Our Journey
         </h2>
-        <div className="h-1 w-20 bg-gradient-to-r from-[#002B5B] to-blue-400 rounded-full mt-3"></div>
+        <div className="h-1 w-20 bg-gradient-to-r from-[#002B5B] to-blue-800 rounded-full mt-3"></div>
       </div>
 
       <div className='flex flex-col md:flex-row gap-10 md:gap-4 items-center justify-between min-h-[500px]'>

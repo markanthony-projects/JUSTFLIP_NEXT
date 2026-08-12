@@ -47,7 +47,7 @@ const KeyEmployees = ({ employees = [] }: KeyEmployeesProps) => {
                 <h2 id="key-people-heading" className="text-3xl font-bold text-[#002B5B] tracking-tight">
                     Key People
                 </h2>
-                <div className="h-1 w-16 bg-gradient-to-r from-[#002B5B] to-blue-400 rounded-full mt-3"></div>
+                <div className="h-1 w-20 bg-gradient-to-r from-[#002B5B] to-blue-800 rounded-full mt-3"></div>
             </div>
             
             {/* Native smooth horizontal scroll container */}

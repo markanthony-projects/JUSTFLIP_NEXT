@@ -51,7 +51,7 @@ function ProjectList({ projects, loading }: ProjectListProps) {
                     return (
                         <Link href={projectUrl} key={project?.id} className="block group w-[280px] lg:w-[310px]">
                             <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 p-2.5 h-[90px] flex items-center justify-between">
-                                <div className="flex items-center gap-4 w-full">
+                                <div className="flex items-center gap-3 flex-1 min-w-0">
                                     <div
                                         className="h-[70px] w-[70px] shrink-0 bg-cover bg-center rounded-xl shadow-inner group-hover:scale-105 transition-transform duration-500"
                                         style={{
