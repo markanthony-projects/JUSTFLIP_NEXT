@@ -55,10 +55,8 @@ async function Blogs(props: BlogsPageProps) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
             />
             <Breadcrumb items={breadcrumbItems} />
-            <div className="grid grid-cols-1 lg:grid-cols-4">
-                <div className="lg:col-span-3">
-                    <Blogssection initialBlogs={initialBlogData?.blogs || []} initialCategory={category} />
-                </div>
+            <div className="max-w-screen-xl mx-auto w-full">
+                <Blogssection initialBlogs={initialBlogData?.blogs || []} initialCategory={category} />
             </div>
         </div>
     )
