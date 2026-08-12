@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState, Suspense, useRef } from "react";
 import { useBlogStore } from "@/src/stores/blog.store";
-import BlogCarouselSkeleton from "./BlogCarouselSkeleton";
-import BlogMainSkeleton from "./BlogMainSkeleton";
+import BlogCarouselSkeleton from "../Skelton/BlogCarouselSkeleton";
+import BlogMainSkeleton from "../Skelton/BlogMainSkeleton";
 import BlogCarousel from "./BlogCarousel";
 import BlogMain from "./BlogMain";
 
