@@ -95,9 +95,12 @@ const CityChip = memo(function CityChip({ city, selected, onSelect }: { city: an
 export interface CitySelectorModalProps {
     isOpen: boolean;
     onClose: () => void;
+    onCitySelect?: (city: any) => void;
+    updateGlobalState?: boolean;
+    selectedCityIdOverride?: string | number | null;
 }
 
-export default function CitySelectorModal({ isOpen, onClose }: CitySelectorModalProps) {
+export default function CitySelectorModal({ isOpen, onClose, onCitySelect, updateGlobalState = true, selectedCityIdOverride }: CitySelectorModalProps) {
     const activeCity = useCityStore((s) => s.activeCity);
     const cityList = useCityStore((s) => s.cityList);
     const setActiveCity = useCityStore((s) => s.setActiveCity);
@@ -131,10 +134,15 @@ export default function CitySelectorModal({ isOpen, onClose }: CitySelectorModal
 
     const handleSelect = useCallback(
         (city: any) => {
-            setActiveCity(city);
+            if (updateGlobalState) {
+                setActiveCity(city);
+            }
+            if (onCitySelect) {
+                onCitySelect(city);
+            }
             close();
         },
-        [setActiveCity, close]
+        [setActiveCity, close, updateGlobalState, onCitySelect]
     );
 
     const handleDetect = useCallback(async () => {
@@ -237,7 +245,7 @@ export default function CitySelectorModal({ isOpen, onClose }: CitySelectorModal
                                 <PopularCityTile
                                     key={city?.id}
                                     city={city}
-                                    selected={activeCity?.id === city?.id}
+                                    selected={(selectedCityIdOverride !== undefined ? selectedCityIdOverride : activeCity?.id) === city?.id}
                                     onSelect={handleSelect}
                                 />
                             ))}
@@ -279,7 +287,7 @@ export default function CitySelectorModal({ isOpen, onClose }: CitySelectorModal
                                         <CityChip
                                             key={city?.id}
                                             city={city}
-                                            selected={activeCity?.id === city?.id}
+                                            selected={(selectedCityIdOverride !== undefined ? selectedCityIdOverride : activeCity?.id) === city?.id}
                                             onSelect={handleSelect}
                                         />
                                     ))}

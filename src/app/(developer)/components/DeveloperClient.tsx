@@ -9,12 +9,14 @@ import DeveloperCardSkeleton from "../../(justflip)/components/Skelton/Developer
 import Pagination from "@/src/components/Pagination";
 import { IoClose } from "react-icons/io5";
 import { useCityStore } from "@/src/stores/city.store";
+import CitySelectorModal from "@/src/components/NearestCity/CitySelectorModal";
 
 export default function DevelopersClientPage({ initialData }: { initialData?: any }) {
     const { developers, fetchDevelopers, pagination, hasMore, isFetching, reset } = useDeveloperStore();
-    const { cityList } = useCityStore();
+    const { cityList, activeCity } = useCityStore();
     const [search, setSearch] = useState("");
-    const [selectedCityId, setSelectedCityId] = useState<string | number | null>(null);
+    const [selectedCityId, setSelectedCityId] = useState<string | number | null>(activeCity?.id || null);
+    const [isCityModalOpen, setIsCityModalOpen] = useState(false);
     const isFirstRender = useRef(true);
 
     useEffect(() => {
@@ -101,20 +103,16 @@ export default function DevelopersClientPage({ initialData }: { initialData?: an
                     {/* Filter & Search Bar */}
                     <div className="w-full max-w-3xl flex flex-col md:flex-row items-center gap-3 bg-white/10 p-2 rounded-xl backdrop-blur-md shadow-lg border border-white/20">
                         {/* City Filter */}
-                        <div className="relative w-full md:w-1/3 flex items-center bg-white rounded-lg px-3 py-1">
+                        <div 
+                            className="relative w-full md:w-1/3 flex items-center bg-white rounded-lg px-3 py-1 cursor-pointer hover:bg-gray-50 transition-colors"
+                            onClick={() => setIsCityModalOpen(true)}
+                        >
                             <FiMapPin className="text-gray-400 mr-2 shrink-0" />
-                            <select 
-                                value={selectedCityId || ""}
-                                onChange={(e) => setSelectedCityId(e.target.value || null)}
-                                className="w-full bg-transparent py-2.5 text-sm text-gray-700 outline-none cursor-pointer"
-                            >
-                                <option value="">All Cities</option>
-                                {cityList?.map((city) => (
-                                    <option key={city.id} value={city.id}>
-                                        {city.name}
-                                    </option>
-                                ))}
-                            </select>
+                            <div className="w-full bg-transparent py-2.5 text-sm text-gray-700 outline-none flex items-center justify-between">
+                                <span className={selectedCityId ? "text-gray-900 font-medium" : "text-gray-500"}>
+                                    {selectedCityId ? cityList?.find(c => String(c.id) === String(selectedCityId))?.name || "All Cities" : "All Cities"}
+                                </span>
+                            </div>
                         </div>
 
                         {/* Search Input */}
@@ -177,6 +175,14 @@ export default function DevelopersClientPage({ initialData }: { initialData?: an
                     />
                 </div>
             </div>
+
+            <CitySelectorModal
+                isOpen={isCityModalOpen}
+                onClose={() => setIsCityModalOpen(false)}
+                onCitySelect={(city) => setSelectedCityId(city?.id || null)}
+                updateGlobalState={false}
+                selectedCityIdOverride={selectedCityId}
+            />
         </div>
     );
 }
