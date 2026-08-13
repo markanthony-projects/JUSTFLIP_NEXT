@@ -13,7 +13,6 @@
     const LoginModal = dynamic(() => import('@/src/components/organisms/LoginModal'), { ssr: false });
 
     const TopPropertyCard = ({ project, priority }: { project: Project; priority?: boolean }) => {
-        console.log("Project.....",project)
         const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
         if (!project) return null;
