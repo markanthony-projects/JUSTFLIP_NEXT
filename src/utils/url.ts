@@ -115,7 +115,8 @@ export const parseBlogDetailsUrl = (slugParam: string = ""): { name: string; id:
     return { name: "", id: "" };
   }
 
-  const parts = slugParam.split("-");
+  const decodedSlug = decodeURIComponent(slugParam);
+  const parts = decodedSlug.split("-");
   const id = parts.slice(-5).join("-");
   const uni = parts.slice(0, -5).join("-")
 

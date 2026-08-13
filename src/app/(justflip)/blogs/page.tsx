@@ -1,4 +1,5 @@
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
+import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 import React from 'react'
 import Blogssection from '../components/blogs/BlogsSection';
 import BlogService from '@/src/services/Blog.Service';
@@ -50,6 +51,7 @@ async function Blogs(props: BlogsPageProps) {
 
     return (
         <div>
+            <ScrollToTop />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
