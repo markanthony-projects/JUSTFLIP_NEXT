@@ -57,8 +57,7 @@ export default async function JustFlipHomePage() {
 
             <span id="banner-end" className="block h-px w-full" />
 
-            <div className="w-full min-h-screen py-1
-            0 px-4 lg:px-6 lg:max-w-310 mx-auto flex flex-col gap-4 md:gap-8">
+            <div className="w-full min-h-screen pt-12 md:pt-16 pb-10 px-4 lg:px-6 lg:max-w-310 mx-auto flex flex-col gap-4 md:gap-8">
                 <Suspense fallback={<TaggedPropertiesSkeleton />}>
                     <TaggedProperties city={city} />
                 </Suspense>
