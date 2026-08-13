@@ -162,8 +162,8 @@ export default function DevelopersClientPage({ initialData }: { initialData?: an
                         ))}
                 </div>
 
-                {/* Infinite Scroll Sentinel */}
-                <div ref={sentinelRef} className="h-10 w-full mt-4" />
+                {/* Infinite Scroll Sentinel (Mobile Only) */}
+                <div ref={sentinelRef} className="h-10 w-full mt-4 md:hidden" />
 
                 {/* Pagination Fallback */}
                 <div className="hidden md:flex justify-center mt-8">
