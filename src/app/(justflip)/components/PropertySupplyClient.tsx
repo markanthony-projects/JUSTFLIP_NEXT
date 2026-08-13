@@ -112,8 +112,18 @@ const dedupeProjects = (projectList: any[]) => {
   });
 };
 
-const getScopeParam = (typeName?: string, typeId?: string | number) => {
+const getScopeParam = (typeName?: string, typeId?: string | number | string[]) => {
   if (!typeName || !typeId) return {};
+
+  let singleId: string | number 
+
+  if(Array.isArray(typeId)){
+    singleId = typeId[0]
+  }else if(typeof typeId === "string" && typeId.includes(",")){
+    singleId = typeId.split(",")[0].trim();
+  }else{
+    singleId = typeId
+  }
 
   switch (typeName) {
     case "location":
@@ -202,7 +212,7 @@ const getFormattedPrice = (property: any, fallbackCurrency: string) => {
   return priceRange;
 };
 
-export default function PropertySupplyClient({ initialProjects, typeName, typeId }: { initialProjects: any, typeName?: string, typeId?: string | number }) {
+export default function PropertySupplyClient({ initialProjects, typeName, typeId }: { initialProjects: any, typeName?: string, typeId?: string | number | string[] }) {
   const pathname = usePathname();
   const [activeTab, setActiveTab] = useState("apartment");
   const [page, setPage] = useState(1);
