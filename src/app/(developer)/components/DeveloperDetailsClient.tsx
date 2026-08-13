@@ -47,10 +47,10 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
         </div>
 
         {/* Glassmorphism Info Card */}
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-[1440px] mx-auto mb-10 translate-y-16 md:translate-y-24">
+        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-[1440px] mx-auto mb-10 translate-y-18 md:translate-y-24">
           <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 md:p-10 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-10 transition-all duration-500 hover:bg-white/15">
             {/* Logo Container */}
-            <div className="w-28 h-28 md:w-40 md:h-40 shrink-0 bg-white rounded-2xl p-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden transform -translate-y-12 md:-translate-y-16 group">
+            <div className="w-28 h-28 md:w-40 md:h-40 shrink-0 bg-white rounded-2xl p-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden transform -translate-y-18 md:-translate-y-16 group">
               <Image
                 src={logo?.url}
                 alt={builder?.name}
@@ -59,20 +59,20 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
             </div>
 
             {/* Builder Details */}
-            <div className="flex-1 text-center md:text-left -mt-16 md:mt-0">
-              <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mb-4">
+            <div className="flex-1 text-center md:text-left -mt-22 md:mt-0">
+              <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 md:mb-4 mb-2">
                 <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-md">
                   {builder?.name}
                 </h1>
                 {builder?.startedAt && (
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-sm font-medium backdrop-blur-md">
-                    <FiCheckCircle className="mr-1.5" />
+                  <span className="inline-flex items-center px-3 mx-auto md:mx-0 py-0.5 rounded-full bg-white/20 border border-white/30 text-white text-sm font-medium backdrop-blur-md">
+                    <FiCheckCircle className="mr-1.5 text-blue-900" />
                     Est. {builder?.startedAt}
                   </span>
                 )}
               </div>
 
-              <div className="text-gray-200 text-sm md:text-base leading-relaxed text-justify">
+              <div className="text-gray-200 text-sm md:text-base leading-relaxed">
                 {/* Mobile text block */}
                 <span className="block md:hidden">
                   {shortTextMobile}
@@ -117,7 +117,7 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
             About {builder?.name}
           </h2>
         </div>
-        <div className="max-h-[60vh] overflow-y-auto scrollbar-modern text-gray-700 leading-relaxed text-justify pr-4 text-base">
+        <div className="max-h-[60vh] overflow-y-auto scrollbar-modern text-gray-700 leading-relaxed pr-4 text-base">
           {builder?.description}
         </div>
       </Modal>
