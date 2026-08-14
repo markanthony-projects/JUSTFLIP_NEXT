@@ -20,6 +20,7 @@ export interface SearchState {
   // ── UI State ──
   isLoading: boolean;
   isLoadingMore: boolean;
+  isInitialized: boolean;
   error: string | null;
   isFilterOpen: boolean;
   isSearchModalOpen: boolean;
@@ -67,6 +68,7 @@ export const useSearchStore = create<SearchState & SearchActions>((set, get) => 
   // ── UI State ──
   isLoading: false,
   isLoadingMore: false,
+  isInitialized: false,
   error: null,
   isFilterOpen: false,   // Mobile filter sheet
   isSearchModalOpen: false, // Mobile full-screen search modal
@@ -97,6 +99,7 @@ export const useSearchStore = create<SearchState & SearchActions>((set, get) => 
     hasMore: data.hasMore,
     facets: data.facets || null,
     isLoading: false,
+    isInitialized: true,
     error: null,
   }),
   

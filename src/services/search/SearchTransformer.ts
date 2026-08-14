@@ -1,6 +1,6 @@
 import { Project } from "../../types";
 
-export function transformSearchResponse(raw: Record<string, any>): {
+export function transformSearchResponse(raw: Record<string, any>, limit: number = 10): {
   results: Project[];
   total: number;
   page: number;
@@ -8,12 +8,16 @@ export function transformSearchResponse(raw: Record<string, any>): {
   hasMore: boolean;
   facets: any;
 } {
+  const total = raw?.total || raw?.projects?.length || 0;
+  const page = raw?.page || 1;
+  const totalPages = raw?.totalPages || Math.ceil(total / limit) || 1;
+
   return {
     results: (raw?.projects || []).map(transformProject),
-    total: raw?.total || raw?.projects?.length || 0,
-    page: raw?.page || 1,
-    totalPages: raw?.totalPages || 1,
-    hasMore: raw?.hasMore ?? (raw?.page < raw?.totalPages),
+    total,
+    page,
+    totalPages,
+    hasMore: raw?.hasMore ?? (page < totalPages),
     facets: raw?.facets || null,  // Future: Elasticsearch facets
   };
 }

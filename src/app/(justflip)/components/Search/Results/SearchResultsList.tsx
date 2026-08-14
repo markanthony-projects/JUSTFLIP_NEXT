@@ -5,7 +5,7 @@ import InfiniteScrollLoader from './InfiniteScrollLoader';
 import InlineFilterPrompt, { PromptType } from './InlineFilterPrompt';
 
 export default function SearchResultsList() {
-  const { results, isLoading, hasMore, setPage, page, filters } = useSearchStore();
+  const { results, isLoading, isLoadingMore, isInitialized, hasMore, setPage, page, filters } = useSearchStore();
 
   const unappliedPrompts = React.useMemo(() => {
     const queue: PromptType[] = [];
@@ -15,7 +15,8 @@ export default function SearchResultsList() {
     return queue;
   }, [filters]);
 
-  if (isLoading && results.length === 0) {
+  // Show skeletons on initial load OR when loading new filters
+  if (!isInitialized || (isLoading && results.length === 0)) {
     return (
       <div className="flex flex-col gap-4">
         {[1, 2, 3, 4].map(i => (
@@ -25,7 +26,7 @@ export default function SearchResultsList() {
     );
   }
 
-  if (!isLoading && results.length === 0) {
+  if (isInitialized && !isLoading && results.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-20 lg:py-32 text-center px-4 bg-white rounded-2xl border border-gray-100 shadow-sm mt-2">
         <div className="w-24 h-24 mb-6 bg-gray-50 rounded-full flex items-center justify-center relative">
@@ -82,8 +83,8 @@ export default function SearchResultsList() {
       {hasMore && (
         <div className="mt-8">
           <InfiniteScrollLoader 
-            onLoadMore={() => setPage(page + 1)}
-            loading={isLoading}
+            onLoadMore={() => setPage(useSearchStore.getState().page + 1)}
+            loading={isLoadingMore || isLoading}
           />
         </div>
       )}
