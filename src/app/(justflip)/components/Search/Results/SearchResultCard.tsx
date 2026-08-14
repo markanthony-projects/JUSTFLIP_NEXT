@@ -3,7 +3,7 @@ import Image from "@/src/components/atoms/Image";
 import { createProjectUrl } from "@/src/utils/url";
 import Link from "next/link";
 import { FaWhatsapp, FaPhoneAlt } from 'react-icons/fa';
-import { FiShare2 } from 'react-icons/fi';
+import { FiShare2, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import FavouriteButton from "@/src/components/atoms/FavouriteButton";
 import { Project } from "@/src/types";
 
@@ -14,6 +14,8 @@ interface SearchResultCardProps {
 
 const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isImageHovered, setIsImageHovered] = useState(false);
 
   if (!project) return null;
 
@@ -32,6 +34,28 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
 
   const bannerImage = project?.banner || (project?.medias?.find(m => m.title === 'banner') || project?.medias?.[0]);
   const logoImage = project?.medias?.find(m => m.title === 'logo');
+  
+  // Prepare images for carousel (ensure no duplicates if banner is already in medias)
+  const carouselImages = React.useMemo(() => {
+    let imgs = project?.medias?.filter(m => m.url && m.title !== 'logo') || [];
+    if (imgs.length === 0 && bannerImage) {
+      imgs = [bannerImage];
+    }
+    // Limit to first 5 images for performance and UX
+    return imgs.slice(0, 5);
+  }, [project?.medias, bannerImage]);
+
+  const handlePrevImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === 0 ? carouselImages.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev === carouselImages.length - 1 ? 0 : prev + 1));
+  };
 
   // Calculate pricing
   const minPrice = project.minPrice || Math.min(...(project.units?.map(u => u.minPrice) || [0]));
@@ -63,15 +87,64 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
     <div className="w-full bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow duration-300 mb-4 flex flex-col md:flex-row group">
 
       {/* Left Image Section */}
-      <div className="relative w-full md:w-[35%] lg:w-[30%] h-[250px] md:h-auto shrink-0 bg-gray-100">
-        <Link href={projectUrl} className="block w-full h-full">
-          <Image
-            src={bannerImage?.url}
-            alt={bannerImage?.alt || projectName}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-            priority={priority}
-          />
+      <div 
+        className="relative w-full md:w-[35%] lg:w-[30%] h-[250px] md:h-auto shrink-0 bg-gray-100 group/image"
+        onMouseEnter={() => setIsImageHovered(true)}
+        onMouseLeave={() => setIsImageHovered(false)}
+      >
+        <Link href={projectUrl} className="block w-full h-full relative overflow-hidden">
+          <div 
+            className="flex w-full h-full transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}
+          >
+            {carouselImages.length > 0 ? (
+              carouselImages.map((img, idx) => (
+                <div key={idx} className="w-full h-full shrink-0 relative">
+                  <Image
+                    src={img.url}
+                    alt={img.alt || projectName}
+                    className="w-full h-full object-cover group-hover/image:scale-105 transition-transform duration-700 ease-out"
+                    priority={priority && idx === 0}
+                  />
+                </div>
+              ))
+            ) : (
+              <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+                No Image
+              </div>
+            )}
+          </div>
         </Link>
+
+        {/* Carousel Navigation Arrows */}
+        {carouselImages.length > 1 && (
+          <>
+            <button 
+              onClick={handlePrevImage}
+              className={`absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 shadow-md flex items-center justify-center text-gray-800 hover:scale-110 hover:bg-white transition-all z-20 ${isImageHovered ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'}`}
+            >
+              <FiChevronLeft className="w-5 h-5 -ml-0.5" />
+            </button>
+            <button 
+              onClick={handleNextImage}
+              className={`absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/90 shadow-md flex items-center justify-center text-gray-800 hover:scale-110 hover:bg-white transition-all z-20 ${isImageHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2'}`}
+            >
+              <FiChevronRight className="w-5 h-5 ml-0.5" />
+            </button>
+          </>
+        )}
+
+        {/* Pagination Dots */}
+        {carouselImages.length > 1 && (
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+            {carouselImages.map((_, idx) => (
+              <div 
+                key={idx} 
+                className={`transition-all duration-300 rounded-full bg-white ${idx === currentImageIndex ? 'w-4 h-1.5 opacity-100' : 'w-1.5 h-1.5 opacity-60 hover:opacity-100'}`}
+              />
+            ))}
+          </div>
+        )}
         <div className="absolute top-3 left-3 z-10">
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm shadow-md text-xs font-semibold text-gray-800">
             <span className="text-orange-500">🔥</span>
@@ -151,20 +224,20 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
         {/* Action Buttons */}
         <div className="flex items-center justify-between mt-auto">
           <div className="flex gap-2">
-            <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-300 text-green-600 hover:bg-green-50 hover:border-green-200 transition-colors">
-              <FaWhatsapp className="text-lg" />
+            <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-green-600 hover:bg-green-50 hover:border-green-300 hover:shadow-sm active:scale-90 transition-all duration-200 group/btn">
+              <FaWhatsapp className="text-lg group-hover/btn:scale-110 transition-transform" />
             </button>
-            <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-300 text-[#002B5B] hover:bg-blue-50 hover:border-blue-200 transition-colors">
-              <FiShare2 className="text-lg" />
+            <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-[#002B5B] hover:bg-blue-50 hover:border-blue-300 hover:shadow-sm active:scale-90 transition-all duration-200 group/btn">
+              <FiShare2 className="text-lg group-hover/btn:scale-110 transition-transform" />
             </button>
-            <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-300 text-[#002B5B] hover:bg-blue-50 hover:border-blue-200 transition-colors">
-              <FaPhoneAlt className="text-lg" />
+            <button className="w-10 h-10 flex items-center justify-center rounded-lg border border-gray-200 text-[#002B5B] hover:bg-blue-50 hover:border-blue-300 hover:shadow-sm active:scale-90 transition-all duration-200 group/btn">
+              <FaPhoneAlt className="text-lg group-hover/btn:scale-110 transition-transform" />
             </button>
           </div>
 
           <Link
             href={projectUrl}
-            className="px-6 py-2.5 bg-[#002B5B] text-white font-semibold rounded-lg hover:bg-[#001f42] transition-colors text-sm"
+            className="px-6 py-2.5 bg-[#002B5B] text-white font-semibold rounded-lg hover:bg-[#001f42] hover:shadow-md hover:shadow-blue-900/20 active:scale-95 transition-all text-sm group-hover:bg-[#001f42] relative overflow-hidden"
           >
             Get more info
           </Link>
