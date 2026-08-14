@@ -34,6 +34,10 @@ export default async function DeveloperDetails({ params }: DeveloperDetailsProps
     const { slug } = await params;
     const { name, id } = parseDevelopersDetailsUrl(slug);
     const data = await BuilderService.fetchDeveloperById(id);
+    
+    // ARTIFICIAL DELAY: Added so you can view the skeleton loading state
+    // await new Promise(resolve => setTimeout(resolve, 10000));
+
     const builder = data?.builder
     const developerSchema = buildDeveloperSchema({
         name: builder?.name || name,

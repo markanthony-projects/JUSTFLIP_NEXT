@@ -41,7 +41,7 @@ export interface FetchDevelopersResponse {
 }
 
 export async function fetchDevelopers(
-    { page = 1, limit = 20, search = "" }: { page?: number; limit?: number; search?: string } = {}
+    { page = 1, limit = 20, search = "", cityId }: { page?: number; limit?: number; search?: string; cityId?: string | number | null } = {}
 ): Promise<FetchDevelopersResponse> {
     try {
         const { data } = await JUSTFLIP.get("/builder", {
@@ -50,7 +50,8 @@ export async function fetchDevelopers(
                 approval: "approved",
                 page,
                 limit,
-                search
+                search,
+                cityId
             }
         });
 

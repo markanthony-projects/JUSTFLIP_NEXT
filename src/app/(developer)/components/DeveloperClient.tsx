@@ -3,24 +3,40 @@
 import { useInfiniteScroll } from "@/src/hooks/useInfiniteScroll ";
 import { useDeveloperStore } from "@/src/stores/builders.store";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiMapPin } from "react-icons/fi";
 import DeveloperCard from "../../(justflip)/components/DeveloperCard";
 import DeveloperCardSkeleton from "../../(justflip)/components/Skelton/DeveloperCardSkeleton";
 import Pagination from "@/src/components/Pagination";
 import { IoClose } from "react-icons/io5";
-import Breadcrumb from "@/src/components/organisms/breadCrumb";
+import { useCityStore } from "@/src/stores/city.store";
+import CitySelectorModal from "@/src/components/NearestCity/CitySelectorModal";
 
 export default function DevelopersClientPage({ initialData }: { initialData?: any }) {
-    const { developers, fetchDevelopers, pagination, hasMore, isFetching, reset, } = useDeveloperStore();
+    const { developers, fetchDevelopers, pagination, hasMore, isFetching, reset } = useDeveloperStore();
+    const { cityList, activeCity } = useCityStore();
     const [search, setSearch] = useState("");
+    const [selectedCityId, setSelectedCityId] = useState<string | number | null>(activeCity?.id || null);
+    const [isCityModalOpen, setIsCityModalOpen] = useState(false);
     const isFirstRender = useRef(true);
 
     useEffect(() => {
         if (initialData) {
+            const builders = initialData.builders || [];
+            const total = initialData.total || 0;
+            const limit = initialData.limit || 20;
+            const totalPages = Math.ceil(total / limit);
+
             useDeveloperStore.setState({
-                developers: initialData.data || [],
-                pagination: initialData.pagination || {},
-                hasMore: initialData.hasMore ?? true,
+                developers: builders,
+                pagination: {
+                    total,
+                    limit,
+                    page: 1,
+                    totalPages,
+                },
+                hasMore: totalPages > 1,
+                isFetching: false,
+                loading: false,
             });
         }
     }, [initialData]);
@@ -33,11 +49,11 @@ export default function DevelopersClientPage({ initialData }: { initialData?: an
 
         const delay = setTimeout(() => {
             reset();
-            fetchDevelopers({ page: 1, search });
-        }, 400);
+            fetchDevelopers({ page: 1, search, cityId: selectedCityId });
+        }, 1000);
 
         return () => clearTimeout(delay);
-    }, [search]);
+    }, [search, selectedCityId]);
 
     const loadMore = useCallback(() => {
         if (!hasMore || isFetching) return;
@@ -45,8 +61,9 @@ export default function DevelopersClientPage({ initialData }: { initialData?: an
         fetchDevelopers({
             page: (pagination?.page || 1) + 1,
             search,
+            cityId: selectedCityId
         });
-    }, [pagination?.page, search, hasMore, isFetching]);
+    }, [pagination?.page, search, hasMore, isFetching, selectedCityId]);
 
     const sentinelRef = useInfiniteScroll({
         hasMore,
@@ -59,52 +76,80 @@ export default function DevelopersClientPage({ initialData }: { initialData?: an
         if (newPage < 1 || newPage > pagination.totalPages) return;
 
         reset();
-        fetchDevelopers({ page: newPage, search });
+        fetchDevelopers({ page: newPage, search, cityId: selectedCityId });
     };
 
     const handleLimitChange = (newLimit: number) => {
         reset();
-        fetchDevelopers({ page: 1, limit: newLimit, search });
+        fetchDevelopers({ page: 1, limit: newLimit, search, cityId: selectedCityId });
     };
 
 
     return (
-        <div className="grid grid-cols-1">
-            <div className="h-screen flex flex-col relative ">
-                <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md md:px-4 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-                    <div>
-                        <h1 className="text-lg font-semibold text-[#002B5B] tracking-tight">
-                            Top Developers
-                        </h1>
-                        <p className="text-xs text-gray-500">
-                            Discover premium builders & projects
-                        </p>
+        <div className="flex flex-col min-h-screen pb-10">
+            {/* Hero Section */}
+            <div className="relative w-full rounded-2xl overflow-hidden mb-8 bg-gradient-to-br from-[#002B5B] to-[#00509E] text-white shadow-xl mt-4">
+                {/* Decorative background pattern (optional) */}
+                <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
+                
+                <div className="relative z-10 px-6 py-16 md:py-20 flex flex-col items-center justify-center text-center">
+                    <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">
+                        Discover Top Developers
+                    </h1>
+                    <p className="text-sm md:text-lg text-blue-100 max-w-2xl mb-10">
+                        Explore premium builders and real estate projects across the top cities. Find the perfect developer for your next investment.
+                    </p>
+
+                    {/* Filter & Search Bar */}
+                    <div className="w-full max-w-3xl flex flex-col md:flex-row items-center gap-3 bg-white/10 p-2 rounded-xl backdrop-blur-md shadow-lg border border-white/20">
+                        {/* City Filter */}
+                        <div 
+                            className="relative w-full md:w-1/3 flex items-center bg-white rounded-lg px-3 py-1 cursor-pointer hover:bg-gray-50 transition-colors"
+                            onClick={() => setIsCityModalOpen(true)}
+                        >
+                            <FiMapPin className="text-gray-400 mr-2 shrink-0" />
+                            <div className="w-full bg-transparent py-2.5 text-sm text-gray-700 outline-none flex items-center justify-between">
+                                <span className={selectedCityId ? "text-gray-900 font-medium" : "text-gray-500"}>
+                                    {selectedCityId ? cityList?.find(c => String(c.id) === String(selectedCityId))?.name || "All Cities" : "All Cities"}
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Search Input */}
+                        <div className="relative w-full md:w-2/3 flex items-center bg-white rounded-lg px-3 py-1">
+                            <FiSearch className="text-gray-400 mr-2 shrink-0" />
+                            <input
+                                type="text"
+                                value={search}
+                                placeholder="Search by developer name..."
+                                onChange={(e) => setSearch(e.target.value)}
+                                className="w-full bg-transparent py-2.5 text-sm text-gray-700 outline-none"
+                            />
+                            {search && (
+                                <button
+                                    onClick={() => setSearch("")}
+                                    className="text-gray-400 hover:text-gray-600 ml-2"
+                                >
+                                    <IoClose size={18} />
+                                </button>
+                            )}
+                        </div>
                     </div>
+                </div>
+            </div>
 
-                    <div className="relative w-full max-w-sm">
-                        <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            {/* Content Area */}
+            <div className="flex-1 px-2 md:px-0">
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-xl font-semibold text-gray-800">
+                        {search || selectedCityId ? 'Search Results' : 'Featured Developers'}
+                    </h2>
+                    <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                        {pagination?.total || 0} Found
+                    </span>
+                </div>
 
-                        <input
-                            type="text"
-                            value={search}
-                            placeholder="Search developers..."
-                            onChange={(e) => setSearch(e.target.value)}
-                            className="w-full bg-gray-50 border border-gray-200 rounded-full py-2.5 pl-10 pr-10 text-sm focus:ring-2 focus:ring-blue-100 focus:border-blue-400 outline-none transition"
-                        />
-
-                        {search && (
-                            <button
-                                onClick={() => setSearch("")}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                            >
-                                <IoClose size={18} />
-                            </button>
-                        )}
-                    </div>
-                </header>
-
-                {/* GRID */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 overflow-y-auto scrollbar-modern flex-1 px-1 py-2 items-start content-start">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start content-start">
                     {developers?.map((data) => (
                         <DeveloperCard key={data?.id} data={data} />
                     ))}
@@ -113,11 +158,13 @@ export default function DevelopersClientPage({ initialData }: { initialData?: an
                         Array.from({ length: 8 }).map((_, i) => (
                             <DeveloperCardSkeleton key={i} />
                         ))}
-
-                    <div ref={sentinelRef} />
                 </div>
 
-                <div className="hidden md:block">
+                {/* Infinite Scroll Sentinel (Mobile Only) */}
+                <div ref={sentinelRef} className="h-10 w-full mt-4 md:hidden" />
+
+                {/* Pagination Fallback */}
+                <div className="hidden md:flex justify-center mt-8">
                     <Pagination
                         currentPage={pagination?.page || 1}
                         totalPages={pagination?.totalPages || 1}
@@ -128,7 +175,14 @@ export default function DevelopersClientPage({ initialData }: { initialData?: an
                     />
                 </div>
             </div>
-        </div>
 
+            <CitySelectorModal
+                isOpen={isCityModalOpen}
+                onClose={() => setIsCityModalOpen(false)}
+                onCitySelect={(city) => setSelectedCityId(city?.id || null)}
+                updateGlobalState={false}
+                selectedCityIdOverride={selectedCityId}
+            />
+        </div>
     );
 }

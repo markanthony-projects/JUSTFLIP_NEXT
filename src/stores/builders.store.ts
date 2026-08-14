@@ -22,13 +22,16 @@ export interface BuilderState {
 }
 
 export interface BuilderActions {
-  fetchDevelopers: (params: { page?: number; limit?: number; search?: string }) => Promise<void>;
+  fetchDevelopers: (params: { page?: number; limit?: number; search?: string; cityId?: string | number | null }) => Promise<void>;
   fetchDeveloperById: (id: string | number) => Promise<void>;
   fetchProjectByDeveloperId: (params: { id: string | number; page?: number; limit?: number; tag?: string }) => Promise<void>;
   reset: () => void;
 }
 
-export const useDeveloperStore = create<BuilderState & BuilderActions>((set, get) => ({
+export const useDeveloperStore = create<BuilderState & BuilderActions>((set, get) => {
+  let currentRequestId = 0;
+
+  return {
   developers: [],
   selectedDeveloper: null,
   projects: [],
@@ -39,9 +42,11 @@ export const useDeveloperStore = create<BuilderState & BuilderActions>((set, get
   isFetching: false,
   error: null,
 
-  fetchDevelopers: async ({ page = 1, limit = 20, search = "" }) => {
+  fetchDevelopers: async ({ page = 1, limit = 20, search = "", cityId = null }) => {
+    const requestId = ++currentRequestId;
     const { isFetching, developers } = get();
-    if (isFetching) return;
+    
+    if (isFetching && page > 1) return;
 
     set({ isFetching: true, loading: page === 1, error: null });
 
@@ -50,7 +55,11 @@ export const useDeveloperStore = create<BuilderState & BuilderActions>((set, get
         page,
         limit,
         search,
+        cityId,
       });
+
+      // Ignore stale responses if a newer request has already started
+      if (requestId !== currentRequestId) return;
 
       const builders = data?.builders || [];
       const total = data?.total || 0;
@@ -77,6 +86,9 @@ export const useDeveloperStore = create<BuilderState & BuilderActions>((set, get
         isFetching: false,
       });
     } catch (err: any) {
+      // Ignore stale errors if a newer request has already started
+      if (requestId !== currentRequestId) return;
+
       set({
         error: err?.message || "Failed to fetch developers",
         loading: false,
@@ -159,4 +171,5 @@ export const useDeveloperStore = create<BuilderState & BuilderActions>((set, get
       hasMore: true,
       pagination: null,
     }),
-}));
+  };
+});

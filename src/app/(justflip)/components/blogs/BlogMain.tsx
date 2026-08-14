@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useCallback, useMemo } from "react";
-import BlogCard from "@/src/components/molecules/BlogCard";
+import BlogGridCard from "@/src/components/molecules/BlogGridCard";
 import { useInfiniteScroll } from "@/src/hooks/useInfiniteScroll ";
 
 import { Blog } from "@/src/types";
@@ -26,7 +26,7 @@ function BlogMain({
     hasMore,
 
 }: BlogMainProps) {
-    const categories = ["Trending Blogs", "Upcoming Blogs", "New Blogs"];
+    const categories = ["Trending Blog", "Upcoming Blog", "New Blog"];
 
     const loadMore = useCallback(() => {
         if (!loadingBlogs && hasMore) {
@@ -40,9 +40,9 @@ function BlogMain({
     });
 
     const categoryTagMap: Record<string, string> = {
-        "Trending Blogs": "Trending Blog",
-        "New Blogs": "New Blog",
-        "Upcoming Blogs": "Upcoming Blog",
+        "Trending Blog": "Trending Blog",
+        "New Blog": "New Blog",
+        "Upcoming Blog": "Upcoming Blog",
     };
 
     const filteredBlogs = useMemo(() => {
@@ -56,14 +56,14 @@ function BlogMain({
     }, [blogs, category]);
 
     return (
-        <section className="mb-2">
-            <nav className="flex md:space-x-4 py-4 overflow-x-auto scrollbar-hidden">
+        <section className="mb-12">
+            <nav className="flex space-x-2 md:space-x-3 py-6 overflow-x-auto scrollbar-hidden">
                 {categories.map((cat) => (
                     <button
                         key={cat}
-                        className={`pb-2 px-4 text-sm whitespace-nowrap transition ${category === cat
-                                ? "font-semibold border-b-2 border-black"
-                                : "text-gray-500"
+                        className={`px-5 py-2.5 text-sm font-medium rounded-full whitespace-nowrap transition-all duration-300 ${category === cat
+                                ? "bg-black text-white shadow-md"
+                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                             }`}
                         onClick={() => {
                             setCategory(cat);
@@ -76,9 +76,9 @@ function BlogMain({
             </nav>
 
             {filteredBlogs?.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 overflow-y-auto h-screen scrollbar-modern ">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 pb-10">
                     {filteredBlogs.map((blog) => (
-                        <BlogCard key={blog?.id || blog?._id} blog={blog} />
+                        <BlogGridCard key={blog?.id || blog?._id} blog={blog} />
                     ))}
                 </div>
             ) : (

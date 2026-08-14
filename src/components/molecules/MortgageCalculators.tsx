@@ -108,7 +108,7 @@ export default function MortgageCalculator() {
 
 
     return (
-        <div className="w-full rounded-md border border-gray-200 bg-white p-3 sm:p-4 md:p-6">
+        <div id="mortgage-calculator" className="w-full rounded-md border border-gray-200 bg-white p-3 sm:p-4 md:p-6">
 
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 md:gap-6 lg:gap-8">
 

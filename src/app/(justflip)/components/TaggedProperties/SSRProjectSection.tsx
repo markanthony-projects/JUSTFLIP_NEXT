@@ -89,7 +89,7 @@ export default function SSRProjectSection({ city, tag, projects: initialProjects
     return (
         <section>
 
-            <div className="md:mb-2 mt-12">
+            <div className="md:mb-2">
 
                 <div className="flex items-center justify-between">
 
