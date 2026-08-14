@@ -26,8 +26,8 @@ const sections = [
             { label: "Terms & Conditions", url: "/terms-conditions" },
             { label: "Privacy Policy", url: "/privacy-policy" },
             { label: "Feedback", url: "/feedback" },
-            { label: "Report a Problem", url: "/feedback" },
-            { label: "Safety Guide", url: "/" },
+            { label: "Report a Problem", url: "/safety-guide?report=true" },
+            { label: "Safety Guide", url: "/safety-guide" },
         ],
     },
     {
