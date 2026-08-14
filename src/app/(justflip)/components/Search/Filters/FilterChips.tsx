@@ -20,20 +20,18 @@ export default function FilterChips() {
         const values = value.split(',');
         values.forEach((v: string) => {
           const option = config.options?.find((o: any) => o.value === v);
-          if (option) {
-            activeChips.push({
-              id: `${key}-${v}`,
-              label: option.label,
-              onRemove: () => {
-                const newValues = values.filter((val: string) => val !== v);
-                if (newValues.length === 0) {
-                  removeFilter(key);
-                } else {
-                  useSearchStore.getState().setFilter(key, newValues.join(','));
-                }
+          activeChips.push({
+            id: `${key}-${v}`,
+            label: option ? option.label : v,
+            onRemove: () => {
+              const newValues = values.filter((val: string) => val !== v);
+              if (newValues.length === 0) {
+                removeFilter(key);
+              } else {
+                useSearchStore.getState().setFilter(key, newValues.join(','));
               }
-            });
-          }
+            }
+          });
         });
       } else if (config.type === 'single-select') {
         const option = config.options?.find((o: any) => o.value === value);
