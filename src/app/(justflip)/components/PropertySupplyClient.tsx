@@ -112,7 +112,7 @@ const dedupeProjects = (projectList: any[]) => {
   });
 };
 
-const getScopeParam = (typeName?: string, typeId?: string | number) => {
+const getScopeParam = (typeName?: string, typeId?: string | number) => { 
   if (!typeName || !typeId) return {};
 
   switch (typeName) {

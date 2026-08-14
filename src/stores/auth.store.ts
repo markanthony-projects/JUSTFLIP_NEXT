@@ -4,6 +4,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import AuthService from '../services/AuthService'
 import { AuthUser } from '../types'
+import { useCompareStore } from './useCompare.store';
 
 export type AuthType = 'visitor' | 'broker' | null;
 
@@ -55,6 +56,8 @@ export const useAuthStore = create<AuthState & AuthActions>()(
             isLoading: false
           })
 
+          useCompareStore.getState().setUserStorageKey()
+
           return { success: true }
         } catch (err: any) {
           set({
@@ -79,6 +82,8 @@ export const useAuthStore = create<AuthState & AuthActions>()(
             isAuthenticated: true,
             isLoading: false
           })
+
+          useCompareStore.getState().setUserStorageKey()
 
           return { success: true }
         } catch (err: any) {
@@ -111,6 +116,7 @@ export const useAuthStore = create<AuthState & AuthActions>()(
             isAuthenticated: false,
             error: null
           })
+          useCompareStore.getState().setUserStorageKey();
         }
       },
 
@@ -158,13 +164,15 @@ export const useAuthStore = create<AuthState & AuthActions>()(
       },
 
       /* ---------------- HELPERS ---------------- */
-      setSession: (user, token, authType) =>
+      setSession: (user, token, authType) => {
         set({
           user,
           token,
           authType,
           isAuthenticated: true
-        }),
+        })
+        useCompareStore.getState().setUserStorageKey();
+      },
 
       updateUser: (data) =>
         set({

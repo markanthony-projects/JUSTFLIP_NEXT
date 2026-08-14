@@ -23,11 +23,11 @@ export default function ReviewsSectionClient({ typeId, typeName, type, reviews: 
     }, [initialReviews, setReviews]);
 
     // Handle "city" specifically; everything else defaults to "project" behavior
-    const isCity = type === "city";
-    const entityLabel = isCity ? "City" : "Project";
+    const isProject = type === "project";
+    const entityLabel = type.charAt(0).toUpperCase() + type.slice(1);
 
     const handleRating = () => {
-        if (authType === "visitor" || (isCity && authType === "broker")){
+        if (authType === "visitor" || (!isProject && authType === "broker")){
             setModalOpen(true);
         } else if (authType === "broker"){
             toast.warn(`Only Buyers can leave ${entityLabel} review`);
@@ -50,7 +50,7 @@ export default function ReviewsSectionClient({ typeId, typeName, type, reviews: 
             
             <RatingModal 
                 typeName={typeName} 
-                type={isCity ? "city" : "project"} 
+                type={type} 
                 typeId={typeId} 
                 isOpen={modalOpen} 
                 onClose={() => setModalOpen(false)} 
@@ -61,7 +61,7 @@ export default function ReviewsSectionClient({ typeId, typeName, type, reviews: 
                 closeModal={() => setLoginOpen(false)}
                 onSuccess={() => {
                     const currentAuth = useAuthStore.getState().authType;
-                    if (currentAuth === "visitor" || (isCity && currentAuth === "broker")){
+                    if (currentAuth === "visitor" || (!isProject && currentAuth === "broker")){
                         setModalOpen(true);
                     } else {
                         toast.warn(`Brokers are not eligible to leave ${entityLabel.toLowerCase()} reviews.`);

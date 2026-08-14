@@ -15,7 +15,30 @@ export interface CompareActions {
     add: (property: Project) => void;
     remove: (id: string) => void;
     clear: () => void;
+    setUserStorageKey: () => void;
 }
+
+const getStorageKey = () => {
+    if (typeof window === "undefined") return "justflip-compare-storage-guest";
+
+    try {
+        const rawAuth = localStorage.getItem("auth-store");
+        if (rawAuth) {
+            const parsed = JSON.parse(rawAuth);
+            const user = parsed?.state?.user;
+            // Supports both 'id' or '_id' depending on your backend
+            const userId = user?.id || user?._id; 
+
+            if (userId) {
+                return `justflip-compare-storage-${userId}`;
+            }
+        }
+    } catch (error) {
+        console.error("Error reading auth-store for compare key:", error);
+    }
+
+    return "justflip-compare-storage-guest";
+};
 
 export const useCompareStore = create<CompareState & CompareActions>()(
     persist(
@@ -55,11 +78,31 @@ export const useCompareStore = create<CompareState & CompareActions>()(
             clear: () => {
                 set({ items: [] });
                 toast.success("Cleared all");
+            },
+
+            setUserStorageKey: () => {
+                if (typeof window === "undefined") return;
+                const key = getStorageKey();
+                const storedData = localStorage.getItem(key);
+                if (storedData) {
+                    try {
+                        const parsed = JSON.parse(storedData);
+                        set({ items: parsed.state?.items || [] });
+                    } catch {
+                        set({ items: [] });
+                    }
+                } else {
+                    set({ items: [] });
+                }
             }
         }),
         {
             name: "justflip-compare-storage",
-            storage: createJSONStorage(() => localStorage),
+            storage: createJSONStorage(() => ({
+                getItem: () => localStorage.getItem(getStorageKey()),
+                setItem: (name, value) => localStorage.setItem(getStorageKey(), value),
+                removeItem: () => localStorage.removeItem(getStorageKey()),
+            })),
             skipHydration: true,
         }
     )

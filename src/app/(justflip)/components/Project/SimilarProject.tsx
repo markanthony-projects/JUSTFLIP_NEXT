@@ -1,6 +1,7 @@
 import ProjectSection from '../TaggedProperties/ProjectSection'
 
 import { Project } from "@/src/types";
+import SimilarSection from '../TaggedProperties/SimilarSection';
 
 function SimilarProject({ data }: { data: Project[] }) {
     if(!data || data.length === 0) return null
@@ -11,7 +12,7 @@ function SimilarProject({ data }: { data: Project[] }) {
                     Similar Properties
                 </h2>
             </div>
-            <ProjectSection projects={data} />
+            <SimilarSection projects={data} />
         </div>
     )
 }

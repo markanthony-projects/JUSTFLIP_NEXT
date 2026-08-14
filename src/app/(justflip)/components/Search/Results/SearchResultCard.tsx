@@ -6,6 +6,8 @@ import { FaWhatsapp, FaPhoneAlt } from 'react-icons/fa';
 import { FiShare2, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import FavouriteButton from "@/src/components/atoms/FavouriteButton";
 import { Project } from "@/src/types";
+import { toast } from '@/src/utils/toast';
+import LoginModal from '@/src/components/organisms/LoginModal';
 
 interface SearchResultCardProps {
   project: Project;
@@ -82,6 +84,35 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
   const possessionDateStr = project.possessionDate ? new Date(project.possessionDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : 'Ready to Move';
 
   const tags = project.tags ? project.tags.split(',')[0] : 'Featured Properties';
+
+  const handleCall = () => {
+    window.location.href = 'tel:+918431362126'
+  }
+
+  const handleWhatsapp = () => {
+    const locationText = [locationName, cityName].filter(Boolean).join(', ');
+
+    const message = `Hi, I am interested in "${projectName}"${locationText ? ` in ${locationText}` : ''}. Please share more details.`;
+    const encodedMessage = encodeURIComponent(message);
+
+    window.open(
+      `https://wa.me/918431362126?text=${encodedMessage}`,
+      '_blank'
+    );
+  };
+
+  const handleShare = async (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    
+    const fullUrl = `${window.location.origin}${projectUrl}`;
+
+    try {
+      await navigator.clipboard.writeText(fullUrl);
+      toast.success("Property link copied to clipboard!");
+    } catch (err) {
+      toast.error("Failed to copy link");
+    }
+  };
 
   return (
     <div className="w-full bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-shadow duration-300 mb-4 flex flex-col md:flex-row group">
@@ -244,6 +275,10 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
         </div>
 
       </div>
+      <LoginModal
+        isOpen={showLoginPrompt}
+        closeModal={() => setShowLoginPrompt(false)}
+      />
     </div>
   );
 };
