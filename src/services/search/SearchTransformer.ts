@@ -39,6 +39,7 @@ function transformProject(p: Record<string, any>): Project {
     builder: p.builder,
     approval: p.approval,
     createdAt: p.createdAt,
+    coordinates: p.coordinates || p.locationData,
   } as Project;
 }
 
