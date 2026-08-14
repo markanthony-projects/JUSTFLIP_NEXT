@@ -20,9 +20,11 @@ export interface SearchState {
   // ── UI State ──
   isLoading: boolean;
   isLoadingMore: boolean;
+  isInitialized: boolean;
   error: string | null;
   isFilterOpen: boolean;
   isSearchModalOpen: boolean;
+  viewMode: 'list' | 'map';
 }
 
 export interface SearchActions {
@@ -42,6 +44,7 @@ export interface SearchActions {
   toggleFilterSheet: () => void;
   toggleSearchModal: () => void;
   closeSearchModal: () => void;
+  setViewMode: (mode: 'list' | 'map') => void;
 
   hydrateFromUrl: (searchParams: URLSearchParams | any, initialSeoFilters?: Record<string, any> | null) => void;
   toSearchParams: () => URLSearchParams;
@@ -65,9 +68,11 @@ export const useSearchStore = create<SearchState & SearchActions>((set, get) => 
   // ── UI State ──
   isLoading: false,
   isLoadingMore: false,
+  isInitialized: false,
   error: null,
   isFilterOpen: false,   // Mobile filter sheet
   isSearchModalOpen: false, // Mobile full-screen search modal
+  viewMode: 'list',
 
   // ── Actions ──
   setQuery: (query) => set({ query, page: 1 }),
@@ -94,6 +99,7 @@ export const useSearchStore = create<SearchState & SearchActions>((set, get) => 
     hasMore: data.hasMore,
     facets: data.facets || null,
     isLoading: false,
+    isInitialized: true,
     error: null,
   }),
   
@@ -110,6 +116,7 @@ export const useSearchStore = create<SearchState & SearchActions>((set, get) => 
   toggleFilterSheet: () => set((state) => ({ isFilterOpen: !state.isFilterOpen })),
   toggleSearchModal: () => set((state) => ({ isSearchModalOpen: !state.isSearchModalOpen })),
   closeSearchModal: () => set({ isSearchModalOpen: false }),
+  setViewMode: (mode) => set({ viewMode: mode }),
 
   // Hydrate from URL params
   hydrateFromUrl: (searchParams, initialSeoFilters = null) => {

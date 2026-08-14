@@ -7,16 +7,23 @@ interface InfiniteScrollLoaderProps {
 
 export default function InfiniteScrollLoader({ onLoadMore, loading }: InfiniteScrollLoaderProps) {
   const loaderRef = useRef<HTMLDivElement>(null);
+  const loadingRef = useRef(loading);
+  const onLoadMoreRef = useRef(onLoadMore);
+
+  useEffect(() => {
+    loadingRef.current = loading;
+    onLoadMoreRef.current = onLoadMore;
+  }, [loading, onLoadMore]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const first = entries[0];
-        if (first.isIntersecting && !loading) {
-          onLoadMore();
+        if (first.isIntersecting && !loadingRef.current) {
+          onLoadMoreRef.current();
         }
       },
-      { threshold: 0.1, rootMargin: '200px' }
+      { threshold: 0.1, rootMargin: '400px' }
     );
 
     const currentLoader = loaderRef.current;
@@ -29,7 +36,7 @@ export default function InfiniteScrollLoader({ onLoadMore, loading }: InfiniteSc
         observer.unobserve(currentLoader);
       }
     };
-  }, [onLoadMore, loading]);
+  }, [loading]);
 
   return (
     <div ref={loaderRef} className="w-full flex justify-center py-6">

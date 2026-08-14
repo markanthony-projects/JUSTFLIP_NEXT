@@ -8,6 +8,7 @@ import { PortalSearchAdapter } from '@/src/services/search/adapters/PortalSearch
 
 import SearchResultsList from './Results/SearchResultsList';
 import ResultsHeader from './Results/ResultsHeader';
+import SearchMapView from './Results/SearchMapView';
 import FilterPanel from './Filters/FilterPanel';
 import MobileFilterSheet from './Filters/MobileFilterSheet';
 import FilterChips from './Filters/FilterChips';
@@ -31,9 +32,11 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
   useSearchQuery(initialSeoFilters); // Pass seoFilters to hook if needed
 
   const { 
-    query, filters, sort, page, limit, 
-    setResults, setLoading, setError, setFilter, setQuery
+    query, filters, sort, page, limit, viewMode,
+    setResults, setLoading, setError, setFilter, setQuery, appendResults, setLoadingMore
   } = useSearchStore();
+
+  const isMapMode = viewMode === 'map';
 
   const { activeCity } = useCityStore();
 
@@ -41,6 +44,9 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
 
   // Inject SEO filters on mount
   useEffect(() => {
+    if (!isFirstRender.current) return;
+    isFirstRender.current = false;
+
     if (initialSeoFilters) {
       console.log('[SearchPageClient] SEO Filters Detected:', initialSeoFilters);
       if (initialSeoFilters.search) setQuery(initialSeoFilters.search);
@@ -49,21 +55,35 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
     } else {
       console.log('[SearchPageClient] No initial SEO filters present.');
     }
-  }, [initialSeoFilters]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Trigger search on state changes
   useEffect(() => {
     // Skip first render if we wanted to rely on server data, 
     // but for now let's just fetch client-side on mount
     const fetchResults = async () => {
-      setLoading(true);
+      if (page === 1) {
+        setLoading(true);
+      } else {
+        setLoadingMore(true);
+      }
       setError(null);
       try {
         const data = await adapter.search({ query, filters, sort, page, limit });
-        setResults(data);
+        if (page === 1) {
+          setResults(data);
+        } else {
+          appendResults(data);
+        }
       } catch (err) {
         console.error('Search error:', err);
         setError('Failed to fetch search results. Please try again.');
+        if (page === 1) {
+          setLoading(false);
+        } else {
+          setLoadingMore(false);
+        }
       }
     };
 
@@ -76,25 +96,47 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* 2. Main Content Area */}
-      <div className="container mx-auto px-4 lg:px-8 max-w-7xl py-6 flex-1 flex gap-6">
+      {/* Breadcrumb row - placed globally above the grid */}
+      {!isMapMode && (
+        <div className="container mx-auto px-4 lg:px-8 max-w-7xl pt-6">
+          <SearchBreadcrumb query={query} />
+        </div>
+      )}
+
+      <div className={
+        isMapMode 
+          ? "w-full max-w-[1920px] mx-auto px-0 py-0 flex-1 flex flex-col lg:flex-row relative" 
+          : "container mx-auto px-4 lg:px-8 max-w-7xl pb-6 flex-1 flex gap-6"
+      }>
         
-        {/* Left Sidebar (Desktop Filters) */}
-        {/* <aside className="hidden lg:block w-[280px] shrink-0">
-          <div className="sticky top-[140px]">
-            <FilterPanel />
-          </div>
-        </aside> */}
+        {/* Left Sidebar (Desktop Filters) - Only in List Mode */}
+        {!isMapMode && (
+          <aside className="hidden lg:block w-[340px] shrink-0">
+            <div className="sticky top-[120px]">
+              <FilterPanel />
+            </div>
+          </aside>
+        )}
 
         {/* Right Content Area (Results) */}
-        <main className="flex-1 min-w-0 flex flex-col">
-          <SearchBreadcrumb query={query} />
+        <main className={
+          isMapMode 
+            ? "flex-1 min-w-0 flex flex-col lg:w-1/2 lg:max-w-[700px] xl:max-w-[850px] px-4 lg:px-6 py-6" 
+            : "flex-1 min-w-0 flex flex-col"
+        }>
           <ResultsHeader />
           
           <div className="mt-4 flex-1">
             <SearchResultsList />
           </div>
         </main>
+
+        {/* Map Area */}
+        {isMapMode && (
+          <div className="hidden lg:block flex-1 bg-gray-100 relative">
+            <SearchMapView />
+          </div>
+        )}
       </div>
 
       {/* Mobile Filter Sheet */}

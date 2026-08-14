@@ -33,7 +33,7 @@ export class PortalSearchAdapter extends SearchAdapter {
       signal: this.controller.signal,
     });
 
-    return transformSearchResponse(data);
+    return transformSearchResponse(data, limit || 10);
   }
 
   async suggest(query: string): Promise<any> {
