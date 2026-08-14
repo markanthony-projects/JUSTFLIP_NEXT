@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import { useCompareStore } from '@/src/stores/useCompare.store';
+import { useAuthStore } from '@/src/stores/auth.store';
 import { createProjectUrl } from '@/src/utils/url';
 import CompareModal from './components/CompareModal';
 import { FiShare2 } from 'react-icons/fi';
@@ -23,6 +24,7 @@ export interface CompareClientViewProps {
 
 export default function CompareClientView({ initialProperties = [] }: CompareClientViewProps) {
     const { items: storeItems, remove: storeRemove } = useCompareStore();
+    const { isAuthenticated } = useAuthStore();
     const router = useRouter();
     const searchParams = useSearchParams();
     
@@ -34,38 +36,64 @@ export default function CompareClientView({ initialProperties = [] }: CompareCli
     const breadcrumbItems = [{ label: "Compare" }];
     const maxItems = 3;
     
-    // Local state for instant UI updates when adding/removing
-    const [currentProperties, setCurrentProperties] = useState(initialProperties);
+    const [currentProperties, setCurrentProperties] = useState(initialProperties.slice(0, maxItems));
 
     const [isHydrated, setIsHydrated] = useState(false);
+    const [isAuthHydrated, setIsAuthHydrated] = useState(false);
     const [isFetching, setIsFetching] = useState(false);
     const hasInitialSynced = useRef(false);
 
-    // Rehydrate the Zustand store on mount so it has the correct state
+    // Rehydrate stores on mount
     useEffect(() => {
         useCompareStore.persist.rehydrate();
         setIsHydrated(true);
+
+        // Check if auth store is hydrated
+        if (useAuthStore.persist?.hasHydrated?.()) {
+            setIsAuthHydrated(true);
+        } else if (useAuthStore.persist?.onFinishHydration) {
+            const unsub = useAuthStore.persist.onFinishHydration(() => {
+                setIsAuthHydrated(true);
+            });
+            return () => unsub?.();
+        } else {
+            setIsAuthHydrated(true);
+        }
     }, []);
 
-    // Keep it synced if the server re-renders with new properties
+    // Auth Protection Check
     useEffect(() => {
-        setCurrentProperties(initialProperties);
+        if (isHydrated && isAuthHydrated && !isAuthenticated) {
+            toast.error("Please login to compare properties");
+            router.push('/login');
+        }
+    }, [isHydrated, isAuthHydrated, isAuthenticated, router]);
+
+    useEffect(() => {
+        setCurrentProperties(initialProperties.slice(0, maxItems));
         setIsFetching(false);
     }, [initialProperties]);
 
-    // Sync logic between Store and URL
     useEffect(() => {
         if (!isHydrated) return;
 
-        const urlIds = searchParams.get('ids') || '';
-        const storeIds = storeItems.map(item => item.id).join(',');
+        const idsParam = searchParams.get('ids');
+        const baseId = searchParams.get('baseId');
+        const compareId = searchParams.get('compareId');
+
+        const parsedIds = idsParam 
+            ? idsParam.split(',').filter(Boolean)
+            : [baseId, compareId].filter(Boolean) as string[];
+
+        const uniqueUrlIds = Array.from(new Set(parsedIds)).slice(0, maxItems);
+        const urlIds = uniqueUrlIds.join(',');
+        const storeIds = storeItems.slice(0, maxItems).map(item => item.id).join(',');
 
         if (!hasInitialSynced.current) {
             hasInitialSynced.current = true;
-            // On first load, if URL has IDs and they differ from the store, URL wins (e.g. shared link)
             if (urlIds && urlIds !== storeIds) {
                 if (initialProperties.length > 0) {
-                    useCompareStore.setState({ items: initialProperties });
+                    useCompareStore.setState({ items: initialProperties.slice(0, maxItems) });
                     const timer = setTimeout(() => setIsSyncing(false), 50);
                     return () => clearTimeout(timer);
                 } else {
@@ -74,7 +102,6 @@ export default function CompareClientView({ initialProperties = [] }: CompareCli
             }
         }
 
-        // On subsequent runs (or if URL was empty on load), Store wins!
         if (urlIds !== storeIds) {
             if (currentProperties.length === 0 && storeIds) {
                 setIsFetching(true);
@@ -116,12 +143,16 @@ export default function CompareClientView({ initialProperties = [] }: CompareCli
         }
     };
 
-    if (isSyncing || isFetching) {
+    if (isSyncing || isFetching || !isAuthHydrated) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="animate-pulse w-8 h-8 rounded-full bg-[#002B5B]"></div>
             </div>
         );
+    }
+
+    if (!isAuthenticated) {
+        return null; // Prevents UI flicker while redirecting
     }
 
     return (

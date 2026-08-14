@@ -25,7 +25,8 @@ export default function RatingModal({ typeId, typeName, type, isOpen, onClose }:
   });
 
   const MAX_CHARS = 300;
-  const isCity = type?.toLowerCase() === "city";
+  const formattedType = type?.toLowerCase() || "";
+  const isAreaType = ["city", "zone", "location"].includes(formattedType);
 
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     let value = e.target.value;
@@ -48,7 +49,7 @@ export default function RatingModal({ typeId, typeName, type, isOpen, onClose }:
       typeId: String(typeId),
       rating,
       review: comment.trim(),
-      ...(isCity && { aspects }),
+      ...(isAreaType && { aspects }),
     };
 
     const result = await submitReview(payload);
@@ -68,7 +69,7 @@ export default function RatingModal({ typeId, typeName, type, isOpen, onClose }:
         {/* Header */}
         <div className="mb-4">
           <h2 className="text-[#002B5B] text-lg font-bold">
-            {isCity ? `Rate on ${typeName} city` : `Rate ${type?.charAt(0).toUpperCase() + type?.slice(1)} ${typeName}`}
+            {isAreaType ? `Rate on ${typeName} ${formattedType}` : `Rate ${formattedType?.charAt(0).toUpperCase() + formattedType?.slice(1)} ${typeName}`}
           </h2>
           <div className="mt-2 flex justify-start">
             <StarRating value={rating} onChange={setRating} height={6} width={6} disableHoverAnimation={false} />
@@ -76,7 +77,7 @@ export default function RatingModal({ typeId, typeName, type, isOpen, onClose }:
         </div>
 
         {/* Aspect Ratings (Only rendered for City type) */}
-        {isCity && (
+        {isAreaType && (
           <div className="space-y-4 my-4">
             <div>
               <p className="text-[#002B5B] text-sm font-semibold mb-1">Lifestyle</p>
@@ -116,12 +117,12 @@ export default function RatingModal({ typeId, typeName, type, isOpen, onClose }:
         {/* Comment Box Section */}
         <div className="space-y-2 mt-4">
           <p className="text-[#002B5B] text-sm font-semibold">
-            {isCity ? `Comment about ${typeName}` : "Review Comments"}
+            {isAreaType ? `Comment about ${typeName}` : "Review Comments"}
           </p>
           
           <textarea
             placeholder={
-              isCity
+              isAreaType
                 ? "Tell us about your personal experience with this Property..."
                 : `Share your experience about ${typeName}...`
             }

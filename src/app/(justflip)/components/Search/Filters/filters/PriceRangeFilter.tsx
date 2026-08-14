@@ -42,10 +42,29 @@ export default function PriceRangeFilter({ config }: PriceRangeFilterProps) {
     else removeFilter('maxPrice');
   };
 
+  const handleClear = () => {
+    setLocalMax("")
+    setLocalMin("")
+    removeFilter("minPrice")
+    removeFilter("maxPrice")
+  }
+
+  const isFiltered = filters.minPrice || filters.maxPrice || localMin || localMax;
+
   return (
     <div className="py-2 border-b border-gray-100 last:border-0">
-      <h3 className="text-sm font-bold text-gray-900 mb-2">{config.label}</h3>
-      
+      <div className='flex items-center justify-between mb-2'>
+        <h3 className="text-sm font-bold text-gray-900 mb-2">{config.label}</h3>
+        {isFiltered && (
+          <button
+            type="button"
+            onClick={handleClear}
+            className="text-xs text-red-500 hover:text-red-700 font-medium transition-colors"
+          >
+            Clear
+          </button>
+        )}
+      </div>
       <div className="flex items-center gap-2 mb-3">
         <div className="flex-1">
           <input
