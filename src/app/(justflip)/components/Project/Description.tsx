@@ -410,7 +410,7 @@ function Description({ project: properties }: { project: Project }) {
 
                         {videos?.length > 0 && (
                             <MediaThumbnail
-                                imageUrl={videos[0]?.url}
+                                imageUrl={videos[0]?.thumbnailUrl}
                                 alt="Videos"
                                 label="Videos"
                                 count={videos.length}
