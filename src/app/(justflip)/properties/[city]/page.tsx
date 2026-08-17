@@ -21,7 +21,7 @@ const PriceTrendClient = dynamic(() => import("../../components/PriceTrendClient
 const ReviewsSectionClient = dynamic(() => import("../../components/CityComponent/ReviewsSectionClient"));
 const Highlight = dynamic(() => import("../../components/Highlight"));
 const Blogs = dynamic(() => import("../../components/Blogs"));
-const Gallery = dynamic(() => import("../../components/CityComponent/gallery"));
+const PropertyGallery = dynamic(() => import("../../components/PropertyGallery"));
 const PropertySupply = dynamic(() => import("../../components/PropertySupply"));
 const FAQ = dynamic(() => import("../../components/FAQ"));
 import { constructMetadata } from "@/src/utils/seo";
@@ -103,7 +103,7 @@ export default async function CityPage({ params }: CityPageProps) {
           </Suspense>
 
           <Suspense fallback={<GallerySkeleton />}>
-            <Gallery data={cityData} />
+            <PropertyGallery data={cityData} title={`${name} - At a Glance`} />
           </Suspense>
 
           <Suspense fallback={<BlogsSkeleton />}>

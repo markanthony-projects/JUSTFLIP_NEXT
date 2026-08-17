@@ -7,8 +7,8 @@ import { createProjectUrl } from "@/src/utils/url";
 import { FiMapPin } from "react-icons/fi";
 
 export interface ProjectListProps {
-  projects?: any[];
-  loading?: boolean;
+    projects?: any[];
+    loading?: boolean;
 }
 
 function ProjectList({ projects, loading }: ProjectListProps) {
@@ -27,19 +27,19 @@ function ProjectList({ projects, loading }: ProjectListProps) {
                     const hasMin = Number.isFinite(Number(minPrice)) && Number(minPrice) > 0;
                     const hasMax = Number.isFinite(Number(maxPrice)) && Number(maxPrice) > 0;
 
-                    const isPriceOnRequest = 
-                        (!hasMin && !hasMax) && 
+                    const isPriceOnRequest =
+                        (!hasMin && !hasMax) &&
                         (
-                            project?.units?.some((u: any) => u.priceStatus === "ON_REQUEST") || 
+                            project?.units?.some((u: any) => u.priceStatus === "ON_REQUEST") ||
                             project?.units?.every((u: any) => !u.price || u.price === 0)
                         );
 
                     const formattedPrice = isPriceOnRequest || !hasMin
                         ? "Price On Request"
                         : minPrice === maxPrice || !hasMax
-                        ? `₹ ${convertToCurrency(minPrice)}`
-                        : `₹ ${convertToCurrency(minPrice)} - ${convertToCurrency(maxPrice)}`;
-          
+                            ? `₹ ${convertToCurrency(minPrice)}`
+                            : `₹ ${convertToCurrency(minPrice)} - ${convertToCurrency(maxPrice)}`;
+
                     const projectUrl = createProjectUrl(
                         project?.city?.name,
                         project?.zone?.name,
