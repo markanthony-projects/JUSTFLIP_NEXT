@@ -255,13 +255,13 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
         {/* Action Buttons */}
         <div className="flex items-center justify-between mt-auto">
           <div className="flex gap-2">
-            <button className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg border border-gray-200 text-green-600 hover:bg-green-50 hover:border-green-300 hover:shadow-sm active:scale-90 transition-all duration-200 group/btn">
+            <button className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg border border-gray-200 text-green-600 hover:bg-green-50 hover:border-green-300 hover:shadow-sm active:scale-90 transition-all duration-200 group/btn" onClick={handleWhatsapp}>
               <FaWhatsapp className="text-base sm:text-lg group-hover/btn:scale-110 transition-transform" />
             </button>
-            <button className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg border border-gray-200 text-[#002B5B] hover:bg-blue-50 hover:border-blue-300 hover:shadow-sm active:scale-90 transition-all duration-200 group/btn">
+            <button className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg border border-gray-200 text-[#002B5B] hover:bg-blue-50 hover:border-blue-300 hover:shadow-sm active:scale-90 transition-all duration-200 group/btn" onClick={handleShare}>
               <FiShare2 className="text-base sm:text-lg group-hover/btn:scale-110 transition-transform" />
             </button>
-            <button className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg border border-gray-200 text-[#002B5B] hover:bg-blue-50 hover:border-blue-300 hover:shadow-sm active:scale-90 transition-all duration-200 group/btn">
+            <button className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg border border-gray-200 text-[#002B5B] hover:bg-blue-50 hover:border-blue-300 hover:shadow-sm active:scale-90 transition-all duration-200 group/btn" onClick={handleCall}>
               <FaPhoneAlt className="text-base sm:text-lg group-hover/btn:scale-110 transition-transform" />
             </button>
           </div>

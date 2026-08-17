@@ -2,7 +2,7 @@
 
 import React, { useCallback, useMemo, useState } from "react";
 import { AiOutlineWhatsApp } from "react-icons/ai";
-import { FaFacebook } from "react-icons/fa";
+import { FaFacebook, FaPlay } from "react-icons/fa";
 import { MdLocationOn, MdVideoLibrary } from "react-icons/md";
 import { PiBlueprint, PiShareFat } from "react-icons/pi";
 import { TbPhotoSpark } from "react-icons/tb";
@@ -25,6 +25,7 @@ import { Project } from "@/src/types";
 // Pure helper — runs once per properties change, no hooks involved
 // ---------------------------------------------------------------------------
 function derivePropertyData(properties: Project) {
+    console.log(properties)
     const units = properties?.units ?? [];
     const medias = properties?.medias ?? [];
 
@@ -52,12 +53,14 @@ function derivePropertyData(properties: Project) {
         { logo: null, banner: null, others_images: [], videos: [] }
     );
 
+    console.log("others_images.....",others_images)
+
     const allImages = medias.filter(m => m.type === 'image');
     
     const primaryImageUrl = banner?.url || others_images[0]?.url || allImages[0]?.url || "";
     
     const remainingImages = allImages.filter(m => m.url !== primaryImageUrl);
-    const secondaryImageUrl = remainingImages[0]?.url || "";
+    const secondaryImageUrl = others_images[1]?.url || others_images[0]?.url || primaryImageUrl || "";
     const thirdImageUrl = remainingImages[1]?.url || "";
 
     const floorPlan = units.flatMap((u) => u?.floorPlans ?? []);
@@ -90,7 +93,7 @@ function derivePropertyData(properties: Project) {
 
     return {
         minPrice, maxPrice, defaultCurrency,
-        uniqueSortedUnitTypes, others_images: allImages,
+        uniqueSortedUnitTypes,  others_images: allImages,
         primaryImageUrl, secondaryImageUrl, thirdImageUrl,
         floorPlan, floorPlanFirst,
         videos, banner, logo,
@@ -110,9 +113,10 @@ interface MediaThumbnailProps {
     count: number;
     Icon: React.ElementType;
     onClick: () => void;
+    showPlay?: boolean;
 }
 
-function MediaThumbnail({ imageUrl, alt, label, count, Icon, onClick }: MediaThumbnailProps) {
+function MediaThumbnail({ imageUrl, alt, label, count, Icon, onClick, showPlay = false }: MediaThumbnailProps) {
     return (
         <div
             className="group cursor-pointer relative rounded-sm overflow-hidden flex-1"
@@ -122,6 +126,13 @@ function MediaThumbnail({ imageUrl, alt, label, count, Icon, onClick }: MediaThu
                 <Image src={imageUrl} alt={alt} fill className="object-cover" />
             </div>
             <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+            {showPlay && (
+                <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white transition-transform group-hover:scale-110">
+                        <FaPlay className="w-3 h-3 md:w-4 md:h-4 translate-x-0.5" />
+                    </div>
+                </div>
+            )}
             <div className="w-full px-3 md:px-6 py-2 absolute bottom-0 flex items-center justify-between z-10">
                 <span className="text-[10px] md:text-sm font-medium text-white">{label}</span>
                 <div className="flex items-center gap-1 text-[10px] md:text-sm text-white">
@@ -164,6 +175,8 @@ function Description({ project: properties }: { project: Project }) {
         () => (properties ? derivePropertyData(properties) : null),
         [properties]
     );
+
+    console.log("derived...",derived)
 
     const handleGalleryOpen = useCallback((type = "images") => {
         setModalType(type);
@@ -215,6 +228,9 @@ function Description({ project: properties }: { project: Project }) {
         videos, logo,
         lat, lng, address, builder, unitSummaryLabel, isPriceOnRequest
     } = derived;
+
+    console.log("videos....",videos)
+
 
     const mapsHref = `https://maps.google.com/maps?q=${lat},${lng}`;
 
@@ -415,6 +431,7 @@ function Description({ project: properties }: { project: Project }) {
                                 label="Videos"
                                 count={videos.length}
                                 Icon={MdVideoLibrary}
+                                showPlay={true}
                                 onClick={() => handleGalleryOpen("video")}
                             />
                         )}
