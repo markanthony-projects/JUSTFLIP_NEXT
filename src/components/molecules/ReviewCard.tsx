@@ -32,24 +32,23 @@ export default function ReviewCard({ review }: ReviewCardProps) {
   };
 
   // Extract first letter for Avatar
-  const initial = reviewerName.charAt(0).toUpperCase();
+  const initial = reviewerName.charAt(0).toUpperCase() || "A";
 
   return (
-    <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs w-full h-full flex flex-col justify-between hover:border-gray-200 transition-all">
+    <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs w-full h-full flex flex-col justify-between hover:border-gray-200 hover:shadow-xs transition-all">
       <div>
         {/* User Info Header */}
         <div className="flex items-center gap-3">
-          {/* Custom Stylized Avatar matching design */}
-          <div className="w-9 h-9 rounded-full bg-[#dcfce7] text-[#15803d] font-bold text-sm flex items-center justify-center flex-shrink-0">
+          <div className="w-9 h-9 rounded-full bg-emerald-50 text-emerald-700 font-bold text-xs flex items-center justify-center shrink-0 ring-1 ring-emerald-100/80">
             {initial}
           </div>
 
-          <div>
-            <p className="font-bold text-[14px] text-gray-900 leading-snug">
+          <div className="min-w-0">
+            <p className="font-bold text-[13.5px] text-gray-900 leading-snug truncate">
               {reviewerName}
             </p>
             <div className="mt-0.5">
-              <StarRating value={rating} readOnly={true} />
+              <StarRating value={rating} readOnly={true} width={3} height={3} />
             </div>
           </div>
         </div>
@@ -73,7 +72,7 @@ export default function ReviewCard({ review }: ReviewCardProps) {
         <button
           type="button"
           onClick={toggleExpanded}
-          className="text-xs font-semibold text-blue-600 hover:text-blue-700 hover:underline mt-2 text-left focus:outline-hidden w-fit"
+          className="text-xs font-semibold text-blue-600 hover:text-blue-700 hover:underline mt-2 text-left focus:outline-hidden w-fit cursor-pointer"
           aria-expanded={expanded}
         >
           {expanded ? "Show less" : "Read more"}
