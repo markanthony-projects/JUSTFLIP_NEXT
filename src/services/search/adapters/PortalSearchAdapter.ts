@@ -58,7 +58,19 @@ export class PortalSearchAdapter extends SearchAdapter {
     if (filters.uploader) params.uploader = filters.uploader;
     if (filters.furnishing) params.furnishing = filters.furnishing;
     if (filters.approval) params.approval = filters.approval;
-    if (filters.bhk) params.unitType = `${filters.bhk} BHK`;
+
+    // Unit Type / BHK mapping (supports comma-separated '1.5BHK,2.5BHK', arrays, or numeric bhk)
+    if (filters.unitType) {
+      if (Array.isArray(filters.unitType)) {
+        params.unitType = filters.unitType.join(',');
+      } else {
+        params.unitType = String(filters.unitType);
+      }
+    } else if (filters.bhk) {
+      const bhkStr = String(filters.bhk).trim();
+      params.unitType = bhkStr.toUpperCase().endsWith('BHK') ? bhkStr.toUpperCase() : `${bhkStr}BHK`;
+    }
+
     if (filters.facing) params.facing = filters.facing;
     if (filters.tag) params.tag = filters.tag;
     return params;

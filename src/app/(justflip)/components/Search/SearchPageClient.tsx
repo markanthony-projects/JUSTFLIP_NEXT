@@ -31,7 +31,7 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
   // Sync URL to Store (Hook handles this)
   useSearchQuery(initialSeoFilters); // Pass seoFilters to hook if needed
 
-  const { 
+  const {
     query, filters, sort, page, limit, viewMode,
     setResults, setLoading, setError, setFilter, setQuery, appendResults, setLoadingMore
   } = useSearchStore();
@@ -55,7 +55,7 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
     } else {
       console.log('[SearchPageClient] No initial SEO filters present.');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Trigger search on state changes
@@ -96,23 +96,17 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Breadcrumb row - placed globally above the grid */}
-      {!isMapMode && (
-        <div className="container mx-auto px-4 lg:px-8 max-w-7xl pt-6">
-          <SearchBreadcrumb query={query} />
-        </div>
-      )}
-
       <div className={
         isMapMode 
           ? "w-full max-w-[1920px] mx-auto px-0 py-0 flex-1 flex flex-col lg:flex-row relative" 
-          : "container mx-auto px-4 lg:px-8 max-w-7xl pb-6 flex-1 flex gap-6"
+          : "container mx-auto px-4 lg:px-8 max-w-7xl pt-2.5 pb-6 flex-1 flex gap-6"
       }>
         
-        {/* Left Sidebar (Desktop Filters) - Only in List Mode */}
+        {/* Left Sidebar (Desktop Filters & Breadcrumb) - Only in List Mode */}
         {!isMapMode && (
           <aside className="hidden lg:block w-[340px] shrink-0">
-            <div className="sticky top-[120px]">
+            <div className="sticky top-[68px] space-y-2">
+              <SearchBreadcrumb query={query} />
               <FilterPanel />
             </div>
           </aside>
@@ -124,6 +118,13 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
             ? "flex-1 min-w-0 flex flex-col lg:w-1/2 lg:max-w-[700px] xl:max-w-[850px] px-4 lg:px-6 py-6" 
             : "flex-1 min-w-0 flex flex-col"
         }>
+          {/* Mobile-only breadcrumb above results */}
+          {!isMapMode && (
+            <div className="lg:hidden mb-2">
+              <SearchBreadcrumb query={query} />
+            </div>
+          )}
+
           <ResultsHeader />
           
           <div className="mt-4 flex-1">
