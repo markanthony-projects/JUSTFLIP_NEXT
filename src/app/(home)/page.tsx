@@ -66,23 +66,29 @@ export default async function JustFlipHomePage() {
 
                 {/* <ExploreByBudget /> */}
 
-                <Suspense fallback={<TopBuildersSkeleton />}>
-                    <TopBuilders city={city} />
-                </Suspense>
+                <LazyHydrate rootMargin="350px" placeholder={<TopBuildersSkeleton />}>
+                    <Suspense fallback={<TopBuildersSkeleton />}>
+                        <TopBuilders city={city} />
+                    </Suspense>
+                </LazyHydrate>
 
                 <LazyHydrate rootMargin="300px">
                     <MortgageCalculator />
                 </LazyHydrate>
 
-                <Suspense fallback={<PopularCitiesSkeleton />}>
-                    <PopularCities />
-                </Suspense>
+                <LazyHydrate rootMargin="350px" placeholder={<PopularCitiesSkeleton />}>
+                    <Suspense fallback={<PopularCitiesSkeleton />}>
+                        <PopularCities />
+                    </Suspense>
+                </LazyHydrate>
 
                 {/* <PostPropertyCTA /> */}
 
-                <Suspense fallback={<HomeBlogsSkeleton />}>
-                    <Blogs tag={"Latest Blogs"} />
-                </Suspense>
+                <LazyHydrate rootMargin="350px" placeholder={<HomeBlogsSkeleton />}>
+                    <Suspense fallback={<HomeBlogsSkeleton />}>
+                        <Blogs tag={"Latest Blogs"} />
+                    </Suspense>
+                </LazyHydrate>
             </div>
         </main>
     );
