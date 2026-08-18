@@ -43,10 +43,13 @@ export interface RealEstateSchemaProps {
   locationName: string;
   cityName: string;
   price?: number;
+  minPrice?: number;
+  maxPrice?: number;
+  priceCurrency?: string;
   numberOfRooms?: number;
   floorSize?: number;
   yearBuilt?: number | string;
-  amenities?: string[];
+  amenities?: Array<string | { name?: string; [key: string]: any }>;
   latitude?: number | string;
   longitude?: number | string;
   images?: string[];
@@ -63,6 +66,9 @@ export function buildRealEstateSchema({
   locationName, 
   cityName, 
   price,
+  minPrice,
+  maxPrice,
+  priceCurrency = "INR",
   numberOfRooms,
   floorSize,
   yearBuilt,
@@ -75,11 +81,35 @@ export function buildRealEstateSchema({
   ratingValue,
   reviewCount
 }: RealEstateSchemaProps) {
+  const effectiveMin = minPrice ?? price ?? 0;
+  const effectiveMax = maxPrice ?? price ?? effectiveMin;
+
+  const offersObj: Record<string, any> = (effectiveMax > effectiveMin)
+    ? {
+        "@type": "AggregateOffer",
+        priceCurrency: priceCurrency,
+        lowPrice: effectiveMin,
+        highPrice: effectiveMax,
+        price: effectiveMin,
+        offerCount: numberOfRooms || 1,
+      }
+    : {
+        "@type": "Offer",
+        priceCurrency: priceCurrency,
+        price: effectiveMin,
+      };
+
+  if (availability) {
+    offersObj.availability = availability === 'PreOrder' 
+      ? "https://schema.org/PreOrder" 
+      : "https://schema.org/InStock";
+  }
+
   const schema: Record<string, any> = {
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
     name: name,
-    description: description ? description.replace(/<[^>]+>/g, "") : "",
+    description: description ? description.replace(/<[^>]+>/g, "").trim() : "",
     url: `https://justflip.in${url}`,
     address: {
       "@type": "PostalAddress",
@@ -87,11 +117,7 @@ export function buildRealEstateSchema({
       addressRegion: cityName,
       addressCountry: "IN",
     },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "INR",
-      price: price || 0,
-    },
+    offers: offersObj,
   };
 
   if (numberOfRooms) {
@@ -116,7 +142,7 @@ export function buildRealEstateSchema({
   if (amenities && amenities.length > 0) {
     schema.amenityFeature = amenities.map((a) => ({
       "@type": "LocationFeatureSpecification",
-      name: a,
+      name: typeof a === "string" ? a : (a as any)?.name || String(a),
       value: true,
     }));
   }
@@ -130,13 +156,7 @@ export function buildRealEstateSchema({
   }
 
   if (images && images.length > 0) {
-    schema.image = images;
-  }
-
-  if (availability) {
-    schema.offers.availability = availability === 'PreOrder' 
-      ? "https://schema.org/PreOrder" 
-      : "https://schema.org/InStock";
+    schema.image = images.filter(Boolean);
   }
 
   if (reraNumber) {
@@ -147,11 +167,13 @@ export function buildRealEstateSchema({
     }];
   }
 
-  if (ratingValue && reviewCount) {
+  const numericRating = Number(ratingValue);
+  const numericCount = Number(reviewCount);
+  if (!isNaN(numericRating) && numericRating > 0 && !isNaN(numericCount) && numericCount > 0) {
     schema.aggregateRating = {
       "@type": "AggregateRating",
-      ratingValue: String(ratingValue),
-      reviewCount: String(reviewCount),
+      ratingValue: numericRating.toFixed(1),
+      reviewCount: numericCount,
       bestRating: "5",
       worstRating: "1"
     };
