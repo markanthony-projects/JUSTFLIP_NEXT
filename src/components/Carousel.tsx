@@ -60,53 +60,38 @@ export default function Carousel({
     */
 
     const updateArrowState = useCallback(() => {
-
         const track = trackRef.current;
-
         if (!track) return;
 
-        const {
-            scrollLeft,
-            scrollWidth,
-            clientWidth
-        } = track;
-
+        const { scrollLeft, scrollWidth, clientWidth } = track;
         setHasLeft(scrollLeft > 2);
-
-        setHasRight(
-            scrollLeft + clientWidth < scrollWidth - 2
-        );
-
+        setHasRight(scrollLeft + clientWidth < scrollWidth - 2);
     }, []);
 
     /*
     |--------------------------------------------------------------------------
-    | Measure Snap Points
+    | Measure Snap Points (Deferred)
     |--------------------------------------------------------------------------
     */
 
     const measure = useCallback(() => {
-
         const track = trackRef.current;
-
         if (!track) return;
 
-        const children =
-            Array.from(track.children) as HTMLElement[];
+        // If dots are not used, avoid reading offsetLeft on every child to prevent layout thrashing
+        if (!showDots && !autoPlay) {
+            updateArrowState();
+            return;
+        }
 
+        const children = Array.from(track.children) as HTMLElement[];
         const uniqueOffsets = Array.from(
-            new Set(
-                children.map(
-                    (child) => child.offsetLeft
-                )
-            )
+            new Set(children.map((child) => child.offsetLeft))
         );
 
         setSnapPoints(uniqueOffsets);
-
         updateArrowState();
-
-    }, [updateArrowState]);
+    }, [showDots, autoPlay, updateArrowState]);
 
     /*
     |--------------------------------------------------------------------------
@@ -115,68 +100,68 @@ export default function Carousel({
     */
 
     const findClosestIndex = useCallback((scrollLeft: number) => {
-
         if (!snapPoints.length) return 0;
 
         let closest = 0;
         let minDistance = Infinity;
 
         for (let i = 0; i < snapPoints.length; i++) {
-
-            const distance =
-                Math.abs(
-                    snapPoints[i] - scrollLeft
-                );
-
+            const distance = Math.abs(snapPoints[i] - scrollLeft);
             if (distance < minDistance) {
-
                 minDistance = distance;
                 closest = i;
-
             }
-
         }
 
         return closest;
-
     }, [snapPoints]);
 
     /*
     |--------------------------------------------------------------------------
-    | Scroll To Index
+    | Scroll To Index & Smooth Arrow Navigation
     |--------------------------------------------------------------------------
     */
 
     const scrollToIndex = useCallback((index: number) => {
-
         const track = trackRef.current;
-
         if (!track) return;
 
-        const clamped =
-            Math.max(
-                0,
-                Math.min(index, snapPoints.length - 1)
-            );
-
-        track.scrollTo({
-            left: snapPoints[clamped],
-            behavior: "smooth"
-        });
-
+        if (snapPoints.length > 0) {
+            const clamped = Math.max(0, Math.min(index, snapPoints.length - 1));
+            track.scrollTo({
+                left: snapPoints[clamped],
+                behavior: "smooth",
+            });
+        } else {
+            const step = Math.max(280, track.clientWidth * 0.75);
+            track.scrollTo({
+                left: index * step,
+                behavior: "smooth",
+            });
+        }
     }, [snapPoints]);
 
     const scrollNext = useCallback(() => {
-
-        scrollToIndex(currentIndex + 1);
-
-    }, [currentIndex, scrollToIndex]);
+        const track = trackRef.current;
+        if (!track) return;
+        if (snapPoints.length > 0 && showDots) {
+            scrollToIndex(currentIndex + 1);
+        } else {
+            const scrollAmount = Math.max(280, Math.floor(track.clientWidth * 0.75));
+            track.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        }
+    }, [currentIndex, scrollToIndex, snapPoints.length, showDots]);
 
     const scrollPrev = useCallback(() => {
-
-        scrollToIndex(currentIndex - 1);
-
-    }, [currentIndex, scrollToIndex]);
+        const track = trackRef.current;
+        if (!track) return;
+        if (snapPoints.length > 0 && showDots) {
+            scrollToIndex(currentIndex - 1);
+        } else {
+            const scrollAmount = Math.max(280, Math.floor(track.clientWidth * 0.75));
+            track.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+        }
+    }, [currentIndex, scrollToIndex, snapPoints.length, showDots]);
 
     /*
     |--------------------------------------------------------------------------
@@ -185,33 +170,25 @@ export default function Carousel({
     */
 
     const handleScroll = useCallback(() => {
-
         if (tickingRef.current) return;
 
         tickingRef.current = true;
 
         requestAnimationFrame(() => {
-
             const track = trackRef.current;
-
             if (!track) {
-
                 tickingRef.current = false;
                 return;
-
             }
 
-            const {
-                scrollLeft,
-                scrollWidth,
-                clientWidth
-            } = track;
+            const { scrollLeft, scrollWidth, clientWidth } = track;
 
-            setCurrentIndex(
-                findClosestIndex(scrollLeft)
-            );
+            if (showDots) {
+                setCurrentIndex(findClosestIndex(scrollLeft));
+            }
 
-            updateArrowState();
+            setHasLeft(scrollLeft > 2);
+            setHasRight(scrollLeft + clientWidth < scrollWidth - 2);
 
             /*
             |--------------------------------------------------------------------------
@@ -221,66 +198,69 @@ export default function Carousel({
 
             if (
                 onReachEnd &&
-                scrollLeft + clientWidth >=
-                scrollWidth - endThreshold
+                scrollLeft + clientWidth >= scrollWidth - endThreshold
             ) {
-
                 if (!endReachedRef.current) {
-
                     endReachedRef.current = true;
                     onReachEnd();
-
                 }
-
             } else {
-
                 endReachedRef.current = false;
-
             }
 
             tickingRef.current = false;
-
         });
-
     }, [
         endThreshold,
         findClosestIndex,
         onReachEnd,
-        updateArrowState
+        showDots,
     ]);
 
     /*
     |--------------------------------------------------------------------------
-    | Resize Observer
+    | Resize Observer (Deferred / Idle to prevent blocking main-thread)
     |--------------------------------------------------------------------------
     */
 
     useEffect(() => {
-
         const track = trackRef.current;
-
         if (!track) return;
 
-        let timeoutId: any;
-        const observer =
-            new ResizeObserver(() => {
-                clearTimeout(timeoutId);
-                timeoutId = setTimeout(() => {
+        // Check if right scroll is possible after initial mount without blocking layout
+        const initTimer = setTimeout(() => {
+            if (trackRef.current) {
+                const { scrollWidth, clientWidth } = trackRef.current;
+                setHasRight(scrollWidth > clientWidth + 2);
+                if (showDots || autoPlay) {
                     measure();
-                }, 100);
-            });
+                }
+            }
+        }, 150);
 
-        let initialTimeoutId = setTimeout(() => {
-            measure();
-        }, 100);
+        let timeoutId: any;
+        const observer = new ResizeObserver(() => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                if (trackRef.current) {
+                    const { scrollLeft, scrollWidth, clientWidth } = trackRef.current;
+                    setHasLeft(scrollLeft > 2);
+                    setHasRight(scrollLeft + clientWidth < scrollWidth - 2);
+                    if (showDots || autoPlay) {
+                        measure();
+                    }
+                }
+            }, 200);
+        });
+
+        observer.observe(track);
 
         return () => {
             observer.disconnect();
             clearTimeout(timeoutId);
-            clearTimeout(initialTimeoutId);
+            clearTimeout(initTimer);
         };
-
-    }, [items, measure]);
+    }, [items, measure, showDots, autoPlay]);
 
     /*
     |--------------------------------------------------------------------------
