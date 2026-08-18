@@ -16,6 +16,8 @@ import TaggedProperties from "../(justflip)/components/TaggedProperties/TaggedPr
 import TopBuilders from "../(justflip)/components/TopBuilders/TopBuilders";
 import Blogs from "../(justflip)/components/Blogs";
 import MortgageCalculator from "@/src/components/molecules/MortgageCalculatorsDynamic";
+// import PostPropertyCTA from "../(justflip)/components/PostPropertyCTA";
+// import ExploreByBudget from "../(justflip)/components/ExploreByBudget";
 
 import { constructMetadata } from "@/src/utils/seo";
 import { buildWebsiteSchema, buildBreadcrumbSchema } from "@/src/utils/schema";
@@ -62,6 +64,8 @@ export default async function JustFlipHomePage() {
                     <TaggedProperties city={city} />
                 </Suspense>
 
+                {/* <ExploreByBudget /> */}
+
                 <Suspense fallback={<TopBuildersSkeleton />}>
                     <TopBuilders city={city} />
                 </Suspense>
@@ -73,6 +77,8 @@ export default async function JustFlipHomePage() {
                 <Suspense fallback={<PopularCitiesSkeleton />}>
                     <PopularCities />
                 </Suspense>
+
+                {/* <PostPropertyCTA /> */}
 
                 <Suspense fallback={<HomeBlogsSkeleton />}>
                     <Blogs tag={"Latest Blogs"} />
