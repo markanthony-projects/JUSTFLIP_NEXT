@@ -224,9 +224,8 @@ function SlideImage({
         fill: true,
         priority: priority,
         fetchPriority: priority ? "high" : "auto",
-        sizes: "100vw",
-        placeholder: "blur",
-        blurDataURL: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mN8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=",
+        loading: priority ? "eager" : "lazy",
+        sizes: "(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw",
         draggable: false,
         className: `object-cover pointer-events-none transition-transform duration-7000 ease-out ${visible ? "scale-100" : "scale-[1.04]"}`,
     };
@@ -258,9 +257,12 @@ function SlideImage({
                 )}
 
                 {/* Desktop */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     srcSet={desktopSrcSet}
                     {...desktopRest}
+                    fetchPriority={priority ? "high" : "auto"}
+                    loading={priority ? "eager" : "lazy"}
                 />
             </picture>
         </div>
