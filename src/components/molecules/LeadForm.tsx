@@ -20,6 +20,13 @@ const isValidString = (val: any): val is string => {
   return typeof val === "string" && val.trim().length > 0;
 };
 
+function isValidRera(rera?: string | null): boolean {
+  if (!rera || typeof rera !== "string") return false;
+  const normalized = rera.trim().toUpperCase();
+  const invalidValues = ["NO RERA", "N/A", "NA", "NOT APPLICABLE", "NONE", "NOT REQUIRED", "NO_RERA"];
+  return !invalidValues.includes(normalized);
+}
+
 const getBannerContent = (data: Record<string, any> | null | undefined) => {
   if (!data || typeof data !== "object") return null;
   console.log(data.possessionStatus)
@@ -33,7 +40,7 @@ const getBannerContent = (data: Record<string, any> | null | undefined) => {
 
   // 1. RERA Approved Check
   const isApproved = isValidString(data.approval) && data.approval.toLowerCase() === "approved";
-  const hasReraNumber = isValidString(data.rera);
+  const hasReraNumber = isValidRera(data.rera);
 
   if (isApproved && hasReraNumber) {
     const reraMessages = [

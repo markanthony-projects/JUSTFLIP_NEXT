@@ -231,6 +231,13 @@ function Description({ project: properties }: { project: Project }) {
 
     console.log("videos....",videos)
 
+    function isValidRera(rera?: string | null): boolean {
+        if (!rera || typeof rera !== "string") return false;
+        const normalized = rera.trim().toUpperCase();
+        const invalidValues = ["NO RERA", "N/A", "NA", "NOT APPLICABLE", "NONE", "NOT REQUIRED", "NO_RERA"];
+        return !invalidValues.includes(normalized);
+    }
+
 
     const mapsHref = `https://maps.google.com/maps?q=${lat},${lng}`;
 
@@ -255,7 +262,9 @@ function Description({ project: properties }: { project: Project }) {
                     >
                         See on map 📌
                     </a>
-                    <RERA rera={properties?.rera} labelClass="text-[10px] px-2 py-0.5 rounded-sm" />
+                    {isValidRera(properties?.rera) && (
+                        <RERA rera={properties?.rera} labelClass="text-[10px] px-2 py-0.5 rounded-sm" />
+                    )}
                 </div>
 
                 {/* Logo + name + address + builder */}
@@ -279,9 +288,11 @@ function Description({ project: properties }: { project: Project }) {
                             <h1 className="text-black font-semibold text-xl p-0 m-0">
                                 {properties?.name}
                             </h1>
-                            <div className="relative hidden md:block">
-                                <RERA rera={properties?.rera} labelClass="text-[10px] px-2 py-0.5 rounded-sm" />
-                            </div>
+                            {isValidRera(properties?.rera) && (
+                                <div className="relative hidden md:block">
+                                    <RERA rera={properties?.rera} labelClass="text-[10px] px-2 py-0.5 rounded-sm" />
+                                </div>
+                            )}
                         </div>
 
                         <div className="flex items-center gap-1">
