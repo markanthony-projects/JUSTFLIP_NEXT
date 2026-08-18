@@ -180,7 +180,7 @@ const SafetyGuideClient = () => {
 
         {/* Red Flags */}
         <section className='mt-8 rounded-2xl border border-[#F0D7B5] bg-[#FFF9F0] p-6 sm:p-8'>
-          <div className='flex items-start gap-4'>
+          <div className='flex flex-col sm:flex-row items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white'>
               <FiAlertTriangle size={25} className='text-[#d0190c]' />
             </div>
@@ -216,7 +216,7 @@ const SafetyGuideClient = () => {
 
         {/* Property Viewing */}
         <section className='mt-8 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
-          <div className='flex items-start gap-4'>
+          <div className='flex flex-col sm:flex-row items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FA]'>
               <SiGooglestreetview size={24} className='text-[#002B5B]' />
             </div>
@@ -259,12 +259,12 @@ const SafetyGuideClient = () => {
 
         {/* Transactions */}
         <section className='mt-8 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
-          <div className='flex items-start gap-4'>
+          <div className='flex flex-col sm:flex-row items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FA]'>
               <FiCreditCard size={24} className='text-[#002B5B]' />
             </div>
 
-            <div className='flex-1'>
+            <div className='flex-1 w-full'>
               <h2 className='text-md font-bold text-[#002B5B] sm:text-lg'>
                 Before Making a Transaction
               </h2>
@@ -294,8 +294,8 @@ const SafetyGuideClient = () => {
 
         {/* Personal Information */}
         <section className='mt-8 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
-          <div className='flex items-start gap-4'>
-            <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FA]'>
+          <div className='flex flex-col sm:flex-row items-start gap-4'>
+            <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FA]' >
               <FiLock size={24} className='text-[#002B5B]' />
             </div>
 
