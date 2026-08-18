@@ -191,16 +191,19 @@ export function buildItemListSchema(items: Array<{ url: string }> = []) {
 }
 
 export function buildFAQSchema(faqs: Array<{ question: string; answer: string }> = []) {
-  if (!faqs.length) return null;
+  if (!faqs || !Array.isArray(faqs) || !faqs.length) return null;
+  const validFaqs = faqs.filter((faq) => faq?.question && faq?.answer);
+  if (!validFaqs.length) return null;
+
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
+    mainEntity: validFaqs.map((faq) => ({
       "@type": "Question",
-      name: faq?.question,
+      name: typeof faq.question === "string" ? faq.question.trim() : String(faq.question),
       acceptedAnswer: {
         "@type": "Answer",
-        text: faq?.answer,
+        text: typeof faq.answer === "string" ? faq.answer.replace(/<[^>]+>/g, "").trim() : String(faq.answer),
       },
     })),
   };
