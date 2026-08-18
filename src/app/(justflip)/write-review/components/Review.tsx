@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import StepOneIdentity from "./StepOne";
-import StepTwoRatings from "./StepTwo";
+import StepOne from "./StepOne";
+import StepTwo from "./StepTwo";
 import ReviewTipsSidebar from "./ReviewTipsSidebar";
 import { StepOneData } from "@/src/types";
 
@@ -48,13 +48,13 @@ export default function Review() {
             </button>
           </div>
         ) : step === 1 ? (
-          <StepOneIdentity
+          <StepOne
             initialData={stepOneData}
             onNext={handleStepOneNext}
           />
         ) : (
           stepOneData && (
-            <StepTwoRatings
+            <StepTwo
               stepOneData={stepOneData}
               onSuccess={handleSuccess}
             />
