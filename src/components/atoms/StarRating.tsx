@@ -62,11 +62,10 @@ export default function StarRating({
             onClick={() => handleSelect(starNumber)}
             onMouseEnter={() => !readOnly && !disableHoverAnimation && setHover(starNumber)}
             onMouseLeave={() => !readOnly && !disableHoverAnimation && setHover(0)}
-            className={`relative ${
-              disableHoverAnimation || readOnly
+            className={`relative ${disableHoverAnimation || readOnly
                 ? ""
                 : "transition-transform duration-150 hover:scale-110"
-            }`}
+              }`}
           >
             <svg
               viewBox="0 0 24 24"

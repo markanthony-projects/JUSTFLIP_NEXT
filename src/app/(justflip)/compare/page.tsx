@@ -3,15 +3,29 @@ import CompareClientView from './CompareClientView';
 import { Project } from '@/src/types';
 
 import type { Metadata } from 'next';
+import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
 export interface ComparePageProps {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
+function extractProjectIds(params: { [key: string]: string | string[] | undefined }): string[] {
+    const rawIds = params?.ids ? (params.ids as string).split(',') : [];
+    const baseId = params?.baseId as string | undefined;
+    const compareId = params?.compareId as string | undefined;
+
+    const allIds = [
+        ...rawIds,
+        ...(baseId ? [baseId] : []),
+        ...(compareId ? [compareId] : [])
+    ].map(id => id.trim()).filter(Boolean);
+
+    return Array.from(new Set(allIds));
+}
+
 export async function generateMetadata({ searchParams }: ComparePageProps): Promise<Metadata> {
-    // Await searchParams in Next.js 15+ (if applicable, but safe to do here)
     const params = await searchParams;
-    const ids = params?.ids ? (params.ids as string).split(',').filter(Boolean) : [];
+    const ids = extractProjectIds(params);
     
     if (ids.length === 0) {
         return {
@@ -28,17 +42,18 @@ export async function generateMetadata({ searchParams }: ComparePageProps): Prom
 
 export default async function ComparePage({ searchParams }: ComparePageProps) {
     const params = await searchParams;
-    const ids = params?.ids ? (params.ids as string).split(',').filter(Boolean) : [];
+    const ids = extractProjectIds(params);
     
-    // Fetch all properties in parallel
     const propertiesData = await Promise.all(
         ids.map(id => fetchProjectById(id))
     );
 
-    // Filter out any null/undefined results if a fetch fails
     const validProperties = propertiesData.filter((p): p is Project => p !== null && p !== undefined);
 
     return (
-        <CompareClientView initialProperties={validProperties} />
+        <>
+            <ScrollToTop />
+            <CompareClientView initialProperties={validProperties} />
+        </>
     );
-}
+}

@@ -1,16 +1,16 @@
 import React from 'react'
-import BlogDetailsClientSkelton from '../../components/blogs/BlogDetailsClientSkelton'
+import BlogDetailsClientSkelton from '../../components/Skelton/BlogDetailsClientSkelton'
 import { SkeletonBlock } from '../../components/Skelton/SkeletonSection'
 
 function loading() {
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-4">
-            <div className="h-screen lg:col-span-3 flex flex-col relative min-h-screen px-4 md:px-6 lg:px-8 ">
-                    <SkeletonBlock className="h-4 w-34 bg-gray-200 rounded" />
-                    <BlogDetailsClientSkelton />
-                </div>
+        <div className='space-y-2'>
+            <div className="py-4 px-4 md:px-0">
+                <SkeletonBlock className="h-4 w-40 bg-gray-200 rounded" />
             </div>
-            )
+            <BlogDetailsClientSkelton />
+        </div>
+    )
 }
 
-            export default loading
+export default loading

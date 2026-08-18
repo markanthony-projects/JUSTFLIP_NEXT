@@ -27,7 +27,7 @@ const PriceTrendClient = dynamic(() => import("@/src/app/(justflip)/components/P
 const TopProperty = dynamic(() => import("@/src/app/(justflip)/components/TopProperty"));
 const Highlight = dynamic(() => import("@/src/app/(justflip)/components/Highlight") );
 const Blogs = dynamic(() => import("@/src/app/(justflip)/components/Blogs") );
-const Gallery = dynamic(() => import("@/src/app/(justflip)/components/CityComponent/gallery"));
+const PropertyGallery = dynamic(() => import("@/src/app/(justflip)/components/PropertyGallery"));
 const FAQ = dynamic(() => import("@/src/app/(justflip)/components/FAQ"));
 const PropertySupply = dynamic(() => import("@/src/app/(justflip)/components/PropertySupply"));
 const LocationAround = dynamic(() => import("@/src/app/(justflip)/components/Location/LocationAround"));
@@ -127,7 +127,7 @@ export default async function LocationPage({ params }: LocationPageProps) {
             <AreasNearby locationData={locationData} />
           </Suspense>
           <Suspense fallback={<GallerySkeleton />}>
-            <Gallery data={locationData} />
+            <PropertyGallery data={locationData} title={`${name} - At a Glance`} />
           </Suspense>
           <Suspense fallback={<BlogsSkeleton />}>
             <Blogs tag="Popular Blogs" />

@@ -10,9 +10,10 @@ export interface ModalProps {
     maxWidth?: string;
     height?: string;
     className?: string;
+    showCloseButton?: boolean;
 }
 
-export default function Modal({ isOpen, onClose, children, maxWidth = "max-w-md", height = "", className = "bg-white p-6 sm:p-8 " }: ModalProps) {
+export default function Modal({ isOpen, onClose, children, maxWidth = "max-w-md", height = "", className = "bg-white p-6 sm:p-8 " , showCloseButton = true}: ModalProps) {
 
     const modalRef = useRef<HTMLDivElement>(null);
 
@@ -46,7 +47,7 @@ export default function Modal({ isOpen, onClose, children, maxWidth = "max-w-md"
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center"
+        <div className="fixed inset-0 z-[200] flex items-center justify-center"
             onMouseDown={handleOutsideClick}
         >
             <div className="absolute inset-0 app-overlay" />
@@ -55,9 +56,11 @@ export default function Modal({ isOpen, onClose, children, maxWidth = "max-w-md"
                 ref={modalRef}
                 className={`relative z-30 w-[95%] ${maxWidth} ${height} ${className} rounded-2xl bshadow-xl  animate-modal max-h-[90vh] overflow-y-auto scrollbar-modern`}
             >
-            <div className="absolute right-0 top-0 z-30">
-                <Button onClick={onClose} />
-            </div>
+                {showCloseButton && (
+                    <div className="absolute right-0 top-0 z-30">
+                        <Button onClick={onClose} />
+                    </div>
+                )}
                 {children}
             </div>
         </div>

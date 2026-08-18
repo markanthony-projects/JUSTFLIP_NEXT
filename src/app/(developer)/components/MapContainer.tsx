@@ -56,14 +56,14 @@ function MapContainer({ builder }: MapContainerProps) {
             <div ref={sentinelRef} />
 
             {/* Segmented Control Tabs */}
-            <div className="mt-8 mb-6 overflow-x-auto scrollbar-hide">
+            <div className="mt-8 mb-6 overflow-x-auto scrollbar-hide px-4">
                 <TabsSection
                     value={activeTab}
                     onChange={setActiveTab}
-                    containerClass="rounded-xl bg-gray-100/80 p-1.5 shadow-inner max-w-3xl mx-auto border border-gray-200"
-                    indicatorClass="h-full bg-[#002B5B] rounded-lg shadow-md"
-                    tabClass="text-gray-600 hover:text-[#002B5B] text-[13px] md:text-[15px] font-medium transition-colors"
-                    activeTabClass="text-white hover:text-white font-bold"
+                    containerClass="w-full rounded-full bg-white border border-gray-200/60 p-1.5 shadow-[0_4px_20px_rgb(0,0,0,0.05)] max-w-2xl mx-auto"
+                    indicatorClass="h-[calc(100%-12px)] top-[6px] bg-gradient-to-r from-[#002B5B] to-blue-800 rounded-full shadow-[0_4px_15px_rgba(0,43,91,0.2)]"
+                    tabClass="text-gray-500 hover:text-[#002B5B] text-[13px] md:text-[15px] font-semibold transition-all duration-300 rounded-full"
+                    activeTabClass="text-white hover:text-white"
                     height="h-10 md:h-12"
                 />
             </div>

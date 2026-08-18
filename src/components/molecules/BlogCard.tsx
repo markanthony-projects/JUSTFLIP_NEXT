@@ -45,7 +45,9 @@ export default function BlogCard({ blog }: BlogCardProps) {
                 </h3>
 
                 {description && (
-                    <div dangerouslySetInnerHTML={{ __html: description }} className="line-clamp-3 text-[13px] text-gray-500 leading-relaxed whitespace-pre-line" />
+                    <div className="line-clamp-3 text-[13px] text-gray-500 leading-relaxed whitespace-pre-line">
+                        {description.replace(/<[^>]*>?/gm, '')}
+                    </div>
                 )}
             </div>
         </Link>

@@ -101,13 +101,13 @@ export default function TopBuildersClient({
                     </h2>
 
                     <Link aria-label="View More" href="/developers" className="text-[#002B5B] flex items-center gap-1 items-center py-0.5 px-1 rounded-xs hover:bg-[#002B5B]/5 hover:underline transition-all duration-300 ease-in-out">
-                        <span className="hidden sm:block text-xs font-semibold">View More</span>
+                        <span className="hidden sm:block text-xs md:text-sm font-semibold">View More</span>
                         <MdReadMore className="text-xl" />
                     </Link>
 
                 </div>
 
-                <p className="text-xs text-gray-600 max-w-2xl leading-relaxed">
+                <p className="text-xs md:text-sm text-gray-600 max-w-2xl leading-relaxed">
                     {`Explore trusted builders delivering premium residential projects in ${cityText}.`}
                 </p>
 
@@ -135,7 +135,7 @@ export default function TopBuildersClient({
                             return (
                                 <Link href={`/developers/${formatUrl(builder?.name)}-${builder?.id}`}>
 
-                                    <div className="w-[280px] rounded-lg flex items-center p-2 border border-gray-200 hover:shadow-md transition gap-4">
+                                    <div className="md:w-[280px] w-[250px] rounded-lg flex items-center p-2 border border-gray-200 hover:shadow-md transition gap-4">
 
                                         <div className="shadow h-16 w-16 md:h-20 md:w-20 overflow-hidden rounded-md relative flex-shrink-0">
                                             <Image
@@ -146,7 +146,7 @@ export default function TopBuildersClient({
                                             />
                                         </div>
 
-                                        <div>
+                                        <div className="min-w-0 flex-1">
 
                                             <h3 className="text-sm font-semibold md:font-bold truncate">
                                                 {builder?.name}

@@ -63,6 +63,7 @@ function MapView({ projects = [] }: MapViewProps) {
       style={{touchAction: "pan-x pan-y"}}
     >
       <MapContainer
+        attributionControl={false}
         zoomControl={false}
         center={[center.lat, center.lng]}
         zoom={12}
@@ -88,7 +89,6 @@ function MapView({ projects = [] }: MapViewProps) {
         className=""
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <ZoomControl />

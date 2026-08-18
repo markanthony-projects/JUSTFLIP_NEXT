@@ -19,8 +19,9 @@
         const locationName = project?.location?.name || "";
         const projectName = project?.name || "";
 
+        const zoneName = project?.location?.zone?.name || project?.zone?.name
 
-        const projectUrl = createProjectUrl(project?.city?.name || "", project?.zone?.name || "", project?.location?.name || "", project?.name, project?.id)
+        const projectUrl = createProjectUrl(project?.city?.name || "", zoneName || "", project?.location?.name || "", project?.name, project?.id)
 
         const bannerImage = project?.banner || (project?.medias?.find((m: Media) => m.title === 'banner') || project?.medias?.[0]);
 

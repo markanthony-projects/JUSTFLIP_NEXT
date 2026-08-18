@@ -89,7 +89,7 @@ export default function SSRProjectSection({ city, tag, projects: initialProjects
     return (
         <section>
 
-            <div className="md:mb-2 mt-12">
+            <div className="md:mb-2">
 
                 <div className="flex items-center justify-between">
 
@@ -98,7 +98,7 @@ export default function SSRProjectSection({ city, tag, projects: initialProjects
                     </h2>
 
                     <Link aria-label="View More" href={`/search?q=${resolvedCity?.name || ""}&tag=${tag || 'New Launches'}`} className="text-[#002B5B] flex items-center gap-1 items-center py-0.5 px-1 rounded-xs hover:bg-[#002B5B]/5 hover:underline transition-all duration-300 ease-in-out">
-                        <span className="hidden sm:block text-xs font-semibold">View More</span>
+                        <span className="hidden sm:block text-xs md:text-sm font-semibold">View More</span>
                         <MdReadMore className="text-xl" />
                     </Link>
 

@@ -21,7 +21,7 @@ const PriceTrendClient = dynamic(() => import("../../../components/PriceTrendCli
 const ReviewsSectionClient = dynamic(() => import("../../../components/CityComponent/ReviewsSectionClient"));
 const Highlight = dynamic(() => import("../../../components/Highlight"));
 const Blogs = dynamic(() => import("../../../components/Blogs"));
-const Gallery = dynamic(() => import("../../../components/CityComponent/gallery"));
+const PropertyGallery = dynamic(() => import("../../../components/PropertyGallery"));
 const FAQ = dynamic(() => import("../../../components/FAQ"));
 const PropertySupply = dynamic(() => import("../../../components/PropertySupply"));
 import { constructMetadata } from "@/src/utils/seo";
@@ -98,7 +98,7 @@ export default async function ZonePage({ params }: ZonePageProps) {
           </Suspense>
 
           <Suspense fallback={<GallerySkeleton />}>
-            <Gallery data={zoneData} />
+            <PropertyGallery data={zoneData} title={`${name} - At a Glance`} />
           </Suspense>
 
           <Suspense fallback={<BlogsSkeleton />}>

@@ -3,8 +3,8 @@
 import Image from "@/src/components/atoms/Image";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
-
 import { Blog } from "@/src/types";
+import { formatUrl } from "@/src/utils/URLFormatter";
 
 export interface BlogCarouselProps {
     blogs?: Blog[];
@@ -28,7 +28,7 @@ const BlogCarousel = ({ blogs = [], loading }: BlogCarouselProps) => {
         stopAutoPlay();
         intervalRef.current = setInterval(() => {
             setCurrent((prev) => (prev + 1) % length);
-        }, 4000);
+        }, 5000);
     };
 
     const stopAutoPlay = () => {
@@ -36,7 +36,7 @@ const BlogCarousel = ({ blogs = [], loading }: BlogCarouselProps) => {
     };
 
     return (
-        <div className="relative w-full overflow-hidden rounded-lg my-2"
+        <div className="relative w-full overflow-hidden rounded-2xl my-6 shadow-2xl"
             onMouseEnter={stopAutoPlay}
             onMouseLeave={startAutoPlay}
             role="region"
@@ -44,20 +44,20 @@ const BlogCarousel = ({ blogs = [], loading }: BlogCarouselProps) => {
         >
             <div className="flex transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${current * 100}%)` }}>
                 {blogs.map((blog, index) => (
-                    <div key={index} className="min-w-full relative" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${length}`}  >
-                        <Link href="#">
-                            <div className="w-full h-48  md:h-[19rem] lg:h-[22rem]  rounded-xl">
-                                <Image src={blog.image?.url} alt={blog.heading} className="object-cover w-full h-full" />
-                            </div>
-
-                            <div className="absolute inset-0 flex items-center">
-                                <div className="bg-white/10 backdrop-blur-3xl p-2 md:p-10 rounded-r-xl max-w-sm md:max-w-lg">
-                                    <h3 className="text-white font-bold text-xs md:text-lg mb-2 line-clamp-2">
-                                        {blog.heading}
-                                    </h3>
-                                    <p className="text-white text-[10px] md:text-xs line-clamp-3">
-                                        {blog.description}
-                                    </p>
+                    <div key={index} className="min-w-full relative group" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${length}`}>
+                        <Link href={`/blogs/${formatUrl(blog.heading)}-${blog?.id}`}>
+                            <div className="w-full h-[300px] md:h-[400px] lg:h-[500px] relative overflow-hidden bg-gray-900">
+                                <Image src={blog.image?.url} alt={blog.heading} className="object-cover w-full h-full transform transition-transform duration-1000 group-hover:scale-105" />
+                                
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 md:p-12 pb-16 md:pb-20">
+                                    <div className="max-w-3xl transform transition-transform duration-500 translate-y-2 group-hover:translate-y-0">
+                                        <h3 className="text-white font-bold text-xl md:text-3xl lg:text-4xl mb-3 md:mb-4 leading-tight drop-shadow-md">
+                                            {blog.heading}
+                                        </h3>
+                                        <p className="text-gray-200 text-sm md:text-base lg:text-lg line-clamp-2 md:line-clamp-3 font-light drop-shadow">
+                                            {blog.description?.replace(/<[^>]*>?/gm, '')}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </Link>
@@ -65,15 +65,15 @@ const BlogCarousel = ({ blogs = [], loading }: BlogCarouselProps) => {
                 ))}
             </div>
 
-            <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 bg-white/10 px-3 py-2 backdrop-blur-3xl rounded-3xl">
+            <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
                 {blogs?.map((_, i) => (
                     <button
                         key={i}
                         aria-label={`Slide ${i + 1}`}
                         onClick={() => setCurrent(i)}
-                        className="h-6 w-6 flex items-center justify-center focus:outline-none group"
+                        className="focus:outline-none group py-2"
                     >
-                        <div className={`h-2 rounded-full transition-all duration-300 ${current === i ? "w-6 bg-white" : "w-2 bg-white/50 group-hover:bg-white/80"}`} />
+                        <div className={`h-1.5 rounded-full transition-all duration-300 ease-in-out ${current === i ? "w-8 bg-white shadow-lg" : "w-2 bg-white/40 group-hover:bg-white/70"}`} />
                     </button>
                 ))}
             </div>

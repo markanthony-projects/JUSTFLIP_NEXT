@@ -37,7 +37,7 @@ const ReviewsSectionClient = dynamic(() => import('@/src/app/(justflip)/componen
 const DeveloperDetail = dynamic(() => import('@/src/app/(justflip)/components/Project/DeveloperDetail'));
 const Highlight = dynamic(() => import('@/src/app/(justflip)/components/Highlight'));
 const PriceTrendSection = dynamic(() => import('@/src/components/trendGraph/PriceTrendSection'));
-const LocationImageGallery = dynamic(() => import('@/src/app/(justflip)/components/Project/ProjectGallery'));
+const PropertyGallery = dynamic(() => import('@/src/app/(justflip)/components/PropertyGallery'));
 const LeadForm = dynamic(() => import('@/src/components/molecules/LeadForm'));
 const CompareCarousel = dynamic(() => import('@/src/app/(justflip)/components/Project/CompareProject'));
 const SimilarProject = dynamic(() => import('@/src/app/(justflip)/components/Project/SimilarProject'));
@@ -243,7 +243,7 @@ async function LocationInfoWrapper({ locationId, projectData }: { locationId: st
             <Highlight data={locationData} />
             <PriceTrendSection data={locationData as any} />
             <PriceTrendSchema trends={locationData?.pricings} />
-            <LocationImageGallery data={locationData} />
+            <PropertyGallery data={locationData} />
         </>
     );
 }

@@ -3,7 +3,35 @@ import React from 'react'
 import Breadcrumb from '@/src/components/organisms/breadCrumb'
 import { FiArrowRight, FiShield, FiMail } from 'react-icons/fi'
 import { SiGnuprivacyguard } from "react-icons/si";
-import privacyPolicy from './data/privacyPolicy.json'
+import rawPrivacyPolicy from './data/privacyPolicy.json'
+
+interface PrivacySubsection {
+  title: string;
+  paragraphs?: string[];
+  items?: string[];
+}
+
+interface PrivacySection {
+  id: string;
+  number: string;
+  title: string;
+  paragraphs?: string[];
+  items?: string[];
+  subsections?: PrivacySubsection[];
+  footerParagraph?: string;
+}
+
+interface PrivacyPolicyData {
+  title: string;
+  lastUpdated?: string;
+  intro?: {
+    title?: string;
+    paragraphs?: string[];
+  };
+  sections: PrivacySection[];
+}
+
+const privacyPolicy = rawPrivacyPolicy as unknown as PrivacyPolicyData;
 
 const PrivacyPolicy = () => {
   const breadcrumbItems = [{ label: 'JustFlip Policy', href: '/privacy-policy' }]
@@ -85,9 +113,9 @@ const PrivacyPolicy = () => {
                         ))}
 
                         {/* Items */}
-                        {section.items?.length > 0 && (
+                        {Boolean(section.items && section.items.length > 0) && (
                             <ul className='mt-3 space-y-1'>
-                            {section.items.map((item, itemIndex) => (
+                            {section.items!.map((item, itemIndex) => (
                                 <li
                                 key={itemIndex}
                                 className='flex items-start gap-3 text-[10px] leading-7 text-gray-600 sm:text-sm'
@@ -104,9 +132,9 @@ const PrivacyPolicy = () => {
                         )}
 
                         {/* Subsections */}
-                        {section.subsections?.length > 0 && (
+                        {Boolean(section.subsections && section.subsections.length > 0) && (
                         <div className='mt-4 space-y-4'>
-                            {section.subsections.map(
+                            {section.subsections!.map(
                                 (subsection, subsectionIndex) => (
                                 <div key={subsectionIndex}>
                                     <h3 className='text-lg font-semibold text-[#002B5B]'>
@@ -124,9 +152,9 @@ const PrivacyPolicy = () => {
                                     )
                                     )}
 
-                                    {subsection.items?.length > 0 && (
+                                    {Boolean(subsection.items && subsection.items.length > 0) && (
                                     <ul className='mt-2 space-y-1'>
-                                        {subsection.items.map((item, itemIndex) => (
+                                        {subsection.items!.map((item, itemIndex) => (
                                         <li
                                             key={itemIndex}
                                             className='flex items-start gap-3 text-[10px] leading-7 text-gray-600 sm:text-sm'

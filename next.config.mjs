@@ -13,17 +13,30 @@ const nextConfig = {
     },
   },  
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
         hostname: "luxurydata.s3.eu-north-1.amazonaws.com",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "*.amazonaws.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.homebble.in",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.justflip.in",
+        pathname: "/**",
+      },
     ],
-    // unoptimized: false,
-    // formats: ["image/avif", "image/webp"],
-    qualities: [75, 85, 100],
-    unoptimized: true,
+    qualities: [75, 85],
   },
   experimental: {
     optimizeCss: true,

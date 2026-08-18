@@ -112,8 +112,11 @@ export const SEARCH_CONFIG: SearchConfig = {
       type: 'multi-select',
       options: [
         { label: '1 BHK', value: '1BHK' },
+        { label: '1.5 BHK', value: '1.5BHK' },
         { label: '2 BHK', value: '2BHK' },
+        { label: '2.5 BHK', value: '2.5BHK' },
         { label: '3 BHK', value: '3BHK' },
+        { label: '3.5 BHK', value: '3.5BHK' },
         { label: '4 BHK', value: '4BHK' },
         { label: '5+ BHK', value: '5BHK+' },
       ],

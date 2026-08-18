@@ -152,3 +152,25 @@ export interface RegistrationFormData {
     expertiesIn: string[];
     missionAndVision: string;
 }
+
+// Append this to your existing types file
+
+export interface AspectRatings {
+  environment: number;
+  lifestyle: number;
+  transport: number;
+}
+
+export interface ReviewTargetEntity {
+  id: string;
+  name: string;
+  type: "city" | "zone" | "location" | "project" | "builder";
+}
+
+export interface StepOneData {
+  type: "city" | "zone" | "location" | "project" | string;
+  typeId: string;
+  locationName: string;
+  userRole: "Owner" | "Tenant" | "Former Resident" | "Real Estate Agent" | string;
+  userName: string;
+}

@@ -3,9 +3,14 @@ import Link from "next/link";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Image from "@/src/components/atoms/Image";
 import getStarTypes from "./getStarTypes";
+import { createLocationUrl } from "@/src/utils/url";
 
 export default function AreasNearby({ locationData }: { locationData?: any }) {
   const locations = locationData?.nearbyLocations?.slice(0, 4) || [];
+
+  const cityName = locationData?.city?.name 
+  const zoneName = locationData?.zone?.name
+
   return (
     <div>
       <h2 className="pb-4 text-lg font-medium">
@@ -21,7 +26,7 @@ export default function AreasNearby({ locationData }: { locationData?: any }) {
             return (
               <Link
                 key={loc?.id}
-                href={`properties/${locationData?.city?.name}/${locationData?.zone?.name}/${loc?.name}-${loc?.id}`}
+                href={createLocationUrl(cityName,zoneName,loc?.name,loc?.id)}
                 className="flex items-center gap-4 p-4 border border-gray-300 rounded-lg hover:shadow-md transition"
               >
 

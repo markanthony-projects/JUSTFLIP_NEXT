@@ -4,15 +4,16 @@ import StarRating from "@/src/components/atoms/StarRating";
 import { useMemo, useState } from "react";
 
 const RATING_COLORS: Record<number, string> = {
-  5: "bg-[#54954E]",
-  4: "bg-[#A9D350]",
-  3: "bg-[#EFE167]",
-  2: "bg-[#E2A93E]",
-  1: "bg-[#D9534F]",
+  5: "bg-emerald-500",
+  4: "bg-emerald-400",
+  3: "bg-amber-400",
+  2: "bg-orange-400",
+  1: "bg-rose-400",
 };
 
 export default function AvgRating({ reviews }: { reviews: any }) {
   const [activeRating, setActiveRating] = useState<number | null>(null);
+
   // Normalize review array safely
   const reviewList = useMemo(() => {
     if (Array.isArray(reviews)) return reviews;
@@ -21,106 +22,114 @@ export default function AvgRating({ reviews }: { reviews: any }) {
     return [];
   }, [reviews]);
 
-  // Calculate stats dynamically
+  // Calculate dynamic stats
   const stats = useMemo(() => {
-    const totalReviews = reviewList.length;
+    const explicitAverage = Number(reviews?.average || reviews?.global?.average);
+    const explicitTotal = Number(reviews?.pagination?.totalReviews);
+    const explicitCounts = reviews?.counts || reviews?.global?.counts;
 
-    if (totalReviews === 0) {
-      return {
-        average: "0.0",
-        totalReviews: 0,
-        counts: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
-      };
-    }
+    const totalReviews =
+      !isNaN(explicitTotal) && explicitTotal > 0
+        ? explicitTotal
+        : reviewList.length;
 
     const counts: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
     let totalSum = 0;
 
-    reviewList.forEach((r: any) => {
-      const rating = Math.round(Number(r?.rating || r?.stars || r?.star)) || 0;
-      if (rating >= 1 && rating <= 5) {
-        totalSum += rating;
-        counts[rating] += 1;
+    if (explicitCounts && Object.keys(explicitCounts).length > 0) {
+      for (let i = 1; i <= 5; i++) {
+        counts[i] = Number(explicitCounts[i] || explicitCounts[String(i)] || 0);
       }
-    });
+    } else {
+      reviewList.forEach((r: any) => {
+        const rating =
+          Math.round(Number(r?.rating || r?.stars || r?.star)) || 0;
+        if (rating >= 1 && rating <= 5) {
+          totalSum += rating;
+          counts[rating] += 1;
+        }
+      });
+    }
 
-    return {
-      average: (totalSum / totalReviews).toFixed(1),
-      totalReviews,
-      counts,
-    };
-  }, [reviewList]);
+    let average = "0.0";
+    if (!isNaN(explicitAverage) && explicitAverage > 0) {
+      average = explicitAverage.toFixed(1);
+    } else if (totalReviews > 0) {
+      average = (totalSum / totalReviews).toFixed(1);
+    }
+
+    return { average, totalReviews, counts };
+  }, [reviews, reviewList]);
 
   return (
-    <div className="md:px-2 md:border-r-2 md:border-gray-300 h-fit">
+    <div className="md:pr-5 md:border-r md:border-gray-200/80 flex flex-col justify-center h-full">
+      {/* Score and Stars */}
       <div className="text-center">
-        <h2 className="text-4xl font-semibold text-gray-900">
+        <h3 className="text-4xl font-bold text-gray-900 tracking-tight">
           {stats.average}
-        </h2>
+        </h3>
 
-        <div className="flex justify-center mt-1 gap-1">
+        <div className="flex justify-center mt-1.5">
           <StarRating
-            height={5}
-            width={5}
             value={Number(stats.average)}
             readOnly={true}
+            width={4}
+            height={4}
           />
         </div>
 
-        <p className="text-sm text-gray-500 mt-1">
+        <p className="text-xs text-gray-500 mt-1 font-medium">
           Based on{" "}
-          <span className="font-medium text-gray-700">
-            {stats.totalReviews} {stats.totalReviews === 1 ? "review" : "reviews"}
-          </span>
+          <span className="font-semibold text-gray-800">
+            {stats.totalReviews}
+          </span>{" "}
+          {stats.totalReviews === 1 ? "review" : "reviews"}
         </p>
       </div>
 
-      {/* Breakdown Bars with Hover Tooltips */}
-      <div className="mt-6 space-y-2.5">
+      {/* 5 to 1 Rating Breakdown with Hover Tooltips */}
+      <div className="mt-5 space-y-2.5">
         {[5, 4, 3, 2, 1].map((rating) => {
           const total = stats.totalReviews;
           const count = stats.counts[rating] || 0;
           const percentage = total > 0 ? (count / total) * 100 : 0;
-          const isActive = activeRating === rating
+          const isActive = activeRating === rating;
 
           return (
             <div
               key={rating}
               onClick={() => setActiveRating(isActive ? null : rating)}
-              onMouseLeave={()=>setActiveRating(null)}
-              className="group relative flex items-center text-sm cursor-pointer select-none"
+              onMouseLeave={() => setActiveRating(null)}
+              className="group relative flex items-center text-xs text-gray-600 gap-1.5 cursor-pointer select-none py-0.5"
             >
-              <span className="text-gray-600 w-5 font-medium">{rating}</span>
-              <span className="text-[#D9A20D]">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="#D9A20D"
-                  className="w-3.5 h-3.5 mb-0.5"
-                >
-                  <path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" />
-                </svg>
+              <span className="w-3 font-semibold text-right text-gray-700">
+                {rating}
               </span>
+              <span className="text-[#D9A20D] text-[11px] leading-none">★</span>
 
-              {/* Bar Container */}
-              <div className="flex-1 mx-2 bg-gray-200 h-2.5 rounded-full overflow-hidden">
+              {/* Progress Bar Track */}
+              <div className="flex-1 mx-1.5 bg-gray-200/80 h-2 rounded-full overflow-hidden">
                 <div
-                  className={`h-full transition-all duration-300 rounded-full ${RATING_COLORS[rating]}`}
+                  className={`h-full rounded-full transition-all duration-300 ${RATING_COLORS[rating]}`}
                   style={{ width: `${percentage}%` }}
                   role="progressbar"
                   aria-valuenow={percentage}
                   aria-valuemin={0}
                   aria-valuemax={100}
-                ></div>
+                />
               </div>
 
               {/* Hover Tooltip Popup */}
-              <div className={`absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none bg-gray-900 text-white text-xs py-1 px-2.5 rounded shadow-md whitespace-nowrap z-10 ${
-                isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-              }`}>
+              <div
+                className={`absolute -top-7 left-1/2 -translate-x-1/2 pointer-events-none bg-gray-900 text-white text-[11px] font-medium py-1 px-2 rounded-md shadow-md whitespace-nowrap z-20 transition-all duration-150 ${
+                  isActive
+                    ? "opacity-100 visible -translate-y-0.5"
+                    : "opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+                }`}
+              >
                 {count} {count === 1 ? "review" : "reviews"} ({percentage.toFixed(0)}%)
                 {/* Tooltip Arrow */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
               </div>
             </div>
           );

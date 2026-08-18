@@ -1,4 +1,5 @@
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
+import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 import BlogService from '@/src/services/Blog.Service';
 import { parseBlogDetailsUrl } from '@/src/utils/url';
 import { constructMetadata } from "@/src/utils/seo";
@@ -47,7 +48,8 @@ export default async function BlogDetails({ params }: BlogDetailsProps) {
 
   return (
     <div className='space-y-2'>
-      <Breadcrumb items={[{ label: "Blogs", href: "/blogs" }, { label: name }]} />
+      <ScrollToTop />
+      <Breadcrumb items={[{ label: "Blogs", href: "/blogs" }, { label: blog.title || decodeURIComponent(name) }]} />
       <BlogDetailsClient initialBlog={blog} />
     </div>
   );

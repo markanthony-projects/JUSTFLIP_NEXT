@@ -42,7 +42,7 @@ export const useBlogStore = create<BlogState & BlogActions>((set, get) => ({
     try {
       set({ loadingBlogs: true, error: null });
 
-      const { blogs, pagination } = await BlogService.fetchBlogs({ page, limit, tag });
+      const { blogs, pagination } = await BlogService.fetchBlogs({ page, limit, tag});
 
       set((state) => ({
         blogs: page === 1 ? blogs : [...state.blogs, ...blogs],
