@@ -91,7 +91,9 @@ const ProjectCard = ({ project, priority }: ProjectCardProps) => {
                     </div>
                 </div>
             </Link>
-            <LoginModal isOpen={showLoginPrompt} closeModal={() => setShowLoginPrompt(false)} />
+            {showLoginPrompt && (
+                <LoginModal isOpen={showLoginPrompt} closeModal={() => setShowLoginPrompt(false)} />
+            )}
         </>
     );
 };

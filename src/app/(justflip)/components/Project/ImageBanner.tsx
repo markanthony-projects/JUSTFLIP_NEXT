@@ -1,7 +1,7 @@
 "use client";
 import React, { useMemo, useCallback, useState } from "react";
 import Image from "@/src/components/atoms/Image";
-import MediaGallery from "./MediaGallery/MediaGallery";
+import MediaGallery from "@/src/components/atoms/MediaGallery";
 import { TfiLayersAlt } from "react-icons/tfi";
 import getMedia from "./MediaGallery/Media.utils";
 

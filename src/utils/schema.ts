@@ -43,10 +43,13 @@ export interface RealEstateSchemaProps {
   locationName: string;
   cityName: string;
   price?: number;
+  minPrice?: number;
+  maxPrice?: number;
+  priceCurrency?: string;
   numberOfRooms?: number;
   floorSize?: number;
   yearBuilt?: number | string;
-  amenities?: string[];
+  amenities?: Array<string | { name?: string; [key: string]: any }>;
   latitude?: number | string;
   longitude?: number | string;
   images?: string[];
@@ -63,6 +66,9 @@ export function buildRealEstateSchema({
   locationName, 
   cityName, 
   price,
+  minPrice,
+  maxPrice,
+  priceCurrency = "INR",
   numberOfRooms,
   floorSize,
   yearBuilt,
@@ -75,11 +81,35 @@ export function buildRealEstateSchema({
   ratingValue,
   reviewCount
 }: RealEstateSchemaProps) {
+  const effectiveMin = minPrice ?? price ?? 0;
+  const effectiveMax = maxPrice ?? price ?? effectiveMin;
+
+  const offersObj: Record<string, any> = (effectiveMax > effectiveMin)
+    ? {
+        "@type": "AggregateOffer",
+        priceCurrency: priceCurrency,
+        lowPrice: effectiveMin,
+        highPrice: effectiveMax,
+        price: effectiveMin,
+        offerCount: numberOfRooms || 1,
+      }
+    : {
+        "@type": "Offer",
+        priceCurrency: priceCurrency,
+        price: effectiveMin,
+      };
+
+  if (availability) {
+    offersObj.availability = availability === 'PreOrder' 
+      ? "https://schema.org/PreOrder" 
+      : "https://schema.org/InStock";
+  }
+
   const schema: Record<string, any> = {
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
     name: name,
-    description: description ? description.replace(/<[^>]+>/g, "") : "",
+    description: description ? description.replace(/<[^>]+>/g, "").trim() : "",
     url: `https://justflip.in${url}`,
     address: {
       "@type": "PostalAddress",
@@ -87,11 +117,7 @@ export function buildRealEstateSchema({
       addressRegion: cityName,
       addressCountry: "IN",
     },
-    offers: {
-      "@type": "Offer",
-      priceCurrency: "INR",
-      price: price || 0,
-    },
+    offers: offersObj,
   };
 
   if (numberOfRooms) {
@@ -116,7 +142,7 @@ export function buildRealEstateSchema({
   if (amenities && amenities.length > 0) {
     schema.amenityFeature = amenities.map((a) => ({
       "@type": "LocationFeatureSpecification",
-      name: a,
+      name: typeof a === "string" ? a : (a as any)?.name || String(a),
       value: true,
     }));
   }
@@ -130,13 +156,7 @@ export function buildRealEstateSchema({
   }
 
   if (images && images.length > 0) {
-    schema.image = images;
-  }
-
-  if (availability) {
-    schema.offers.availability = availability === 'PreOrder' 
-      ? "https://schema.org/PreOrder" 
-      : "https://schema.org/InStock";
+    schema.image = images.filter(Boolean);
   }
 
   if (reraNumber) {
@@ -147,11 +167,13 @@ export function buildRealEstateSchema({
     }];
   }
 
-  if (ratingValue && reviewCount) {
+  const numericRating = Number(ratingValue);
+  const numericCount = Number(reviewCount);
+  if (!isNaN(numericRating) && numericRating > 0 && !isNaN(numericCount) && numericCount > 0) {
     schema.aggregateRating = {
       "@type": "AggregateRating",
-      ratingValue: String(ratingValue),
-      reviewCount: String(reviewCount),
+      ratingValue: numericRating.toFixed(1),
+      reviewCount: numericCount,
       bestRating: "5",
       worstRating: "1"
     };
@@ -165,17 +187,168 @@ export interface DeveloperSchemaProps {
   description?: string;
   slug: string;
   logo?: string;
+  image?: string;
+  startedAt?: number | string;
+  totalProjects?: number;
+  activeProjects?: number;
+  address?: string | {
+    streetAddress?: string;
+    addressLocality?: string;
+    addressRegion?: string;
+    postalCode?: string;
+    addressCountry?: string;
+  };
+  telephone?: string;
+  email?: string;
+  priceRange?: string;
+  employees?: Array<{
+    name: string;
+    designation?: string;
+    image?: string;
+  }>;
+  ratingValue?: number | string;
+  reviewCount?: number | string;
+  sameAs?: string[];
+  areaServed?: string | string[];
 }
 
-export function buildDeveloperSchema({ name, description, slug, logo }: DeveloperSchemaProps) {
-  return {
+export function buildDeveloperSchema({
+  name,
+  description,
+  slug,
+  logo,
+  image,
+  startedAt,
+  totalProjects,
+  activeProjects,
+  address,
+  telephone,
+  email,
+  priceRange = "₹₹ - ₹₹₹₹",
+  employees,
+  ratingValue,
+  reviewCount,
+  sameAs,
+  areaServed = "India",
+}: DeveloperSchemaProps) {
+  const schema: Record<string, any> = {
     "@context": "https://schema.org",
-    "@type": "RealEstateAgent",
+    "@type": ["RealEstateAgent", "LocalBusiness"],
     name: name,
-    description: description ? description.replace(/<[^>]+>/g, "") : "",
     url: `https://justflip.in/developers/${slug}`,
-    image: logo || "",
+    description: description ? description.replace(/<[^>]+>/g, "").trim() : "",
+    currenciesAccepted: "INR",
+    priceRange,
   };
+
+  const images: string[] = [];
+  if (logo) images.push(logo);
+  if (image && image !== logo) images.push(image);
+
+  if (images.length > 0) {
+    schema.image = images.length === 1 ? images[0] : images;
+    if (logo) {
+      schema.logo = logo;
+    }
+  }
+
+  if (startedAt) {
+    schema.foundingDate = String(startedAt);
+  }
+
+  if (areaServed) {
+    schema.areaServed = Array.isArray(areaServed)
+      ? areaServed.map((area) => ({
+          "@type": "AdministrativeArea",
+          name: area,
+        }))
+      : {
+          "@type": "Country",
+          name: areaServed,
+        };
+  }
+
+  if (telephone) {
+    schema.telephone = telephone;
+  }
+
+  if (email) {
+    schema.email = email;
+  }
+
+  if (address) {
+    if (typeof address === "string") {
+      schema.address = {
+        "@type": "PostalAddress",
+        streetAddress: address,
+        addressCountry: "IN",
+      };
+    } else {
+      schema.address = {
+        "@type": "PostalAddress",
+        ...address,
+        addressCountry: address.addressCountry || "IN",
+      };
+    }
+  } else {
+    schema.address = {
+      "@type": "PostalAddress",
+      addressCountry: "IN",
+    };
+  }
+
+  if (employees && employees.length > 0) {
+    schema.employee = employees.map((emp) => ({
+      "@type": "Person",
+      name: emp.name,
+      ...(emp.designation ? { jobTitle: emp.designation } : {}),
+      ...(emp.image ? { image: emp.image } : {}),
+    }));
+  }
+
+  if (sameAs && sameAs.length > 0) {
+    schema.sameAs = sameAs.filter(Boolean);
+  }
+
+  const additionalProps: Array<{ "@type": string; name: string; value: any }> = [];
+  if (totalProjects !== undefined) {
+    additionalProps.push({
+      "@type": "PropertyValue",
+      name: "Total Projects",
+      value: totalProjects,
+    });
+  }
+  if (activeProjects !== undefined) {
+    additionalProps.push({
+      "@type": "PropertyValue",
+      name: "Active Projects",
+      value: activeProjects,
+    });
+  }
+  if (additionalProps.length > 0) {
+    schema.additionalProperty = additionalProps;
+  }
+
+  schema.knowsAbout = [
+    "Real Estate Development",
+    "Residential Properties",
+    "Commercial Properties",
+    "Construction & Property Architecture",
+  ];
+
+  const numericRating = Number(ratingValue);
+  const numericCount = Number(reviewCount);
+  if (!isNaN(numericRating) && numericRating > 0 && !isNaN(numericCount) && numericCount > 0) {
+    schema.aggregateRating = {
+      "@type": "AggregateRating",
+      ratingValue: numericRating.toFixed(1),
+      reviewCount: numericCount,
+      bestRating: "5",
+      worstRating: "1",
+    };
+  }
+
+  return schema;
 }
 
 export function buildItemListSchema(items: Array<{ url: string }> = []) {
@@ -191,16 +364,19 @@ export function buildItemListSchema(items: Array<{ url: string }> = []) {
 }
 
 export function buildFAQSchema(faqs: Array<{ question: string; answer: string }> = []) {
-  if (!faqs.length) return null;
+  if (!faqs || !Array.isArray(faqs) || !faqs.length) return null;
+  const validFaqs = faqs.filter((faq) => faq?.question && faq?.answer);
+  if (!validFaqs.length) return null;
+
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
+    mainEntity: validFaqs.map((faq) => ({
       "@type": "Question",
-      name: faq?.question,
+      name: typeof faq.question === "string" ? faq.question.trim() : String(faq.question),
       acceptedAnswer: {
         "@type": "Answer",
-        text: faq?.answer,
+        text: typeof faq.answer === "string" ? faq.answer.replace(/<[^>]+>/g, "").trim() : String(faq.answer),
       },
     })),
   };
@@ -284,40 +460,274 @@ export function buildLocalBusinessSchema({
   };
 }
 
-export interface BlogPostingSchemaProps {
-  title: string;
-  publishDate: string;
-  updateDate?: string;
-  coverImage: string;
-  shortDescription: string;
-  authorName?: string;
-  publisherName?: string;
+function formatIsoDate(d?: string | number | Date): string | undefined {
+  if (!d) return undefined;
+  try {
+    const parsed = new Date(d);
+    if (!isNaN(parsed.getTime())) {
+      return parsed.toISOString();
+    }
+  } catch {
+    // fallback
+  }
+  return typeof d === "string" ? d : undefined;
 }
 
-export function buildBlogPostingSchema({
+export interface ArticleSchemaProps {
+  title: string;
+  url?: string;
+  publishDate?: string | number | Date;
+  updateDate?: string | number | Date;
+  coverImage?: string;
+  images?: string[];
+  shortDescription?: string;
+  authorName?: string;
+  authorType?: "Person" | "Organization";
+  publisherName?: string;
+  publisherLogo?: string;
+  articleSection?: string;
+  keywords?: string | string[];
+}
+
+export function buildArticleSchema({
   title,
+  url,
   publishDate,
   updateDate,
   coverImage,
+  images,
   shortDescription,
   authorName = "JustFlip",
-  publisherName = "JustFlip"
-}: BlogPostingSchemaProps) {
-  return {
+  authorType = "Organization",
+  publisherName = "JustFlip",
+  publisherLogo = "https://justflip.in/logo.png",
+  articleSection,
+  keywords,
+}: ArticleSchemaProps) {
+  const published = formatIsoDate(publishDate) || (publishDate ? String(publishDate) : undefined);
+  const modified = formatIsoDate(updateDate) || published;
+
+  const imageList: string[] = [];
+  if (coverImage) imageList.push(coverImage);
+  if (images && images.length > 0) {
+    images.forEach((img) => {
+      if (img && !imageList.includes(img)) {
+        imageList.push(img);
+      }
+    });
+  }
+
+  const cleanDescription = shortDescription ? shortDescription.replace(/<[^>]+>/g, "").trim() : "";
+
+  const schema: Record<string, any> = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    headline: title,
-    datePublished: publishDate,
-    dateModified: updateDate || publishDate,
+    "@type": ["Article", "BlogPosting"],
+    headline: title ? title.replace(/<[^>]+>/g, "").trim() : "",
+    ...(cleanDescription ? { description: cleanDescription } : {}),
+    ...(published ? { datePublished: published } : {}),
+    ...(modified ? { dateModified: modified } : {}),
+    ...(url
+      ? {
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": url.startsWith("http") ? url : `https://justflip.in${url.startsWith("/") ? "" : "/"}${url}`,
+          },
+        }
+      : {}),
     author: {
-      "@type": "Organization",
-      name: authorName
+      "@type": authorType,
+      name: authorName,
+      ...(authorType === "Organization" ? { url: "https://justflip.in" } : {}),
     },
     publisher: {
       "@type": "Organization",
-      name: publisherName
+      name: publisherName,
+      url: "https://justflip.in",
+      logo: {
+        "@type": "ImageObject",
+        url: publisherLogo,
+      },
     },
-    image: coverImage,
-    description: shortDescription
   };
+
+  if (imageList.length > 0) {
+    schema.image = imageList.length === 1 ? imageList[0] : imageList;
+  }
+
+  if (articleSection) {
+    schema.articleSection = articleSection;
+  }
+
+  if (keywords) {
+    schema.keywords = Array.isArray(keywords) ? keywords.join(", ") : keywords;
+  }
+
+  return schema;
 }
+
+export type BlogPostingSchemaProps = ArticleSchemaProps;
+export const buildBlogPostingSchema = buildArticleSchema;
+
+export interface VideoObjectSchemaProps {
+  name: string;
+  description?: string;
+  thumbnailUrl?: string | string[];
+  uploadDate?: string | number | Date;
+  contentUrl?: string;
+  embedUrl?: string;
+  duration?: string;
+  publisherName?: string;
+  publisherLogo?: string;
+}
+
+export function buildVideoObjectSchema({
+  name,
+  description,
+  thumbnailUrl,
+  uploadDate,
+  contentUrl,
+  embedUrl,
+  duration,
+  publisherName = "JustFlip",
+  publisherLogo = "https://justflip.in/logo.png",
+}: VideoObjectSchemaProps) {
+  const uploadIso = formatIsoDate(uploadDate) || (uploadDate ? String(uploadDate) : new Date().toISOString());
+
+  const thumbnails = Array.isArray(thumbnailUrl) 
+    ? thumbnailUrl.filter(Boolean) 
+    : (thumbnailUrl ? [thumbnailUrl] : []);
+
+  const schema: Record<string, any> = {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    name: name ? name.replace(/<[^>]+>/g, "").trim() : "Property Video Tour",
+    description: description
+      ? description.replace(/<[^>]+>/g, "").trim()
+      : `Watch property walkthrough and video tour for ${name || "this property"} on JustFlip.`,
+    thumbnailUrl:
+      thumbnails.length > 0 ? (thumbnails.length === 1 ? thumbnails[0] : thumbnails) : "https://justflip.in/logo.png",
+    uploadDate: uploadIso,
+    publisher: {
+      "@type": "Organization",
+      name: publisherName,
+      logo: {
+        "@type": "ImageObject",
+        url: publisherLogo,
+      },
+    },
+  };
+
+  if (contentUrl) {
+    schema.contentUrl = contentUrl;
+  }
+
+  if (embedUrl) {
+    schema.embedUrl = embedUrl;
+  } else if (
+    contentUrl &&
+    (contentUrl.includes("youtube.com") || contentUrl.includes("youtu.be") || contentUrl.includes("vimeo.com"))
+  ) {
+    schema.embedUrl = contentUrl;
+  }
+
+  if (duration) {
+    schema.duration = duration;
+  }
+
+  return schema;
+}
+
+export interface ReviewSchemaProps {
+  itemReviewedName: string;
+  itemReviewedType?: "RealEstateListing" | "Place" | "Product" | "LocalBusiness" | string;
+  ratingValue: number | string;
+  reviewBody?: string;
+  authorName?: string;
+  datePublished?: string | number | Date;
+  publisherName?: string;
+}
+
+export function buildReviewSchema({
+  itemReviewedName,
+  itemReviewedType = "Place",
+  ratingValue,
+  reviewBody,
+  authorName = "Anonymous",
+  datePublished,
+  publisherName = "JustFlip",
+}: ReviewSchemaProps) {
+  const publishedIso = formatIsoDate(datePublished);
+
+  const schema: Record<string, any> = {
+    "@context": "https://schema.org",
+    "@type": "Review",
+    itemReviewed: {
+      "@type": itemReviewedType,
+      name: itemReviewedName,
+    },
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: Number(ratingValue) || 5,
+      bestRating: "5",
+      worstRating: "1",
+    },
+    author: {
+      "@type": "Person",
+      name: authorName || "Anonymous",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: publisherName,
+    },
+  };
+
+  if (reviewBody) {
+    schema.reviewBody = reviewBody.replace(/<[^>]+>/g, "").trim();
+  }
+
+  if (publishedIso) {
+    schema.datePublished = publishedIso;
+  }
+
+  return schema;
+}
+
+export function buildReviewsSchemaList({
+  itemReviewedName,
+  itemReviewedType = "Place",
+  reviews,
+}: {
+  itemReviewedName: string;
+  itemReviewedType?: string;
+  reviews: any[];
+}) {
+  if (!reviews || !Array.isArray(reviews) || reviews.length === 0) return null;
+
+  const validReviews = reviews.filter((r) => {
+    const comment = r?.comment || r?.description || r?.text;
+    const rating = r?.rating ?? r?.stars;
+    return comment || (rating && Number(rating) > 0);
+  });
+
+  if (validReviews.length === 0) return null;
+
+  const schemas = validReviews.slice(0, 20).map((r) => {
+    const author = r?.reviewer?.name || r?.userName || r?.name || "Verified User";
+    const comment = (r?.comment || r?.description || r?.text || "").trim();
+    const rating = Number(r?.rating ?? r?.stars ?? 5);
+
+    return buildReviewSchema({
+      itemReviewedName,
+      itemReviewedType,
+      ratingValue: rating,
+      reviewBody: comment,
+      authorName: author,
+      datePublished: r?.createdAt || r?.date || r?.created_at,
+    });
+  });
+
+  return schemas.length === 1 ? schemas[0] : schemas;
+}
+
+
+

@@ -16,6 +16,8 @@ import TaggedProperties from "../(justflip)/components/TaggedProperties/TaggedPr
 import TopBuilders from "../(justflip)/components/TopBuilders/TopBuilders";
 import Blogs from "../(justflip)/components/Blogs";
 import MortgageCalculator from "@/src/components/molecules/MortgageCalculatorsDynamic";
+// import PostPropertyCTA from "../(justflip)/components/PostPropertyCTA";
+// import ExploreByBudget from "../(justflip)/components/ExploreByBudget";
 
 import { constructMetadata } from "@/src/utils/seo";
 import { buildWebsiteSchema, buildBreadcrumbSchema } from "@/src/utils/schema";
@@ -62,21 +64,31 @@ export default async function JustFlipHomePage() {
                     <TaggedProperties city={city} />
                 </Suspense>
 
-                <Suspense fallback={<TopBuildersSkeleton />}>
-                    <TopBuilders city={city} />
-                </Suspense>
+                {/* <ExploreByBudget /> */}
+
+                <LazyHydrate rootMargin="350px" placeholder={<TopBuildersSkeleton />}>
+                    <Suspense fallback={<TopBuildersSkeleton />}>
+                        <TopBuilders city={city} />
+                    </Suspense>
+                </LazyHydrate>
 
                 <LazyHydrate rootMargin="300px">
                     <MortgageCalculator />
                 </LazyHydrate>
 
-                <Suspense fallback={<PopularCitiesSkeleton />}>
-                    <PopularCities />
-                </Suspense>
+                <LazyHydrate rootMargin="350px" placeholder={<PopularCitiesSkeleton />}>
+                    <Suspense fallback={<PopularCitiesSkeleton />}>
+                        <PopularCities />
+                    </Suspense>
+                </LazyHydrate>
 
-                <Suspense fallback={<HomeBlogsSkeleton />}>
-                    <Blogs tag={"Latest Blogs"} />
-                </Suspense>
+                {/* <PostPropertyCTA /> */}
+
+                <LazyHydrate rootMargin="350px" placeholder={<HomeBlogsSkeleton />}>
+                    <Suspense fallback={<HomeBlogsSkeleton />}>
+                        <Blogs tag={"Latest Blogs"} />
+                    </Suspense>
+                </LazyHydrate>
             </div>
         </main>
     );

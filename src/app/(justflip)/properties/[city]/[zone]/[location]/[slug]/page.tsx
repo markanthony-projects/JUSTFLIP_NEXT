@@ -47,7 +47,6 @@ import { constructMetadata } from "@/src/utils/seo";
 import { buildRealEstateSchema } from "@/src/utils/schema";
 import Link from 'next/link';
 import Image from 'next/image';
-import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
 const FloatingActions = dynamic(() => import('@/src/app/(justflip)/components/Project/FloatingActions'));
 
@@ -82,7 +81,10 @@ async function PropertyDetails({ params }: ProjectPageProps) {
     // TEMPORARY ARTIFICIAL DELAY: Sleeps for 10 seconds to allow you to inspect the loading skeleton
     // await new Promise(resolve => setTimeout(resolve, 10000));
     
-    const data = await getProjectPageData(id);
+    const [data, reviewData] = await Promise.all([
+        getProjectPageData(id),
+        getProjectReviews(id)
+    ]);
 
     if (!data || !data.projectData) {
         return notFound();
@@ -103,13 +105,32 @@ async function PropertyDetails({ params }: ProjectPageProps) {
         { label: name }
     ];
 
+    const ratingValue = reviewData?.global?.average ?? projectData?.avgRating ?? projectData?.rating;
+    const reviewCount = reviewData?.global?.pagination?.totalReviews ?? reviewData?.global?.reviews?.length ?? projectData?.reviewCount;
+    const propertyImages = Array.from(new Set([
+        projectData?.displayImage,
+        projectData?.banner?.url,
+        ...(projectData?.medias || []).map((m: any) => m?.url)
+    ])).filter(Boolean) as string[];
+
     const realEstateSchema = buildRealEstateSchema({
         name: projectData?.name || name,
         description: projectData?.description,
         url: `/properties/${city}/${zone}/${location}/${slug}`,
         locationName,
         cityName,
-        price: projectData?.minPrice
+        minPrice: projectData?.minPrice,
+        maxPrice: projectData?.maxPrice,
+        price: projectData?.minPrice,
+        priceCurrency: "INR",
+        reraNumber: projectData?.rera || projectData?.reraNumber,
+        amenities: projectData?.amenities,
+        latitude: projectData?.latitude || projectData?.location?.latitude,
+        longitude: projectData?.longitude || projectData?.location?.longitude,
+        images: propertyImages,
+        ratingValue,
+        reviewCount,
+        availability: projectData?.status === 'ready' || projectData?.status === 'active' ? 'InStock' : 'PreOrder'
     });
 
     const staticAddSection = {
@@ -120,7 +141,6 @@ async function PropertyDetails({ params }: ProjectPageProps) {
 
     return (
         <>
-            <ScrollToTop />
             <div className='w-full max-w-full overflow-x-hidden px-2 md:px-4'>
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateSchema) }} />
 

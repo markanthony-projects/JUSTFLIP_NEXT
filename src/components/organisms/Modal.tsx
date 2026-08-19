@@ -47,7 +47,7 @@ export default function Modal({ isOpen, onClose, children, maxWidth = "max-w-md"
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center"
+        <div className="fixed inset-0 z-[200] flex items-center justify-center"
             onMouseDown={handleOutsideClick}
         >
             <div className="absolute inset-0 app-overlay" />

@@ -17,10 +17,12 @@ export default function FAQ({ data }: { data: any }) {
 
     return (
         <div className="py-8 md:py-16 my-4 md:my-8 rounded-3xl">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-            />
+            {faqSchema && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+                />
+            )}
             <div className="px-4 mx-auto w-full max-w-4xl">
                 <div className="text-center mb-8 md:mb-12 px-2">
                     <h2 className="text-2xl md:text-4xl font-bold text-gray-900 tracking-tight">
