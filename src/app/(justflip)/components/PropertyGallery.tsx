@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import Image from "@/src/components/atoms/Image";
 import { Media } from "@/src/types";
+import { buildVideoObjectSchema } from "@/src/utils/schema";
 import { 
     FiCamera, 
     FiMaximize2, 
@@ -57,6 +58,45 @@ export default function PropertyGallery({
         );
     }, [data?.medias]);
 
+    // Extract videos if present
+    const videos: Media[] = useMemo(() => {
+        if (!data?.medias || !Array.isArray(data.medias)) return [];
+        return data.medias.filter(
+            (o: Media) =>
+                o?.url &&
+                (o?.type === "video" ||
+                 o?.title?.toLowerCase() === "video" ||
+                 /\.(mp4|webm|ogg|mov)$/i.test(o?.url || "") ||
+                 o?.url?.includes("youtube.com") ||
+                 o?.url?.includes("youtu.be") ||
+                 o?.url?.includes("vimeo.com"))
+        );
+    }, [data?.medias]);
+
+    // Generate VideoObject Schema for search engines
+    const videoSchemas = useMemo(() => {
+        if (!videos || videos.length === 0) return null;
+
+        const defaultThumbnail = images[0]?.url || (data as any)?.displayImage || (data as any)?.banner?.url || "https://justflip.in/logo.png";
+        const propertyName = data?.name || title || "Property";
+        const propertyDesc = data?.description || subtitle || `Watch the video tour and walkthrough for ${propertyName} on JustFlip.`;
+
+        const schemas = videos.map((v: Media, idx: number) => {
+            const isEmbed = v.url.includes("youtube.com") || v.url.includes("youtu.be") || v.url.includes("vimeo.com");
+            return buildVideoObjectSchema({
+                name: v.alt || v.title || `${propertyName} - Video Tour ${videos.length > 1 ? idx + 1 : ""}`.trim(),
+                description: propertyDesc,
+                thumbnailUrl: (v as any)?.thumbnail || (v as any)?.preview || defaultThumbnail,
+                contentUrl: !isEmbed ? v.url : undefined,
+                embedUrl: isEmbed ? v.url : undefined,
+                uploadDate: (data as any)?.createdAt || (data as any)?.updatedAt || undefined,
+            });
+        });
+
+        return schemas.length === 1 ? schemas[0] : schemas;
+    }, [videos, images, data, title, subtitle]);
+
+
     // Reset index on images change
     useEffect(() => {
         if (images.length > 0) {
@@ -110,6 +150,12 @@ export default function PropertyGallery({
 
     return (
         <section className={`w-full my-6 ${className}`}>
+            {videoSchemas && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchemas) }}
+                />
+            )}
             {/* Header Section */}
             <div className="flex items-center justify-between gap-3 mb-4">
                 <div>

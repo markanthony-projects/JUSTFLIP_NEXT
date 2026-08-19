@@ -38,12 +38,23 @@ export default async function DeveloperDetails({ params }: DeveloperDetailsProps
     // ARTIFICIAL DELAY: Added so you can view the skeleton loading state
     // await new Promise(resolve => setTimeout(resolve, 10000));
 
-    const builder = data?.builder
+    const builder = data?.builder;
+    const logoUrl = builder?.medias?.find((m: any) => m.title === "logo")?.url;
+    const bannerUrl = builder?.medias?.find((m: any) => m.title === "banner")?.url;
+
     const developerSchema = buildDeveloperSchema({
         name: builder?.name || name,
         description: builder?.description,
         slug: slug,
-        logo: builder?.medias?.find((m: any) => m.title === "logo")?.url
+        logo: logoUrl,
+        image: bannerUrl,
+        startedAt: builder?.startedAt,
+        totalProjects: builder?.totalProjects,
+        activeProjects: builder?.activeProjects,
+        address: builder?.address || builder?.companyAddress,
+        telephone: builder?.phone || builder?.telephone,
+        email: builder?.email,
+        employees: builder?.employees,
     });
 
     return (
