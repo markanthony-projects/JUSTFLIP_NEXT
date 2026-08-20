@@ -222,7 +222,7 @@ const FeedbackClient = () => {
                     {/* Filled star */}
                     {(isFull || isHalf) && (
                       <span
-                        className="absolute left-0 top-0 overflow-hidden text-[#002B5B]"
+                        className="absolute left-0 top-0 overflow-hidden text-amber-400"
                         style={{
                           width: isFull ? "100%" : "50%",
                         }}
