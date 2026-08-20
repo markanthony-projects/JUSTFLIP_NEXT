@@ -13,6 +13,7 @@ const sections = [
             { label: "Builders in India", url: "/developers" },
             { label: "Area Converter", url: "/area-converter" },
             { label: "Rent Vs Buy", url: "/rent-vs-buy" },
+            { label: "Loan Eligibility", url: "/loan-eligibility" },
             { label: "Customer Service", url: "/contact-us" },
         ],
     },
