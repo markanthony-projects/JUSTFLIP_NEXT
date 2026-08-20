@@ -14,6 +14,7 @@ const sections = [
             { label: "Area Converter", url: "/area-converter" },
             { label: "Rent Vs Buy", url: "/rent-vs-buy" },
             { label: "Loan Eligibility", url: "/loan-eligibility" },
+            { label: "Stamp Duty Calculator", url: "/stamp-duty"},
             { label: "Customer Service", url: "/contact-us" },
         ],
     },
