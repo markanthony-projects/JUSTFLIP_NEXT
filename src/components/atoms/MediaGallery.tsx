@@ -14,6 +14,7 @@ import {
 import { FaPlay } from "react-icons/fa";
 import Modal from "@/src/components/organisms/Modal";
 import { Project } from "@/src/types";
+import { buildVideoObjectSchema } from "@/src/utils/schema";
 
 export interface MediaItem {
   id?: string;
@@ -173,22 +174,50 @@ function MediaGallery({
     floor: floorPlan.length,
   };
 
+  // Generate VideoObject Schema for search engines
+  const videoSchemas = useMemo(() => {
+    if (!videos || videos.length === 0) return null;
+    const propertyName = effectiveProject?.name || "Property";
+    const defaultThumbnail = otherImages[0]?.url || (effectiveProject as any)?.displayImage || (effectiveProject as any)?.banner?.url || "https://justflip.in/logo.png";
+    const propertyDesc = effectiveProject?.description || `Watch property walkthrough and video tour for ${propertyName} on JustFlip.`;
+
+    const schemas = videos.map((v, idx) => {
+      const isEmbed = v.url.includes("youtube.com") || v.url.includes("youtu.be") || v.url.includes("vimeo.com");
+      return buildVideoObjectSchema({
+        name: v.alt || v.title || `${propertyName} - Video Tour ${videos.length > 1 ? idx + 1 : ""}`.trim(),
+        description: propertyDesc,
+        thumbnailUrl: (v as any)?.thumbnail || (v as any)?.preview || (v as any)?.thumbnailUrl || defaultThumbnail,
+        contentUrl: !isEmbed ? v.url : undefined,
+        embedUrl: isEmbed ? v.url : undefined,
+      });
+    });
+
+    return schemas.length === 1 ? schemas[0] : schemas;
+  }, [videos, otherImages, effectiveProject]);
+
   return (
-    <Modal
-      isOpen={isModalOpen}
-      onClose={handleClose}
-      showCloseButton={false}
-      maxWidth="max-w-6xl"
-      height="h-[90vh] md:h-[94vh]"
-      className="bg-white p-0 overflow-hidden flex flex-col transition-all duration-300"
-    >
-      {/* Top Header */}
-      <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-gray-100 shrink-0 bg-white z-20">
-        <div className="min-w-0 pr-4">
-          <h2 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 leading-tight truncate">
-            {effectiveProject?.name ? `${effectiveProject.name} — Gallery` : "Media Gallery"}
-          </h2>
-        </div>
+    <>
+      {videoSchemas && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchemas) }}
+        />
+      )}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleClose}
+        showCloseButton={false}
+        maxWidth="max-w-6xl"
+        height="h-[90vh] md:h-[94vh]"
+        className="bg-white p-0 overflow-hidden flex flex-col transition-all duration-300"
+      >
+        {/* Top Header */}
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3 border-b border-gray-100 shrink-0 bg-white z-20">
+          <div className="min-w-0 pr-4">
+            <h2 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 leading-tight truncate">
+              {effectiveProject?.name ? `${effectiveProject.name} — Gallery` : "Media Gallery"}
+            </h2>
+          </div>
 
         {/* Header Action Controls */}
         <div className="flex items-center gap-2 shrink-0">
@@ -391,6 +420,7 @@ function MediaGallery({
         )}
       </div>
     </Modal>
+    </>
   );
 }
 

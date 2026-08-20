@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import ReviewsList from "@/src/components/organisms/ReviewsList";
 import RatingModal from "@/src/components/organisms/RatingModal";
 import LoginModal from "@/src/components/organisms/LoginModal";
 import { useAuthStore } from "@/src/stores/auth.store";
 import { useReviewStore, ReviewData } from "@/src/stores/review.store";
 import { toast } from "@/src/utils/toast";
+import { buildReviewsSchemaList } from "@/src/utils/schema";
 
 export default function ReviewsSectionClient({ typeId, typeName, type, reviews: initialReviews }: { typeId: string | number; typeName: string; type: "city" | "zone" | "location" | "project"; reviews: any }) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -26,6 +27,23 @@ export default function ReviewsSectionClient({ typeId, typeName, type, reviews: 
     const isProject = type === "project";
     const entityLabel = type.charAt(0).toUpperCase() + type.slice(1);
 
+    // Extract list of reviews for schema generation
+    const reviewList = useMemo(() => {
+        const revs = storeReviews?.reviews || initialReviews?.reviews || (Array.isArray(initialReviews) ? initialReviews : []);
+        return Array.isArray(revs) ? revs : [];
+    }, [storeReviews, initialReviews]);
+
+    // Generate Review Schema (Google rich results)
+    const reviewSchemas = useMemo(() => {
+        if (!reviewList || reviewList.length === 0) return null;
+        const itemType = type === "project" ? "RealEstateListing" : "Place";
+        return buildReviewsSchemaList({
+            itemReviewedName: typeName,
+            itemReviewedType: itemType,
+            reviews: reviewList,
+        });
+    }, [reviewList, type, typeName]);
+
     const handleRating = () => {
         if (authType === "visitor" || (!isProject && authType === "broker")){
             setModalOpen(true);
@@ -38,6 +56,12 @@ export default function ReviewsSectionClient({ typeId, typeName, type, reviews: 
     
     return (
         <section className="">
+            {reviewSchemas && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchemas) }}
+                />
+            )}
             <div className="flex justify-between mb-4">
                 <h2 className="text-sm md:text-lg font-semibold">Reviews</h2>
                 <button onClick={handleRating} className="border-b text-sm">
