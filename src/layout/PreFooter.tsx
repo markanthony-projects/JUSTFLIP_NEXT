@@ -133,21 +133,10 @@ const generateCityData = (cityName: string) => {
     ];
 };
 
-import { useCityStore } from "@/src/stores/city.store";
-import { ensureCityList } from "@/src/components/NearestCity/city-list.loader";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-
 const PreFooter = () => {
     const [activeCity, setActiveCity] = useState(CITIES[0]);
-    const { cityList, setActiveCity: setGlobalCity } = useCityStore();
-    const router = useRouter();
     const tabsRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        ensureCityList();
-    }, []);
 
     const scrollTabs = () => {
         if (tabsRef.current) {
@@ -228,33 +217,12 @@ const PreFooter = () => {
                                 <ul className="space-y-3.5">
                                     {col.links.map((link, linkIdx) => (
                                         <li key={linkIdx}>
-                                                <Link
-                                                    href={link.href}
-                                                    onClick={(e) => {
-                                                        // Update the global city if possible
-                                                        const targetCity = cityList.find(c => {
-                                                            const n = c.name.toLowerCase().trim();
-                                                            const a = activeCity.toLowerCase().trim();
-                                                            if (n === a) return true;
-                                                            if (n === 'bengaluru' && a === 'bangalore') return true;
-                                                            if (n === 'bangalore' && a === 'bengaluru') return true;
-                                                            return false;
-                                                        });
-                                                        
-                                                        if (targetCity) {
-                                                            setGlobalCity(targetCity);
-                                                        }
-
-                                                        // If it's a standard left click, manually route to ensure state is updated first
-                                                        if (!e.ctrlKey && !e.metaKey && !e.shiftKey && e.button === 0) {
-                                                            e.preventDefault();
-                                                            router.push(link.href);
-                                                        }
-                                                    }}
-                                                    className="text-[14px] text-gray-500 hover:text-[#002B5B] transition-colors duration-200 block truncate"
-                                                >
-                                                    {link.label}
-                                                </Link>
+                                            <Link
+                                                href={link.href}
+                                                className="text-[14px] text-gray-500 hover:text-[#002B5B] transition-colors duration-200 block truncate"
+                                            >
+                                                {link.label}
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>
