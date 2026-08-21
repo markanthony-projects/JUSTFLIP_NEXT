@@ -11,24 +11,26 @@ export default function NotFound() {
     const router = useRouter()
     const [ secondsLeft, setSecondsLeft ] = useState(REDIRECT_TIME)
 
-    useEffect(() =>{
-        const interval = setInterval(()=>{
-            setSecondsLeft((prev) => {
-                    if(prev <= 1){
-                    clearInterval(interval)
-                    router.replace('/')
-                    return 0;
-                }
-                return prev-1
-            })
-        },1000)
+    useEffect(() => {
+        if (secondsLeft <= 0) return;
 
-        return ()=> clearInterval(interval)
-    },[router])
+        const interval = setInterval(() => {
+            setSecondsLeft((prev) => prev - 1);
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, [secondsLeft]);
+
+    // 2. Handle Redirect when timer hits zero
+    useEffect(() => {
+        if (secondsLeft === 0) {
+            router.replace('/');
+        }
+    }, [secondsLeft, router]);
 
     const goHome = () => {
-        router.replace('/')
-    }
+        router.replace('/');
+    };
 
     const progress = (secondsLeft/REDIRECT_TIME) * 100
 
