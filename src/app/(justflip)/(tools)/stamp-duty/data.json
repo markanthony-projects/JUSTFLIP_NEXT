@@ -1,0 +1,169 @@
+{
+  "Maharashtra": {
+    "has_location_type": true,
+    "has_slabs": false,
+    "has_gender_discount": true,
+    "locations": {
+      "urban": {
+        "cess_percent": 1.0,
+        "rates": { "male": 5.0, "female": 4.0, "joint_mf": 5.0, "joint_ff": 4.0, "joint_mm": 5.0 }
+      },
+      "rural": {
+        "cess_percent": 0.0,
+        "rates": { "male": 5.0, "female": 4.0, "joint_mf": 5.0, "joint_ff": 4.0, "joint_mm": 5.0 }
+      }
+    },
+    "registration": { "type": "cap", "value_percent": 1.0, "max_cap": 30000 }
+  },
+  "Delhi": {
+    "has_location_type": false,
+    "has_slabs": false,
+    "has_gender_discount": true,
+    "cess_percent": 0.0,
+    "rates": { "male": 6.0, "female": 4.0, "joint_mf": 5.0, "joint_ff": 4.0, "joint_mm": 6.0 },
+    "registration": { "type": "cap", "value_percent": 1.0 }
+  },
+  "Uttar Pradesh": {
+    "has_location_type": false,
+    "has_slabs": false,
+    "has_gender_discount": true,
+    "cess_percent": 0.0,
+    "rates": { "male": 7.0, "female": 6.0, "joint_mf": 6.5, "joint_ff": 6.0, "joint_mm": 7.0 },
+    "registration": { "type": "percentage", "value_percent": 1.0 }
+  },
+  "Karnataka": {
+    "has_location_type": false,
+    "has_slabs": true,
+    "has_gender_discount": false,
+    "cess_percent": 0.0,
+    "slabs": [
+      {
+        "max_value": 2000000,
+        "rates": { "male": 2.0, "female": 2.0, "joint_mf": 2.0, "joint_ff": 2.0, "joint_mm": 2.0 }
+      },
+      {
+        "min_value": 2000001,
+        "max_value": 4500000,
+        "rates": { "male": 3.0, "female": 3.0, "joint_mf": 3.0, "joint_ff": 3.0, "joint_mm": 3.0 }
+      },
+      {
+        "min_value": 4500001,
+        "rates": { "male": 5.0, "female": 5.0, "joint_mf": 5.0, "joint_ff": 5.0, "joint_mm": 5.0 }
+      }
+    ],
+    "registration": { "type": "percentage", "value_percent": 2.0 }
+  },
+  "Haryana": {
+    "has_location_type": true,
+    "has_slabs": false,
+    "has_gender_discount": true,
+    "locations": {
+      "urban": {
+        "cess_percent": 0.0,
+        "rates": { "male": 7.0, "female": 5.0, "joint_mf": 6.0, "joint_ff": 5.0, "joint_mm": 7.0 }
+      },
+      "rural": {
+        "cess_percent": 0.0,
+        "rates": { "male": 5.0, "female": 3.0, "joint_mf": 4.0, "joint_ff": 3.0, "joint_mm": 5.0 }
+      }
+    },
+    "registration": { "type": "percentage", "value_percent": 1.0 }
+  },
+  "Tamil Nadu": {
+    "has_location_type": false,
+    "has_slabs": false,
+    "has_gender_discount": false,
+    "cess_percent": 0.0,
+    "rates": { "male": 7.0, "female": 7.0, "joint_mf": 7.0, "joint_ff": 7.0, "joint_mm": 7.0 },
+    "registration": { "type": "percentage", "value_percent": 4.0 }
+  },
+  "West Bengal": {
+    "has_location_type": true,
+    "has_slabs": false,
+    "has_gender_discount": false,
+    "locations": {
+      "urban": {
+        "cess_percent": 0.0,
+        "rates": { "male": 6.0, "female": 6.0, "joint_mf": 6.0, "joint_ff": 6.0, "joint_mm": 6.0 }
+      },
+      "rural": {
+        "cess_percent": 0.0,
+        "rates": { "male": 5.0, "female": 5.0, "joint_mf": 5.0, "joint_ff": 5.0, "joint_mm": 5.0 }
+      }
+    },
+    "registration": { "type": "percentage", "value_percent": 1.0 }
+  },
+  "Uttarakhand": {
+    "has_location_type": false,
+    "has_slabs": false,
+    "has_gender_discount": true,
+    "cess_percent": 0.0,
+    "rates": { "male": 5.0, "female": 3.75, "joint_mf": 4.37, "joint_ff": 3.75, "joint_mm": 5.0 },
+    "registration": { "type": "percentage", "value_percent": 2.0 }
+  },
+  "Odisha": {
+    "has_location_type": false,
+    "has_slabs": false,
+    "has_gender_discount": true,
+    "cess_percent": 0.0,
+    "rates": { "male": 5.0, "female": 4.0, "joint_mf": 4.0, "joint_ff": 4.0, "joint_mm": 5.0 },
+    "registration": { "type": "percentage", "value_percent": 2.0 }
+  },
+  "Telangana": {
+    "has_location_type": false,
+    "has_slabs": false,
+    "has_gender_discount": false,
+    "cess_percent": 0.0,
+    "rates": { "male": 4.0, "female": 4.0, "joint_mf": 4.0, "joint_ff": 4.0, "joint_mm": 4.0 },
+    "registration": { "type": "percentage", "value_percent": 0.5 }
+  },
+  "Gujarat": {
+    "has_location_type": false,
+    "has_slabs": false,
+    "has_gender_discount": false,
+    "cess_percent": 0.0,
+    "rates": { "male": 4.9, "female": 4.9, "joint_mf": 4.9, "joint_ff": 4.9, "joint_mm": 4.9 },
+    "registration": { "type": "percentage", "value_percent": 1.0 }
+  },
+  "Kerala": {
+    "has_location_type": false,
+    "has_slabs": false,
+    "has_gender_discount": false,
+    "cess_percent": 0.0,
+    "rates": { "male": 8.0, "female": 8.0, "joint_mf": 8.0, "joint_ff": 8.0, "joint_mm": 8.0 },
+    "registration": { "type": "percentage", "value_percent": 2.0 }
+  },
+  "Andhra Pradesh": {
+    "has_location_type": false,
+    "has_slabs": false,
+    "has_gender_discount": false,
+    "cess_percent": 1.5,
+    "rates": { "male": 5.0, "female": 5.0, "joint_mf": 5.0, "joint_ff": 5.0, "joint_mm": 5.0 },
+    "registration": { "type": "percentage", "value_percent": 1.0 }
+  },
+  "Madhya Pradesh": {
+    "has_location_type": false,
+    "has_slabs": false,
+    "has_gender_discount": false,
+    "cess_percent": 0.0,
+    "rates": { "male": 7.5, "female": 7.5, "joint_mf": 7.5, "joint_ff": 7.5, "joint_mm": 7.5 },
+    "registration": { "type": "percentage", "value_percent": 3.0 }
+  },
+  "Rajasthan": {
+    "has_location_type": false,
+    "has_slabs": false,
+    "has_gender_discount": true,
+    "comment": "Rates include the 20% Labour Cess on top of the base 6% and 5% stamp duty values",
+    "cess_percent": 0.0,
+    "rates": { "male": 7.2, "female": 6.0, "joint_mf": 7.2, "joint_ff": 6.0, "joint_mm": 7.2 },
+    "registration": { "type": "percentage", "value_percent": 1.0 }
+  },
+  "Punjab": {
+    "has_location_type": false,
+    "has_slabs": false,
+    "has_gender_discount": true,
+    "cess_percent": 0.0,
+    "rates": { "male": 7.0, "female": 5.0, "joint_mf": 6.0, "joint_ff": 5.0, "joint_mm": 7.0 },
+    "registration": { "type": "percentage", "value_percent": 1.0 }
+  }
+}
