@@ -15,6 +15,7 @@ const sections = [
             { label: "Rent Vs Buy", url: "/rent-vs-buy" },
             { label: "Loan Eligibility", url: "/loan-eligibility" },
             { label: "Stamp Duty Calculator", url: "/stamp-duty"},
+            { label: "Affordability Calculator", url: "/affordability-calculator"},
             { label: "Customer Service", url: "/contact-us" },
         ],
     },

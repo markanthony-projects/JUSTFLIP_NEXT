@@ -1,53 +1,12 @@
 'use client';
 
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import rawStampDutyData from '../data.json';
+import React from 'react';
 import {
-  StampDutyDataSet,
-  BuyerGender,
-  LocationType,
-  StateConfig
-} from '@/src/types/stampDuty';
+  useStampDutyCalculator,
+  convertToIndianWords,
+  PRESET_VALUES,
+} from './useStampDutyCalculator';
 
-const stampDutyData = rawStampDutyData as StampDutyDataSet;
-
-const PRESET_VALUES = [
-  { label: '₹25L', value: 2500000 },
-  { label: '₹50L', value: 5000000 },
-  { label: '₹75L', value: 7500000 },
-  { label: '₹1 Cr', value: 10000000 },
-  { label: '₹2 Cr', value: 20000000 },
-];
-
-function convertToIndianWords(num: number): string {
-  if (!num || num <= 0) return 'Zero';
-
-  const units = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 
-                 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
-  const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-
-  const numToWordsLessThanThousand = (n: number): string => {
-    if (n === 0) return '';
-    if (n < 20) return units[n] + ' ';
-    if (n < 100) return tens[Math.floor(n / 10)] + ' ' + units[n % 10] + ' ';
-    return units[Math.floor(n / 100)] + ' Hundred ' + numToWordsLessThanThousand(n % 100);
-  };
-
-  let crore = Math.floor(num / 10000000);
-  let lakh = Math.floor((num % 10000000) / 100000);
-  let thousand = Math.floor((num % 100000) / 1000);
-  let remainder = num % 1000;
-
-  let result = '';
-  if (crore > 0) result += numToWordsLessThanThousand(crore).trim() + ' Crore ';
-  if (lakh > 0) result += numToWordsLessThanThousand(lakh).trim() + ' Lakh ';
-  if (thousand > 0) result += numToWordsLessThanThousand(thousand).trim() + ' Thousand ';
-  if (remainder > 0) result += numToWordsLessThanThousand(remainder).trim();
-
-  return result.trim();
-}
-
-// Clean, distinct vector icons for Male, Female, and Joint options
 const MaleIcon = () => (
   <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
     <circle cx="10" cy="14" r="5" />
@@ -66,82 +25,40 @@ const JointIcon = () => (
   <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
     <path strokeLinecap="round" strokeLinejoin="round" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
     <circle cx="9" cy="7" r="4" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M23 21v-2a4 4 0 00-3-3.87" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M23 21v-2a4 4 0 010 7.75" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M16 3.13a4 4 0 010 7.75" />
   </svg>
 );
 
+const CATEGORY_ICONS: Record<string, React.ReactNode> = {
+  male: <MaleIcon />,
+  female: <FemaleIcon />,
+  joint_mf: <JointIcon />,
+};
+
 export default function StampDutyCalculator(): React.JSX.Element {
-  const [selectedState, setSelectedState] = useState<string>('Gujarat');
-  const [propertyValue, setPropertyValue] = useState<number>(5000000);
-  const [gender, setGender] = useState<BuyerGender>('male');
-  const [locationType] = useState<LocationType>('urban');
-  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const currentConfig: StateConfig | undefined = stampDutyData[selectedState];
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const getRateForGender = (g: BuyerGender): number => {
-    if (!currentConfig) return 0;
-    let stampDutyRate = 0;
-    let cessRate = 0;
-
-    if (currentConfig.has_slabs && currentConfig.slabs) {
-      const slab = currentConfig.slabs.find((s) => {
-        const minOk = s.min_value !== undefined ? propertyValue >= s.min_value : true;
-        const maxOk = s.max_value !== undefined ? propertyValue <= s.max_value : true;
-        return minOk && maxOk;
-      });
-      stampDutyRate = slab?.rates[g] ?? 5.0;
-    } else if (currentConfig.has_location_type && currentConfig.locations) {
-      const loc = currentConfig.locations[locationType] || currentConfig.locations.urban;
-      stampDutyRate = loc?.rates[g] ?? 5.0;
-      cessRate = loc?.cess_percent || 0;
-    } else if (currentConfig.rates) {
-      stampDutyRate = currentConfig.rates[g] ?? 5.0;
-      cessRate = currentConfig.cess_percent || 0;
-    }
-
-    return stampDutyRate + cessRate;
-  };
-
-  const genderBreakdown = useMemo(() => {
-    if (!currentConfig) return [];
-
-    const categories: { key: BuyerGender; label: string; icon: React.ReactNode }[] = [
-      { key: 'male', label: 'Male', icon: <MaleIcon /> },
-      { key: 'female', label: 'Female', icon: <FemaleIcon /> },
-      { key: 'joint_mf', label: 'Joint', icon: <JointIcon /> },
-    ];
-
-    return categories.map((cat) => {
-      const rate = getRateForGender(cat.key);
-      const amount = (propertyValue * rate) / 100;
-      const isActive = currentConfig.has_gender_discount
-        ? cat.key === gender || (gender.startsWith('joint') && cat.key === 'joint_mf')
-        : true;
-
-      return { ...cat, rate, amount, isActive };
-    });
-  }, [currentConfig, propertyValue, gender, locationType]);
-
-  const activeRate = useMemo(() => {
-    if (!currentConfig) return 0;
-    const effectiveGender = currentConfig.has_gender_discount ? gender : 'male';
-    return getRateForGender(effectiveGender);
-  }, [currentConfig, gender, propertyValue, locationType]);
-
-  const totalCalculatedDuty = (propertyValue * activeRate) / 100;
+  const {
+    selectedState,
+    setSelectedState,
+    propertyValue,
+    inputValue,
+    handleInputChange,
+    handleInputBlur,
+    handleKeyDown,
+    updatePropertyValue,
+    gender,
+    setGender,
+    isDropdownOpen,
+    setIsDropdownOpen,
+    dropdownRef,
+    currentConfig,
+    genderBreakdown,
+    activeRate,
+    totalCalculatedDuty,
+    availableStates,
+    MIN_PROPERTY_VALUE,
+    MAX_PROPERTY_VALUE,
+  } = useStampDutyCalculator();
 
   if (!currentConfig) return <div className="p-4 text-slate-700">State configuration not found.</div>;
 
@@ -192,7 +109,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
 
                 {isDropdownOpen && (
                   <div className="absolute left-0 right-0 top-[105%] z-50 bg-white border border-slate-200 rounded-xl shadow-xl max-h-56 overflow-y-auto py-1">
-                    {Object.keys(stampDutyData).map((st) => (
+                    {availableStates.map((st) => (
                       <button
                         key={st}
                         type="button"
@@ -281,8 +198,10 @@ export default function StampDutyCalculator(): React.JSX.Element {
                 <span className="px-4 py-3 bg-slate-100 text-[#002B49] font-bold border-r border-slate-200">₹</span>
                 <input
                   type="number"
-                  value={propertyValue || ''}
-                  onChange={(e) => setPropertyValue(Number(e.target.value))}
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
+                  onBlur={handleInputBlur}
                   className="w-full p-3 bg-transparent text-[#002B49] font-bold focus:outline-none"
                 />
               </div>
@@ -294,13 +213,18 @@ export default function StampDutyCalculator(): React.JSX.Element {
               {/* Slider */}
               <input
                 type="range"
-                min="500000"
-                max="50000000"
+                min={MIN_PROPERTY_VALUE}
+                max={MAX_PROPERTY_VALUE}
                 step="100000"
                 value={propertyValue}
-                onChange={(e) => setPropertyValue(Number(e.target.value))}
+                onChange={(e) => updatePropertyValue(Number(e.target.value))}
                 className="w-full mt-4 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#002B49]"
               />
+
+              <div className="flex justify-between text-[10px] text-slate-400 font-semibold mt-1">
+                <span>₹5 Lakh</span>
+                <span>₹50 Crore</span>
+              </div>
 
               {/* Quick Select Buttons */}
               <div className="flex items-center gap-2 mt-3 overflow-x-auto pb-1">
@@ -309,7 +233,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
                   <button
                     key={preset.value}
                     type="button"
-                    onClick={() => setPropertyValue(preset.value)}
+                    onClick={() => updatePropertyValue(preset.value)}
                     className={`px-2.5 py-1 text-xs font-bold rounded-lg border transition ${
                       propertyValue === preset.value
                         ? 'bg-[#002B49] text-white border-[#002B49]'
@@ -380,7 +304,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      {item.icon}
+                      {CATEGORY_ICONS[item.key]}
                       <span>{item.label}</span>
                     </div>
 
