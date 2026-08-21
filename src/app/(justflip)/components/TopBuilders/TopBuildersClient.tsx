@@ -107,9 +107,9 @@ export default function TopBuildersClient({
 
                 </div>
 
-                <p className="text-xs md:text-sm text-gray-600 max-w-2xl leading-relaxed">
+                {/* <p className="text-xs md:text-sm text-gray-600 max-w-2xl leading-relaxed">
                     {`Explore trusted builders delivering premium residential projects in ${cityText}.`}
-                </p>
+                </p> */}
 
             </div>
 
