@@ -186,7 +186,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
             {/* Property Value Input Section */}
             <div>
               <div className="flex justify-between items-center mb-2">
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#002B49]">
+                <label htmlFor="property-value-input" className="block text-xs font-bold uppercase tracking-wider text-[#002B49]">
                   Property Value
                 </label>
                 <span className="text-xs font-bold text-[#002B49]">
@@ -197,6 +197,9 @@ export default function StampDutyCalculator(): React.JSX.Element {
               <div className="flex items-center border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#002B49]/20 focus-within:border-[#002B49] bg-slate-50">
                 <span className="px-4 py-3 bg-slate-100 text-[#002B49] font-bold border-r border-slate-200">₹</span>
                 <input
+                  id="property-value-input"
+                  name="propertyValue"
+                  aria-label="Property Value in Rupees"
                   type="number"
                   value={inputValue}
                   onChange={handleInputChange}
@@ -213,6 +216,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
               {/* Slider */}
               <input
                 type="range"
+                aria-label="Property value range slider"
                 min={MIN_PROPERTY_VALUE}
                 max={MAX_PROPERTY_VALUE}
                 step="100000"

@@ -240,9 +240,9 @@ const UnitConverter = () => {
           <div className='space-y-6 px-5 py-4 md:px-7 md:space-y-4'>
             
             <div>
-              <label htmlFor="" className='mb-0.5 block text-[13px] font-semibold text-[#27364b] uppercase'>
+              <span className='mb-0.5 block text-[13px] font-semibold text-[#27364b] uppercase'>
                 conversion type
-              </label>
+              </span>
 
               <div className='grid grid-cols-2 gap-1 rounded-lg border border-[#e0e7f0] bg-[#f8fafd] p-0.5'>
                 { [ { value: 'area', label: 'Area',}, { value: 'length', label: 'Length',} ].map((item) => (
@@ -270,11 +270,15 @@ const UnitConverter = () => {
 
             {/* -----------input--------------------- */}
             <div>
-              <label htmlFor="" className='mb-0.5 block text-[13px] font-semibold text-[#27364b] uppercase'>enter value</label>
+              <label htmlFor="conversion-value-input" className='mb-0.5 block text-[13px] font-semibold text-[#27364b] uppercase'>enter value</label>
               
               <div className='flex items-center overflow-hidden rounded-lg border border-[#d9e2ef] bg-white transition-all 
                 duration-200 focus-within:border-[#002B5B] focus-within:ring-4 focus-within:ring-[#002B5B]/10'>
-                  <input type="text" 
+                  <input
+                    id="conversion-value-input"
+                    name="conversionValue"
+                    aria-label="Enter value to convert"
+                    type="text" 
                     inputMode="decimal"
                     value={inputValue}
                     onChange={(e) => {

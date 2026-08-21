@@ -126,12 +126,15 @@ export default function RentVsBuyCalculator() {
           {/* Property Price */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
-              <span className="text-slate-600">Property Price</span>
+              <label htmlFor="property-price-range" className="text-slate-600">Property Price</label>
               <span style={{ color: THEME_COLOR }} className="font-bold">
                 {formatIndianCurrency(propertyPrice)}
               </span>
             </div>
             <input
+              id="property-price-range"
+              name="propertyPrice"
+              aria-label="Property Price range slider"
               type="range"
               min={2000000}
               max={100000000}
@@ -146,12 +149,15 @@ export default function RentVsBuyCalculator() {
           {/* Monthly Rent */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
-              <span className="text-slate-600">Monthly Rent</span>
+              <label htmlFor="monthly-rent-range" className="text-slate-600">Monthly Rent</label>
               <span style={{ color: THEME_COLOR }} className="font-bold">
                 ₹{currentRent.toLocaleString("en-IN")}
               </span>
             </div>
             <input
+              id="monthly-rent-range"
+              name="monthlyRent"
+              aria-label="Monthly Rent range slider"
               type="range"
               min={5000}
               max={200000}
@@ -166,12 +172,15 @@ export default function RentVsBuyCalculator() {
           {/* Home Loan Interest Rate */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
-              <span className="text-slate-600">Home Loan Interest Rate</span>
+              <label htmlFor="loan-interest-rate-range" className="text-slate-600">Home Loan Interest Rate</label>
               <span style={{ color: THEME_COLOR }} className="font-bold">
                 {loanInterestRate}%
               </span>
             </div>
             <input
+              id="loan-interest-rate-range"
+              name="loanInterestRate"
+              aria-label="Home Loan Interest Rate range slider"
               type="range"
               min={6.5}
               max={12}
@@ -186,12 +195,15 @@ export default function RentVsBuyCalculator() {
           {/* Time Horizon (Tenure) */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
-              <span className="text-slate-600">Time Horizon</span>
+              <label htmlFor="tenure-years-range" className="text-slate-600">Time Horizon</label>
               <span style={{ color: THEME_COLOR }} className="font-bold">
                 {tenureYears} Years
               </span>
             </div>
             <input
+              id="tenure-years-range"
+              name="tenureYears"
+              aria-label="Time Horizon range slider in years"
               type="range"
               min={3}
               max={30}
@@ -206,12 +218,15 @@ export default function RentVsBuyCalculator() {
           {/* Property Appreciation */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
-              <span className="text-slate-600">Expected Property Growth</span>
+              <label htmlFor="appreciation-rate-range" className="text-slate-600">Expected Property Growth</label>
               <span style={{ color: THEME_COLOR }} className="font-bold">
                 {appreciationRate}%
               </span>
             </div>
             <input
+              id="appreciation-rate-range"
+              name="appreciationRate"
+              aria-label="Expected Property Growth percentage slider"
               type="range"
               min={1}
               max={15}
@@ -226,12 +241,15 @@ export default function RentVsBuyCalculator() {
           {/* SIP Investment Return */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
-              <span className="text-slate-600">SIP Investment Return</span>
+              <label htmlFor="investment-return-range" className="text-slate-600">SIP Investment Return</label>
               <span style={{ color: THEME_COLOR }} className="font-bold">
                 {investmentReturn}%
               </span>
             </div>
             <input
+              id="investment-return-range"
+              name="investmentReturn"
+              aria-label="SIP Investment Return percentage slider"
               type="range"
               min={4}
               max={18}
