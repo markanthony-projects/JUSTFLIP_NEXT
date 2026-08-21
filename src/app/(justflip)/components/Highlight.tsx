@@ -18,7 +18,7 @@ const BulletItem = memo(function BulletItem({ title, description, tone }: { titl
         <p className="text-[14px] sm:text-[15px] font-bold text-gray-900 leading-snug">
           {title}
         </p>
-        <p className="text-[12px] sm:text-[13px] text-gray-600 mt-1 leading-relaxed">
+        <p className="text-[12px] sm:text-[13px] text-gray-600 mt-0.5 leading-relaxed">
           {description}
         </p>
       </div>
@@ -77,14 +77,14 @@ const HighlightLocation = ({ data = {}, name = "" }: { data?: any; name?: string
   const [isDisOpen, setIsDisOpen] = useState(false);
 
   return (
-    <section className="w-full max-w-5xl mx-auto px-2 sm:px-0">
+    <section className="w-full">
       {/* City Title */}
-      <h1 className="text-gray-900 text-[16px] sm:text-[18px] font-bold py-1.5 sm:py-2 mb-2 sm:mb-3">
+      <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-3 tracking-tight">
         {name ? `${name} - ` : ""}{locationName} as a City
-      </h1>
+      </h2>
 
-      {/* Outer Card Wrapper */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 p-3.5 sm:p-5 md:p-6 rounded-2xl bg-white shadow-sm border border-gray-200">
+      {/* Highlights Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
         
         {/* Left Column (Positive) */}
         <div className="flex flex-col">

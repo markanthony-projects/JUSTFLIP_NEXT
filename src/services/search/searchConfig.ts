@@ -49,6 +49,21 @@ export const SEARCH_CONFIG: SearchConfig = {
   
   // Filter definitions — add new filters here, UI auto-generates
   filters: {
+    cityId: {
+      key: 'cityId',
+      apiParam: 'cityId',
+      type: 'hidden',
+    },
+    zoneId: {
+      key: 'zoneId',
+      apiParam: 'zoneId',
+      type: 'hidden',
+    },
+    locationId: {
+      key: 'locationId',
+      apiParam: 'locationId',
+      type: 'hidden',
+    },
     tag: {
       key: 'tag',
       apiParam: 'tag',

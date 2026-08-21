@@ -18,13 +18,15 @@ export default function Loading() {
             <DescriptionSkeleton />
 
             {/* Additional Sections Loader */}
-            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-6 xl:grid-cols-7 gap-2 lg:gap-4">
-                <div className="lg:col-span-4 xl:col-span-5 ">
-                    <div className="px-2 md:px-4 py-1 md:py-2 space-y-4 w-full rounded-xl shadow-[0px_0px_10px_1px_#dad6d6]">
+            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-6 xl:grid-cols-7 gap-4 lg:gap-6">
+                <div className="lg:col-span-4 xl:col-span-5 space-y-4 md:space-y-6">
+                    <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                         <ProjectOverviewSkeleton />
-                        <div className="border-[#BABABA] border-b-[0.5px] mx-2" />
+                    </div>
+                    <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                         <UnitTableSkeleton />
-                        <div className="border-[#BABABA] border-b-[0.5px] mx-2" />
+                    </div>
+                    <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                         <FeaturesSkeleton />
                     </div>
                 </div>

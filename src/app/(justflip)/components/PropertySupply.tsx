@@ -27,12 +27,15 @@ export default async function PropertySupply({
     page,
   });
 
+  const displayName = data?.name || typeName || (typeof data?.city === "string" ? data?.city : data?.city?.name) || "";
+
   return (
     <div className="">
       <PropertySupplyClient
         initialProjects={projects}
         typeName={resolvedType}
         typeId={resolvedTypeId}
+        cityName={displayName}
       />
     </div>
   );
