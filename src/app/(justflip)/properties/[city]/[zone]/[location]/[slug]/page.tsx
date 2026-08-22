@@ -23,7 +23,6 @@ import PropertyHeaderSkeleton from '@/src/app/(justflip)/components/Skelton/Prop
 import { ReviewsSkeleton } from '@/src/app/(justflip)/components/Skelton/ReviewsSkeleton';
 import SimilarPropertiesSkeleton from '@/src/app/(justflip)/components/Skelton/SimilarPropertiesSkeleton';
 import UnitTableSkeleton from '@/src/app/(justflip)/components/Skelton/UnitTableSkeleton';
-import bcd from "@/public/banners/bcd.png"
 
 const Description = dynamic(() => import('@/src/app/(justflip)/components/Project/Description'));
 const ImageBanner = dynamic(() => import('@/src/app/(justflip)/components/Project/ImageBanner'));
@@ -45,8 +44,6 @@ const FAQ = dynamic(() => import('@/src/app/(justflip)/components/FAQ'));
 const SocialMedia = dynamic(() => import('@/src/app/(justflip)/components/Project/socialMedia'));
 import { constructMetadata } from "@/src/utils/seo";
 import { buildRealEstateSchema } from "@/src/utils/schema";
-import Link from 'next/link';
-import Image from 'next/image';
 
 const FloatingActions = dynamic(() => import('@/src/app/(justflip)/components/Project/FloatingActions'));
 
@@ -132,12 +129,6 @@ async function PropertyDetails({ params }: ProjectPageProps) {
         reviewCount,
         availability: projectData?.status === 'ready' || projectData?.status === 'active' ? 'InStock' : 'PreOrder'
     });
-
-    const staticAddSection = {
-        src: bcd,
-        alt: 'GOLF-LINK BCD',
-        href: 'https://justflip.in/bengaluru/east/hoskote/bcd-codename-golf-links/5ac3a691-3c70-4354-863e-10a3f4108c64'
-    }
 
     return (
         <>
@@ -227,26 +218,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
                     </div>
 
                     <div className="hidden lg:block lg:col-span-2 xl:col-span-2">
-                        <Link
-                            href={staticAddSection.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full relative hidden lg:block mb-4 overflow-hidden rounded-sm group"
-                        >
-                            <Image
-                                src={staticAddSection.src}
-                                alt={staticAddSection.alt}
-                                width={1200} 
-                                height={400}
-                                sizes="(min-width: 1024px) 100vw, 0vw"
-                                className="w-full h-auto object-cover rounded-sm"
-                                priority={false}
-                            />
-                            <span className="px-2 py-0.5 bg-black/25 text-xs absolute top-2 left-2 text-white/50 rounded-sm pointer-events-none">
-                                AD
-                            </span>
-                        </Link>
-                        <div className=" lg:mt-0 hidden md:flex md:flex-col gap-4" >
+                        <div className="lg:mt-0 hidden md:flex md:flex-col gap-4">
                             <Suspense fallback={<CallbackFormSkeleton />}>
                                 <LeadForm data={projectData} />
                             </Suspense>
