@@ -93,7 +93,7 @@ export default function AffordabilityCalculator() {
     <div className="max-w-6xl mx-auto px: 0 sm:p-6 space-y-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left Side: Inputs */}
-        <div className="p-6 bg-white rounded-xl shadow-md space-y-5 border border-gray-100">
+        <div className="p-6 bg-white rounded-xl shadow-md space-y-5 border border-gray-100 order-2 lg:order-1">
           <h2 className="text-xl font-bold text-gray-800">Check Your Home Purchasing Power</h2>
 
           <div>
@@ -162,7 +162,7 @@ export default function AffordabilityCalculator() {
         </div>
 
         {/* Right Side: Result Card */}
-        <div className="p-6 bg-blue-50 rounded-xl border border-blue-100 flex flex-col justify-between">
+        <div className="p-6 bg-blue-50 rounded-xl border border-blue-100 flex flex-col justify-between order-1 lg:order-2">
           <div>
             <p className="text-sm font-semibold text-[#002B5B] uppercase tracking-wide">Maximum Affordable Home Loan</p>
             <h1 className="text-4xl font-extrabold text-[#002B5B] mt-2">
