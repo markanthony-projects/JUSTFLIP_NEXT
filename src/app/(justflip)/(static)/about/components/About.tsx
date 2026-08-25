@@ -43,7 +43,7 @@ const About = () => {
           fill
           priority
           fetchPriority="high"
-          sizes="(max-width: 768px) 100vw, (max-width: 1540px) 100vw, 1540px"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1000px, 1000px"
           className="object-cover scale-105 transition-transform duration-1000 hover:scale-100"
         />
         
@@ -144,7 +144,7 @@ const About = () => {
           alt="About Us Background"
           fill
           loading="lazy"
-          sizes="(max-width: 768px) 100vw, (max-width: 1540px) 100vw, 1540px"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 960px, 960px"
           className="object-cover"
         />
         
