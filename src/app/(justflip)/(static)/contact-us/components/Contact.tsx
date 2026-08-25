@@ -106,7 +106,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto my-2 sm:my-6 sm:px-6 lg:px-8 font-sans antialiased">
+    <div className="w-full max-w-7xl mx-auto my-2 sm:my-6 sm:px-6 lg:px-8 font-sans antialiased px-0">
       {/* Container - borderless and padding-free on mobile, card style on desktop */}
       <div className="bg-transparent sm:bg-white text-slate-800 sm:rounded-3xl sm:shadow-lg sm:border sm:border-slate-100 overflow-hidden">
         

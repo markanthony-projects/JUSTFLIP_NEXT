@@ -67,7 +67,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
       <div className="grid grid-cols-1 md:grid-cols-12 min-h-[480px]">
         
         {/* Left Form Controls Panel */}
-        <div className="md:col-span-7 p-6 sm:p-8 flex flex-col justify-between space-y-6">
+        <div className="md:col-span-7 px-0 p-6 sm:p-8 flex flex-col justify-between space-y-6 order-2 lg:order-1">
           <div className="space-y-6">
             
             {/* Header Section */}
@@ -262,7 +262,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
         </div>
 
         {/* Right Output Panel */}
-        <div className="md:col-span-5 p-6 sm:p-8 flex flex-col justify-between bg-slate-50 border-t md:border-t-0 md:border-l border-slate-200">
+        <div className="md:col-span-5 px-0 p-6 sm:p-8 flex flex-col justify-between bg-slate-50 border-t md:border-t-0 md:border-l border-slate-200 order-1 lg:order-2">
           <div className="space-y-5">
             <h3 className="text-xs font-bold text-[#002B49] uppercase tracking-wider">
               Stamp Duty Breakdown
