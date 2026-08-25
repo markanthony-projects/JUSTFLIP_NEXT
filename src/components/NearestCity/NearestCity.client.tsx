@@ -3,8 +3,10 @@
 import { useCityStore } from "@/src/stores/city.store";
 import { useEffect, useState } from "react";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import CitySelectorModal from "./CitySelectorModal";
+import dynamic from "next/dynamic";
 import { ensureNearestCity } from "./nearest-city.resolver";
+
+const CitySelectorModal = dynamic(() => import("./CitySelectorModal"), { ssr: false });
 
 const cx = (...c: (string | boolean | null | undefined)[]) => c.filter(Boolean).join(" ");
 
@@ -64,7 +66,7 @@ export default function NearestCityClient({
                 <span className="relative truncate">{label}</span>
             </button>
 
-            <CitySelectorModal isOpen={open} onClose={() => setOpen(false)} />
+            {open && <CitySelectorModal isOpen={open} onClose={() => setOpen(false)} />}
         </div>
     );
 }
