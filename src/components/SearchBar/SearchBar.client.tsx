@@ -102,14 +102,11 @@ export default function SearchBarClient({ showCitySelector = true }: SearchBarCl
 
     useEffect(() => {
         if (search.length === 0) {
-            const timeout = setTimeout(() => {
-                const interval = setInterval(() => {
-                    setPlaceholderIndex((prev) => (prev + 1) % searchPlaceholderList.length);
-                }, 3500);
-                return () => clearInterval(interval);
-            }, 1000);
+            const interval = setInterval(() => {
+                setPlaceholderIndex((prev) => (prev + 1) % searchPlaceholderList.length);
+            }, 3500);
 
-            return () => clearTimeout(timeout);
+            return () => clearInterval(interval);
         }
     }, [search]);
 

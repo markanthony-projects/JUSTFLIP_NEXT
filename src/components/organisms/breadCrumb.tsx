@@ -1,8 +1,4 @@
-//this component renders a breadcrumb navigation bar.  It takes an array of items, each with a label and optional href, and renders them as links or text.  The color and z-index can be customized via props.
-
-"use client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { buildBreadcrumbSchema } from "@/src/utils/schema";
 
@@ -18,8 +14,6 @@ export interface BreadcrumbProps {
 }
 
 export default function Breadcrumb({ items = [], color = "#002B5B", zTop = false }: BreadcrumbProps) {
-    const router = useRouter();
-
     const schemaItems = [{ label: "Home", href: "/" }, ...items];
     const breadcrumbSchema = buildBreadcrumbSchema(schemaItems);
 
