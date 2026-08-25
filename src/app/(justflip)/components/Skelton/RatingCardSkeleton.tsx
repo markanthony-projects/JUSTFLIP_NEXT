@@ -45,7 +45,7 @@ export const RatingCardSkeleton = memo(() => {
       </div>
 
       {/* Circular Ratings Breakdown */}
-      <div className="flex gap-8 lg:justify-between pt-2">
+      <div className="grid grid-cols-3 gap-2 w-full justify-items-center pt-2">
         {Array.from({ length: 3 }).map((_, i) => (
           <CircularRatingSkeleton key={i} />
         ))}

@@ -1,7 +1,14 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import AffordabilityCalculator from './components/AffordabilityCalculator';
+import { constructMetadata } from '@/src/utils/seo';
 
+export const metadata: Metadata = constructMetadata({
+  title: "Home Loan Affordability Calculator - Check Purchasing Power | Justflip",
+  description: "Calculate your home loan affordability, maximum borrowing capacity, and estimated property budget based on your monthly income and existing EMIs.",
+  canonical: "/affordability-calculator",
+});
 
 const AffordabilityCalculatorPage = () => {
   const breadcrumbItems = [

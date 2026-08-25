@@ -97,8 +97,11 @@ export default function AffordabilityCalculator() {
           <h2 className="text-xl font-bold text-gray-800">Check Your Home Purchasing Power</h2>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Gross Monthly Income (₹)</label>
+            <label htmlFor="gross-monthly-income" className="block text-sm font-medium text-gray-700">Gross Monthly Income (₹)</label>
             <input
+              id="gross-monthly-income"
+              name="grossMonthlyIncome"
+              aria-label="Gross Monthly Income in Rupees"
               type="number"
               value={income}
               onChange={(e) => setIncome(Number(e.target.value))}
@@ -107,8 +110,11 @@ export default function AffordabilityCalculator() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Existing Monthly EMIs / Debts (₹)</label>
+            <label htmlFor="existing-monthly-emis" className="block text-sm font-medium text-gray-700">Existing Monthly EMIs / Debts (₹)</label>
             <input
+              id="existing-monthly-emis"
+              name="existingMonthlyEmis"
+              aria-label="Existing Monthly EMIs or Debts in Rupees"
               type="number"
               value={debts}
               onChange={(e) => setDebts(Number(e.target.value))}
@@ -117,8 +123,11 @@ export default function AffordabilityCalculator() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Down Payment Savings Available (₹)</label>
+            <label htmlFor="down-payment-savings" className="block text-sm font-medium text-gray-700">Down Payment Savings Available (₹)</label>
             <input
+              id="down-payment-savings"
+              name="downPaymentSavings"
+              aria-label="Down Payment Savings Available in Rupees"
               type="number"
               value={downPayment}
               onChange={(e) => setDownPayment(Number(e.target.value))}
@@ -127,8 +136,11 @@ export default function AffordabilityCalculator() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Interest Rate (% p.a.)</label>
+            <label htmlFor="interest-rate" className="block text-sm font-medium text-gray-700">Interest Rate (% p.a.)</label>
             <input
+              id="interest-rate"
+              name="interestRate"
+              aria-label="Interest Rate Percentage per annum"
               type="number"
               step="0.1"
               value={interestRate}
@@ -139,10 +151,10 @@ export default function AffordabilityCalculator() {
 
           {/* Option 1: Interactive Tenure Pill-Buttons */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label id="loan-tenure-label" className="block text-sm font-medium text-gray-700 mb-2">
               Loan Tenure (Years)
             </label>
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+            <div role="group" aria-labelledby="loan-tenure-label" className="grid grid-cols-3 sm:grid-cols-6 gap-2">
               {tenureOptions.map((yr) => (
                 <button
                   key={yr}

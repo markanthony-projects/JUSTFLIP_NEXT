@@ -1,7 +1,14 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import RentVsBuyCalculator from './components/RentVsBuyCalculator';
+import { constructMetadata } from '@/src/utils/seo';
 
+export const metadata: Metadata = constructMetadata({
+  title: "Rent vs Buy Calculator - Compare Long-term Wealth & Costs | Justflip",
+  description: "Compare the financial impact of renting versus buying a home over 5 to 30 years with detailed net worth projections and inflation modeling.",
+  canonical: "/rent-vs-buy",
+});
 
 const RentBuyPage = () => {
   const breadcrumbItems = [

@@ -98,8 +98,11 @@ export default function EligibilityCalculator() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
-              <label className="mb-2 block text-center text-xs font-medium text-gray-600">Net Monthly Salary</label>
+              <label htmlFor="net-monthly-salary" className="mb-2 block text-center text-xs font-medium text-gray-600">Net Monthly Salary</label>
               <input
+                id="net-monthly-salary"
+                name="netMonthlySalary"
+                aria-label="Net Monthly Salary in Rupees"
                 type="text"
                 value={"₹ " + (monthlyIncome ? Number(monthlyIncome).toLocaleString("en-IN") : "0")}
                 onChange={handleIncomeChange}
@@ -108,8 +111,11 @@ export default function EligibilityCalculator() {
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
-              <label className="mb-2 block text-center text-xs font-medium text-gray-600">Existing Monthly EMIs</label>
+              <label htmlFor="existing-monthly-emis-input" className="mb-2 block text-center text-xs font-medium text-gray-600">Existing Monthly EMIs</label>
               <input
+                id="existing-monthly-emis-input"
+                name="existingMonthlyEmis"
+                aria-label="Existing Monthly EMIs in Rupees"
                 type="text"
                 value={"₹ " + (existingEmi ? Number(existingEmi).toLocaleString("en-IN") : "0")}
                 onChange={handleEmiChange}
@@ -121,10 +127,13 @@ export default function EligibilityCalculator() {
           <div className="space-y-4 sm:space-y-5">
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <label className="text-xs sm:text-sm font-semibold text-gray-700">Your Age</label>
+                <label htmlFor="user-age-slider" className="text-xs sm:text-sm font-semibold text-gray-700">Your Age</label>
                 <span className="text-xs sm:text-sm font-semibold">{age} Yrs</span>
               </div>
               <input
+                id="user-age-slider"
+                name="userAge"
+                aria-label="Your Age slider"
                 type="range"
                 min="21"
                 max="58"
@@ -136,10 +145,13 @@ export default function EligibilityCalculator() {
 
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <label className="text-xs sm:text-sm font-semibold text-gray-700">Loan Tenure</label>
+                <label htmlFor="loan-tenure-slider" className="text-xs sm:text-sm font-semibold text-gray-700">Loan Tenure</label>
                 <span className="text-xs sm:text-sm font-semibold">{tenure} Yrs</span>
               </div>
               <input
+                id="loan-tenure-slider"
+                name="loanTenure"
+                aria-label="Loan Tenure slider in years"
                 type="range"
                 min="1"
                 max={Math.max(1, 60 - parseInt(age || "30"))}
@@ -151,10 +163,13 @@ export default function EligibilityCalculator() {
 
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <label className="text-xs sm:text-sm font-semibold text-gray-700">Interest Rate (%)</label>
+                <label htmlFor="interest-rate-slider" className="text-xs sm:text-sm font-semibold text-gray-700">Interest Rate (%)</label>
                 <span className="text-xs sm:text-sm font-semibold">{interestRate}%</span>
               </div>
               <input
+                id="interest-rate-slider"
+                name="interestRate"
+                aria-label="Interest Rate Percentage slider"
                 type="range"
                 min="6"
                 max="15"

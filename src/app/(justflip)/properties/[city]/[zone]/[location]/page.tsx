@@ -25,8 +25,8 @@ import PriceTrendSkeleton from '@/src/app/(justflip)/components/Skelton/PriceTre
 const BuildersSection = dynamic(() => import("@/src/app/(justflip)/components/CityComponent/BuilderSection"));
 const PriceTrendClient = dynamic(() => import("@/src/app/(justflip)/components/PriceTrendClient"));
 const TopProperty = dynamic(() => import("@/src/app/(justflip)/components/TopProperty"));
-const Highlight = dynamic(() => import("@/src/app/(justflip)/components/Highlight") );
-const Blogs = dynamic(() => import("@/src/app/(justflip)/components/Blogs") );
+const Highlight = dynamic(() => import("@/src/app/(justflip)/components/Highlight"));
+const Blogs = dynamic(() => import("@/src/app/(justflip)/components/Blogs"));
 const PropertyGallery = dynamic(() => import("@/src/app/(justflip)/components/PropertyGallery"));
 const FAQ = dynamic(() => import("@/src/app/(justflip)/components/FAQ"));
 const PropertySupply = dynamic(() => import("@/src/app/(justflip)/components/PropertySupply"));
