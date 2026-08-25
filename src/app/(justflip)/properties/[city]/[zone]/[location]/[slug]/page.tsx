@@ -23,7 +23,6 @@ import PropertyHeaderSkeleton from '@/src/app/(justflip)/components/Skelton/Prop
 import { ReviewsSkeleton } from '@/src/app/(justflip)/components/Skelton/ReviewsSkeleton';
 import SimilarPropertiesSkeleton from '@/src/app/(justflip)/components/Skelton/SimilarPropertiesSkeleton';
 import UnitTableSkeleton from '@/src/app/(justflip)/components/Skelton/UnitTableSkeleton';
-import bcd from "@/public/banners/bcd.png"
 
 const Description = dynamic(() => import('@/src/app/(justflip)/components/Project/Description'));
 const ImageBanner = dynamic(() => import('@/src/app/(justflip)/components/Project/ImageBanner'));
@@ -45,8 +44,6 @@ const FAQ = dynamic(() => import('@/src/app/(justflip)/components/FAQ'));
 const SocialMedia = dynamic(() => import('@/src/app/(justflip)/components/Project/socialMedia'));
 import { constructMetadata } from "@/src/utils/seo";
 import { buildRealEstateSchema } from "@/src/utils/schema";
-import Link from 'next/link';
-import Image from 'next/image';
 
 const FloatingActions = dynamic(() => import('@/src/app/(justflip)/components/Project/FloatingActions'));
 
@@ -133,15 +130,9 @@ async function PropertyDetails({ params }: ProjectPageProps) {
         availability: projectData?.status === 'ready' || projectData?.status === 'active' ? 'InStock' : 'PreOrder'
     });
 
-    const staticAddSection = {
-        src: bcd,
-        alt: 'GOLF-LINK BCD',
-        href: 'https://justflip.in/bengaluru/east/hoskote/bcd-codename-golf-links/5ac3a691-3c70-4354-863e-10a3f4108c64'
-    }
-
     return (
         <>
-            <div className='w-full max-w-full overflow-x-hidden px-2 md:px-4'>
+            <div className='w-full max-w-full overflow-x-hidden px-2 md:px-4 !bg-[#F1F1F]'>
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateSchema) }} />
 
                 <Breadcrumb items={breadcrumbItems} />
@@ -160,70 +151,74 @@ async function PropertyDetails({ params }: ProjectPageProps) {
                     </Suspense>
                 </div> */}
 
-                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-6 xl:grid-cols-7 gap-2 lg:gap-4">
-                    <div className="lg:col-span-4 xl:col-span-5 ">
-                        <div className="px-2 md:px-4 py-1 md:py-2 space-y-4 w-full rounded-xl shadow-[0px_0px_10px_1px_#dad6d6]">
-                            <Suspense fallback={<ProjectOverviewSkeleton />} >
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-6 xl:grid-cols-7 gap-4 lg:gap-6">
+                    {/* Left Column: Stack of individual, clean tile cards */}
+                    <div className="lg:col-span-4 xl:col-span-5 space-y-4 md:space-y-6">
+                        
+                        {/* 1. Project Overview */}
+                        <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                            <Suspense fallback={<ProjectOverviewSkeleton />}>
                                 <ProjectOverview project={projectData} />
                             </Suspense>
+                        </div>
 
-                            <div className="border-[#BABABA] border-b-[0.5px] mx-2" />
-                            <Suspense fallback={<UnitTableSkeleton />} >
-                                <UnitTable project={projectData} />
-                            </Suspense>
+                        {/* 2. Floor Plans / Unit Table */}
+                        {projectData?.units && projectData.units.length > 0 && (
+                            <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                                <Suspense fallback={<UnitTableSkeleton />}>
+                                    <UnitTable project={projectData} />
+                                </Suspense>
+                            </div>
+                        )}
 
-                            <div className="border-[#BABABA] border-b-[0.5px] mx-2" />
-                            <Suspense fallback={<FeaturesSkeleton />} >
-                                <Features project={projectData} />
-                            </Suspense>
+                        {/* 3. Features & Amenities */}
+                        {projectData?.amenities && projectData.amenities.length > 0 && (
+                            <div className="!bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                                <Suspense fallback={<FeaturesSkeleton />}>
+                                    <Features project={projectData} />
+                                </Suspense>
+                            </div>
+                        )}
 
-                            <div className="border-[#BABABA] border-b-[0.5px] mx-2" />
-                            <Suspense fallback={<ExploreMapSkeleton />} >
+                        {/* 4. Explore Map / Transit / Essentials */}
+                        <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                            <Suspense fallback={<ExploreMapSkeleton />}>
                                 <ExploreMap project={projectData} />
                             </Suspense>
-                            <div className="border-[#BABABA] border-b-[0.5px] mx-2 hidden lg:block" />
-                            <Suspense fallback={<HighlightProjectSkeleton />} >
-                                <HighlightsProject project={projectData} />
-                            </Suspense>
+                        </div>
 
-                            <Suspense fallback={<ReviewsSkeleton />} >
+                        {/* 5. Project Highlights */}
+                        {projectData?.advantages && projectData.advantages.length > 0 && (
+                            <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                                <Suspense fallback={<HighlightProjectSkeleton />}>
+                                    <HighlightsProject project={projectData} />
+                                </Suspense>
+                            </div>
+                        )}
+
+                        {/* 6. Ratings & Reviews */}
+                        <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                            <Suspense fallback={<ReviewsSkeleton />}>
                                 <ReviewsWrapper projectId={id} projectName={projectData?.name} />
                             </Suspense>
-                            <Suspense fallback={
-                                <>
-                                    <DeveloperLegacySkeleton />
-                                    <HighlightSkeleton />
-                                    <PriceTrendSkeleton />
-                                    <LocationImageGallerySkeleton />
-                                </>
-                            }>
-                                <LocationInfoWrapper locationId={locationId} projectData={projectData} />
-                            </Suspense>
-
                         </div>
+
+                        {/* 7. Location Info (Developer Legacy, Locality Insights, Price Trends, Gallery) */}
+                        <Suspense fallback={
+                            <div className="space-y-4 md:space-y-6">
+                                <DeveloperLegacySkeleton />
+                                <HighlightSkeleton />
+                                <PriceTrendSkeleton />
+                                <LocationImageGallerySkeleton />
+                            </div>
+                        }>
+                            <LocationInfoWrapper locationId={locationId} projectData={projectData} />
+                        </Suspense>
+
                     </div>
 
                     <div className="hidden lg:block lg:col-span-2 xl:col-span-2">
-                        <Link
-                            href={staticAddSection.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="w-full relative hidden lg:block mb-4 overflow-hidden rounded-sm group"
-                        >
-                            <Image
-                                src={staticAddSection.src}
-                                alt={staticAddSection.alt}
-                                width={1200} 
-                                height={400}
-                                sizes="(min-width: 1024px) 100vw, 0vw"
-                                className="w-full h-auto object-cover rounded-sm"
-                                priority={false}
-                            />
-                            <span className="px-2 py-0.5 bg-black/25 text-xs absolute top-2 left-2 text-white/50 rounded-sm pointer-events-none">
-                                AD
-                            </span>
-                        </Link>
-                        <div className=" lg:mt-0 hidden md:flex md:flex-col gap-4" >
+                        <div className="lg:mt-0 hidden md:flex md:flex-col gap-4">
                             <Suspense fallback={<CallbackFormSkeleton />}>
                                 <LeadForm data={projectData} />
                             </Suspense>
@@ -258,13 +253,23 @@ async function LocationInfoWrapper({ locationId, projectData }: { locationId: st
     const locationData = await getLocationDetails(locationId);
     if (!locationData) return null;
     return (
-        <>
-            <DeveloperDetail project={projectData} data={locationData} />
-            <Highlight data={locationData} />
-            <PriceTrendSection data={locationData as any} />
-            <PriceTrendSchema trends={locationData?.pricings} />
+        <div className="space-y-4 md:space-y-6">
+            {projectData?.builder && (
+                <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <DeveloperDetail project={projectData} data={locationData} />
+                </div>
+            )}
+            <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                <Highlight data={locationData} />
+            </div>
+            {locationData?.pricings && locationData.pricings.length > 0 && (
+                <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <PriceTrendSection data={locationData as any} />
+                    <PriceTrendSchema trends={locationData?.pricings} />
+                </div>
+            )}
             <PropertyGallery data={locationData} />
-        </>
+        </div>
     );
 }
 

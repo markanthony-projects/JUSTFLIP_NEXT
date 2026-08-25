@@ -2,76 +2,42 @@
 
 import { SkeletonBlock } from "./SkeletonSection";
 
-function TabSkeleton() {
-  return (
-    <div className="flex border-b border-gray-200">
-      {["w-20", "w-24", "w-20"].map((w, i) => (
-        <div key={i} className="px-4 py-2">
-          <SkeletonBlock className={`h-4 ${w}`} />
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export function AccordionItemSkeleton() {
   return (
-    <div className="border-b border-gray-300 py-3 space-y-2">
-      
-      {/* Title row */}
-      <div className="flex items-center gap-1">
-        <SkeletonBlock className="h-2 w-4 rounded-sm" />
-        <SkeletonBlock className="h-3 w-32" />
-      </div>
-
-     
+    <div className="py-3.5 flex justify-between items-center border-b border-gray-100">
+      <SkeletonBlock className="h-4 w-40 rounded-sm" />
+      <SkeletonBlock className="h-4 w-16 rounded-sm" />
     </div>
   );
 }
 
 export default function ExploreMapSkeleton() {
   return (
-    <section className="m-2 space-y-3 animate-pulse">
-      
-      {/* Location text */}
-      <SkeletonBlock className="h-3 w-[220px]" />
+    <section className="w-full space-y-4 animate-pulse">
+      {/* Header */}
+      <div className="pb-3 border-b border-gray-100 flex items-center justify-between">
+        <SkeletonBlock className="h-5 w-44 rounded-sm" />
+      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
-        
-        {/* MAP SECTION */}
-        <div className="lg:col-span-3 space-y-2">
-          
-          {/* Map placeholder */}
-          <SkeletonBlock className="w-full min-h-[280px] md:min-h-[400px] rounded" />
+      {/* Map Banner Preview */}
+      <SkeletonBlock className="w-full h-[180px] sm:h-[210px] rounded-2xl" />
 
-          {/* Map footer */}
-          <div className="flex justify-between items-center gap-2">
-            <SkeletonBlock className="h-3 w-[120px]" />
+      {/* Pill Filter Tabs */}
+      <div className="flex items-center gap-2 overflow-x-hidden py-1">
+        {["w-24", "w-28", "w-20", "w-24", "w-20", "w-32"].map((w, i) => (
+          <SkeletonBlock key={i} className={`h-9 ${w} rounded-xl shrink-0`} />
+        ))}
+      </div>
 
-            <div className="flex gap-2">
-              <SkeletonBlock className="h-8 w-16 rounded-md" />
-              <SkeletonBlock className="h-8 w-16 rounded-md" />
-              <SkeletonBlock className="h-8 w-20 rounded-md" />
-            </div>
-          </div>
-        </div>
+      {/* Category Subheading */}
+      <SkeletonBlock className="h-4 w-52 rounded-sm mt-3" />
 
-        {/* RIGHT PANEL */}
-        <div className="lg:col-span-2 space-y-2">
-          
-          {/* Tabs */}
-          <TabSkeleton />
-
-          {/* Accordion */}
-          <div>
-            {Array.from({ length: 3 }).map((_, i) => (
-              <AccordionItemSkeleton key={i} />
-            ))}
-          </div>
-
-        </div>
-
+      {/* Place Items */}
+      <div className="space-y-1">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <AccordionItemSkeleton key={i} />
+        ))}
       </div>
     </section>
   );
-}
+}

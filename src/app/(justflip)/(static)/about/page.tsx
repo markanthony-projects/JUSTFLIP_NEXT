@@ -2,6 +2,11 @@ import React from 'react';
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import About from './components/About';
 
+export const metadata = {
+  title: "About Us | Just Flip",
+  description: "Learn more about Just Flip and our mission to help you explore, review, and make informed decisions about localities, societies, and real estate.",
+};
+
 const AboutPage = () => {
   const breadcrumbItems = [
     { label: "About Us" }

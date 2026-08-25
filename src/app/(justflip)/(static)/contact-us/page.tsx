@@ -2,6 +2,11 @@ import React from 'react';
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import Contact from './components/Contact';
 
+export const metadata = {
+  title: "Contact Us | Just Flip",
+  description: "Have questions, feedback, or need help? Get in touch with the Just Flip team for assistance and inquiries.",
+};
+
 const ContactPage = () => {
   const breadcrumbItems = [
     { label: "Contact Us" }

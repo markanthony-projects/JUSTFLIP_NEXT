@@ -1,28 +1,28 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
-import RentVsBuyCalculator from './components/RentVsBuyCalculator';
+import EligibilityCalculator from './components/EligibilityCalculator';
 import { constructMetadata } from '@/src/utils/seo';
 
 export const metadata: Metadata = constructMetadata({
-  title: "Rent vs Buy Calculator - Compare Long-term Wealth & Costs | Justflip",
-  description: "Compare the financial impact of renting versus buying a home over 5 to 30 years with detailed net worth projections and inflation modeling.",
-  canonical: "/rent-vs-buy",
+  title: "Home Loan Eligibility Calculator - Check Max Loan Limit | Justflip",
+  description: "Check your home loan eligibility, maximum loan amount, and FOIR breakdown in seconds with Justflip's Home Loan Eligibility Calculator.",
+  canonical: "/loan-eligibility",
 });
 
-const RentBuyPage = () => {
+const LoanEligibilityPage = () => {
   const breadcrumbItems = [
-    { label: "Rent Vs Buy" }
+    { label: "Loan Eligibility" }
   ];
 
   return (
     <div className="min-h-screen bg-gray-50/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <Breadcrumb items={breadcrumbItems} />
-        <RentVsBuyCalculator />
+        <EligibilityCalculator />
       </div>
     </div>
   );
 };
 
-export default RentBuyPage;
+export default LoanEligibilityPage;

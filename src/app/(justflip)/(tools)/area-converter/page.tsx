@@ -1,12 +1,21 @@
 import React from 'react'
 import UnitConverter from './components/UnitConverter';
+import type { Metadata } from 'next';
+import { constructMetadata } from '@/src/utils/seo';
 
-const page = () => {
+
+export const metadata: Metadata = constructMetadata({
+  title: "Real Estate Land & Area Unit Converter | Justflip",
+  description: "Convert land and area measurements between Sq.ft, Sq.yards, Acres, Guntha, Bigha, Marla, and Hectares with Justflip's Unit Converter.",
+  canonical: "/area-converter",
+});
+
+const AreaConverterPage = () => {
   return (
     <div>
-        <UnitConverter />
+      <UnitConverter />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default AreaConverterPage;

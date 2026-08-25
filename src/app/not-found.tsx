@@ -5,8 +5,6 @@ import React,{ useEffect, useState } from "react";
 import { FiArrowRight, FiHome } from "react-icons/fi";
 
 const REDIRECT_TIME = 8;
-
-
 function TimerBar(){
   const router = useRouter()
   const [ secondsLeft, setSecondsLeft ] = useState(REDIRECT_TIME)
@@ -29,7 +27,10 @@ function TimerBar(){
   },[secondsLeft, router])
 
   const progress = (secondsLeft/REDIRECT_TIME) * 100
-
+export default function NotFound() {
+    const goHome = () => {
+        router.replace('/');
+    };
   return(
     <div className="mt-8 max-w-md">
       <div className="flex items-center justify-between text-sm">

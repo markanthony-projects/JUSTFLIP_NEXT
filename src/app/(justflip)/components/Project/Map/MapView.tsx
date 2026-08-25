@@ -1,364 +1,166 @@
 "use client";
-import ActionButton from "@/src/components/atoms/ActionButton";
-import { toast } from "@/src/utils/toast";
+
 import { useEffect, useRef, useState } from "react";
-import { CiShare2 } from "react-icons/ci";
-import { IoCopyOutline, IoLogoWhatsapp } from "react-icons/io5";
 import dynamic from "next/dynamic";
 import "leaflet/dist/leaflet.css";
-import L, {DivIcon} from 'leaflet'
-import ReactDOMServer from 'react-dom/server'
-import { fetchNearbyPlacesBatch } from "@/src/services/osm.service";
-
-// Dynamically import Leaflet components to avoid SSR issues
-const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false });
-const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLayer), { ssr: false });
-const OSMCustomMarker = dynamic(() => import("@/src/components/osm/OSMCustomMarker"), { ssr: false });
+import L from "leaflet";
+import ReactDOMServer from "react-dom/server";
 import { SkeletonBlock } from "@/src/app/(justflip)/components/Skelton/SkeletonSection";
 import { Project } from "@/src/types";
 import { TransformedPlace } from "@/src/services/osm.service";
 
-//icons
-import { BsBusFront } from 'react-icons/bs';
+// Icons
+import { BsBusFront, BsBank } from "react-icons/bs";
 import { PiAirplaneTiltLight } from "react-icons/pi";
-import { IoTrainOutline } from "react-icons/io5";
-import { IoSchoolSharp } from "react-icons/io5";
+import { IoTrainOutline, IoSchoolSharp } from "react-icons/io5";
 import { TiShoppingCart } from "react-icons/ti";
 import { AiTwotoneShopping } from "react-icons/ai";
-import { MdOutlineLocalMovies } from "react-icons/md";
+import { MdOutlineLocalMovies, MdLocalAtm, MdOutlineTempleHindu } from "react-icons/md";
 import { ImPlus } from "react-icons/im";
 
-interface MapViewProps {
-    project: Project;
-    activeTab?: string;
-    busStations?: TransformedPlace[];
-    airports?: TransformedPlace[];
-    trainStations?: TransformedPlace[];
-    hospitals?: TransformedPlace[];
-    schools?: TransformedPlace[];
-    movieTheaters?: TransformedPlace[];
-    shoppingMalls?: TransformedPlace[];
-    superMarkets?: TransformedPlace[];
+// Dynamically import Leaflet components
+const MapContainer = dynamic(() => import("react-leaflet").then((mod) => mod.MapContainer), { ssr: false });
+const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLayer), { ssr: false });
+const OSMCustomMarker = dynamic(() => import("@/src/components/osm/OSMCustomMarker"), { ssr: false });
 
-    setBusStations: (places: TransformedPlace[]) => void;
-    setAirports: (places: TransformedPlace[]) => void;
-    setTrainStations: (places: TransformedPlace[]) => void;
-    setHospitals: (places: TransformedPlace[]) => void;
-    setSchools: (places: TransformedPlace[]) => void;
-    setMovieTheaters: (places: TransformedPlace[]) => void;
-    setShoppingMalls: (places: TransformedPlace[]) => void;
-    setSuperMarkets: (places: TransformedPlace[]) => void;
-    onLoadingChange?: (loading: boolean) => void;
+export interface MapViewProps {
+    project: Project;
+    activeCategory?: string;
+    places?: TransformedPlace[];
+    isInteractive?: boolean;
 }
 
-type MarkerType =
-  | "bus"
-  | "train"
-  | "airport"
-  | "hospital"
-  | "school"
-  | "mall"
-  | "supermarket"
-  | "theater";
-
-//the icons
-const ICONS = {
-    bus: BsBusFront,
-    train: IoTrainOutline,
+const CATEGORY_ICONS: Record<string, any> = {
+    bus_station: BsBusFront,
+    train_station: IoTrainOutline,
     airport: PiAirplaneTiltLight,
     hospital: ImPlus,
     school: IoSchoolSharp,
-    mall: AiTwotoneShopping,
+    shopping_mall: AiTwotoneShopping,
     supermarket: TiShoppingCart,
-    theater: MdOutlineLocalMovies
+    movie_theater: MdOutlineLocalMovies,
+    atm: MdLocalAtm,
+    temple: MdOutlineTempleHindu,
+    bank: BsBank,
 };
 
-// cache
 const iconCache = new Map<string, L.DivIcon>();
 
-export const getIcon = (type: keyof typeof ICONS): L.DivIcon => {
-  if (iconCache.has(type)) {
-    return iconCache.get(type)!;
-  }
+export const getCategoryIcon = (categoryKey: string): L.DivIcon => {
+    if (iconCache.has(categoryKey)) {
+        return iconCache.get(categoryKey)!;
+    }
 
-  const IconComponent = ICONS[type];
+    const IconComp = CATEGORY_ICONS[categoryKey] || IoSchoolSharp;
+    const iconHtml = ReactDOMServer.renderToString(
+        <IconComp size={15} color="#002B5B" />
+    );
 
-  const iconHtml = ReactDOMServer.renderToString(
-    <IconComponent size={20} color="#2563eb" />
-  );
+    const icon = L.divIcon({
+        html: `
+            <div style="
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                width:28px;
+                height:28px;
+                background:white;
+                border-radius:50%;
+                box-shadow:0 2px 8px rgba(0,0,0,0.22);
+                border: 2px solid #002B5B;
+            ">
+                ${iconHtml}
+            </div>
+        `,
+        className: "custom-category-marker",
+        iconSize: [28, 28],
+        iconAnchor: [14, 14],
+    });
 
-  const icon = L.divIcon({
-    html: `
-      <div style="
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        width:32px;
-        height:32px;
-        background:white;
-        border-radius:50%;
-        box-shadow:0 2px 6px rgba(0,0,0,0.3);
-      ">
-        ${iconHtml}
-      </div>
-    `,
-    className: "",
-    iconSize: [32, 32],
-  });
-
-  iconCache.set(type, icon);
-
-  return icon;
+    iconCache.set(categoryKey, icon);
+    return icon;
 };
 
-export default function MapView({ project, 
-    activeTab,
-
-    busStations,
-    airports,
-    trainStations,
-    hospitals,
-    schools,
-    movieTheaters,
-    shoppingMalls,
-    superMarkets,
-
-    setBusStations, 
-    setAirports, 
-    setTrainStations, 
-    setHospitals, 
-    setSchools, 
-    setMovieTheaters, 
-    setShoppingMalls, 
-    setSuperMarkets, 
-    onLoadingChange }: MapViewProps) {
-        
+export default function MapView({
+    project,
+    activeCategory = "school",
+    places = [],
+    isInteractive = false,
+}: MapViewProps) {
     const [mapLoaded, setMapLoaded] = useState(false);
     const coordinates = project?.coordinates || {};
-    const lat = parseFloat(coordinates?.lat);
-    const lng = parseFloat(coordinates?.lng);
+    const lat = parseFloat(coordinates?.lat || (project as any)?.latitude || (project as any)?.location?.latitude);
+    const lng = parseFloat(coordinates?.lng || (project as any)?.longitude || (project as any)?.location?.longitude);
     const locationName = project?.location?.name || "";
     const cityName = project?.city?.name || "";
-    const pinCode = project?.pincode || "";
 
-    const containerRef = useRef(null)
+    const mapRef = useRef<any>(null);
 
     useEffect(() => {
         setMapLoaded(true);
-        // Force a resize event after a short delay to ensure Leaflet renders correctly
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             if (typeof window !== "undefined") {
                 window.dispatchEvent(new Event("resize"));
             }
-        }, 500);
-    }, []);
+        }, 400);
+        return () => clearTimeout(timer);
+    }, [isInteractive]);
 
-    useEffect(() => {
-        if (!mapLoaded || isNaN(lat) || isNaN(lng)) return;
-
-        const loadAllNearby = async () => {
-            if (onLoadingChange) onLoadingChange(true);
-            // Add a small random jitter (0-1000ms) to prevent simultaneous bursts
-            await new Promise(resolve => setTimeout(resolve, Math.random() * 1000));
-            
-            const types = [
-                "bus_station",
-                "airport",
-                "train_station",
-                "hospital",
-                "school",
-                "movie_theater",
-                "shopping_mall",
-                "supermarket"
-            ];
-
-            try {
-                const results = await fetchNearbyPlacesBatch({ lat, lng }, types);
-                // console.log(results);
-                
-                // Map results back to the respective setters
-                if (results.bus_station) setBusStations(results.bus_station.slice(0, 5));
-                if (results.airport) setAirports(results.airport.slice(0, 5));
-                if (results.train_station) setTrainStations(results.train_station.slice(0, 5));
-                if (results.hospital) setHospitals(results.hospital.slice(0, 5));
-                if (results.school) setSchools(results.school.slice(0, 5));
-                if (results.movie_theater) setMovieTheaters(results.movie_theater.slice(0, 5));
-                if (results.shopping_mall) setShoppingMalls(results.shopping_mall.slice(0, 5));
-                if (results.supermarket) setSuperMarkets(results.supermarket.slice(0, 5));
-                
-            } catch (err) {
-                console.error("OSM Batch load error:", err);
-            } finally {
-                if (onLoadingChange) onLoadingChange(false);
-            }
-        };
-
-        loadAllNearby();
-    }, [mapLoaded, lat, lng, setBusStations, setAirports, setTrainStations, setHospitals, setSchools, setMovieTheaters, setShoppingMalls, setSuperMarkets, onLoadingChange]);    
-
-    const mapUrl = `https://maps.google.com/maps?q=${lat},${lng}`;
-
-    const handleShareClick = async () => {
-        try {
-            if (navigator.share) {
-                await navigator.share({ url: mapUrl });
-            } else {
-                toast.info("Sharing not supported");
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const handleCopyUrl = async () => {
-        try {
-            await navigator.clipboard.writeText(mapUrl);
-            toast.success("Copied");
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const handleWhatsAppShare = () => {
-        const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(`Check this location: ${mapUrl}`)}`;
-        window.open(url, "_blank");
-    };
+    if (isNaN(lat) || isNaN(lng)) {
+        return (
+            <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400 text-xs">
+                Location coordinates unavailable
+            </div>
+        );
+    }
 
     return (
-        <div className="lg:col-span-3 md:col-span-3">
-            <div ref={containerRef}
-                className="h-[300px] md:h-[400px] mb-2 rounded overflow-hidden border border-gray-200 relative z-0">
-                {!mapLoaded ? (
-                    <SkeletonBlock className="absolute inset-0 w-full h-full" />
-                ) : (
-                    !isNaN(lat) && !isNaN(lng) && (
-                        <MapContainer
-                            key={`${lat}-${lng}`}
-                            center={[lat, lng]}
-                            zoom={14}
-                            scrollWheelZoom={true}
-                            style={{ width: "100%", height: "100%" }}
-                        >
-                            <TileLayer
-                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        <div className="w-full h-full relative overflow-hidden bg-slate-100">
+            {!mapLoaded ? (
+                <SkeletonBlock className="absolute inset-0 w-full h-full" />
+            ) : (
+                <MapContainer
+                    key={`${lat}-${lng}-${isInteractive}`}
+                    ref={mapRef}
+                    center={[lat, lng]}
+                    zoom={14}
+                    attributionControl={false}
+                    scrollWheelZoom={isInteractive}
+                    dragging={isInteractive}
+                    zoomControl={isInteractive}
+                    touchZoom={isInteractive}
+                    doubleClickZoom={isInteractive}
+                    style={{ width: "100%", height: "100%" }}
+                >
+                    <TileLayer
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    
+                    {/* Main Property Location Marker */}
+                    <OSMCustomMarker
+                        position={{ lat, lng }}
+                        label={project?.name || `${locationName}, ${cityName}`}
+                    />
+
+                    {/* Nearby Places Markers for the selected Category */}
+                    {places?.map((place, index) => {
+                        const pLat = place.geometry?.location?.lat?.();
+                        const pLng = place.geometry?.location?.lng?.();
+                        if (pLat === undefined || pLng === undefined || isNaN(pLat) || isNaN(pLng)) {
+                            return null;
+                        }
+
+                        return (
+                            <OSMCustomMarker
+                                key={`place-${place.id || index}`}
+                                position={{ lat: pLat, lng: pLng }}
+                                icon={getCategoryIcon(activeCategory)}
+                                label={place.name || place.tags?.name || "Place"}
                             />
-                            <OSMCustomMarker position={{ lat, lng }} label={`${locationName}, ${cityName}, ${pinCode}`} />
-
-                            {/* TRANSIT */}
-                            {activeTab === 'transit' && (
-                                <>
-                                    {busStations?.map((position,index) => (
-                                        <OSMCustomMarker
-                                            key={`bus-${index}`}
-                                            position={{
-                                                lat: position.geometry.location.lat() || 0, 
-                                                lng: position.geometry.location.lng() || 0
-                                            }}
-                                            icon={getIcon('bus')}
-                                            label={position.tags?.name || "Bus Station"}
-                                            type="bus"
-                                        />
-                                    ))}
-                                    {trainStations?.map((position, index) => (
-                                        <OSMCustomMarker
-                                            key={`train-${index}`}
-                                            position={{ 
-                                                lat: position.geometry.location.lat() || 0, 
-                                                lng: position.geometry.location.lng() || 0
-                                             }}
-                                            icon={getIcon('train')}
-                                            label={position.tags?.name || "Train Station"}
-                                            type="train"
-                                        />
-                                    ))}
-
-                                    {airports?.map((position, index) => (
-                                        <OSMCustomMarker
-                                            key={`airport-${index}`}
-                                            position={{ 
-                                                lat: position.geometry.location.lat() || 0, 
-                                                lng: position.geometry.location.lng() || 0
-                                             }}
-                                            icon={getIcon('airport')}
-                                            label={position.tags?.name || "Airport"}
-                                            type="airport"
-                                        />
-                                    ))}
-                                </>
-                            )}
-
-                            {activeTab === "essentials" && (
-                            <>
-                                {hospitals?.map((position, index) => (
-                                <OSMCustomMarker key={`h-${index}`}
-                                    position={{ 
-                                            lat: position.geometry.location.lat() || 0, 
-                                            lng: position.geometry.location.lng() || 0
-                                         }} 
-                                    icon={getIcon('hospital')}
-                                />
-                                ))}
-                                {schools?.map((position, index) => (
-                                <OSMCustomMarker key={`s-${index}`} 
-                                    position={{ 
-                                        lat: position.geometry.location.lat() || 0, 
-                                        lng: position.geometry.location.lng() || 0
-                                    }} 
-                                    icon={getIcon('school')}
-                                />
-                                ))}
-                            </>
-                            )}
-
-
-                            {activeTab === "utility" && (
-                            <>
-                                {shoppingMalls?.map((position, index) => (
-                                <OSMCustomMarker key={`m-${index}`} 
-                                    position={{
-                                            lat: position.geometry.location.lat() || 0, 
-                                            lng: position.geometry.location.lng() || 0
-                                        }} 
-                                    icon={getIcon('mall')}
-                                />
-                                ))}
-                                {superMarkets?.map((position, index) => (
-                                <OSMCustomMarker key={`sm-${index}`} 
-                                    position={{ 
-                                            lat: position.geometry.location.lat() || 0, 
-                                            lng: position.geometry.location.lng() || 0
-                                        }} 
-                                    icon={getIcon('supermarket')}
-                                />
-                                ))}
-                                {movieTheaters?.map((position, index) => (
-                                <OSMCustomMarker key={`mt-${index}`} 
-                                    position={{ 
-                                            lat: position.geometry.location.lat() || 0, 
-                                            lng: position.geometry.location.lng() || 0
-                                        }} 
-                                    icon={getIcon('theater')}
-                                />
-                                ))}
-                            </>
-                            )}
-                        </MapContainer>
-                    )
-                )}
-            </div>
-            <div className="flex flex-wrap justify-between items-center w-full">
-                <span className="text-xs truncate max-w-[270px]">{project?.name}</span>
-                <div className="flex justify-between md:justify-center items-center gap-1  w-full md:w-auto">
-
-                    <a href={mapUrl} className="text-xs md:text-sm font-semibold underline  md:min-w-[100px]" target="_blank" rel="noopener noreferrer"  >See on Google Maps</a>
-                    <div className="flex">
-                        <ActionButton label="Share" onClick={handleShareClick} icon={<CiShare2 />} />
-                        <ActionButton label="Copy" onClick={handleCopyUrl} icon={<IoCopyOutline />} />
-                        <ActionButton label="WhatsApp" onClick={handleWhatsAppShare} icon={<IoLogoWhatsapp />} />
-                    </div>
-                </div>
-            </div>
+                        );
+                    })}
+                </MapContainer>
+            )}
         </div>
     );
-}
+}

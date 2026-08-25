@@ -9,6 +9,7 @@ import { JUSTFLIP } from "@/src/lib/axios/api";
 import { formatDisplayPrice } from "@/src/utils/RenderFunction";
 import { formatUrl } from "@/src/utils/URLFormatter";
 import { createProjectUrl } from "@/src/utils/url";
+import { FiArrowRight, FiSearch } from "react-icons/fi";
 
 const ITEMS_PER_PAGE = 12;
 const ITEMS_PER_COLUMN = 3;
@@ -202,7 +203,17 @@ const getFormattedPrice = (property: any, fallbackCurrency: string) => {
   return priceRange;
 };
 
-export default function PropertySupplyClient({ initialProjects, typeName, typeId }: { initialProjects: any, typeName?: string, typeId?: string | number }) {
+export default function PropertySupplyClient({ 
+  initialProjects, 
+  typeName, 
+  typeId, 
+  cityName 
+}: { 
+  initialProjects: any; 
+  typeName?: string; 
+  typeId?: string | number; 
+  cityName?: string; 
+}) {
   const pathname = usePathname();
   const [activeTab, setActiveTab] = useState("apartment");
   const [page, setPage] = useState(1);
@@ -217,6 +228,33 @@ export default function PropertySupplyClient({ initialProjects, typeName, typeId
   const scopeParam = useMemo(() => getScopeParam(typeName, typeId), [typeName, typeId]);
   
   const currency = useMemo(() => getPropertyCurrency(projects[0], selectedCity), [projects, selectedCity]);
+
+  const formattedCityName = useMemo(() => {
+    const raw = cityName || (selectedCity ? selectedCity.split("-")[0] : "");
+    if (!raw) return "";
+    return raw.charAt(0).toUpperCase() + raw.slice(1);
+  }, [cityName, selectedCity]);
+
+  const titleText = formattedCityName ? `Explore Properties in ${formattedCityName}` : "Explore Properties";
+
+  const searchUrl = useMemo(() => {
+    const params = new URLSearchParams();
+    Object.entries(scopeParam).forEach(([k, v]) => {
+      if (v !== undefined && v !== null && v !== "") {
+        params.set(k, String(v));
+      }
+    });
+    if (activeTab) params.set("propertyType", activeTab);
+    if (selectedPriceRange) {
+      if (selectedPriceRange.min !== undefined && selectedPriceRange.min !== null) {
+        params.set("minPrice", String(selectedPriceRange.min));
+      }
+      if (selectedPriceRange.max !== undefined && selectedPriceRange.max !== null) {
+        params.set("maxPrice", String(selectedPriceRange.max));
+      }
+    }
+    return `/search?${params.toString()}`;
+  }, [scopeParam, activeTab, selectedPriceRange]);
 
   const projectColumns = useMemo(
     () => Array.from({ length: Math.ceil(projects.length / ITEMS_PER_COLUMN) }),
@@ -278,10 +316,20 @@ export default function PropertySupplyClient({ initialProjects, typeName, typeId
   }, [fetchProjects]);
 
   return (
-    <div className="rounded-2xl bg-white p-4 shadow-md mt-6">
-      <p className="mb-4 text-[18px] leading-[18px] font-semibold text-[#002B5B]">
-        Explore More Properties
-      </p>
+    <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+        <h2 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
+          {titleText}
+        </h2>
+
+        <Link
+          href={searchUrl}
+          className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-[#002B5B] hover:text-blue-700 hover:underline transition-all group w-fit"
+        >
+          <span>View all in Search</span>
+          <FiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+        </Link>
+      </div>
 
       <div className="flex h-[74px] justify-start gap-3 overflow-x-auto rounded-xl pb-2">
         {tabs.map((tab) => {
@@ -325,9 +373,9 @@ export default function PropertySupplyClient({ initialProjects, typeName, typeId
         })}
       </div>
 
-      <hr className="my-4 border-[#BABABA] md:border-t-[0.5px]" />
+      <hr className="my-2.5 border-gray-200" />
 
-      <div className="flex flex-wrap justify-between gap-2 overflow-x-auto py-1 sm:flex-nowrap">
+      <div className="flex flex-wrap justify-between gap-2 overflow-x-auto py-0.5 sm:flex-nowrap">
         <div className="flex flex-wrap gap-2 sm:flex-nowrap">
           {priceRanges.map((range) => {
             const isSelected = selectedPriceRange?.label === range.label;
@@ -341,7 +389,7 @@ export default function PropertySupplyClient({ initialProjects, typeName, typeId
                   setSelectedPriceRange(range);
                   setPage(1);
                 }}
-                className={`min-w-24 rounded-full border px-3 py-1.5 text-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm sm:min-w-28 ${
+                className={`min-w-24 rounded-full border px-3 py-1 text-xs sm:text-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm sm:min-w-28 ${
                   isSelected
                     ? "border-[#002B5B] bg-[#002B5B] text-white"
                     : "border-slate-200 bg-white text-[#002B5B] hover:bg-slate-50"
@@ -354,52 +402,56 @@ export default function PropertySupplyClient({ initialProjects, typeName, typeId
         </div>
       </div>
 
-      <div className="relative mt-4 min-h-[300px] w-full custom-scrollbar">
+      <div className="relative mt-2 w-full custom-scrollbar">
         {!projects.length && !loading && !isFetching ? (
-          <div className="flex h-60 items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white/70">
+          <div className="flex h-40 items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white/70">
             <p className="text-gray-500">No properties available for this selection.</p>
           </div>
         ) : (
           <Carousel
             items={projectColumns}
             showDots={false}
+            gap={12}
             renderItem={(_, colIndex) => {
               const items = projects
                 .slice(colIndex * ITEMS_PER_COLUMN, colIndex * ITEMS_PER_COLUMN + ITEMS_PER_COLUMN)
                 .filter(Boolean);
-              const totalColumns = Math.ceil(projects.length / ITEMS_PER_COLUMN);
-              const isLastColumn = colIndex === totalColumns - 1;
 
               return (
-                <div className="flex min-w-[320px] flex-col gap-3 mt-3 mb-4">
+                <div className="flex w-[290px] sm:w-[280px] md:w-[280px] flex-shrink-0 flex-col gap-2.5 my-1">
                   {items.map((property, rowIndex) => (
                     <Link
                       href={getProjectHref(property)}
                       key={`${getProjectIdentity(property) || "property"}-${colIndex}-${rowIndex}`}
+                      className="block w-full"
                     >
                       <div
-                        className={`flex w-full items-center gap-3 rounded-xl bg-white p-2 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-sm border border-slate-100 ${
-                          !isLastColumn ? "md:shadow-[0_4px_12px_rgba(0,43,91,0.08)]" : ""
-                        }`}
+                        className="flex w-full h-[76px] items-center gap-3 rounded-xl bg-white p-2.5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md border border-slate-100"
                       >
-                        <div className="relative h-16 w-16 overflow-hidden rounded-xl border border-slate-200 shadow-md transition-transform duration-300 hover:scale-105">
-                          <Image
-                            src={property?.logo || property?.banner}
-                            alt={property?.name || "Property"}
-                            sizes="64px"
-                          />
+                        <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl border border-slate-200 shadow-sm bg-gray-50 flex items-center justify-center">
+                          {property?.logo || property?.banner ? (
+                            <Image
+                              src={property?.logo || property?.banner}
+                              alt={property?.name || "Property"}
+                              fill
+                              className="object-contain p-1"
+                              sizes="56px"
+                            />
+                          ) : (
+                            <span className="text-[10px] font-bold text-gray-400">LOGO</span>
+                          )}
                         </div>
 
-                        <div className="min-w-0 flex-1 space-y-1">
-                          <div className="flex items-center justify-between gap-2">
-                            <h3 className="max-w-[220px] truncate text-base font-semibold text-[#002B5B]">
+                        <div className="min-w-0 flex-1 flex flex-col justify-center">
+                          <div className="flex items-center justify-between gap-1.5">
+                            <h3 className="truncate text-[14px] font-semibold text-gray-900 leading-tight">
                               {property?.name}
                             </h3>
-                            <span className="rounded-full bg-[#002B5B]/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-[#002B5B]">
+                            <span className="flex-shrink-0 rounded-full bg-[#002B5B]/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-[#002B5B]">
                               View
                             </span>
                           </div>
-                          <p className="max-w-[220px] truncate text-sm font-semibold text-[#002B5B]">
+                          <p className="truncate text-xs font-semibold text-[#002B5B] mt-1">
                             {getFormattedPrice(property, currency)}
                           </p>
                         </div>
@@ -422,13 +474,22 @@ export default function PropertySupplyClient({ initialProjects, typeName, typeId
             }}
           />
         )}
-
-        {(loading || isFetching) && (
-          <div className="flex min-w-[120px] items-center justify-center py-3">
-            <div className="h-6 w-6 animate-spin rounded-full border-t-2 border-[#002B5B]" />
-          </div>
-        )}
       </div>
+
+      {projects.length > 0 && (
+        <div className="mt-2 pt-2.5 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <p className="text-xs text-gray-500">
+            Looking for more options? Explore the complete verified inventory.
+          </p>
+          <Link
+            href={searchUrl}
+            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#002B5B] hover:bg-[#003B7B] text-xs sm:text-sm font-semibold text-white transition-all shadow-sm hover:shadow group w-full sm:w-auto"
+          >
+            <span>Search all {activeTab}s in {formattedCityName || "this area"}</span>
+            <FiArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

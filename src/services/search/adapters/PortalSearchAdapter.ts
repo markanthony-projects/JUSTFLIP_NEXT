@@ -15,10 +15,13 @@ export class PortalSearchAdapter extends SearchAdapter {
     this.controller = new AbortController();
 
     const activeCity = useCityStore.getState().activeCity;
+    const cityId = filters?.cityId || (!filters?.zoneId && !filters?.locationId ? activeCity?.id : undefined);
 
     const params: Record<string, any> = {
       search: query || undefined,
-      cityId: activeCity?.id || undefined,
+      cityId: cityId || undefined,
+      zoneId: filters?.zoneId || undefined,
+      locationId: filters?.locationId || undefined,
       page,
       limit,
       ...this._mapFiltersToParams(filters),

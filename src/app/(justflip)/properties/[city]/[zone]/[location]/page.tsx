@@ -25,8 +25,8 @@ import PriceTrendSkeleton from '@/src/app/(justflip)/components/Skelton/PriceTre
 const BuildersSection = dynamic(() => import("@/src/app/(justflip)/components/CityComponent/BuilderSection"));
 const PriceTrendClient = dynamic(() => import("@/src/app/(justflip)/components/PriceTrendClient"));
 const TopProperty = dynamic(() => import("@/src/app/(justflip)/components/TopProperty"));
-const Highlight = dynamic(() => import("@/src/app/(justflip)/components/Highlight") );
-const Blogs = dynamic(() => import("@/src/app/(justflip)/components/Blogs") );
+const Highlight = dynamic(() => import("@/src/app/(justflip)/components/Highlight"));
+const Blogs = dynamic(() => import("@/src/app/(justflip)/components/Blogs"));
 const PropertyGallery = dynamic(() => import("@/src/app/(justflip)/components/PropertyGallery"));
 const FAQ = dynamic(() => import("@/src/app/(justflip)/components/FAQ"));
 const PropertySupply = dynamic(() => import("@/src/app/(justflip)/components/PropertySupply"));
@@ -44,14 +44,14 @@ type LocationPageProps = {
 
 export async function generateMetadata({ params }: LocationPageProps): Promise<Metadata> {
   const { city, zone, location } = await params;
-  const { cityName, zoneName, name, id } = parseLocationUrl(city, zone, location);
+  const { cityName, name, id } = parseLocationUrl(city, zone, location);
   const data = await getLocationPageData(id);
   if (!data || !data.locationData) return {};
   const { locationData } = data;
 
-  const title = `Buy Flats, Villas & Plots in ${name}, ${cityName} - Photos & Prices | JustFlip`;
-  const description = locationData?.description ? locationData.description.replace(/<[^>]+>/g, '').substring(0, 157) + '...' : `Find the best residential projects, luxury apartments, and plots available in ${name}, ${cityName}. View 100+ properties with floor plans and price trends.`;
-  
+  const title = `Properties in ${name}, ${cityName} - Buy Flats, Villas & Plots | JustFlip`;
+  const description = locationData?.description ? locationData.description.replace(/<[^>]+>/g, '').substring(0, 157) + '...' : `Explore verified residential properties, flats, and villas in ${name}, ${cityName}. View prices, photos, and builder reviews.`;
+
   return constructMetadata({
     title,
     description,
@@ -64,14 +64,14 @@ export const revalidate = 1800;
 export default async function LocationPage({ params }: LocationPageProps) {
   const { city, zone, location } = await params;
   const { cityName, zoneName, name, id } = parseLocationUrl(city, zone, location)
-  const data = await getLocationPageData(id);
+  const data = await getLocationPageData(id)
 
   if (!data || !data.locationData) {
     return notFound();
   }
 
   const { locationData, builders, reviewData, reviewList, trends } = data;
-  const cityUrl = createCityUrl(cityName, locationData?.city?.id)
+  const cityUrl = createCityUrl(cityName, locationData?.zone?.city?.id)
   const zoneUrl = createZoneUrl(cityName, name, locationData?.zone?.id)
 
   const breadcrumbItems = [
@@ -83,13 +83,18 @@ export default async function LocationPage({ params }: LocationPageProps) {
   const bannerImage = locationData?.medias?.find((o: any) => o.title === 'logo')
 
   return (
-    <div className="">
+    <div className="w-full px-2 md:px-4">
       <Breadcrumb items={breadcrumbItems} />
-      <div className="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-4 gap-6">
-        <div className="lg:col-span-4 xl:col-span-3 space-y-4">
+
+      <div className="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-4 gap-6 mx-auto">
+        {/* Left Column: Stack of individual, clean tile cards */}
+        <div className="lg:col-span-4 xl:col-span-3 space-y-4 md:space-y-6">
+
+          {/* 1. Header / Location Overview */}
           <HeaderTop data={locationData} bannerImage={bannerImage} />
 
-          <div className="block lg:hidden">
+          {/* Mobile Sidebar Cards */}
+          <div className="block lg:hidden space-y-4">
             <Suspense fallback={<RatingCardSkeleton />}>
               <PriceTrendClient data={reviewData || {}} trendData={trends as any} type={"location"} typeId={id} />
             </Suspense>
@@ -98,49 +103,70 @@ export default async function LocationPage({ params }: LocationPageProps) {
             </Suspense>
           </div>
 
-          <Suspense fallback={<HighlightSkeleton />}>
-            <Highlight data={locationData} />
-          </Suspense>
-
-          <Suspense fallback={<PriceTrendSkeleton />}>
-            <PriceTrendSection data={locationData as any} />
-          </Suspense>
-          <PriceTrendSchema trends={locationData?.pricings} />
-
-          <Suspense fallback={<TopBuildersSkeleton />}>
-            <BuildersSection builders={builders} city={locationData?.city} />
-          </Suspense>
-
-          <Suspense fallback={<LocationAroundSkeleton />}>
-            <LocationAround services={locationData?.services} />
-          </Suspense>
-
+          {/* 2. Explore Properties by Category & Price Filter */}
           <Suspense fallback={<PropertySupplySkeleton />}>
             <PropertySupply type="location" data={locationData as any} typeName={name} typeId={id} />
           </Suspense>
 
-          <Suspense fallback={<ReviewsSkeleton />}>
-            <ReviewsSectionClient typeName={name} typeId={id} type="location" reviews={reviewList} />
-          </Suspense>
+          {/* 3. Highlights Tile */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+            <Suspense fallback={<HighlightSkeleton />}>
+              <Highlight data={locationData} />
+            </Suspense>
+          </div>
 
-          <Suspense fallback={<AreasNearbySkeleton />}>
-            <AreasNearby locationData={locationData} />
-          </Suspense>
+          {/* 4. Price Trends Tile */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+            <Suspense fallback={<PriceTrendSkeleton />}>
+              <PriceTrendSection data={locationData as any} />
+            </Suspense>
+            <PriceTrendSchema trends={locationData?.pricings} />
+          </div>
+
+          {/* 5. Top Builders Tile */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+            <Suspense fallback={<TopBuildersSkeleton />}>
+              <BuildersSection builders={builders} city={locationData?.city} />
+            </Suspense>
+          </div>
+
+          {/* 6. Location Around & Services Tile */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+            <Suspense fallback={<LocationAroundSkeleton />}>
+              <LocationAround services={locationData?.services} />
+            </Suspense>
+          </div>
+
+          {/* 7. Ratings & Reviews Tile */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+            <Suspense fallback={<ReviewsSkeleton />}>
+              <ReviewsSectionClient typeName={name} typeId={id} type="location" reviews={reviewList} />
+            </Suspense>
+          </div>
+
+          {/* 8. Areas Nearby Tile */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+            <Suspense fallback={<AreasNearbySkeleton />}>
+              <AreasNearby locationData={locationData} />
+            </Suspense>
+          </div>
+
+          {/* 9. Photo Gallery */}
           <Suspense fallback={<GallerySkeleton />}>
             <PropertyGallery data={locationData} title={`${name} - At a Glance`} />
           </Suspense>
-          <Suspense fallback={<BlogsSkeleton />}>
-            <Blogs tag="Popular Blogs" />
-          </Suspense>
-          <Suspense fallback={<MapFilterSkeleton />}>
-            <GoogleMapFilter locationData={locationData} />
-          </Suspense>
-          <Suspense fallback={<FAQSkeleton />}>
-            <FAQ data={locationData} />
-          </Suspense>
+
+          {/* 10. Interactive Map Tile */}
+          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+            <Suspense fallback={<MapFilterSkeleton />}>
+              <GoogleMapFilter locationData={locationData} />
+            </Suspense>
+          </div>
 
         </div>
-        <div className="lg:col-span-2 xl:col-span-1 md:m-2 hidden lg:flex lg:flex-col lg:gap-4">
+
+        {/* Right Column: Sticky Sidebar fixed on the right */}
+        <div className="sticky top-28 self-start lg:col-span-2 xl:col-span-1 hidden lg:flex lg:flex-col lg:gap-4">
           <Suspense fallback={<RatingCardSkeleton />}>
             <PriceTrendClient data={reviewData || {}} trendData={trends as any} type={"location"} typeId={id} />
           </Suspense>
@@ -148,7 +174,19 @@ export default async function LocationPage({ params }: LocationPageProps) {
             <TopProperty typeId={id} type={"location"} />
           </Suspense>
         </div>
+
+      </div>
+
+      {/* Full-Width Centered Sections Below Grid */}
+      <div className="w-full space-y-8 my-8">
+        <Suspense fallback={<BlogsSkeleton />}>
+          <Blogs tag="Popular Blogs" />
+        </Suspense>
+
+        <Suspense fallback={<FAQSkeleton />}>
+          <FAQ data={locationData} />
+        </Suspense>
       </div>
     </div>
-  )
+  );
 }
