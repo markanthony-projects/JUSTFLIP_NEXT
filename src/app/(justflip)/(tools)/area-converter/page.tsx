@@ -1,7 +1,8 @@
-import React from 'react';
+import React from 'react'
+import UnitConverter from './components/UnitConverter';
 import type { Metadata } from 'next';
-import UnitConverter from './UnitConverter';
 import { constructMetadata } from '@/src/utils/seo';
+
 
 export const metadata: Metadata = constructMetadata({
   title: "Real Estate Land & Area Unit Converter | Justflip",
