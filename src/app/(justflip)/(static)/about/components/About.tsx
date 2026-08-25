@@ -95,7 +95,7 @@ const About = () => {
           {/* Right Column: Paragraph + Feature Cards */}
           <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-sky-600">The JustFlip Advantage</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-sky-800">The JustFlip Advantage</span>
               <h2 className="text-2xl sm:text-4xl font-extrabold text-[#002B5B] mt-1">
                 Why JustFlip?
               </h2>
@@ -123,7 +123,7 @@ const About = () => {
                     </div>
                     <div>
                       <h3 className="text-xs sm:text-sm font-bold text-[#002B5B]">{item.title}</h3>
-                      <p className="text-[11px] sm:text-xs text-slate-500 font-normal leading-snug mt-0.5">
+                      <p className="text-[11px] sm:text-xs text-slate-600 font-normal leading-snug mt-0.5">
                         {item.description}
                       </p>
                     </div>

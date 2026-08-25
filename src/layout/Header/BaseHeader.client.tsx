@@ -104,6 +104,7 @@ export default function BaseHeaderClient({ children, config }: BaseHeaderClientP
                             <div className="relative">
                                 <button
                                     onClick={handleSliderOpen}
+                                    aria-label="Open user profile menu"
                                     className="h-10 w-10 flex items-center justify-center rounded-full bg-white/20 overflow-hidden ring-2 ring-white/50 hover:ring-white transition-all"
                                 >
                                     {user?.profilePhoto ? (
