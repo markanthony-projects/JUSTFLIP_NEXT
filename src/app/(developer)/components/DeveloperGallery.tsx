@@ -46,8 +46,8 @@ const CinematicCard = ({ emp, index, activeIndex, setActiveIndex }: CinematicCar
         />
       </div>
 
-      {/* Glass Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent backdrop-blur-[1px]" />
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
       {/* Subtle Shine Effect */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 bg-gradient-to-tr from-white/10 via-transparent to-transparent" />

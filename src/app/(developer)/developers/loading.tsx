@@ -6,9 +6,9 @@ import { SkeletonBlock } from "../../(justflip)/components/Skelton/SkeletonSecti
 
 export default function Loading() {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-4 flex-1 px-2 md:px-4 py-1  w-full  mx-auto md:max-w-[1440px]">
+    <div className="grid grid-cols-1 lg:grid-cols-4 flex-1 px-2 md:px-8 lg:px-24 py-2 w-full mx-auto">
       <div className="h-screen lg:col-span-4 flex flex-col relative ">
-        <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md px-4 py-3 flex items-center justify-between">
+        <header className="sticky top-0 z-10 bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between">
           <div className="space-y-2">
             <SkeletonBlock className="h-5 w-40 rounded-md" />
             <SkeletonBlock className="h-3 w-52 rounded-md" />
