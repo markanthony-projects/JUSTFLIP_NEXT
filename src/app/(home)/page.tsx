@@ -14,8 +14,9 @@ import { HomeBlogsSkeleton } from "../(justflip)/components/Skelton/HomeBlogsSke
 import PopularCities from "../(justflip)/components/PopularCities/PopularCities";
 import TaggedProperties from "../(justflip)/components/TaggedProperties/TaggedProperties";
 import TopBuilders from "../(justflip)/components/TopBuilders/TopBuilders";
-import Blogs from "../(justflip)/components/Blogs";
 import MortgageCalculator from "@/src/components/molecules/MortgageCalculatorsDynamic";
+import PropertyTools from "../(justflip)/components/PropertyTools/PropertyTools";
+import Blogs from "../(justflip)/components/Blogs";
 // import PostPropertyCTA from "../(justflip)/components/PostPropertyCTA";
 // import ExploreByBudget from "../(justflip)/components/ExploreByBudget";
 
@@ -75,6 +76,8 @@ export default async function JustFlipHomePage() {
                 <LazyHydrate rootMargin="300px">
                     <MortgageCalculator />
                 </LazyHydrate>
+
+                {/* <PropertyTools excludeId="mortgage-calculator" title="Financial & Planning Tools" /> */}
 
                 <LazyHydrate rootMargin="350px" placeholder={<PopularCitiesSkeleton />}>
                     <Suspense fallback={<PopularCitiesSkeleton />}>
