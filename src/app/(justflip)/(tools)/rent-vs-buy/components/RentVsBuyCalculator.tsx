@@ -115,14 +115,14 @@ export default function RentVsBuyCalculator() {
   const THEME_COLOR = "#002B5B";
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6 md:p-8 bg-white rounded-2xl shadow-sm border border-slate-100">
-      <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-8">
+    <div className="w-full max-w-6xl mx-auto p-3 md:p-8 bg-white rounded-2xl shadow-sm border border-slate-100">
+      <h2 className="text-xl md:text-3xl font-bold text-slate-800 mb-8">
         Rent vs Buy Financial Decision Tool
       </h2>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Inputs Panel */}
-        <div className="lg:col-span-5 space-y-4 bg-slate-50/70 p-5 rounded-2xl border border-slate-100">
+        <div className="lg:col-span-5 space-y-4 bg-slate-50/70 p-5 rounded-2xl border border-slate-100 order-2 lg:order-1">
           {/* Property Price */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
@@ -285,7 +285,7 @@ export default function RentVsBuyCalculator() {
         </div>
 
         {/* Right Output & Visualization Panel */}
-        <div className="lg:col-span-7 flex flex-col gap-6">
+        <div className="lg:col-span-7 flex flex-col gap-6 order-1 lg:order-2">
           <div
             className="p-5 rounded-2xl text-center border shadow-sm transition-all"
             style={{
