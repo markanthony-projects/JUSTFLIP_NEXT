@@ -60,10 +60,20 @@ const nextConfig = {
   turbopack: {},
   webpack: (config, { isServer }) => {
     if (!isServer) {
+      // Null out Next.js's built-in polyfill modules so modern-browser polyfills
+      // (Array.at, Array.flat, Object.fromEntries, Object.hasOwn, String.trim*)
+      // are not shipped to browsers that already support them natively.
+      const polyfillPaths = [
+        'next/dist/build/polyfills/polyfill-module',
+        'next/dist/build/polyfills/polyfill-module.js',
+        'next/dist/build/polyfills/polyfills',
+        'next/dist/build/polyfills/polyfills.js',
+        'next/dist/client/polyfills',
+        'next/dist/client/polyfills.js',
+      ];
       config.resolve.alias = {
         ...config.resolve.alias,
-        'next/dist/build/polyfills/polyfill-module': false,
-        'next/dist/build/polyfills/polyfill-module.js': false,
+        ...Object.fromEntries(polyfillPaths.map((p) => [p, false])),
       };
     }
     return config;
