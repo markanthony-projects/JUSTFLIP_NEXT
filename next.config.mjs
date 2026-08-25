@@ -40,6 +40,13 @@ const nextConfig = {
   },
   experimental: {
     optimizeCss: true,
+    optimizePackageImports: [
+      "react-icons",
+      "@headlessui/react",
+      "recharts",
+      "leaflet",
+      "react-leaflet",
+    ],
     serverActions: {
       allowedOrigins: [
         "localhost:3000",
