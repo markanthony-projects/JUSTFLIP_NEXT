@@ -42,11 +42,10 @@
     "typescript": "^6.0.3"
   },
   "browserslist": [
-    "last 2 Chrome versions",
-    "last 2 Safari versions",
-    "last 2 Firefox versions",
-    "last 2 Edge versions",
-    "> 0.5%",
+    "chrome >= 110",
+    "safari >= 16.4",
+    "firefox >= 115",
+    "edge >= 110",
     "not dead"
   ]
 }
