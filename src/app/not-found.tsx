@@ -1,38 +1,68 @@
 'use client'
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React,{ useEffect, useState } from "react";
 import { FiArrowRight, FiHome } from "react-icons/fi";
 
-const REDIRECT_TIME = 10;
+const REDIRECT_TIME = 8;
+
+
+function TimerBar(){
+  const router = useRouter()
+  const [ secondsLeft, setSecondsLeft ] = useState(REDIRECT_TIME)
+
+  useEffect(()=>{
+    if (secondsLeft <= 0) return
+
+    const interval = setInterval(() =>{
+        setSecondsLeft((prev) => prev = prev - 1 )
+    }, 1000)
+
+    return ()=> clearInterval(interval)
+  },[secondsLeft])
+
+
+  useEffect(()=>{
+    if(secondsLeft === 0){
+      router.back()
+    }
+  },[secondsLeft, router])
+
+  const progress = (secondsLeft/REDIRECT_TIME) * 100
+
+  return(
+    <div className="mt-8 max-w-md">
+      <div className="flex items-center justify-between text-sm">
+        <span className="text-slate-500">
+          {`let's continue exploring in...`}
+        </span>
+
+        <span className="font-semibold text-[#002B5B]">
+          {secondsLeft}s
+        </span>
+      </div>
+
+      
+      <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100">
+        <div
+          className="h-full rounded-full bg-[#002B5B] transition-all duration-1000 ease-linear"
+          style={{
+            width: `${progress}%`,
+          }}
+        />
+      </div>
+    </div>
+  )
+}
 
 export default function NotFound() {
-    const router = useRouter()
-    const [ secondsLeft, setSecondsLeft ] = useState(REDIRECT_TIME)
+  const router = useRouter()
 
-    useEffect(() =>{
-        const interval = setInterval(()=>{
-            setSecondsLeft((prev) => {
-                    if(prev <= 1){
-                    clearInterval(interval)
-                    router.replace('/')
-                    return 0;
-                }
-                return prev-1
-            })
-        },1000)
+  const goHome = () => {
+      router.back()
+  }
 
-        return ()=> clearInterval(interval)
-    },[router])
-
-    const goHome = () => {
-        router.replace('/')
-    }
-
-    const progress = (secondsLeft/REDIRECT_TIME) * 100
-
-    return (
+  return (
     <main className="min-h-[80vh] bg-slate-50 px-5 py-10 flex items-center justify-center">
       <div className="w-full max-w-6xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_60px_rgba(0,43,91,0.08)]">
         <div className="grid min-h-[560px] md:grid-cols-2">
@@ -63,32 +93,12 @@ export default function NotFound() {
               className="mt-8 flex w-fit items-center gap-3 rounded-xl bg-[#002B5B] px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#003b7a] hover:shadow-lg"
             >
               <FiHome size={19} />
-              Go to Home
+              Return back
               <FiArrowRight size={18} />
             </button>
 
-           
-            <div className="mt-8 max-w-md">
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-slate-500">
-                  Taking you home automatically...
-                </span>
+            <TimerBar/>
 
-                <span className="font-semibold text-[#002B5B]">
-                  {secondsLeft}s
-                </span>
-              </div>
-
-              
-              <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100">
-                <div
-                  className="h-full rounded-full bg-[#002B5B] transition-all duration-1000 ease-linear"
-                  style={{
-                    width: `${progress}%`,
-                  }}
-                />
-              </div>
-            </div>
           </section>
 
           {/* RIGHT ILLUSTRATION */}
