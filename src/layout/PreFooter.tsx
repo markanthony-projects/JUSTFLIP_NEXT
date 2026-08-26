@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 
@@ -151,7 +151,7 @@ const PreFooter = () => {
         }
     };
 
-    const currentData = generateCityData(activeCity);
+    const currentData = useMemo(() => generateCityData(activeCity), [activeCity]);
 
     return (
         <section className="bg-linear-to-b from-gray-100 to-white py-12 border-t border-gray-200">
