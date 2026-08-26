@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { JUSTFLIP } from "@/src/lib/axios/api";
 import Step1GoalHousehold, { Step1Data } from "./Step1GoalHousehold";
 import Step2LocationBudget, { Step2Data } from "./Step2LocationBudget";
@@ -11,28 +11,57 @@ export type MasterFormData = Step1Data & Step2Data;
 
 export default function PropertyMatchmaker() {
   const router = useRouter();
-  const [currentStep, setCurrentStep] = useState<number>(1);
+  const searchParams = useSearchParams();
+
+  // Read step from URL query params, default to 1
+  const currentStep = Number(searchParams.get("step")) || 1;
+
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [results, setResults] = useState<PropertyMatch[]>([]);
 
   const [formData, setFormData] = useState<MasterFormData>({
-    goal: "ready",
-    household: "just_me",
-    cityId: "",
-    cityName: "",
-    locationQuery: "",
-    locationId: "",
-    bhk: "2BHK",
-    maxBudget: "10000000",
+    goal: searchParams.get("goal") || "ready",
+    household: searchParams.get("household") || "just_me",
+    cityId: searchParams.get("cityId") || "",
+    cityName: searchParams.get("cityName") || "",
+    locationQuery: searchParams.get("locationQuery") || "",
+    locationId: searchParams.get("locationId") || "",
+    bhk: searchParams.get("bhk") || "2BHK",
+    maxBudget: searchParams.get("maxBudget") || "10000000",
   });
 
-  const handleUpdate = (updated: Partial<MasterFormData>) => {
-    setFormData((prev) => ({ ...prev, ...updated }));
+  // Helper to update URL query params when step or form data changes
+  const updateUrlParams = (newStep: number, updatedData: MasterFormData) => {
+    const params = new URLSearchParams();
+    params.set("step", String(newStep));
+    Object.entries(updatedData).forEach(([key, value]) => {
+      if (value) params.set(key, String(value));
+    });
+    router.replace(`?${params.toString()}`, { scroll: false });
   };
 
-  const handleFindMatches = async () => {
+  const handleSetStep = (step: number) => {
+    updateUrlParams(step, formData);
+  };
+
+  const handleUpdate = (updated: Partial<MasterFormData>) => {
+    const newFormData = { ...formData, ...updated };
+    setFormData(newFormData);
+    updateUrlParams(currentStep, newFormData);
+  };
+
+  // Automatically re-run search if user hits back button and lands on step 3 with search criteria present
+  useEffect(() => {
+    if (currentStep === 3 && results.length === 0 && formData.locationQuery) {
+      handleFindMatches(false);
+    }
+  }, [currentStep]);
+
+  const handleFindMatches = async (shouldUpdateStep = true) => {
+    if (shouldUpdateStep) {
+      handleSetStep(3);
+    }
     setIsSearching(true);
-    setCurrentStep(3);
 
     try {
       const searchRes = await JUSTFLIP.get("/project/search", {
@@ -55,7 +84,6 @@ export default function PropertyMatchmaker() {
             const detailRes = await JUSTFLIP.get(`/project/${item.id}`);
             return detailRes.data?.project || null;
           } catch (e) {
-            console.error(`Failed to fetch details for project ${item.id}`, e);
             return null;
           }
         })
@@ -63,9 +91,7 @@ export default function PropertyMatchmaker() {
 
       const rawBudgetStr = String(formData.maxBudget || "").replace(/[^0-9]/g, "");
       const selectedBudget = rawBudgetStr ? Number(rawBudgetStr) : 10000000;
-
       const targetBhk = formData.bhk ? formData.bhk.replace(/\s+/g, "").toUpperCase() : "";
-
       const FIVE_CR_IN_INR = 50000000;
       const isAboveFiveCrSelected = selectedBudget >= FIVE_CR_IN_INR;
 
@@ -77,16 +103,12 @@ export default function PropertyMatchmaker() {
         const matchingUnits = p.units.filter((u: any) => {
           const unitType = (u.type || "").replace(/\s+/g, "").toUpperCase();
           const matchesBhk = targetBhk ? unitType === targetBhk : true;
-
           const unitMinPrice = Number(u.minPrice) || 0;
           const unitMaxPrice = Number(u.maxPrice) || unitMinPrice;
 
-          let matchesPrice = false;
-          if (isAboveFiveCrSelected) {
-            matchesPrice = unitMaxPrice >= FIVE_CR_IN_INR || unitMinPrice >= FIVE_CR_IN_INR;
-          } else {
-            matchesPrice = unitMinPrice <= selectedBudget;
-          }
+          let matchesPrice = isAboveFiveCrSelected
+            ? unitMaxPrice >= FIVE_CR_IN_INR || unitMinPrice >= FIVE_CR_IN_INR
+            : unitMinPrice <= selectedBudget;
 
           return matchesBhk && matchesPrice;
         });
@@ -106,29 +128,23 @@ export default function PropertyMatchmaker() {
         });
 
         const formatCurrency = (amount: number) => {
-          if (amount >= 10000000) {
-            return `₹${(amount / 10000000).toFixed(2)} Cr`;
-          }
+          if (amount >= 10000000) return `₹${(amount / 10000000).toFixed(2)} Cr`;
           return `₹${(amount / 100000).toFixed(2)} L`;
         };
 
         let formattedPrice = `Up to ${formatCurrency(selectedBudget)}`;
         if (minPrice !== Infinity && maxPrice !== -Infinity) {
-          formattedPrice =
-            minPrice === maxPrice
-              ? formatCurrency(minPrice)
-              : `${formatCurrency(minPrice)} - ${formatCurrency(maxPrice)}`;
+          formattedPrice = minPrice === maxPrice ? formatCurrency(minPrice) : `${formatCurrency(minPrice)} - ${formatCurrency(maxPrice)}`;
         }
 
         const bannerMedia = p.medias?.find((m: any) => m.title === "banner") || p.medias?.[0];
-        const imageUrl = bannerMedia?.url
-        
+        const imageUrl = bannerMedia?.url || "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&auto=format&fit=crop&q=80";
 
         mappedResults.push({
           id: p.id,
           name: p.name,
           cityName: p.city?.name || formData.cityName || "Bengaluru",
-          zoneName: p.zone?.name || p.location?.zone?.name || "Central", 
+          zoneName: p.zone?.name || p.location?.zone?.name || "Central",
           locationName: p.location?.name || formData.locationQuery,
           priceRange: formattedPrice,
           areaRange: "925 - 1,445 sq.ft",
@@ -143,7 +159,6 @@ export default function PropertyMatchmaker() {
 
       setResults(mappedResults);
     } catch (err) {
-      console.error("Failed to fetch property match results:", err);
       setResults([]);
     } finally {
       setIsSearching(false);
@@ -155,22 +170,22 @@ export default function PropertyMatchmaker() {
   };
 
   return (
-    <div className="w-full  px-0 sm:px-8 lg:px-12">
+    <div className="w-full py-2 px-0 sm:px-8 lg:px-12">
       {currentStep < 3 ? (
         <div className="space-y-6">
           {currentStep === 1 && (
             <Step1GoalHousehold
               data={formData}
               onChange={handleUpdate}
-              onNext={() => setCurrentStep(2)}
+              onNext={() => handleSetStep(2)}
             />
           )}
           {currentStep === 2 && (
             <Step2LocationBudget
               data={formData}
               onChange={handleUpdate}
-              onBack={() => setCurrentStep(1)}
-              onSubmit={handleFindMatches}
+              onBack={() => handleSetStep(1)}
+              onSubmit={() => handleFindMatches(true)}
             />
           )}
         </div>
@@ -178,7 +193,7 @@ export default function PropertyMatchmaker() {
         <ResultGrid
           results={results}
           isSearching={isSearching}
-          onModify={() => setCurrentStep(2)}
+          onModify={() => handleSetStep(2)}
           onSelectProperty={handleSelectProperty}
         />
       )}
