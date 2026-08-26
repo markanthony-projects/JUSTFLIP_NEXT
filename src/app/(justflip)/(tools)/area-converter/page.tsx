@@ -2,6 +2,7 @@ import React from 'react'
 import UnitConverter from './components/UnitConverter';
 import type { Metadata } from 'next';
 import { constructMetadata } from '@/src/utils/seo';
+import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
 
 export const metadata: Metadata = constructMetadata({
@@ -13,6 +14,7 @@ export const metadata: Metadata = constructMetadata({
 const AreaConverterPage = () => {
   return (
     <div>
+      <ScrollToTop />
       <UnitConverter />
     </div>
   );
