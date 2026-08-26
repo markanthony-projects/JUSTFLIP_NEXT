@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=4096 next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "analyze": "cross-env ANALYZE=true NODE_OPTIONS=--max-old-space-size=4096 next build --webpack"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
@@ -36,6 +37,7 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "^19.2.4",
     "babel-plugin-react-compiler": "1.0.0",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
     "tailwindcss": "^4",
