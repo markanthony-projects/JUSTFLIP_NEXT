@@ -151,7 +151,7 @@ function MobileBottomNavContent() {
                     </Link>
                 );
             })}
-            <MobileSearchModal />
+            {isSearchModalOpen && <MobileSearchModal />}
         </div>
     );
 }

@@ -48,8 +48,23 @@ const nextConfig = {
     optimizeCss: true,
     optimizePackageImports: [
       "react-icons",
+      "react-icons/fi",
+      "react-icons/fa",
+      "react-icons/fa6",
+      "react-icons/hi",
+      "react-icons/hi2",
+      "react-icons/pi",
+      "react-icons/io",
+      "react-icons/io5",
+      "react-icons/tb",
+      "react-icons/bs",
+      "react-icons/sl",
+      "react-icons/md",
+      "react-icons/bi",
+      "react-icons/ai",
       "@headlessui/react",
       "recharts",
+      "libphonenumber-js",
     ],
     serverActions: {
       allowedOrigins: [
