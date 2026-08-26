@@ -29,9 +29,21 @@ export default function NearestCityClient({
     const [open, setOpen] = useState(false);
 
     /* ---------------- Resolve active city ---------------- */
-    /* Deduped at module level: every mounted instance shares one request. */
+    /* Defer IP lookup to idle time so initial main thread hydration is instant */
     useEffect(() => {
-        ensureNearestCity(initialCity);
+        if (typeof window === "undefined") return;
+
+        const handle = typeof window.requestIdleCallback !== "undefined"
+            ? window.requestIdleCallback(() => ensureNearestCity(initialCity), { timeout: 2000 })
+            : setTimeout(() => ensureNearestCity(initialCity), 300);
+
+        return () => {
+            if (typeof window.cancelIdleCallback !== "undefined" && typeof handle === "number") {
+                window.cancelIdleCallback(handle);
+            } else {
+                clearTimeout(handle as any);
+            }
+        };
     }, [initialCity]);
 
     const label = activeCity?.name || placeholder;
