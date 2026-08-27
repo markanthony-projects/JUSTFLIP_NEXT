@@ -33,6 +33,7 @@ function CustomDropDown({value, onChange, options, placeholder}:{
       
       <button type="button"
         onClick={() => setOpen((prev) => !prev)}
+        aria-label={placeholder || "Select option"}
         className='flex w-full items-center justify-between rounded-lg border border-gray-200 bg-white px-1.5 py-3 pr-11  text-left shadow-sm font-medium text-[#002B5B] outline-none transition-all duration-200 cursor-pointer 
         hover:border-[#9db5d3] focus:border-[#153e6d] focus:ring-2 focus:ring-[#002B5B]/10'>
         

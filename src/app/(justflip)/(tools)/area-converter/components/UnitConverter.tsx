@@ -173,6 +173,7 @@ const UnitConverter = ({
               {/* --reset---- */}
               <button type='button'
                 onClick={handleReset}
+                aria-label="Reset calculator"
                 className='flex items-center gap-2 rounded-lg border border-[#d9e2ef] bg-white px-3 py-2 text-xs   
                   font-semibold text-[#002B5B] transition-all duration-200 hover:border-[#b8c9df] hover:bg-[#f7faff] active:scale-95 md:px-4'
               >
@@ -285,6 +286,7 @@ const UnitConverter = ({
 
                   <button type="button"
                       onClick={swapUnits}
+                      aria-label="Swap from and to units"
                       title="Swap units"
                       className='flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-3 border-white bg-[#f4f8fd] text-[#002B5B] transition-all duration-200 hover:border-[#9db5d3] hover:bg-[#eaf1fa] active:scale-90 md:self-end shadow-md shadow-[#cbd9eb]
                       '>
@@ -348,6 +350,7 @@ const UnitConverter = ({
                   <button
                     type="button"
                     onClick={handleCopyResult}
+                    aria-label="Copy conversion result"
                     title="Copy result"
                     className=' flex h-7 w-7 items-center justify-center rounded-lg border border-[#d4e0ef] bg-white text-[#002B5B] transition hover:bg-[#f4f8fd]
                     '
