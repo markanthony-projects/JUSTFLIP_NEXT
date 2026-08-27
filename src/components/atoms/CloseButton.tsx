@@ -5,14 +5,15 @@ import { IoClose } from "react-icons/io5";
 
 export interface ButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  ariaLabel?: string;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button({ onClick }, ref) {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button({ onClick, ariaLabel = "Close" }, ref) {
   return (
     <button
       ref={ref}
       onClick={onClick}
-      aria-label="Remove from compare"
+      aria-label={ariaLabel}
       className="
         group absolute top-2 right-2 cursor-pointer
         flex items-center justify-center

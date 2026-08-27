@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "react-phone-number-input/style.css";
 
 
 /* for maps button to have a lower z-index it controls all leaflet components.*/

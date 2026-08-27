@@ -1,4 +1,10 @@
 import bundleAnalyzer from "@next/bundle-analyzer";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const emptyShimPath = path.resolve(__dirname, "empty-shim.js");
 
 const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
@@ -40,6 +46,26 @@ const nextConfig = {
   },
   experimental: {
     optimizeCss: true,
+    optimizePackageImports: [
+      "react-icons",
+      "react-icons/fi",
+      "react-icons/fa",
+      "react-icons/fa6",
+      "react-icons/hi",
+      "react-icons/hi2",
+      "react-icons/pi",
+      "react-icons/io",
+      "react-icons/io5",
+      "react-icons/tb",
+      "react-icons/bs",
+      "react-icons/sl",
+      "react-icons/md",
+      "react-icons/bi",
+      "react-icons/ai",
+      "@headlessui/react",
+      "recharts",
+      "libphonenumber-js",
+    ],
     serverActions: {
       allowedOrigins: [
         "localhost:3000",
@@ -50,6 +76,52 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  turbopack: {
+    resolveAlias: {
+      "next/dist/build/polyfills/polyfill-module": "./empty-shim.js",
+      "../build/polyfills/polyfill-module": "./empty-shim.js",
+      "@next/polyfill-module": "./empty-shim.js",
+      "next/dist/build/polyfills/polyfills": "./empty-shim.js",
+      "next/dist/client/polyfills": "./empty-shim.js",
+    },
+  },
+  webpack: (config, { isServer, webpack }) => {
+    if (!isServer) {
+      // Null out Next.js's built-in polyfill modules so modern-browser polyfills
+      // (Array.at, Array.flat, Object.fromEntries, Object.hasOwn, String.trim*)
+      // are not shipped to browsers that already support them natively.
+      const polyfillAliases = {
+        'next/dist/build/polyfills/polyfill-module': emptyShimPath,
+        'next/dist/build/polyfills/polyfill-module.js': emptyShimPath,
+        '../build/polyfills/polyfill-module': emptyShimPath,
+        '../build/polyfills/polyfill-module.js': emptyShimPath,
+        './build/polyfills/polyfill-module': emptyShimPath,
+        './build/polyfills/polyfill-module.js': emptyShimPath,
+        '@next/polyfill-module': emptyShimPath,
+        'next/dist/build/polyfills/polyfills': emptyShimPath,
+        'next/dist/build/polyfills/polyfills.js': emptyShimPath,
+        'next/dist/client/polyfills': emptyShimPath,
+        'next/dist/client/polyfills.js': emptyShimPath,
+      };
+
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        ...polyfillAliases,
+      };
+
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /(polyfill-module|polyfills)(\.js)?$/,
+          (resource) => {
+            if (resource.context && resource.context.includes('next')) {
+              resource.request = emptyShimPath;
+            }
+          }
+        )
+      );
+    }
+    return config;
+  },
 };
 
 export default withBundleAnalyzer(nextConfig);

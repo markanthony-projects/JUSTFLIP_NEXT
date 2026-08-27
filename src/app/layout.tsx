@@ -6,12 +6,12 @@ import { SliderProvider } from "@/src/context/SliderContext";
 import { buildOrganizationSchema } from "@/src/utils/schema";
 import { constructMetadata } from "@/src/utils/seo";
 
-// import CompareInitializer from "../components/molecules/CompareInitializer";
-import ToastContainer from "../components/organisms/ToastContainer";
+import dynamic from "next/dynamic";
+
+const ToastContainer = dynamic(() => import("../components/organisms/ToastContainer"));
 import Footer from "../layout/Footer";
 import PreFooter from "../layout/PreFooter";
-import MobileBottomNav from "../layout/MobileBottomNav";
-// import MobileBottomNavGlass from "../layout/MobileBottomNavGlass";
+const MobileBottomNav = dynamic(() => import("../layout/MobileBottomNav"));
 
 import { firaSans } from "./fonts";
 

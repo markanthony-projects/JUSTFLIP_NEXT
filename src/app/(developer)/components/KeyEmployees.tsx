@@ -27,14 +27,14 @@ const KeyEmployees = ({ employees = [] }: KeyEmployeesProps) => {
             </div>
             
             {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#001f42]/95 via-[#001f42]/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#001f42] via-[#001f42]/40 to-transparent opacity-85 group-hover:opacity-95 transition-opacity duration-300"></div>
             
-            {/* Glassmorphism Info Container */}
-            <figcaption className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 transform translate-y-2 opacity-90 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                <p className="text-white text-lg md:text-xl font-bold capitalize truncate mb-1">
+            {/* Info Container */}
+            <figcaption className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-[#001f42]/70 border border-white/10 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300">
+                <p className="text-white text-lg md:text-xl font-bold capitalize truncate mb-0.5">
                     {employee.name}
                 </p>
-                <p className="text-blue-300 text-sm md:text-[15px] font-medium tracking-wide uppercase truncate">
+                <p className="text-blue-200 text-xs md:text-sm font-medium tracking-wide uppercase truncate">
                     {employee.designation}
                 </p>
             </figcaption>
@@ -43,11 +43,10 @@ const KeyEmployees = ({ employees = [] }: KeyEmployeesProps) => {
 
     return (
         <section className='w-full' aria-labelledby='key-people-heading' role='region'>
-            <div className="mb-8 md:mb-10">
-                <h2 id="key-people-heading" className="text-3xl font-bold text-[#002B5B] tracking-tight">
+            <div className="md:mb-4 mb-3 flex items-center justify-between">
+                <h2 id="key-people-heading" className="text-xl md:text-2xl lg:text-3xl font-bold text-[#002B5B] tracking-tight">
                     Key People
                 </h2>
-                <div className="h-1 w-20 bg-gradient-to-r from-[#002B5B] to-blue-800 rounded-full mt-3"></div>
             </div>
             
             {/* Native smooth horizontal scroll container */}

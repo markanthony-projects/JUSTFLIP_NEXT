@@ -22,26 +22,25 @@ export default function Loading() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-[#001f42]/90"></div>
         </div>
 
-        {/* Glassmorphism Info Card */}
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-[1440px] mx-auto mb-10 translate-y-16 md:translate-y-24">
-          <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 md:p-10 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-10 transition-all duration-500">
+        {/* Info Card */}
+        <div className="relative z-10 w-full px-2 md:px-8 lg:px-24 mx-auto -mt-14 sm:-mt-16 md:-mt-20">
+          <div className="bg-white border border-gray-200/80 rounded-2xl md:rounded-3xl shadow-lg p-5 sm:p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-5 md:gap-8">
             {/* Logo Container */}
-            <div className="w-28 h-28 md:w-40 md:h-40 shrink-0 bg-white rounded-2xl p-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden transform -translate-y-12 md:-translate-y-16 group">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 shrink-0 bg-white rounded-2xl p-2.5 border border-gray-200 shadow-md overflow-hidden flex items-center justify-center">
               <SkeletonBlock className="w-full h-full rounded-xl bg-gray-200 animate-pulse" />
             </div>
 
             {/* Builder Details Skeleton */}
-            <div className="flex-1 text-center md:text-left -mt-8 md:mt-0 w-full">
-              <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mb-4">
-                <SkeletonBlock className="h-10 md:h-12 w-48 md:w-80 rounded-lg bg-white/40 animate-pulse" />
-                <SkeletonBlock className="h-7 w-24 rounded-full bg-white/20 animate-pulse" />
+            <div className="flex-1 text-center md:text-left w-full">
+              <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mb-3">
+                <SkeletonBlock className="h-8 md:h-10 w-48 md:w-80 rounded-lg bg-gray-200 animate-pulse" />
+                <SkeletonBlock className="h-6 w-24 rounded-full bg-gray-100 animate-pulse" />
               </div>
 
-              <div className="space-y-3 mt-6">
-                <SkeletonBlock className="h-4 w-full rounded bg-white/30 animate-pulse" />
-                <SkeletonBlock className="h-4 w-[90%] rounded bg-white/30 animate-pulse" />
-                <SkeletonBlock className="h-4 w-[75%] rounded bg-white/30 animate-pulse" />
-                <SkeletonBlock className="h-4 w-24 rounded mt-4 bg-white/50 animate-pulse" />
+              <div className="space-y-2 mt-4">
+                <SkeletonBlock className="h-4 w-full rounded bg-gray-100 animate-pulse" />
+                <SkeletonBlock className="h-4 w-[90%] rounded bg-gray-100 animate-pulse" />
+                <SkeletonBlock className="h-4 w-[75%] rounded bg-gray-100 animate-pulse" />
               </div>
             </div>
           </div>
@@ -49,7 +48,7 @@ export default function Loading() {
       </div>
 
       {/* Content Sections */}
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-32 space-y-16 md:space-y-24">
+      <div className="w-full mx-auto px-2 md:px-8 lg:px-24 pt-8 md:pt-12 space-y-8 md:space-y-12">
         
         {/* Key Employees Skeleton */}
         <section>

@@ -25,12 +25,12 @@ export default function DeveloperCard({ data }: { data: any }) {
                 {/* Gradient Overlay for Text Readability */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
-                {/* Glassmorphism Content Panel at Bottom */}
-                <div className="absolute bottom-3 left-3 right-3 bg-white/20 backdrop-blur-md border border-white/30 p-3 rounded-xl flex items-center justify-between transition-transform duration-300 translate-y-0">
+                {/* Content Panel at Bottom */}
+                <div className="absolute bottom-3 left-3 right-3 bg-white border border-gray-100 shadow-md p-3 rounded-xl flex items-center justify-between transition-transform duration-300">
                     
                     <div className="flex items-center gap-3 overflow-hidden">
                         {/* Logo Container */}
-                        <div className="w-12 h-12 shrink-0 rounded-full bg-white flex items-center justify-center overflow-hidden shadow-inner">
+                        <div className="w-12 h-12 shrink-0 rounded-full bg-white border border-gray-100 flex items-center justify-center overflow-hidden shadow-xs">
                             {logo ? (
                                 <Image 
                                     src={logo.url} 
@@ -46,17 +46,17 @@ export default function DeveloperCard({ data }: { data: any }) {
 
                         {/* Title & Properties */}
                         <div className="flex flex-col overflow-hidden">
-                            <h3 className="text-white font-bold text-base truncate drop-shadow-md">
+                            <h3 className="text-gray-900 font-bold text-base truncate group-hover:text-[#002B5B] transition-colors">
                                 {data?.name}
                             </h3>
-                            <p className="text-white/80 text-xs font-medium mt-0.5">
-                                {data?.totalProjects > 0 ? data?.totalProjects : "No"} Properties
+                            <p className="text-gray-500 text-xs font-medium mt-0.5">
+                                {data?.totalProjects > 0 ? `${data?.totalProjects} Properties` : "No Properties"}
                             </p>
                         </div>
                     </div>
 
                     {/* Hover Arrow */}
-                    <div className="w-8 h-8 rounded-full bg-white/30 backdrop-blur-sm flex items-center justify-center text-white shrink-0 group-hover:bg-white group-hover:text-[#002B5B] transition-colors duration-300">
+                    <div className="w-8 h-8 rounded-full bg-[#002B5B]/5 flex items-center justify-center text-[#002B5B] shrink-0 group-hover:bg-[#002B5B] group-hover:text-white transition-colors duration-300">
                         <FiArrowRight size={16} />
                     </div>
 
