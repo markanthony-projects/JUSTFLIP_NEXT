@@ -117,14 +117,24 @@ export default function PropertyMatchmaker() {
 
         let minPrice = Infinity;
         let maxPrice = -Infinity;
+        let minArea = Infinity;
+        let maxArea = -Infinity;
         const unitTypesSet = new Set<string>();
 
         p.units.forEach((u: any) => {
           if (u.type) unitTypesSet.add(u.type.replace(/\s+/g, "").toUpperCase());
+          
           const uMin = Number(u.minPrice);
           const uMax = Number(u.maxPrice);
           if (uMin && uMin < minPrice) minPrice = uMin;
           if (uMax && uMax > maxPrice) maxPrice = uMax;
+
+          // Extract area dynamically from interiorArea or exteriorArea
+          const uArea = Number(u.interiorArea) || Number(u.exteriorArea) || 0;
+          if (uArea > 0) {
+            if (uArea < minArea) minArea = uArea;
+            if (uArea > maxArea) maxArea = uArea;
+          }
         });
 
         const formatCurrency = (amount: number) => {
@@ -137,6 +147,14 @@ export default function PropertyMatchmaker() {
           formattedPrice = minPrice === maxPrice ? formatCurrency(minPrice) : `${formatCurrency(minPrice)} - ${formatCurrency(maxPrice)}`;
         }
 
+        // Format dynamic area range text
+        let formattedArea = "Size on request";
+        if (minArea !== Infinity && maxArea !== -Infinity) {
+          formattedArea = minArea === maxArea 
+            ? `${minArea.toLocaleString()} sq.ft` 
+            : `${minArea.toLocaleString()} - ${maxArea.toLocaleString()} sq.ft`;
+        }
+
         const bannerMedia = p.medias?.find((m: any) => m.title === "banner") || p.medias?.[0];
         const imageUrl = bannerMedia?.url || "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&auto=format&fit=crop&q=80";
 
@@ -147,7 +165,7 @@ export default function PropertyMatchmaker() {
           zoneName: p.zone?.name || p.location?.zone?.name || "Central",
           locationName: p.location?.name || formData.locationQuery,
           priceRange: formattedPrice,
-          areaRange: "925 - 1,445 sq.ft",
+          areaRange: formattedArea,
           bhkTypes: Array.from(unitTypesSet).join(", ") || formData.bhk,
           image: imageUrl,
           reasons: [

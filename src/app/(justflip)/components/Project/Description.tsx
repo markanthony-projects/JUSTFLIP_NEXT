@@ -346,7 +346,7 @@ function Description({ project: properties }: { project: Project }) {
                 <div className="group relative rounded-sm overflow-hidden w-full md:flex-[2] aspect-video">
                     <div className="transition-transform duration-500 group-hover:scale-105 w-full h-full">
                         <Image
-                            src={primaryImageUrl}
+                            src={secondaryImageUrl}
                             alt={properties?.name}
                             fill
                             priority
@@ -421,12 +421,12 @@ function Description({ project: properties }: { project: Project }) {
                 </div>
 
                 {/* Right-hand media strip */}
-                {(secondaryImageUrl || floorPlanFirst || videos?.length > 0) && (
+                {(primaryImageUrl || floorPlanFirst || videos?.length > 0) && (
                     <div className="flex flex-row md:flex-col gap-2 w-full md:flex-1 h-[100px] sm:h-[120px] md:h-auto">
 
-                        {secondaryImageUrl && (
+                        {thirdImageUrl && (
                             <MediaThumbnail
-                                imageUrl={secondaryImageUrl}
+                                imageUrl={primaryImageUrl}
                                 alt="All Photos"
                                 label="All Photos"
                                 count={others_images?.length ?? 0}
