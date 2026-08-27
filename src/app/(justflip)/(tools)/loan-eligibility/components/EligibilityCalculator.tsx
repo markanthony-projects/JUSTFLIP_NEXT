@@ -258,7 +258,7 @@ export default function EligibilityCalculator() {
                       strokeLinecap="round"
                       onMouseEnter={() => setHoveredIndex(index)}
                       onMouseLeave={() => setHoveredIndex(null)}
-                      className="cursor-pointer transition-all duration-200"
+                      className="cursor-pointer transition-[stroke-width] duration-200"
                     />
                   );
                 })}
