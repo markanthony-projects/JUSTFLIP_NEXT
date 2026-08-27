@@ -10,9 +10,9 @@ const ConversionLinks = () => {
             key={group.title}
             className="rounded-lg border border-gray-200 bg-white p-5"
         >
-            <h3 className="mb-5 text-lg font-semibold text-[#002B5B]">
+            <h2 className="mb-5 text-lg font-semibold text-[#002B5B]">
                 {group.title}
-            </h3>
+            </h2>
 
             <div className="space-y-4">
                 {group.links.map((link) => (
