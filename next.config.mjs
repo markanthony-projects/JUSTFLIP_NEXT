@@ -48,6 +48,7 @@ const nextConfig = {
     optimizeCss: true,
     optimizePackageImports: [
       "react-icons",
+      "react-icons/ci",
       "react-icons/fi",
       "react-icons/fa",
       "react-icons/fa6",
@@ -62,6 +63,7 @@ const nextConfig = {
       "react-icons/md",
       "react-icons/bi",
       "react-icons/ai",
+      "react-icons/lu",
       "@headlessui/react",
       "recharts",
       "libphonenumber-js",
