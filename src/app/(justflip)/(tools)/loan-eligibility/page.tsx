@@ -5,6 +5,8 @@ import EligibilityCalculator from './components/EligibilityCalculator';
 import { constructMetadata } from '@/src/utils/seo';
 import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = constructMetadata({
   title: "Home Loan Eligibility Calculator - Check Max Loan Limit | Justflip",
   description: "Check your home loan eligibility, maximum loan amount, and FOIR breakdown in seconds with Justflip's Home Loan Eligibility Calculator.",

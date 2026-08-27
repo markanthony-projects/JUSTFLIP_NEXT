@@ -6,15 +6,14 @@ interface UnitDefinition{
 }
 
 interface StateUnits{
-    state: string
-    region: 'North' | 'South' | 'East' | 'West' | 'Central';
+    state: string[]
+    region: 'North' | 'South' | 'East' | 'West' | 'Central' | 'North-East' | 'Union Territories';
     units: UnitDefinition[]
 }
 
 export const AREA_INDIA_BY_STATE: StateUnits[] = [
-    // --- NORTH INDIA ---
-  {
-    state: 'Punjab & Haryana',
+   {
+    state: ["Punjab", "Haryana"],
     region: 'North',
     units: [
       { key: 'kanal_pb_hr', label: 'Kanal', abbreviation: 'kanal', toBase: 505.857 },
@@ -25,7 +24,16 @@ export const AREA_INDIA_BY_STATE: StateUnits[] = [
     ],
   },
   {
-    state: 'Uttar Pradesh',
+    state: ["Jammu & Kashmir", "Ladakh"],
+    region: 'North',
+    units: [
+      { key: 'kanal_jk', label: 'Kanal', abbreviation: 'kanal', toBase: 505.857 },
+      { key: 'marla_jk', label: 'Marla', abbreviation: 'marla', toBase: 25.29285 },
+      { key: 'sarsai_jk', label: 'Sarsai', abbreviation: 'sarsai', toBase: 2.8103 },
+    ],
+  },
+  {
+    state: ["Uttar Pradesh", "Delhi (NCR)"],
     region: 'North',
     units: [
       { key: 'bigha_pucca_up', label: 'Pucca Bigha', abbreviation: 'bigha (P)', toBase: 2529.285 },
@@ -36,7 +44,7 @@ export const AREA_INDIA_BY_STATE: StateUnits[] = [
     ],
   },
   {
-    state: 'Rajasthan',
+    state: ['Rajasthan'],
     region: 'North',
     units: [
       { key: 'bigha_pucca_rj', label: 'Pucca Bigha', abbreviation: 'bigha (P)', toBase: 2529.285 },
@@ -46,7 +54,7 @@ export const AREA_INDIA_BY_STATE: StateUnits[] = [
     ],
   },
   {
-    state: 'Himachal Pradesh & Uttarakhand',
+    state: ['Himachal Pradesh', 'Uttarakhand'],
     region: 'North',
     units: [
       { key: 'bigha_hp_uk', label: 'Bigha', abbreviation: 'bigha', toBase: 809.371 },
@@ -57,7 +65,7 @@ export const AREA_INDIA_BY_STATE: StateUnits[] = [
 
   // --- SOUTH INDIA ---
   {
-    state: 'Tamil Nadu',
+    state: ['Tamil Nadu', 'Puducherry'],
     region: 'South',
     units: [
       { key: 'ground_tn', label: 'Ground', abbreviation: 'ground', toBase: 222.967 },
@@ -65,7 +73,7 @@ export const AREA_INDIA_BY_STATE: StateUnits[] = [
     ],
   },
   {
-    state: 'Andhra Pradesh & Telangana',
+    state: ['Andhra Pradesh', 'Telangana'],
     region: 'South',
     units: [
       { key: 'kuncham_ap', label: 'Kuncham', abbreviation: 'kuncham', toBase: 404.686 },
@@ -75,7 +83,7 @@ export const AREA_INDIA_BY_STATE: StateUnits[] = [
     ],
   },
   {
-    state: 'Karnataka & Kerala',
+    state: ['Karnataka', 'Kerala'],
     region: 'South',
     units: [
       { key: 'guntha_ka', label: 'Guntha / Gunta', abbreviation: 'guntha', toBase: 101.1714 },
@@ -83,9 +91,29 @@ export const AREA_INDIA_BY_STATE: StateUnits[] = [
     ],
   },
 
+  // --- WEST & CENTRAL INDIA ---
+  {
+    state: ['Gujarat', 'Maharashtra', 'Goa'],
+    region: 'West',
+    units: [
+      { key: 'vigha_gj_mh', label: 'Vigha / Bigha', abbreviation: 'vigha', toBase: 1618.742 },
+      { key: 'guntha_gj_mh', label: 'Guntha', abbreviation: 'guntha', toBase: 101.1714 },
+      { key: 'vasah_gj', label: 'Vasah', abbreviation: 'vasah', toBase: 80.937 },
+      { key: 'are_goa', label: 'Are', abbreviation: 'a', toBase: 100 },
+    ],
+  },
+  {
+    state: ['Madhya Pradesh', 'Chhattisgarh'],
+    region: 'Central',
+    units: [
+      { key: 'bigha_mp', label: 'Bigha', abbreviation: 'bigha', toBase: 1114.836 },
+      { key: 'katha_mp', label: 'Katha', abbreviation: 'katha', toBase: 55.741 },
+    ],
+  },
+
   // --- EAST & NORTH-EAST INDIA ---
   {
-    state: 'West Bengal',
+    state:['West Bengal'],
     region: 'East',
     units: [
       { key: 'bigha_wb', label: 'Bigha', abbreviation: 'bigha', toBase: 1337.803 },
@@ -95,7 +123,7 @@ export const AREA_INDIA_BY_STATE: StateUnits[] = [
     ],
   },
   {
-    state: 'Bihar & Jharkhand',
+    state: ['Bihar', 'Jharkhand'],
     region: 'East',
     units: [
       { key: 'bigha_bihar', label: 'Bigha', abbreviation: 'bigha', toBase: 2528.82 },
@@ -104,8 +132,8 @@ export const AREA_INDIA_BY_STATE: StateUnits[] = [
     ],
   },
   {
-    state: 'Assam',
-    region: 'East',
+    state: ['Assam', 'Meghalaya', 'Nagaland', 'Manipur', 'Mizoram', 'Arunachal', 'Sikkim'],
+    region: 'North-East',
     units: [
       { key: 'bigha_assam', label: 'Bigha', abbreviation: 'bigha', toBase: 1337.803 },
       { key: 'katha_assam', label: 'Katha', abbreviation: 'katha', toBase: 267.560 },
@@ -113,7 +141,7 @@ export const AREA_INDIA_BY_STATE: StateUnits[] = [
     ],
   },
   {
-    state: 'Odisha',
+    state: ['Odisha'],
     region: 'East',
     units: [
       { key: 'guntha_od', label: 'Guntha', abbreviation: 'guntha', toBase: 101.1714 },
@@ -121,30 +149,11 @@ export const AREA_INDIA_BY_STATE: StateUnits[] = [
     ],
   },
   {
-    state: 'Tripura',
+    state: ['Tripura'],
     region: 'East',
     units: [
       { key: 'kranta_tripura', label: 'Kranta', abbreviation: 'kranta', toBase: 6.689 },
       { key: 'dhur_tripura', label: 'Dhur', abbreviation: 'dhur', toBase: 0.3344 },
-    ],
-  },
-
-  // --- WEST & CENTRAL INDIA ---
-  {
-    state: 'Gujarat & Maharashtra',
-    region: 'West',
-    units: [
-      { key: 'vigha_gj_mh', label: 'Vigha / Bigha', abbreviation: 'vigha', toBase: 1618.742 },
-      { key: 'guntha_gj_mh', label: 'Guntha', abbreviation: 'guntha', toBase: 101.1714 },
-      { key: 'vasah_gj', label: 'Vasah', abbreviation: 'vasah', toBase: 80.937 },
-    ],
-  },
-  {
-    state: 'Madhya Pradesh & Chhattisgarh',
-    region: 'Central',
-    units: [
-      { key: 'bigha_mp', label: 'Bigha', abbreviation: 'bigha', toBase: 1114.836 },
-      { key: 'katha_mp', label: 'Katha', abbreviation: 'katha', toBase: 55.741 },
     ],
   },
 ]

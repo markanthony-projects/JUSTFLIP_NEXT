@@ -1,12 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
+import { useState, useMemo } from "react";
 import { CiWallet } from "react-icons/ci";
 import SummaryCard from "./SummaryCard";
-import CustomTooltip from "./CustomTooltip";
 import { FaArrowRight, FaHome } from "react-icons/fa";
 import Link from "next/link";
+
+interface ChartDataItem {
+  name: string;
+  value: number;
+  fill: string;
+}
 
 export default function EligibilityCalculator() {
   const [monthlyIncome, setMonthlyIncome] = useState("100000");
@@ -14,18 +18,14 @@ export default function EligibilityCalculator() {
   const [age, setAge] = useState("30");
   const [tenure, setTenure] = useState("20");
   const [interestRate, setInterestRate] = useState("8.5");
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  const [results, setResults] = useState<any>(null);
-
-  useEffect(() => {
-    calculateEligibility();
-  }, [monthlyIncome, existingEmi, age, tenure, interestRate]);
-
-  const calculateEligibility = () => {
+  // Synchronous calculation via useMemo — eliminates double-render & layout reflow
+  const results = useMemo(() => {
     const incomeNum = parseFloat(monthlyIncome) || 0;
     const existingEmiNum = parseFloat(existingEmi) || 0;
     const ageNum = parseInt(age) || 30;
-    let tenureNum = parseInt(tenure) || 20;
+    const tenureNum = parseInt(tenure) || 20;
     const rateNum = parseFloat(interestRate) || 8.5;
 
     const maxAllowedTenure = Math.max(1, Math.min(tenureNum, 60 - ageNum));
@@ -35,28 +35,26 @@ export default function EligibilityCalculator() {
     const availableEmiForNewLoan = maxAllowableTotalEmi - existingEmiNum;
 
     if (availableEmiForNewLoan <= 0 || incomeNum <= 0) {
-      setResults({
-        maxLoanAmount: "0",
-        maxEligibleEmi: "0",
-        disposableIncome: Math.max(0, incomeNum - existingEmiNum).toFixed(0),
-        existingEmi: existingEmiNum.toFixed(0),
-      });
-      return;
+      return {
+        maxLoanAmount: 0,
+        maxEligibleEmi: 0,
+        disposableIncome: Math.max(0, incomeNum - existingEmiNum),
+        existingEmi: existingEmiNum,
+      };
     }
 
     const monthlyInterestRate = rateNum / 100 / 12;
-
     const maxLoanAmount =
       (availableEmiForNewLoan * (1 - Math.pow(1 + monthlyInterestRate, -totalMonths))) /
       monthlyInterestRate;
 
-    setResults({
-      maxLoanAmount: Math.round(maxLoanAmount).toString(),
-      maxEligibleEmi: Math.round(availableEmiForNewLoan).toString(),
-      disposableIncome: Math.round(incomeNum - maxAllowableTotalEmi).toString(),
-      existingEmi: existingEmiNum.toString(),
-    });
-  };
+    return {
+      maxLoanAmount: Math.round(maxLoanAmount),
+      maxEligibleEmi: Math.round(availableEmiForNewLoan),
+      disposableIncome: Math.round(incomeNum - maxAllowableTotalEmi),
+      existingEmi: existingEmiNum,
+    };
+  }, [monthlyIncome, existingEmi, age, tenure, interestRate]);
 
   const handleIncomeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const rawValue = e.target.value.replace(/\D/g, "");
@@ -70,13 +68,22 @@ export default function EligibilityCalculator() {
     setExistingEmi(rawValue);
   };
 
-  const chartData = [
-    { name: "New Loan EMI Capacity", value: Number(results?.maxEligibleEmi || 0), fill: "#06b6d4" },
-    { name: "Existing EMIs", value: Number(results?.existingEmi || 0), fill: "#f59e0b" },
-    { name: "Free Disposable Income", value: Number(results?.disposableIncome || 0), fill: "#22c55e" },
-  ];
+  const chartData: ChartDataItem[] = useMemo(() => [
+    { name: "New Loan EMI Capacity", value: results.maxEligibleEmi, fill: "#06b6d4" },
+    { name: "Existing EMIs", value: results.existingEmi, fill: "#f59e0b" },
+    { name: "Free Disposable Income", value: results.disposableIncome, fill: "#22c55e" },
+  ], [results]);
 
-  const maxLoanNum = Number(results?.maxLoanAmount || 0);
+  const totalChartValue = useMemo(
+    () => chartData.reduce((acc, curr) => acc + (curr.value > 0 ? curr.value : 0), 0),
+    [chartData]
+  );
+
+  const radius = 38;
+  const circumference = 2 * Math.PI * radius;
+  let cumulativeOffset = 0;
+
+  const maxLoanNum = results.maxLoanAmount;
 
   return (
     <div id="eligibility-calculator" className="w-full rounded-md border border-gray-200 bg-white p-3 sm:p-4 md:p-6">
@@ -88,7 +95,7 @@ export default function EligibilityCalculator() {
               <CiWallet className="text-2xl sm:text-3xl md:text-4xl text-[#002B5B]" />
             </div>
             <div>
-              <p className="text-base sm:text-lg font-semibold leading-tight">Home Loan Eligibility Calculator</p>
+              <h1 className="text-base sm:text-lg font-semibold leading-tight">Home Loan Eligibility Calculator</h1>
               <p className="text-gray-500 text-xs sm:text-sm">Check your maximum loan limit instantly</p>
             </div>
           </div>
@@ -212,40 +219,82 @@ export default function EligibilityCalculator() {
           </div>
 
           <div className="relative flex flex-col items-center gap-5">
+            {/* Zero-Overhead High-Performance SVG Donut Chart */}
             <div className="relative aspect-square w-full max-w-[240px] sm:max-w-[280px] flex items-center justify-center">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={chartData}
-                    innerRadius="76%"
-                    outerRadius="100%"
-                    dataKey="value"
-                    stroke="none"
-                    paddingAngle={2}
-                    cornerRadius={12}
-                  />
-                  <Tooltip content={<CustomTooltip />} />
-                </PieChart>
-              </ResponsiveContainer>
+              <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90 transform">
+                {/* Background Ring */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r={radius}
+                  fill="transparent"
+                  stroke="#f1f5f9"
+                  strokeWidth="13"
+                />
 
-              <div className="absolute text-center">
-                <p className="text-[11px] text-gray-400">Max New EMI</p>
-                <p className="text-base sm:text-xl font-bold text-black">
-                  ₹ {Number(results?.maxEligibleEmi || 0).toLocaleString("en-IN")}
-                </p>
+                {/* Data Segments */}
+                {totalChartValue > 0 && chartData.map((item, index) => {
+                  if (item.value <= 0) return null;
+                  const segmentLength = (item.value / totalChartValue) * circumference;
+                  const gap = chartData.filter(d => d.value > 0).length > 1 ? 2 : 0;
+                  const dashLength = Math.max(0, segmentLength - gap);
+                  const dashArray = `${dashLength} ${circumference - dashLength}`;
+                  const dashOffset = -cumulativeOffset;
+                  cumulativeOffset += segmentLength;
+
+                  const isHovered = hoveredIndex === index;
+
+                  return (
+                    <circle
+                      key={index}
+                      cx="50"
+                      cy="50"
+                      r={radius}
+                      fill="transparent"
+                      stroke={item.fill}
+                      strokeWidth={isHovered ? 15 : 13}
+                      strokeDasharray={dashArray}
+                      strokeDashoffset={dashOffset}
+                      strokeLinecap="round"
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      className="cursor-pointer transition-all duration-200"
+                    />
+                  );
+                })}
+              </svg>
+
+              {/* Center Metric */}
+              <div className="absolute text-center pointer-events-none">
+                {hoveredIndex !== null && chartData[hoveredIndex] ? (
+                  <>
+                    <p className="text-[11px] font-medium text-gray-500 truncate max-w-[130px]">
+                      {chartData[hoveredIndex].name}
+                    </p>
+                    <p className="text-sm sm:text-base font-bold text-gray-900">
+                      ₹ {chartData[hoveredIndex].value.toLocaleString("en-IN")}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-[11px] text-gray-400">Max New EMI</p>
+                    <p className="text-base sm:text-xl font-bold text-black">
+                      ₹ {results.maxEligibleEmi.toLocaleString("en-IN")}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
 
             <div className="w-full space-y-3">
-              <SummaryCard label="Max New EMI Allowed" value={results?.maxEligibleEmi} dotClass="bg-cyan-500" />
-              <SummaryCard label="Existing Loan Obligations" value={results?.existingEmi} dotClass="bg-amber-500" />
-              <SummaryCard label="Living Expenses Margin" value={results?.disposableIncome} dotClass="bg-green-500" />
+              <SummaryCard label="Max New EMI Allowed" value={results.maxEligibleEmi} dotClass="bg-cyan-500" />
+              <SummaryCard label="Existing Loan Obligations" value={results.existingEmi} dotClass="bg-amber-500" />
+              <SummaryCard label="Living Expenses Margin" value={results.disposableIncome} dotClass="bg-green-500" />
             </div>
           </div>
         </div>
 
-        </div>
-
       </div>
+    </div>
   );
 }

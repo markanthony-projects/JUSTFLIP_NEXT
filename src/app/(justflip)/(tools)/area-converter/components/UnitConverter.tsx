@@ -17,6 +17,7 @@ import { PiCalculator } from "react-icons/pi";
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import CustomDropDown from './CustomDropDown';
 import ConversionLinks from './ConversionLinks';
+import { INDIAN_STATES_AND_UTS } from '../data/states';
 
 type UnitConverterProps = {
   initialCategory?: ConverterCategory;
@@ -37,9 +38,10 @@ const UnitConverter = ({
     const [ toKey, setToKey ] = useState(initialTo)
     const [ converted, setConverted ] = useState<number | null >(null)
     const [ copied, setCopied ] = useState(false)
+    const [ state, setState ] = useState('SELECT STATE')
 
     //units-----------------------
-    const units = useMemo(()=> getUnitsCategory(category), [category])
+    const units = useMemo(()=> getUnitsCategory(category, state), [category,state])
     const breadcrumbItems = [{ label: "area-converter", href: "/area-converter" }];
 
 
@@ -50,6 +52,8 @@ const UnitConverter = ({
     const fromUnit = units.find( unit => unit .key === safeFrom )
     const toUnit = units.find( unit => unit.key === safeTo )
 
+    const states = INDIAN_STATES_AND_UTS.map( state => ({ value: state.name, label: `${state.name}`})) 
+  
 
     function handleCategoryChange( next : ConverterCategory){
         setCategory(next)
@@ -130,7 +134,7 @@ const UnitConverter = ({
       
       <div className='w-screen overflow-hidden px-4 py-6 sm:pt-0 sm:px-6 md:px-10 lg:px-12 sm:mt-2'>
 
-        <div className='pointer-events-none absolute inset-x-0 top-40 sm:top-35 h-90 overflow-hidden bg-linear-to-r from-[#f1f6fc] via-white to-[#f1f6fc]'>
+        <div className='pointer-events-none absolute inset-x-0 top-40 sm:top-35 h-110 overflow-hidden bg-linear-to-r from-[#f1f6fc] via-white to-[#f1f6fc]'>
 
           <Image src='/banners/calculator.svg'   
             alt=""
@@ -143,7 +147,7 @@ const UnitConverter = ({
         
 
         {/* main content */}
-        <div className='sm:ml-20 relative z-10 w-full max-w-md'>
+        <div className='sm:ml-20 relative  w-full max-w-md'>
 
           {/* -------------------------------------------- */}
           <div className='overflow-hidden rounded-xl border-2 border-[#e1e8f2] bg-white shadow-[0_20px_60px_rgba(0,43,91,0.10)]'>
@@ -182,6 +186,16 @@ const UnitConverter = ({
 
             {/* --------form---------------- */}
             <div className='space-y-6 px-5 py-4 md:px-7 md:space-y-4'>
+
+              <div>
+                <label htmlFor="" className='mb-0.5 block text-[13px] font-semibold text-[#27364b] uppercase'>select state</label>
+                <CustomDropDown value={state}
+                    onChange={(state) =>{
+                      setState(state)
+                    }} 
+                    options={states}
+                />
+              </div>
               
               <div>
                 <label htmlFor="" className='mb-0.5 block text-[13px] font-semibold text-[#27364b] uppercase'>
