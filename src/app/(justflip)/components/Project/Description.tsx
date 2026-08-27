@@ -93,7 +93,7 @@ function derivePropertyData(properties: Project) {
 
     return {
         minPrice, maxPrice, defaultCurrency,
-        uniqueSortedUnitTypes,  others_images: allImages,
+        uniqueSortedUnitTypes,  others_images,
         primaryImageUrl, secondaryImageUrl, thirdImageUrl,
         floorPlan, floorPlanFirst,
         videos, banner, logo,
