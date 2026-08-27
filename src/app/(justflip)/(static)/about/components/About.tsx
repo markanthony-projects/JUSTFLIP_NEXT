@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import Image from "next/image";
 import { 
   FiCheckCircle, 
@@ -12,6 +13,8 @@ import bgimage from "@/public/assets/About/Group.webp";
 import about from "@/public/assets/About/Rectangle.webp";
 
 const About = () => {
+  ReactDOM.preload(bgimage.src, { as: "image", fetchPriority: "high" });
+
   const highlights = [
     {
       icon: FiCheckCircle,
@@ -41,6 +44,7 @@ const About = () => {
           alt="Our Mission Background"
           fill
           priority
+          fetchPriority="high"
           sizes="(max-width: 768px) 100vw, (max-width: 1540px) 100vw, 1540px"
           className="object-cover"
         />
