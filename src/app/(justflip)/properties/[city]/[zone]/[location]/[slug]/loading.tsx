@@ -11,8 +11,6 @@ export default function Loading() {
         <>
             <ScrollToTop />
             <div className='w-full max-w-full overflow-x-hidden px-2 md:px-4'>
-            {/* Breadcrumb Skeleton */}
-            <div className="h-4 w-1/2 md:w-1/3 bg-gray-200 animate-pulse rounded-sm my-2 mb-3"></div>
 
             {/* Description (Header + Image Gallery) Skeleton */}
             <DescriptionSkeleton />

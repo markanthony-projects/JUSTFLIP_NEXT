@@ -44,6 +44,7 @@ const FAQ = dynamic(() => import('@/src/app/(justflip)/components/FAQ'));
 const SocialMedia = dynamic(() => import('@/src/app/(justflip)/components/Project/socialMedia'));
 import { constructMetadata } from "@/src/utils/seo";
 import { buildRealEstateSchema } from "@/src/utils/schema";
+import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
 const FloatingActions = dynamic(() => import('@/src/app/(justflip)/components/Project/FloatingActions'));
 
@@ -134,6 +135,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
         <>
             <div className='w-full max-w-full overflow-x-hidden px-2 md:px-4 !bg-[#F1F1F]'>
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateSchema) }} />
+                <ScrollToTop />
 
                 <Breadcrumb items={breadcrumbItems} />
 

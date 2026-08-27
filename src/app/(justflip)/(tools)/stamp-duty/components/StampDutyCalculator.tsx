@@ -6,6 +6,8 @@ import {
   convertToIndianWords,
   PRESET_VALUES,
 } from './useStampDutyCalculator';
+import { FaArrowRight, FaHome } from 'react-icons/fa';
+import Link from 'next/link';
 
 const MaleIcon = () => (
   <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -251,8 +253,27 @@ export default function StampDutyCalculator(): React.JSX.Element {
             </div>
           </div>
 
+          <div className="rounded-xl border border-cyan-200 bg-white p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm my-4">
+            <div className="flex items-center gap-2.5 text-left">
+              <div className="rounded-full bg-cyan-600 p-2 text-white shrink-0">
+                <FaHome className="text-sm" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-gray-900">Found your property value?</p>
+                <p className="text-[10px] text-gray-600">Browse listings up to ₹{propertyValue.toLocaleString('en-IN')}</p>
+              </div>
+            </div>
+            <Link
+              href={`/search?maxPrice=${propertyValue}`}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#002B49] px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-opacity-90 shrink-0"
+            >
+              <span>View Properties</span>
+              <FaArrowRight className="text-[9px]" />
+            </Link>
+          </div>
+
           {/* Bottom Info Banner */}
-          <div className="p-3.5 bg-blue-50/60 border border-blue-100 rounded-xl text-[#002B49] flex items-start gap-3">
+          <div className="p-3.5 bg-blue-50/60 border border-blue-100 rounded-xl text-[#002B49] flex items-start gap-3 mt-3">
             <span className="text-base mt-0.5">ℹ️</span>
             <p className="text-xs font-medium leading-relaxed text-[#002B49]/80">
               Registration charges (typically <strong className="text-[#002B49]">1%</strong> of property value) are extra and applicable at property registration.

@@ -5,6 +5,8 @@ import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
 import { CiWallet } from "react-icons/ci";
 import SummaryCard from "./SummaryCard";
 import CustomTooltip from "./CustomTooltip";
+import { FaArrowRight, FaHome } from "react-icons/fa";
+import Link from "next/link";
 
 export default function EligibilityCalculator() {
   const [monthlyIncome, setMonthlyIncome] = useState("100000");
@@ -74,6 +76,8 @@ export default function EligibilityCalculator() {
     { name: "Free Disposable Income", value: Number(results?.disposableIncome || 0), fill: "#22c55e" },
   ];
 
+  const maxLoanNum = Number(results?.maxLoanAmount || 0);
+
   return (
     <div id="eligibility-calculator" className="w-full rounded-md border border-gray-200 bg-white p-3 sm:p-4 md:p-6">
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 md:gap-6 lg:gap-8">
@@ -92,8 +96,27 @@ export default function EligibilityCalculator() {
           <div className="rounded-2xl bg-[#002B5B] p-4 sm:p-5 md:p-6 text-center text-white">
             <p className="text-xs sm:text-sm uppercase tracking-wide opacity-80">Maximum Loan Limit</p>
             <h2 className="mt-2 text-xl md:text-4xl font-bold break-words leading-tight">
-              ₹ {Number(results?.maxLoanAmount || 0).toLocaleString("en-IN")}
+              ₹ {maxLoanNum.toLocaleString("en-IN")}
             </h2>
+          </div>
+
+          <div className="rounded-2xl border border-cyan-100 bg-cyan-50/50 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3 text-left">
+              <div className="rounded-full bg-cyan-600 p-3 text-white">
+                <FaHome className="text-xl" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-gray-900">Looking for properties?</p>
+                <p className="text-xs text-gray-600">Explore homes matching your budget up to ₹ {maxLoanNum.toLocaleString("en-IN")}</p>
+              </div>
+            </div>
+            <Link
+              href={`/search?maxPrice=${maxLoanNum}`}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#002B5B] px-5 py-2.5 text-xs sm:text-sm font-semibold text-white transition hover:bg-opacity-90 shrink-0"
+            >
+              <span>View Properties</span>
+              <FaArrowRight className="text-xs" />
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -221,7 +244,8 @@ export default function EligibilityCalculator() {
           </div>
         </div>
 
+        </div>
+
       </div>
-    </div>
   );
 }
