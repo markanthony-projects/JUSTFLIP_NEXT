@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import { 
   FiCheckCircle, 
-  FiCpu, 
   FiTrendingUp, 
   FiLayers 
 } from "react-icons/fi";
@@ -35,22 +34,21 @@ const About = () => {
     <div className="w-full max-w-[1540px] mx-auto space-y-8 sm:space-y-16 py-2 sm:py-4 font-sans text-slate-800">
       
       {/* 1. HERO / OUR MISSION SECTION */}
-      <section className="relative w-full min-h-[380px] sm:min-h-[420px] lg:min-h-[520px] rounded-none sm:rounded-3xl overflow-hidden shadow-none sm:shadow-2xl flex items-center justify-center p-4 sm:p-12">
+      <section className="relative w-full min-h-[380px] sm:min-h-[420px] lg:min-h-[520px] rounded-none sm:rounded-3xl overflow-hidden shadow-none sm:shadow-2xl flex items-center justify-center p-4 sm:p-12 bg-slate-900">
         {/* LCP Optimized Background Image */}
         <Image
           src={bgimage}
           alt="Our Mission Background"
           fill
           priority
-          fetchPriority="high"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 1000px, 1000px"
-          className="object-cover scale-105 transition-transform duration-1000 hover:scale-100"
+          sizes="(max-width: 768px) 100vw, (max-width: 1540px) 100vw, 1540px"
+          className="object-cover"
         />
         
         <div className="relative z-10 max-w-4xl mx-auto text-center space-y-5 sm:space-y-6">
-          {/* Pulsing Pill Tag */}
+          {/* Tag */}
           <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/90 text-xs sm:text-sm font-semibold tracking-wide uppercase">
-            <span className="w-2 h-2 rounded-full bg-sky-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-sky-400" />
             <span>Redefining Real Estate</span>
           </div>
 
@@ -85,7 +83,6 @@ const About = () => {
                 src={Frame}
                 alt="Why JustFlip Illustration"
                 fill
-                loading="lazy"
                 sizes="(max-width: 640px) 340px, 380px"
                 className="object-cover"
               />
@@ -109,7 +106,7 @@ const About = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               {highlights.map((item, index) => {
                 const Icon = item.icon;
-                const isThird = index == 2
+                const isThird = index === 2;
 
                 return (
                   <div
@@ -137,14 +134,13 @@ const About = () => {
       </section>
 
       {/* 3. ABOUT US SECTION */}
-      <section className="relative w-full min-h-[360px] sm:min-h-[380px] lg:min-h-[460px] rounded-none sm:rounded-3xl overflow-hidden shadow-none sm:shadow-2xl flex items-center justify-center p-4 sm:p-12">
+      <section className="relative w-full min-h-[360px] sm:min-h-[380px] lg:min-h-[460px] rounded-none sm:rounded-3xl overflow-hidden shadow-none sm:shadow-2xl flex items-center justify-center p-4 sm:p-12 bg-slate-900">
         {/* Original About Background Image */}
         <Image
           src={about}
           alt="About Us Background"
           fill
-          loading="lazy"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 960px, 960px"
+          sizes="(max-width: 768px) 100vw, (max-width: 1540px) 100vw, 1540px"
           className="object-cover"
         />
         
