@@ -1,4 +1,6 @@
 import { AREA_STANDARD, ConverterCategory, LENGTH_STANDARD, UnitDefinition } from '../data/standardUnit'
+import { LENGTH_BY_STATE } from '../data/stateLength';
+import { AREA_INDIA_BY_STATE } from '../data/stateUnits';
 
 // function takes a value then it converts it to the base value which is (m square) for area and m for lengths
 // the function basically changes the input to m by multiplying and then it devides it by to into meters
@@ -9,15 +11,52 @@ export function convertUnit(value:number, from:UnitDefinition, to:UnitDefinition
 }
 
 //the function which rreturns the category the user has selected and then only those related units will be shown.
-export function getUnitsCategory( category:ConverterCategory): UnitDefinition[]{
+export function getUnitsCategory(
+    category:ConverterCategory, 
+    state?:string 
+    ): UnitDefinition[]{
+
+    let standardUnits: UnitDefinition[] = []
+    const panIndia = LENGTH_BY_STATE.find((item) => item.state[0] === 'Pan-India')
+
     switch(category){
         case 'area':
-            return AREA_STANDARD;
+            standardUnits = AREA_STANDARD ;
+            break
         case 'length':
-            return LENGTH_STANDARD
+            standardUnits = [...LENGTH_STANDARD, ...panIndia?.units ?? []]
+            break
         default :
             return []
     }
+
+    if(!state || state === 'SELECT STATE'){
+        return standardUnits
+    }
+
+    if(category === 'area'){
+
+        const stateData = AREA_INDIA_BY_STATE.find(
+            (item) => item.state.includes(state)
+        )
+
+        return[...standardUnits, ...stateData?.units ?? []]
+    }
+
+    if(category === 'length'){
+
+        const stateLength = LENGTH_BY_STATE.find(
+            (item) => item.state.includes(state)
+        )
+
+        return[
+            ...standardUnits, 
+            ...stateLength?.units ??[]
+        ]
+
+    }
+     
+    return []
 }
 
 
