@@ -9,8 +9,8 @@ import { constructMetadata } from "@/src/utils/seo";
 import dynamic from "next/dynamic";
 
 const ToastContainer = dynamic(() => import("../components/organisms/ToastContainer"));
-import Footer from "../layout/Footer";
-import PreFooter from "../layout/PreFooter";
+const Footer = dynamic(() => import("../layout/Footer"));
+const PreFooter = dynamic(() => import("../layout/PreFooter"));
 const MobileBottomNav = dynamic(() => import("../layout/MobileBottomNav"));
 
 import { firaSans } from "./fonts";
