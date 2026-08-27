@@ -47,7 +47,7 @@ function CustomDropDown({value, onChange, options, placeholder}:{
       </button>
 
       {open && (
-        <div className='absolute z-50 mt-1 w-full max-h-25 overflow-y-auto overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg'>
+        <div className='absolute z-250 mt-1 w-full max-h-30 overflow-y-auto overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg'>
           {options.map((option) =>{
             const selected = option.value === value
 
