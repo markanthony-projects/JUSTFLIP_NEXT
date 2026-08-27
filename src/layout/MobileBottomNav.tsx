@@ -2,29 +2,22 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { HiHome, HiOutlineBookmark, HiOutlineChatAlt2, HiOutlineMenu, HiOutlineSearch } from "react-icons/hi";
-import { TbCrown } from "react-icons/tb";
+import { usePathname, useRouter } from "next/navigation";
+import { HiHome, HiOutlineBookmark, HiOutlineSearch } from "react-icons/hi";
 import { FiPlusSquare, FiUser } from "react-icons/fi";
 import { useAuthStore } from "@/src/stores/auth.store";
 import { useSlider } from "@/src/context/SliderContext";
 import { useSearchStore } from "@/src/stores/search.store";
+import dynamic from "next/dynamic";
+
 const UserSliderContent = dynamic(() => import("./Header/UserSliderContent"));
 const BrokerSliderContent = dynamic(() => import("./Header/BrokerSliderContent"));
+const MobileSearchModal = dynamic(() => import("@/src/app/(justflip)/components/Search/MobileSearchModal"));
 
 import { toast } from "../utils/toast";
 
-import dynamic from "next/dynamic";
-const MobileSearchModal = dynamic(() => import("@/src/app/(justflip)/components/Search/MobileSearchModal"));
-import { Suspense } from "react";
-
-
-function MobileBottomNavContent() {
+export default function MobileBottomNav() {
     const pathname = usePathname();
-    const searchParams = useSearchParams();
-
-    const tab = searchParams.get("tab")
-
     const router = useRouter();
     const { isAuthenticated, user, authType } = useAuthStore();
     const { openSlider } = useSlider();
@@ -95,9 +88,8 @@ function MobileBottomNavContent() {
         {
             name: "Saved",
             icon: HiOutlineBookmark,
-            // href: "/profile?tab=wishlist",
             action: handleSavedClick,
-            isActive: pathname === "/profile" && tab === "wishlist",
+            isActive: pathname === "/profile",
         },
         {
             name: isAuthenticated ? "Profile" : "Login",
@@ -153,13 +145,5 @@ function MobileBottomNavContent() {
             })}
             {isSearchModalOpen && <MobileSearchModal />}
         </div>
-    );
-}
-
-export default function MobileBottomNav() {
-    return (
-        <Suspense fallback={null}>
-            <MobileBottomNavContent />
-        </Suspense>
     );
 }
