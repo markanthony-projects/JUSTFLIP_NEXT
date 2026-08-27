@@ -243,14 +243,14 @@ export default function AffordabilityCalculator() {
                 <th className="p-3">Remaining Balance</th>
               </tr>
             </thead>
-            <tbody className="divide-y">
+            <tbody className="divide-y divide-gray-100">
               {calculationResults.schedule.map((row) => (
                 <tr key={row.year} className="hover:bg-gray-50">
-                  <td className="p-3 font-medium text-gray-800">Year {row.year}</td>
-                  <td className="p-3 text-green-600">{formatINR(row.principalPaid)}</td>
-                  <td className="p-3 text-red-500">{formatINR(row.interestPaid)}</td>
-                  <td className="p-3">{formatINR(row.totalPayment)}</td>
-                  <td className="p-3">{formatINR(row.remainingBalance)}</td>
+                  <td className="p-3 font-semibold text-gray-900">Year {row.year}</td>
+                  <td className="p-3 font-semibold text-emerald-800">{formatINR(row.principalPaid)}</td>
+                  <td className="p-3 font-semibold text-rose-800">{formatINR(row.interestPaid)}</td>
+                  <td className="p-3 font-medium text-gray-900">{formatINR(row.totalPayment)}</td>
+                  <td className="p-3 font-medium text-gray-900">{formatINR(row.remainingBalance)}</td>
                 </tr>
               ))}
             </tbody>
