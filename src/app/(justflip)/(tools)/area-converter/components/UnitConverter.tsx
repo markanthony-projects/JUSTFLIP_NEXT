@@ -161,11 +161,11 @@ const UnitConverter = ({
                 </div>
 
                 <div>
-                  <h2 className='text-base font-bold text-[#002B5B] md:text-md uppercase'>
-                    conversion calculator
-                  </h2>
-                  <p className='text-[10px] text-[#7a879b]'>
-                    select units and enter your value 
+                  <h1 className='text-base font-bold text-[#002B5B] md:text-md uppercase'>
+                    Conversion Calculator
+                  </h1>
+                  <p className='text-xs text-slate-700 font-medium'>
+                    Select units and enter your value 
                   </p>
                 </div>
               </div>
@@ -188,7 +188,7 @@ const UnitConverter = ({
             <div className='space-y-6 px-5 py-4 md:px-7 md:space-y-4'>
 
               <div>
-                <label htmlFor="" className='mb-0.5 block text-[13px] font-semibold text-[#27364b] uppercase'>select state</label>
+                <label htmlFor="" className='mb-0.5 block text-[13px] font-bold text-[#27364b] uppercase'>select state</label>
                 <CustomDropDown value={state}
                     onChange={(state) =>{
                       setState(state)
@@ -198,7 +198,7 @@ const UnitConverter = ({
               </div>
               
               <div>
-                <label htmlFor="" className='mb-0.5 block text-[13px] font-semibold text-[#27364b] uppercase'>
+                <label htmlFor="" className='mb-0.5 block text-[13px] font-bold text-[#27364b] uppercase'>
                   conversion type
                 </label>
 
@@ -216,7 +216,7 @@ const UnitConverter = ({
                         ${
                             category === item.value
                                 ? ` bg-[#002B5B] text-white shadow-[0_4px_12px_rgba(0,43,91,0.18)]`
-                                : ` text-[#66758b] hover:text-[#002B5B]`
+                                : ` text-slate-700 font-bold hover:text-[#002B5B]`
                         }`}
                     >
                       {item.label}
@@ -228,7 +228,7 @@ const UnitConverter = ({
 
               {/* -----------input--------------------- */}
               <div>
-                <label htmlFor="" className='mb-0.5 block text-[13px] font-semibold text-[#27364b] uppercase'>enter value</label>
+                <label htmlFor="" className='mb-0.5 block text-[13px] font-bold text-[#27364b] uppercase'>enter value</label>
                 
                 <div className='flex items-center overflow-hidden rounded-lg border border-[#d9e2ef] bg-white transition-all 
                   duration-200 focus-within:border-[#002B5B] focus-within:ring-4 focus-within:ring-[#002B5B]/10'>
@@ -256,7 +256,7 @@ const UnitConverter = ({
                             handleConvert()
                           }}}
                       placeholder="0.00"
-                      className='min-w-0 flex-1 bg-transparent px-5 py-2 text-md font-medium tracking-tight text-[#002B5B] outline-none placeholder:text-[#b9c4d3]'
+                      className='min-w-0 flex-1 bg-transparent px-5 py-2 text-md font-bold tracking-tight text-[#002B5B] outline-none placeholder:text-slate-400'
                     />
 
                     <div className='mr-3 flex h-8 w-8 items-center justify-center rounded-lg bg-[#f2f6fb] text-[#002B5B]'>
@@ -269,7 +269,7 @@ const UnitConverter = ({
 
                 <div className='flex gap-3 flex-row items-end justify-center'>
                   <div className='min-w-0 flex-1'>
-                    <p className='ml-2 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#8a96a8]'>
+                    <p className='ml-2 text-[11px] font-bold uppercase tracking-[0.08em] text-slate-700'>
                       from
                     </p>
                     <CustomDropDown value={safeFrom} 
@@ -292,7 +292,7 @@ const UnitConverter = ({
                   </button>
 
                   <div className='min-w-0 flex-1'>
-                      <p className='mb-0.5 text-[11px] font-semibold uppercase tracking-[0.08em] text-[#8a96a8]'>
+                      <p className='mb-0.5 text-[11px] font-bold uppercase tracking-[0.08em] text-slate-700'>
                         To
                       </p>
                       <CustomDropDown
@@ -309,18 +309,6 @@ const UnitConverter = ({
                   </div>
                 </div>
               </div>
-
-              {/* ------------------------------------------convert-------------- */}
-              {/* <button type="button"
-                onClick={handleConvert}
-                disabled={!inputValue}
-                className='group flex w-full items-center justify-center gap-3 rounded-lg bg-[#002B5B] px-5 py-3 text-base font-bold text-white shadow-[0_8px_20px_rgba(0,43,91,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#003b7c] hover:shadow-[0_12px_25px_rgba(0,43,91,0.22)] active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-y-0 md:py-3'
-              >
-                <span> Convert </span>
-                <FiArrowRight size={19}
-                    className='transition-transfor duration-20 group-hover:translate-x-1'
-                />
-              </button> */}
             </div>
 
             {/* -------------------------result------------ */}
@@ -340,12 +328,12 @@ const UnitConverter = ({
                       <span className='text-md font-bold tracking-tight text-[#002B5B] md:text-xl' >
                           {formatREsult( converted )}
                       </span>
-                      <span className='text-lg font-semibold text-[#1d5da3]'>
+                      <span className='text-lg font-bold text-[#1d5da3]'>
                           {toUnit?.abbreviation}
                       </span>
                     </div>
 
-                    <div className='flex flex-wrap items-center gap-2 text-[10px] text-[#61718a]' >
+                    <div className='flex flex-wrap items-center gap-2 text-xs text-slate-700 font-medium' >
                       <span>
                           {inputValue}{' '}
                           {fromUnit?.abbreviation}
@@ -369,7 +357,7 @@ const UnitConverter = ({
                 </div>
                   
                   ) :
-                  (<div className='flex items-center gap-2 text-sm text-[#8996a8]' >
+                  (<div className='flex items-center gap-2 text-sm text-slate-700 font-medium' >
                     <FiInfo size={15}/>
                     Enter a value and click Convert
                   </div>)
