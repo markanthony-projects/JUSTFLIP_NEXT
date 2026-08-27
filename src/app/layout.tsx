@@ -8,7 +8,7 @@ import { constructMetadata } from "@/src/utils/seo";
 
 import dynamic from "next/dynamic";
 
-const ToastContainer = dynamic(() => import("../components/organisms/ToastContainer"));
+const ToastContainer = dynamic(() => import("../components/organisms/ToastContainer"), { ssr: false });
 import Footer from "../layout/Footer";
 import PreFooter from "../layout/PreFooter";
 const MobileBottomNav = dynamic(() => import("../layout/MobileBottomNav"));
