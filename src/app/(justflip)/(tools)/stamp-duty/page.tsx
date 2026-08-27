@@ -3,7 +3,6 @@ import type { Metadata } from 'next';
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import StampDutyCalculator from './components/StampDutyCalculator';
 import { constructMetadata } from '@/src/utils/seo';
-import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
 export const dynamic = "force-static";
 
