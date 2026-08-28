@@ -68,7 +68,7 @@ const BlogCarousel = ({ blogs = [], loading }: BlogCarouselProps) => {
                 ))}
             </div>
 
-            <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+            <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-center gap-0.5 z-10">
                 {blogs?.map((_, i) => (
                     <button
                         type="button"
@@ -76,7 +76,7 @@ const BlogCarousel = ({ blogs = [], loading }: BlogCarouselProps) => {
                         aria-label={`Go to slide ${i + 1} of ${length}`}
                         aria-current={current === i ? "true" : undefined}
                         onClick={() => setCurrent(i)}
-                        className="focus:outline-none group py-2"
+                        className="min-w-12 min-h-12 flex items-center justify-center cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-full group"
                     >
                         <span className="sr-only">{`Go to slide ${i + 1} of ${length}`}</span>
                         <div className={`h-1.5 rounded-full transition-all duration-300 ease-in-out ${current === i ? "w-8 bg-white shadow-lg" : "w-2 bg-white/40 group-hover:bg-white/70"}`} />
