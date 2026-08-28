@@ -56,8 +56,21 @@ function FavouriteButton({
       {/* 💥 PARTICLE BURST */}
       {animate && (
         <span className="absolute inset-0 pointer-events-none">
+          <style>{`
+            @keyframes fav-burst {
+              0% { opacity: 1; transform: translate(0, 0) scale(1); }
+              100% { opacity: 0; transform: translate(30px, -30px) scale(0.5); }
+            }
+          `}</style>
           {[...Array(8)].map((_, i) => (
-            <span key={i} className={`fav-particle fav-p-${i}`} />
+            <span
+              key={i}
+              className="absolute w-1.5 h-1.5 bg-red-500 rounded-full"
+              style={{
+                transform: `rotate(${i * 45}deg)`,
+                animation: "fav-burst 0.6s ease-out forwards",
+              }}
+            />
           ))}
         </span>
       )}
