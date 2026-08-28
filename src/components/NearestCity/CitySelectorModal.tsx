@@ -198,6 +198,8 @@ export default function CitySelectorModal({ isOpen, onClose, onCitySelect, updat
                 <div className="mt-4 flex items-center gap-2 h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 focus-within:bg-white focus-within:border-[#002B5B] transition-colors">
                     <HiOutlineSearch className="w-4.5 h-4.5 text-gray-400 shrink-0" />
                     <input
+                        id="city-search-input"
+                        name="citySearch"
                         type="text"
                         autoComplete="off"
                         value={query}

@@ -165,9 +165,10 @@ export default function LoginModal({ isOpen, closeModal, onSuccess }: LoginModal
                             </label>
 
                             <input
+                                id="login-phone-input"
+                                name="phone"
                                 type="text"
-                                // name="input"
-                                autoComplete="on"
+                                autoComplete="tel"
                                 onChange={handleChange}
                                 value={email}
                                 placeholder="Enter your phone number"
@@ -223,6 +224,8 @@ export default function LoginModal({ isOpen, closeModal, onSuccess }: LoginModal
                                 {otp.map((digit, index) => (
                                     <input
                                         key={index}
+                                        id={`login-otp-digit-${index}`}
+                                        name={`loginOtpDigit${index}`}
                                         type="text"
                                         maxLength={1}
                                         value={digit}
