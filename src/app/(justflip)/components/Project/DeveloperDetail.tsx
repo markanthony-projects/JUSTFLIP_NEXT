@@ -58,14 +58,6 @@ export default function DeveloperDetail({ project, data }: { project: Project; d
                 </div>
             </div>
 
-            <div className=''> 
-            <h2 className="text-sm font-semibold py-4 md:text-lg">
-                Know {project?.location?.name} Better!
-            </h2>
-                <p className="text-xs font-normal text-justify">
-                    {data?.description}
-                </p>
-            </div>
         </section>
     );
 }
