@@ -206,15 +206,16 @@ const PreFooter = () => {
 
                     <div
                         ref={contentRef}
-                        className="flex overflow-x-auto scroll-smooth w-full gap-2 pl-4 snap-x snap-mandatory pb-4"
+                        className="flex overflow-x-auto scroll-smooth w-full gap-2 snap-x snap-mandatory pb-4"
                         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                     >
                         {currentData.map((col, idx) => (
-                            <div key={idx} className="flex flex-col w-[280px] sm:w-[calc(50%-1rem)] lg:w-[calc(25%-1.5rem)] flex-none snap-start">
-                                <h3 className="text-[15px] font-bold text-gray-800 mb-5">
+                            <div key={idx} className="flex flex-col w-[280px] sm:w-[calc(50%-1rem)] 
+                            lg:w-[calc(25%-3.5rem)] flex-none snap-start">
+                                <h3 className="text-[15px] font-bold text-gray-800 mb-3">
                                     {col.title}
                                 </h3>
-                                <ul className="space-y-3.5">
+                                <ul className="space-y-1">
                                     {col.links.map((link, linkIdx) => (
                                         <li key={linkIdx}>
                                             <Link
