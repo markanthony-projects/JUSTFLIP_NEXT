@@ -50,7 +50,14 @@ const BlogCarousel = ({ blogs = [], loading }: BlogCarouselProps) => {
                             aria-label={blog.heading || `Featured blog slide ${index + 1}`}
                         >
                             <div className="w-full h-[300px] md:h-[400px] lg:h-[500px] relative overflow-hidden bg-gray-900">
-                                <Image src={blog.image?.url} alt={blog.heading || "Blog image"} className="object-cover w-full h-full transform transition-transform duration-1000 group-hover:scale-105" />
+                                <Image
+                                    src={blog.image?.url}
+                                    alt={blog.heading || "Blog image"}
+                                    priority={index === 0}
+                                    loading={index === 0 ? "eager" : "lazy"}
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 1280px"
+                                    className="object-cover w-full h-full transform transition-transform duration-1000 group-hover:scale-105"
+                                />
                                 
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 md:p-12 pb-16 md:pb-20">
                                     <div className="max-w-3xl transform transition-transform duration-500 translate-y-2 group-hover:translate-y-0">
