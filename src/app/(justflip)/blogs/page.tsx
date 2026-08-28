@@ -10,12 +10,12 @@ import { Blog } from "@/src/types";
 import type { Metadata } from 'next';
 
 export interface BlogsPageProps {
-    searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export async function generateMetadata(props?: BlogsPageProps): Promise<Metadata> {
+export async function generateMetadata(props: BlogsPageProps): Promise<Metadata> {
     try {
-        const searchParams = props?.searchParams ? await props.searchParams : {};
+        const searchParams = await props.searchParams;
         const category = (searchParams?.category as string) || "Trending Blog";
         const title = `${category} - Real Estate News, Market Trends & Guides | JustFlip`;
         const description = `Read the latest ${category.toLowerCase()} about real estate in India and Dubai. Discover top market trends, property buying guides, and expert investment tips on JustFlip.`;
