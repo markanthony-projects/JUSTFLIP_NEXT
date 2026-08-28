@@ -1,6 +1,8 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useState, useMemo } from 'react';
+import { FaArrowRight, FaHome } from 'react-icons/fa';
 
 interface AmortizationYear {
   year: number;
@@ -90,11 +92,16 @@ export default function AffordabilityCalculator() {
   }, [income, debts, downPayment, interestRate, tenureYears]);
 
   return (
-    <div className="max-w-6xl mx-auto px: 0 sm:p-6 space-y-8">
+    <div className="max-w-6xl mx-auto px-0 sm:p-6 space-y-6">
+      <div>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Home Loan Affordability Calculator</h1>
+        <p className="text-gray-500 text-xs sm:text-sm">Calculate your maximum home purchasing budget based on your income and debts</p>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left Side: Inputs */}
         <div className="p-6 bg-white rounded-xl shadow-md space-y-5 border border-gray-100 order-2 lg:order-1">
-          <h2 className="text-xl font-bold text-gray-800">Check Your Home Purchasing Power</h2>
+          <h2 className="text-lg font-bold text-gray-800">Check Your Home Purchasing Power</h2>
 
           <div>
             <label htmlFor="gross-monthly-income" className="block text-sm font-medium text-gray-700">Gross Monthly Income (₹)</label>
@@ -176,10 +183,10 @@ export default function AffordabilityCalculator() {
         {/* Right Side: Result Card */}
         <div className="p-6 bg-blue-50 rounded-xl border border-blue-100 flex flex-col justify-between order-1 lg:order-2">
           <div>
-            <p className="text-sm font-semibold text-[#002B5B] uppercase tracking-wide">Maximum Affordable Home Loan</p>
-            <h1 className="text-4xl font-extrabold text-[#002B5B] mt-2">
+            <h2 className="text-sm font-semibold text-[#002B5B] uppercase tracking-wide">Maximum Affordable Home Loan</h2>
+            <p className="text-3xl sm:text-4xl font-extrabold text-[#002B5B] mt-2">
               {formatINR(calculationResults.maxLoan)}
-            </h1>
+            </p>
 
             <div className="mt-6 space-y-3 text-sm text-gray-700">
               <div className="flex justify-between border-b border-blue-200 pb-2">
@@ -197,7 +204,26 @@ export default function AffordabilityCalculator() {
             </div>
           </div>
 
-          <div className="mt-6">
+          <div className="rounded-xl border border-cyan-200 bg-white p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm mt-8">
+            <div className="flex items-center gap-3 text-left">
+              <div className="rounded-full bg-cyan-600 p-2.5 text-white shrink-0">
+                <FaHome className="text-lg" />
+              </div>
+              <div>
+                <p className="text-xs sm:text-sm font-bold text-gray-900">Found your budget?</p>
+                <p className="text-[11px] sm:text-xs text-gray-600">Browse properties up to {formatINR(calculationResults.totalBudget)}</p>
+              </div>
+            </div>
+            <Link
+              href={`/search?maxPrice=${calculationResults.totalBudget}`}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-[#002B5B] px-4 py-2 text-xs font-semibold text-white transition hover:bg-opacity-90 shrink-0"
+            >
+              <span>View Properties</span>
+              <FaArrowRight className="text-[10px]" />
+            </Link>
+          </div>
+
+          <div className="mt-3">
             <a
               href={`/stamp-duty?amount=${calculationResults.totalBudget}`}
               className="block w-full text-center bg-[#002B5B] hover:bg-[#002B5B] text-white font-semibold py-3 rounded-lg transition"
@@ -210,7 +236,7 @@ export default function AffordabilityCalculator() {
 
       {/* Repayment Table */}
       <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
-        <h3 className="text-lg font-bold text-gray-800 mb-4">Yearly Loan Repayment Breakdown</h3>
+        <h2 className="text-lg font-bold text-gray-800 mb-4">Yearly Loan Repayment Breakdown</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-gray-600">
             <thead className="bg-gray-50 text-gray-700 uppercase font-medium border-b">
@@ -222,14 +248,14 @@ export default function AffordabilityCalculator() {
                 <th className="p-3">Remaining Balance</th>
               </tr>
             </thead>
-            <tbody className="divide-y">
+            <tbody className="divide-y divide-gray-100">
               {calculationResults.schedule.map((row) => (
                 <tr key={row.year} className="hover:bg-gray-50">
-                  <td className="p-3 font-medium text-gray-800">Year {row.year}</td>
-                  <td className="p-3 text-green-600">{formatINR(row.principalPaid)}</td>
-                  <td className="p-3 text-red-500">{formatINR(row.interestPaid)}</td>
-                  <td className="p-3">{formatINR(row.totalPayment)}</td>
-                  <td className="p-3">{formatINR(row.remainingBalance)}</td>
+                  <td className="p-3 font-semibold text-gray-900">Year {row.year}</td>
+                  <td className="p-3 font-semibold text-emerald-800">{formatINR(row.principalPaid)}</td>
+                  <td className="p-3 font-semibold text-rose-800">{formatINR(row.interestPaid)}</td>
+                  <td className="p-3 font-medium text-gray-900">{formatINR(row.totalPayment)}</td>
+                  <td className="p-3 font-medium text-gray-900">{formatINR(row.remainingBalance)}</td>
                 </tr>
               ))}
             </tbody>

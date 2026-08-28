@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import EligibilityCalculator from './components/EligibilityCalculator';
 import { constructMetadata } from '@/src/utils/seo';
+import ScrollToTop from '@/src/components/atoms/ScrollToTop';
+
+export const dynamic = "force-static";
 
 export const metadata: Metadata = constructMetadata({
   title: "Home Loan Eligibility Calculator - Check Max Loan Limit | Justflip",

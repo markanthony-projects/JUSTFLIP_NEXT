@@ -78,7 +78,7 @@ export default function BaseHeaderClient({ children, config }: BaseHeaderClientP
     ];
 
     return (
-        <header className={`${isHome ? (config.sticky ? "fixed " : "relative") : "sticky"} top-0 left-0 z-50 w-full h-15 flex items-center ${config.bg} transition-all duration-300 ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`} >
+        <header className={`${isHome ? (config.sticky ? "fixed " : "relative") : "sticky"} top-0 left-0 z-50 w-full h-15 flex items-center ${config.bg} transition-[transform,opacity] duration-300 ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`} >
             {/* `relative` anchors the absolutely-centred search bar slot. */}
             <div className="relative flex h-full flex-1 gap-2 sm:gap-4 items-center justify-between px-2 md:px-4 w-full mx-auto md:max-w-[1440px]">
                 {children}
@@ -104,6 +104,7 @@ export default function BaseHeaderClient({ children, config }: BaseHeaderClientP
                             <div className="relative">
                                 <button
                                     onClick={handleSliderOpen}
+                                    aria-label="Open user profile menu"
                                     className="h-10 w-10 flex items-center justify-center rounded-full bg-white/20 overflow-hidden ring-2 ring-white/50 hover:ring-white transition-all"
                                 >
                                     {user?.profilePhoto ? (

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 
@@ -151,7 +151,7 @@ const PreFooter = () => {
         }
     };
 
-    const currentData = generateCityData(activeCity);
+    const currentData = useMemo(() => generateCityData(activeCity), [activeCity]);
 
     return (
         <section className="bg-linear-to-b from-gray-100 to-white py-12 border-t border-gray-200">
@@ -187,6 +187,7 @@ const PreFooter = () => {
                     <div className="absolute right-0 bottom-0 top-0 w-20 flex justify-end items-start pt-1 pointer-events-none">
                         <button
                             onClick={scrollTabs}
+                            aria-label="Scroll city tabs right"
                             className="pointer-events-auto flex items-center justify-center text-gray-500 hover:text-[#002B5B] bg-gray-100/80 backdrop-blur-sm rounded-l-md px-2 shadow-sm"
                         >
                             <FiArrowRight size={20} />
@@ -199,6 +200,7 @@ const PreFooter = () => {
                     {/* Left Arrow for Content */}
                     <button
                         onClick={() => scrollContent('left')}
+                        aria-label="Scroll content left"
                         className="opacity-0 group-hover:opacity-100 transition-opacity hidden lg:flex absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-[0_0_15px_rgba(0,0,0,0.08)] items-center justify-center text-gray-600 hover:text-gray-900 z-10 border border-gray-50"
                     >
                         <FiArrowRight size={20} className="rotate-180" />
@@ -234,6 +236,7 @@ const PreFooter = () => {
                     {/* Right Arrow for Content */}
                     <button
                         onClick={() => scrollContent('right')}
+                        aria-label="Scroll content right"
                         className="hidden lg:flex absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow-[0_0_15px_rgba(0,0,0,0.08)] items-center justify-center text-gray-600 hover:text-gray-900 z-10 border border-gray-50"
                     >
                         <FiArrowRight size={20} />

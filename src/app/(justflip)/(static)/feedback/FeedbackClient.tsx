@@ -131,14 +131,14 @@ const FeedbackClient = () => {
 
           <div className="mx-auto mt-10 max-w-2xl rounded-2xl border border-[#D8E4EE] bg-white p-8 text-center shadow-sm sm:p-12">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#EAF3FA]">
-              <FiCheck size={30} className="text-[#002B5B]" />
+              <FiCheck aria-hidden="true" size={30} className="text-[#002B5B]" />
             </div>
 
             <h1 className="mt-6 text-2xl font-bold text-[#002B5B]">
               Thank you for your feedback!
             </h1>
 
-            <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-gray-600">
+            <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-gray-700">
               Your feedback helps us improve JustFlip and provide a better
               experience for everyone.
             </p>
@@ -166,14 +166,14 @@ const FeedbackClient = () => {
         {/* Hero */}
         <header className="mt-6 rounded-2xl bg-[#EAF3FA] px-6 py-6 text-center sm:px-10 sm:py-8">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white shadow-sm">
-            <VscFeedback size={28} className="text-[#002B5B]" />
+            <VscFeedback aria-hidden="true" size={28} className="text-[#002B5B]" />
           </div>
 
           <h1 className="mt-3 text-2xl font-bold tracking-tight text-[#002B5B] sm:text-3xl">
             We&apos;d love to hear from you!
           </h1>
 
-          <p className="mx-auto mt-2 max-w-xl text-[10px] leading-6 text-gray-600 sm:text-sm">
+          <p className="mx-auto mt-2 max-w-xl text-xs leading-6 text-gray-700 sm:text-sm">
             Your feedback helps us improve JustFlip and provide you with a
             better experience.
           </p>
@@ -191,7 +191,7 @@ const FeedbackClient = () => {
               1. How was your experience?
             </h2>
 
-            <p className="mt-2 text-[12px] text-gray-600">
+            <p className="mt-2 text-xs text-gray-700">
               Please rate your overall experience with JustFlip.
             </p>
 
@@ -215,14 +215,15 @@ const FeedbackClient = () => {
                     className="relative text-3xl transition-transform duration-150 hover:scale-110 sm:text-4xl"
                   >
                     {/* Empty star */}
-                    <span className="text-gray-300">
+                    <span aria-hidden="true" className="text-gray-300">
                       ★
                     </span>
 
                     {/* Filled star */}
                     {(isFull || isHalf) && (
                       <span
-                        className="absolute left-0 top-0 overflow-hidden text-amber-400"
+                        aria-hidden="true"
+                        className="absolute left-0 top-0 overflow-hidden text-amber-500"
                         style={{
                           width: isFull ? "100%" : "50%",
                         }}
@@ -236,7 +237,7 @@ const FeedbackClient = () => {
             </div>
 
             {/* Rating labels */}
-            <div className="mt-3 flex justify-between px-1 text-[10px] text-gray-500">
+            <div className="mt-3 flex justify-between px-1 text-xs text-gray-600">
               <span>Very Poor</span>
               <span>Excellent</span>
             </div>
@@ -267,7 +268,7 @@ const FeedbackClient = () => {
                         : "border-[#D8E4EE] bg-white text-[#002B5B] hover:border-[#002B5B] hover:bg-[#EAF3FA]"
                     }`}
                   >
-                    <Icon size={18} />
+                    <Icon aria-hidden="true" size={18} />
                     {item.label}
                   </button>
                 );
@@ -283,7 +284,7 @@ const FeedbackClient = () => {
               3. Tell us more
             </h2>
 
-            <p className="mt-2 text-[12px] text-gray-600">
+            <p className="mt-2 text-xs text-gray-700">
               Please share your thoughts, suggestions, or any issues you
               faced.
             </p>
@@ -300,10 +301,10 @@ const FeedbackClient = () => {
               placeholder="Write your feedback here..."
               rows={7}
               required
-              className="mt-4 w-full resize-none rounded-xl border border-[#D8E4EE] px-4 py-3 text-[12px] text-gray-700 outline-none placeholder:text-gray-400 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
+              className="mt-4 w-full resize-none rounded-xl border border-[#D8E4EE] px-4 py-3 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
             />
 
-            <div className="mt-1 text-right text-xs text-gray-400">
+            <div className="mt-1 text-right text-xs text-gray-600">
               {feedback.length}/1000
             </div>
           </section>
@@ -314,17 +315,18 @@ const FeedbackClient = () => {
           <section>
             <h2 className="text-md font-bold text-[#002B5B] sm:text-lg">
               4. Your email{" "}
-              <span className="font-normal text-gray-400 text-sm">
+              <span className="font-normal text-gray-600 text-sm">
                 (optional)
               </span>
             </h2>
 
-            <p className="mt-2 text-[12px] text-gray-600">
+            <p className="mt-2 text-xs text-gray-700">
               We may reach out to you for more details if needed.
             </p>
 
             <div className="relative mt-4">
               <FiMail
+                aria-hidden="true"
                 size={18}
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-[#002B5B]"
               />
@@ -336,7 +338,7 @@ const FeedbackClient = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full rounded-xl border border-[#D8E4EE] py-3 pl-11 pr-4 text-sm text-gray-700 outline-none placeholder:text-gray-400 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
+                className="w-full rounded-xl border border-[#D8E4EE] py-3 pl-11 pr-4 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
               />
             </div>
           </section>
@@ -347,7 +349,7 @@ const FeedbackClient = () => {
             disabled={!rating || !feedback.trim()}
             className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-[#002B5B] px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-[#001F42] disabled:cursor-not-allowed disabled:opacity-50"
           >
-            <FiSend size={17} />
+            <FiSend aria-hidden="true" size={17} />
             Send Feedback
           </button>
         </form>
@@ -357,6 +359,7 @@ const FeedbackClient = () => {
           <div className="flex items-start gap-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white">
               <SiPrivateinternetaccess
+                aria-hidden="true"
                 size={24}
                 className="text-[#002B5B]"
               />
@@ -367,7 +370,7 @@ const FeedbackClient = () => {
                 Your privacy matters
               </h2>
 
-              <p className="text-[12px] leading-6 text-gray-600">
+              <p className="text-xs leading-6 text-gray-700">
                 We value your privacy. Your feedback and personal information
                 will be kept confidential and used only to improve our
                 services.
@@ -377,7 +380,7 @@ const FeedbackClient = () => {
         </section>
 
         {/* Footer */}
-        <footer className="py-8 text-center text-sm text-gray-400">
+        <footer className="py-8 text-center text-sm text-gray-600">
           © {new Date().getFullYear()} JustFlip. All rights reserved.
         </footer>
       </div>

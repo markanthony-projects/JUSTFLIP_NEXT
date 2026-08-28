@@ -101,16 +101,20 @@ export default function SearchBarClient({ showCitySelector = true }: SearchBarCl
     const [placeholderIndex, setPlaceholderIndex] = useState(0);
 
     useEffect(() => {
-        if (search.length === 0) {
-            const timeout = setTimeout(() => {
-                const interval = setInterval(() => {
-                    setPlaceholderIndex((prev) => (prev + 1) % searchPlaceholderList.length);
-                }, 3500);
-                return () => clearInterval(interval);
-            }, 1000);
+        if (search.length !== 0) return;
 
-            return () => clearTimeout(timeout);
-        }
+        // Delay interval start to allow initial page load and hydration to complete smoothly
+        let interval: NodeJS.Timeout | null = null;
+        const initialDelay = setTimeout(() => {
+            interval = setInterval(() => {
+                setPlaceholderIndex((prev) => (prev + 1) % searchPlaceholderList.length);
+            }, 4000);
+        }, 3000);
+
+        return () => {
+            clearTimeout(initialDelay);
+            if (interval) clearInterval(interval);
+        };
     }, [search]);
 
     const debounceRef = useRef<NodeJS.Timeout | null>(null);
@@ -208,7 +212,7 @@ export default function SearchBarClient({ showCitySelector = true }: SearchBarCl
                 {!search && (
                     <span
                         key={placeholderIndex}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 text-[#777] text-[12px] sm:text-xs md:text-sm pointer-events-none animate-slide-up line-clamp-1 md:max-w-[180px] lg:max-w-[290px]"
+                        className="absolute left-0 top-1/2 -translate-y-1/2 text-gray-600 text-[12px] sm:text-xs md:text-sm pointer-events-none animate-slide-up line-clamp-1 md:max-w-[180px] lg:max-w-[290px]"
                     >
                         {searchPlaceholderList[placeholderIndex]?.placeholder}
                     </span>

@@ -6,6 +6,8 @@ import {
   convertToIndianWords,
   PRESET_VALUES,
 } from './useStampDutyCalculator';
+import { FaArrowRight, FaHome } from 'react-icons/fa';
+import Link from 'next/link';
 
 const MaleIcon = () => (
   <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -78,8 +80,8 @@ export default function StampDutyCalculator(): React.JSX.Element {
                 </svg>
               </div>
               <div>
-                <h2 className="text-xl font-bold text-[#002B49]">Stamp Duty Calculator</h2>
-                <p className="text-xs font-medium text-slate-500">Calculate payable duty by state</p>
+                <h1 className="text-xl font-bold text-[#002B49]">Stamp Duty Calculator</h1>
+                <p className="text-xs font-medium text-slate-700">Calculate payable duty by state</p>
               </div>
             </div>
 
@@ -209,7 +211,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
                 />
               </div>
 
-              <p className="text-xs text-slate-500 font-medium mt-1.5">
+              <p className="text-xs text-slate-700 font-medium mt-1.5">
                 {convertToIndianWords(propertyValue)}
               </p>
 
@@ -225,14 +227,14 @@ export default function StampDutyCalculator(): React.JSX.Element {
                 className="w-full mt-4 h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#002B49]"
               />
 
-              <div className="flex justify-between text-[10px] text-slate-400 font-semibold mt-1">
+              <div className="flex justify-between text-xs text-slate-700 font-semibold mt-1">
                 <span>₹5 Lakh</span>
                 <span>₹50 Crore</span>
               </div>
 
               {/* Quick Select Buttons */}
               <div className="flex items-center gap-2 mt-3 overflow-x-auto pb-1">
-                <span className="text-[11px] font-semibold text-slate-400 mr-1">Quick:</span>
+                <span className="text-xs font-bold text-slate-700 mr-1">Quick:</span>
                 {PRESET_VALUES.map((preset) => (
                   <button
                     key={preset.value}
@@ -251,8 +253,27 @@ export default function StampDutyCalculator(): React.JSX.Element {
             </div>
           </div>
 
+          <div className="rounded-xl border border-cyan-200 bg-white p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm my-4">
+            <div className="flex items-center gap-2.5 text-left">
+              <div className="rounded-full bg-cyan-600 p-2 text-white shrink-0">
+                <FaHome className="text-sm" />
+              </div>
+              <div>
+                <p className="text-xs font-bold text-gray-900">Found your property value?</p>
+                <p className="text-xs text-gray-700 font-medium">Browse listings up to ₹{propertyValue.toLocaleString('en-IN')}</p>
+              </div>
+            </div>
+            <Link
+              href={`/search?maxPrice=${propertyValue}`}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#002B49] px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-opacity-90 shrink-0"
+            >
+              <span>View Properties</span>
+              <FaArrowRight className="text-[9px]" />
+            </Link>
+          </div>
+
           {/* Bottom Info Banner */}
-          <div className="p-3.5 bg-blue-50/60 border border-blue-100 rounded-xl text-[#002B49] flex items-start gap-3">
+          <div className="p-3.5 bg-blue-50/60 border border-blue-100 rounded-xl text-[#002B49] flex items-start gap-3 mt-3">
             <span className="text-base mt-0.5">ℹ️</span>
             <p className="text-xs font-medium leading-relaxed text-[#002B49]/80">
               Registration charges (typically <strong className="text-[#002B49]">1%</strong> of property value) are extra and applicable at property registration.
@@ -264,9 +285,9 @@ export default function StampDutyCalculator(): React.JSX.Element {
         {/* Right Output Panel */}
         <div className="md:col-span-5 px-0 p-6 sm:p-8 flex flex-col justify-between bg-slate-50 border-t md:border-t-0 md:border-l border-slate-200 order-1 lg:order-2">
           <div className="space-y-5">
-            <h3 className="text-xs font-bold text-[#002B49] uppercase tracking-wider">
+            <h2 className="text-xs font-bold text-[#002B49] uppercase tracking-wider">
               Stamp Duty Breakdown
-            </h3>
+            </h2>
 
             {/* Total Duty Banner */}
             <div className="bg-[#002B49] text-white p-6 rounded-2xl shadow-md space-y-1.5">
@@ -291,7 +312,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
                   State Rates Comparison
                 </span>
                 {!currentConfig.has_gender_discount && (
-                  <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">
+                  <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
                     Uniform Rate
                   </span>
                 )}
@@ -304,7 +325,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
                     className={`flex items-center justify-between p-2.5 rounded-xl text-xs transition border ${
                       item.isActive
                         ? 'bg-blue-50/70 border-blue-200 font-bold text-[#002B49]'
-                        : 'bg-white border-slate-200/70 text-[#002B49] opacity-75'
+                        : 'bg-white border-slate-200/70 text-[#002B49]'
                     }`}
                   >
                     <div className="flex items-center gap-2">
@@ -314,7 +335,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
 
                     <div className="text-right">
                       <span className="font-bold text-[#002B49]">{item.rate}%</span>
-                      <span className="block text-[10px] text-slate-500 font-semibold">
+                      <span className="block text-[10px] text-slate-700 font-semibold">
                         ₹{item.amount.toLocaleString('en-IN')}
                       </span>
                     </div>
@@ -325,7 +346,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
           </div>
 
           <div className="mt-6 pt-4 border-t border-slate-200">
-            <p className="text-[11px] text-center text-slate-400 font-medium leading-relaxed">
+            <p className="text-[11px] text-center text-slate-600 font-medium leading-relaxed">
               *Rates are subject to dynamic state government regulations.
             </p>
           </div>

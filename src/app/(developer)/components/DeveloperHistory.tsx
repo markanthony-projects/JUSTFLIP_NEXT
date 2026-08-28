@@ -30,11 +30,10 @@ const DeveloperHistory = ({ history = [] }: DeveloperHistoryProps) => {
 
   return (
     <div className='w-full'>
-      <div className="mb-8 md:mb-12">
-        <h2 className="text-3xl font-bold text-[#002B5B] tracking-tight">
+      <div className="md:mb-4 mb-3 flex items-center justify-between">
+        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#002B5B] tracking-tight">
             Our Journey
         </h2>
-        <div className="h-1 w-20 bg-gradient-to-r from-[#002B5B] to-blue-800 rounded-full mt-3"></div>
       </div>
 
       <div className='flex flex-col md:flex-row gap-10 md:gap-4 items-center justify-between min-h-[500px]'>
@@ -48,7 +47,7 @@ const DeveloperHistory = ({ history = [] }: DeveloperHistoryProps) => {
                 <motion.button
                     onClick={prevYear}
                     whileTap={{ scale: 0.9 }}
-                    className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg text-[#002B5B] hover:text-blue-600 transition-all z-10 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60"
+                    className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg text-[#002B5B] hover:text-blue-600 transition-all z-10"
                 >
                     <FaChevronUp />
                 </motion.button>
@@ -92,7 +91,7 @@ const DeveloperHistory = ({ history = [] }: DeveloperHistoryProps) => {
                 <motion.button
                     onClick={nextYear}
                     whileTap={{ scale: 0.9 }}
-                    className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg text-[#002B5B] hover:text-blue-600 transition-all z-10 bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60"
+                    className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg text-[#002B5B] hover:text-blue-600 transition-all z-10"
                 >
                     <FaChevronDown />
                 </motion.button>
@@ -103,10 +102,10 @@ const DeveloperHistory = ({ history = [] }: DeveloperHistoryProps) => {
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={timelineData[activeIndex]?.year}
-                        className="rounded-3xl bg-white/70 backdrop-blur-2xl border border-white/50 shadow-[0_8px_30px_rgb(0,0,0,0.08)] p-6 md:p-8"
-                        initial={{ opacity: 0, x: -20, filter: 'blur(10px)' }}
-                        animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                        exit={{ opacity: 0, x: 20, filter: 'blur(10px)' }}
+                        className="rounded-3xl bg-white border border-gray-100 shadow-lg p-6 md:p-8"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 20 }}
                         transition={{ duration: 0.4 }}
                         onAnimationComplete={() => setAnimating(false)}
                     >

@@ -4,6 +4,8 @@ import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import StampDutyCalculator from './components/StampDutyCalculator';
 import { constructMetadata } from '@/src/utils/seo';
 
+export const dynamic = "force-static";
+
 export const metadata: Metadata = constructMetadata({
   title: "Stamp Duty & Registration Charges Calculator | Justflip",
   description: "Calculate accurate stamp duty and property registration charges across states and cities in India with Justflip's Stamp Duty Calculator.",

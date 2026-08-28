@@ -3,7 +3,6 @@
 import React, { useState, useTransition, useMemo } from "react";
 import { isValidPhoneNumber } from "libphonenumber-js";
 import PhoneInput from "react-phone-number-input";
-import "react-phone-number-input/style.css";
 import { FaWhatsapp } from "react-icons/fa";
 import { TbMail, TbUser } from "react-icons/tb";
 import { MdOutlineLocalPhone } from "react-icons/md";

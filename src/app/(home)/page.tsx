@@ -14,10 +14,11 @@ import { HomeBlogsSkeleton } from "../(justflip)/components/Skelton/HomeBlogsSke
 import PopularCities from "../(justflip)/components/PopularCities/PopularCities";
 import TaggedProperties from "../(justflip)/components/TaggedProperties/TaggedProperties";
 import TopBuilders from "../(justflip)/components/TopBuilders/TopBuilders";
-import Blogs from "../(justflip)/components/Blogs";
 import MortgageCalculator from "@/src/components/molecules/MortgageCalculatorsDynamic";
-// import PostPropertyCTA from "../(justflip)/components/PostPropertyCTA";
-// import ExploreByBudget from "../(justflip)/components/ExploreByBudget";
+import PropertyTools from "../(justflip)/components/PropertyTools/PropertyTools";
+import Blogs from "../(justflip)/components/Blogs";
+import PostPropertyCTA from "../(justflip)/components/PostPropertyCTA";
+import ExploreByBudget from "../(justflip)/components/ExploreByBudget";
 
 import { constructMetadata } from "@/src/utils/seo";
 import { buildWebsiteSchema, buildBreadcrumbSchema } from "@/src/utils/schema";
@@ -64,7 +65,7 @@ export default async function JustFlipHomePage() {
                     <TaggedProperties city={city} />
                 </Suspense>
 
-                {/* <ExploreByBudget /> */}
+                <ExploreByBudget />
 
                 <LazyHydrate rootMargin="350px" placeholder={<TopBuildersSkeleton />}>
                     <Suspense fallback={<TopBuildersSkeleton />}>
@@ -76,13 +77,15 @@ export default async function JustFlipHomePage() {
                     <MortgageCalculator />
                 </LazyHydrate>
 
+                <PropertyTools excludeId="mortgage-calculator" title="Financial & Planning Tools" />
+
                 <LazyHydrate rootMargin="350px" placeholder={<PopularCitiesSkeleton />}>
                     <Suspense fallback={<PopularCitiesSkeleton />}>
                         <PopularCities />
                     </Suspense>
                 </LazyHydrate>
 
-                {/* <PostPropertyCTA /> */}
+                <PostPropertyCTA />
 
                 <LazyHydrate rootMargin="350px" placeholder={<HomeBlogsSkeleton />}>
                     <Suspense fallback={<HomeBlogsSkeleton />}>

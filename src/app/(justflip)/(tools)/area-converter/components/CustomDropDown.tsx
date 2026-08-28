@@ -33,10 +33,11 @@ function CustomDropDown({value, onChange, options, placeholder}:{
       
       <button type="button"
         onClick={() => setOpen((prev) => !prev)}
+        aria-label={placeholder || "Select option"}
         className='flex w-full items-center justify-between rounded-lg border border-gray-200 bg-white px-1.5 py-3 pr-11  text-left shadow-sm font-medium text-[#002B5B] outline-none transition-all duration-200 cursor-pointer 
         hover:border-[#9db5d3] focus:border-[#153e6d] focus:ring-2 focus:ring-[#002B5B]/10'>
         
-        <span className={`text-[12px] selectedOption? 'text-[#002B5B]' : 'text-gray-300' `}>
+        <span className={`text-[12px] font-semibold ${selectedOption ? 'text-[#002B5B]' : 'text-slate-700'}`}>
           {selectedOption?.label || placeholder}
         </span>
         <div className='pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[#002B5B]' >
@@ -58,8 +59,8 @@ function CustomDropDown({value, onChange, options, placeholder}:{
                 onClick={() => {onChange(option.value); setOpen(false)}}
                 className={`flex w-full items-center border-b border-gray-100 justify-between px-4 py-2 text-left text-[11px] font-semibold transition ${
                   selected
-                    ? "bg-[#002B5B]/10 text-[#002B5B]"
-                    : "text-gray-500 hover:bg-gray-50"
+                    ? "bg-[#002B5B]/10 text-[#002B5B] font-bold"
+                    : "text-slate-700 hover:bg-gray-50"
                 }`}
               >
                 <span>{option.label}</span>

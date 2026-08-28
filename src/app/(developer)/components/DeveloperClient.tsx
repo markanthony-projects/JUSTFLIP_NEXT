@@ -101,10 +101,10 @@ export default function DevelopersClientPage({ initialData }: { initialData?: an
                     </p>
 
                     {/* Filter & Search Bar */}
-                    <div className="w-full max-w-3xl flex flex-col md:flex-row items-center gap-3 bg-white/10 p-2 rounded-xl backdrop-blur-md shadow-lg border border-white/20">
+                    <div className="w-full max-w-3xl flex flex-col md:flex-row items-center gap-2.5 bg-white p-2 rounded-2xl shadow-lg border border-gray-100">
                         {/* City Filter */}
                         <div 
-                            className="relative w-full md:w-1/3 flex items-center bg-white rounded-lg px-3 py-1 cursor-pointer hover:bg-gray-50 transition-colors"
+                            className="relative w-full md:w-1/3 flex items-center bg-gray-50 hover:bg-gray-100 rounded-xl px-3 py-1 cursor-pointer transition-colors border border-gray-200"
                             onClick={() => setIsCityModalOpen(true)}
                         >
                             <FiMapPin className="text-gray-400 mr-2 shrink-0" />
@@ -116,7 +116,7 @@ export default function DevelopersClientPage({ initialData }: { initialData?: an
                         </div>
 
                         {/* Search Input */}
-                        <div className="relative w-full md:w-2/3 flex items-center bg-white rounded-lg px-3 py-1">
+                        <div className="relative w-full md:w-2/3 flex items-center bg-gray-50 rounded-xl px-3 py-1 border border-gray-200 focus-within:border-[#002B5B] focus-within:bg-white transition-colors">
                             <FiSearch className="text-gray-400 mr-2 shrink-0" />
                             <input
                                 type="text"

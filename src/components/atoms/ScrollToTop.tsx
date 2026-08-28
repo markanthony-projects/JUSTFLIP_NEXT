@@ -1,21 +1,12 @@
 "use client";
 
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 
 export default function ScrollToTop() {
-  // Try to start scroll immediately on render before component finishes loading
-  if (typeof window !== "undefined") {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  }
-
-  useLayoutEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.scrollY > 0) {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   return null;

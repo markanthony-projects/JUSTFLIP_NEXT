@@ -4,7 +4,7 @@ import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import termsData from './data/termsAndConditions.json'
 
 const TermsAndConditions = () => {
-    const breadcrumbItems = [{ label: "terms&conditions", href: "/terms-conditions" }];
+    const breadcrumbItems = [{ label: "Terms & Conditions", href: "/terms-conditions" }];
 
   return (
   <main className="min-h-screen bg-white">
@@ -16,11 +16,13 @@ const TermsAndConditions = () => {
       <Breadcrumb items={breadcrumbItems}/>
 
       {/* Hero Header */}
-      <header className="flex min-h-[180px] flex-col items-center justify-center bg-[#EAF3FA] px-4 py-10 text-center">
+      <header className="mt-6 flex min-h-[180px] flex-col items-center justify-center rounded-2xl bg-[#EAF3FA] px-4 py-10 text-center">
 
         {/* Document Icon */}
         <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-sm">
           <svg
+            aria-hidden="true"
+            focusable="false"
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -45,7 +47,7 @@ const TermsAndConditions = () => {
           </svg>
         </div>
 
-        <h1 className="text-2xl font-bold italic tracking-tight text-[#002B5B] sm:text-3xl">
+        <h1 className="text-2xl font-bold tracking-tight text-[#002B5B] sm:text-3xl">
             {termsData.metadata.title}
         </h1>
 
@@ -53,13 +55,15 @@ const TermsAndConditions = () => {
 
 
     {/* Introduction Card */}
-    <section className="mt-12 rounded-xl border border-gray-200 bg-white p-2 shadow-sm sm:p-7">
+    <section className="mt-10 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8">
 
         <div className="flex items-start gap-4">
 
           {/* Shield Icon */}
             <div className="mt-0.5 shrink-0">
                 <svg
+                aria-hidden="true"
+                focusable="false"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -90,11 +94,11 @@ const TermsAndConditions = () => {
 
 
             {/* Text */}
-            <div className="space-y-5 text-[8px] italic leading-6 text-gray-700 sm:text-[10px]">
+            <div className="space-y-4 text-xs leading-6 text-gray-700 sm:text-sm">
 
                 <p>
                 Please read this document carefully. By accessing or using
-                <strong className="font-semibold">
+                <strong className="font-semibold text-gray-900">
                     {" "}JustFlip
                 </strong>
                 , you agree to be bound by the terms and conditions set forth
@@ -106,7 +110,8 @@ const TermsAndConditions = () => {
                 If you have any questions about these terms, please contact
                 <a
                     href="mailto:support@justflip.in"
-                    className="ml-1 font-medium text-blue-600 transition-colors hover:text-blue-700 hover:underline"
+                    aria-label="Contact JustFlip Support via email"
+                    className="ml-1 font-semibold text-[#002B5B] transition-colors hover:text-[#001F42] hover:underline"
                 >
                     support@justflip.in
                 </a>
@@ -120,11 +125,12 @@ const TermsAndConditions = () => {
 
 
        {/* Terms Card */}
-      <div className="overflow-hidden bg-white">
+      <div className="mt-10 overflow-hidden bg-white">
 
         {termsData.sections.map((section, index) => (
             <section
             key={section.id}
+            id={`section-${section.id}`}
             className={`p-4 sm:p-6 ${
                 index !== termsData.sections.length - 1
                 ? "border-b border-gray-100"
@@ -141,10 +147,11 @@ const TermsAndConditions = () => {
                     {section.title}
                 </h2>
 
-                <ul className="list- text-[10px] leading-6 text-gray-600 sm:text-[14px]">
+                <ul className="mt-3 space-y-2 text-xs leading-6 text-gray-700 sm:text-sm">
                     {section.content.map((paragraph, paragraphIndex) => (
-                    <li key={paragraphIndex}>
-                        {`-> ${paragraph}`}
+                    <li key={paragraphIndex} className="flex items-start gap-2">
+                        <span className="shrink-0 text-[#002B5B] font-bold">→</span>
+                        <span>{paragraph}</span>
                     </li>
                     ))} 
                 </ul>
@@ -155,29 +162,30 @@ const TermsAndConditions = () => {
       </div>
 
       {/* Contact */}
-      <div className="mt-8 rounded-2xl border border-blue-100 bg-blue-50/60 p-6 text-center sm:p-8">
-        <h3 className="text-lg font-semibold text-gray-900">
+      <section className="mt-8 rounded-2xl border border-[#D8E4EE] bg-[#EAF3FA] p-6 text-center sm:p-8">
+        <h3 className="text-lg font-semibold text-[#002B5B]">
           Have questions?
         </h3>
 
-        <p className="mt-2 text-sm leading-6 text-gray-600">
+        <p className="mt-2 text-sm leading-6 text-gray-700">
             {termsData.ContactUs.description}
         </p>
 
         <a
           href="mailto:support@justflip.in"
-          className="mt-4 inline-block font-medium text-blue-600 transition-colors hover:text-blue-700 hover:underline"
+          aria-label="Contact JustFlip Support via email"
+          className="mt-4 inline-block font-semibold text-[#002B5B] transition-colors hover:text-[#001F42] hover:underline"
         >
             {termsData.ContactUs.Email}
         </a>
-      </div>
+      </section>
 
       {/* Footer */}
-      <div className="mt-8 text-center">
-        <p className="text-xs text-gray-400">
+      <footer className="mt-10 text-center text-sm text-gray-600">
+        <p>
           © {new Date().getFullYear()} JustFlip. All rights reserved.
         </p>
-      </div>
+      </footer>
 
     </div>
   </main>

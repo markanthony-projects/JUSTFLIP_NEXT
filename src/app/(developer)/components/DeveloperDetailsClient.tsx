@@ -33,53 +33,52 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
   return (
     <div className='bg-[#F4F9FA] min-h-screen pb-20'>
       {/* Hero Section */}
-      <div className="w-full h-[60vh] md:h-[70vh] relative flex flex-col justify-end">
-        <Breadcrumb items={breadcrumbItems} zTop={true} color="white" />
-
-        <div className="absolute inset-0 overflow-hidden">
+      <div className="w-full relative">
+        <div className="w-full h-56 sm:h-72 md:h-80 relative overflow-hidden">
+          <Breadcrumb items={breadcrumbItems} zTop={true} color="white" />
           <Image
             src={banner?.url}
             alt={`${builder?.name || "Developer"} banner`}
-            className="h-full w-full object-cover scale-105 transform transition-transform duration-[20s] hover:scale-110"
+            className="h-full w-full object-cover"
           />
-          {/* Rich Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-[#001f42]/90"></div>
+          {/* Subtle Top & Bottom Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/15 to-black/40"></div>
         </div>
 
-        {/* Glassmorphism Info Card */}
-        <div className="relative z-10 w-full px-4 sm:px-6 lg:px-8 max-w-[1440px] mx-auto mb-10 translate-y-18 md:translate-y-24">
-          <div className="bg-white/10 backdrop-blur-xl border border-white/20 p-6 md:p-10 rounded-3xl shadow-2xl flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-10 transition-all duration-500 hover:bg-white/15">
+        {/* Info Card */}
+        <div className="relative z-10 w-full px-2 md:px-8 lg:px-24 mx-auto -mt-14 sm:-mt-16 md:-mt-20">
+          <div className="bg-white border border-gray-200/80 rounded-2xl md:rounded-3xl shadow-lg p-5 sm:p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-5 md:gap-8">
             {/* Logo Container */}
-            <div className="w-28 h-28 md:w-40 md:h-40 shrink-0 bg-white rounded-2xl p-2 shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden transform -translate-y-18 md:-translate-y-16 group">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 shrink-0 bg-white rounded-2xl p-2.5 border border-gray-200 shadow-md overflow-hidden flex items-center justify-center">
               <Image
                 src={logo?.url}
                 alt={builder?.name}
-                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-contain"
               />
             </div>
 
             {/* Builder Details */}
-            <div className="flex-1 text-center md:text-left -mt-22 md:mt-0">
-              <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 md:mb-4 mb-2">
-                <h1 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-md">
+            <div className="flex-1 text-center md:text-left">
+              <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 md:mb-3 mb-2">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#002B5B] tracking-tight">
                   {builder?.name}
                 </h1>
                 {builder?.startedAt && (
-                  <span className="inline-flex items-center px-3 mx-auto md:mx-0 py-0.5 rounded-full bg-white/20 border border-white/30 text-white text-sm font-medium backdrop-blur-md">
-                    <FiCheckCircle className="mr-1.5 text-blue-900" />
+                  <span className="inline-flex items-center px-3 mx-auto md:mx-0 py-0.5 rounded-full bg-[#002B5B]/5 border border-[#002B5B]/15 text-[#002B5B] text-xs sm:text-sm font-medium">
+                    <FiCheckCircle className="mr-1.5 text-[#002B5B]" />
                     Est. {builder?.startedAt}
                   </span>
                 )}
               </div>
 
-              <div className="text-gray-200 text-sm md:text-base leading-relaxed">
+              <div className="text-gray-600 text-sm md:text-base leading-relaxed">
                 {/* Mobile text block */}
                 <span className="block md:hidden">
                   {shortTextMobile}
                   {isLongMobile && (
                     <button
                       onClick={() => setIsOpen(true)}
-                      className="ml-2 inline-flex items-center text-blue-900 underline hover:text-blue-800 font-semibold transition-colors group"
+                      className="ml-2 inline-flex items-center text-[#002B5B] underline hover:text-[#001f42] font-semibold transition-colors group"
                     >
                       Read more
                       <span className="ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -95,7 +94,7 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
                   {isLongDesktop && (
                     <button
                       onClick={() => setIsOpen(true)}
-                      className="ml-2 inline-flex items-center text-blue-900 underline hover:text-blue-800 font-semibold transition-colors group"
+                      className="ml-2 inline-flex items-center text-[#002B5B] underline hover:text-[#001f42] font-semibold transition-colors group"
                     >
                       Read more
                       <span className="ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -111,7 +110,7 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
       </div>
 
       {/* Description Modal */}
-      <Modal isOpen={isOpen} maxWidth="md:max-w-3xl" className='bg-white/95 backdrop-blur-xl p-6 md:p-8 rounded-2xl shadow-2xl' onClose={() => setIsOpen(false)}>
+      <Modal isOpen={isOpen} maxWidth="md:max-w-3xl" className='bg-white p-6 md:p-8 rounded-2xl shadow-2xl border border-gray-100' onClose={() => setIsOpen(false)}>
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-[#002B5B]">
             About {builder?.name}
@@ -123,7 +122,7 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
       </Modal>
 
       {/* Content Sections */}
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-32 space-y-16 md:space-y-24">
+      <div className="w-full mx-auto px-2 md:px-8 lg:px-24 pt-8 md:pt-12 space-y-8 md:space-y-12">
         {(builder?.employees?.length ?? 0) > 0 && (
           <section>
             <KeyEmployees employees={builder?.employees} />
@@ -137,9 +136,8 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
         )}
 
         <section>
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold text-[#002B5B] tracking-tight">Our Projects</h2>
-            <div className="h-1 w-20 bg-gradient-to-r from-[#002B5B] to-blue-800 rounded-full mt-3"></div>
+          <div className="md:mb-4 mb-3 flex items-center justify-between">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#002B5B] tracking-tight">Our Projects</h2>
           </div>
           <div className="bg-white rounded-3xl p-4 md:p-6 shadow-xl border border-gray-100">
             <Map builder={builder} />

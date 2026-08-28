@@ -3,6 +3,9 @@ import type { Metadata } from 'next';
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import AffordabilityCalculator from './components/AffordabilityCalculator';
 import { constructMetadata } from '@/src/utils/seo';
+import ScrollToTop from '@/src/components/atoms/ScrollToTop';
+
+export const dynamic = "force-static";
 
 export const metadata: Metadata = constructMetadata({
   title: "Home Loan Affordability Calculator - Check Purchasing Power | Justflip",

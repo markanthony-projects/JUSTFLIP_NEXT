@@ -26,6 +26,7 @@ const FAQ = dynamic(() => import("../../../components/FAQ"));
 const PropertySupply = dynamic(() => import("../../../components/PropertySupply"));
 import { constructMetadata } from "@/src/utils/seo";
 import { Metadata } from 'next';
+import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
 type ZonePageProps = {
   params: Promise<{ city: string; zone: string }>;
@@ -69,6 +70,7 @@ export default async function ZonePage({ params }: ZonePageProps) {
 
   return (
     <div className="w-full px-2 md:px-4">
+      <ScrollToTop />
       <Breadcrumb items={breadcrumbItems} />
 
       <div className="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-4 gap-6 mx-auto">

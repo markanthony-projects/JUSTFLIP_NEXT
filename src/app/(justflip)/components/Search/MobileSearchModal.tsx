@@ -154,6 +154,8 @@ export default function MobileSearchModal() {
         }
     };
 
+    if (!isSearchModalOpen) return null;
+
     return (
         <>
             <div className={`fixed inset-0 z-[110] bg-white flex flex-col animate-slide-up md:hidden h-[100dvh] w-full`}>
