@@ -23,7 +23,7 @@ export default function Breadcrumb({ items = [], color = "#002B5B", zTop = false
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
-            <nav className={`py-2 text-sm w-full overflow-hidden  ${zTop ? "text-white absolute top-1 z-30" : ""}`}>
+            <nav aria-label="Breadcrumb" className={`py-2 text-sm w-full overflow-hidden  ${zTop ? "text-white absolute top-1 z-30" : ""}`}>
             <ol className={`flex w-full text-xs items-center gap-1 overflow-x-auto whitespace-nowrap scrollbar-hidden text-[${color}] ${zTop ? "flex-1 px-2 md:px-8 lg:px-24 py-1 w-full mx-auto" : ""}`}>
                 <li className="flex items-center shrink-0">
                     <Link href="/" className="hover:underline" style={{ color }}>Home</Link>
@@ -31,7 +31,7 @@ export default function Breadcrumb({ items = [], color = "#002B5B", zTop = false
 
                 {items?.map((item: BreadcrumbItem, index: number) => (
                     <li key={index} className="flex items-center gap-1 shrink-0">
-                        <MdOutlineKeyboardArrowRight />
+                        <MdOutlineKeyboardArrowRight aria-hidden="true" />
 
                         {item.href ? (
                             <Link
