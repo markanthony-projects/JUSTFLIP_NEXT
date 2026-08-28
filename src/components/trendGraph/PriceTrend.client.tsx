@@ -22,7 +22,7 @@ export default function PriceTrend({ data = [] }: PriceTrendProps) {
         });
     }, [data, selectedRange, currentYear]);
 
-    const averagePrice = useMemo(() => calculateAverage(data), [data]);
+    const averagePrice = useMemo(() => calculateAverage(filteredData), [filteredData]);
     const currency = filteredData.at(-1)?.currency || "INR";
     const currencySymbol = getCurrencySymbol(currency);
 
@@ -49,18 +49,18 @@ export default function PriceTrend({ data = [] }: PriceTrendProps) {
                         <AreaChart data={filteredData}>
                             <defs>
                                 <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
+                                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                                 </linearGradient>
                             </defs>
 
                             <XAxis dataKey="year" />
 
-                            <YAxis width={50} tick={{ fontSize: 14, fill: "#585858" }} tickFormatter={formatYAxis} axisLine={false} tickMargin={5} />
+                            <YAxis width={50} tick={{ fontSize: 14, fill: "#585858" }} tickFormatter={formatYAxis} axisLine={false} tickMargin={10} />
 
                             <CartesianGrid strokeDasharray="3 3" vertical={false} />
                             <Tooltip content={<CustomTooltip />} />
-                            <Area type="monotone" dataKey="price" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPrice)" />
+                            <Area type="monotone" dataKey="price" stroke="#3b82f6" fillOpacity={0.3} fill="url(#colorPrice)" />
                         </AreaChart>
                     </ResponsiveContainer>
                 </div>
