@@ -45,20 +45,20 @@ const PrivacyPolicy = () => {
             {/* Hero Header */}
             <header className='mt-6 flex min-h-[170px] flex-col items-center justify-center rounded-2xl bg-[#EAF3FA] px-6 py-5 text-center'>
                 <div className='mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-sm'>
-                    <SiGnuprivacyguard size={28} className='text-[#002B5B]' />
+                    <SiGnuprivacyguard aria-hidden="true" size={28} className='text-[#002B5B]' />
                 </div>
 
                 <h1 className='text-2xl font-bold tracking-tight text-[#002B5B] sm:text-3xl'>
                     {privacyPolicy.title}
                 </h1>
 
-                <p className='mt-3 max-w-2xl text-[14px] text-gray-600'>
+                <p className='mt-3 max-w-2xl text-[14px] text-gray-700'>
                     Learn how JustFlip collects, uses, protects, and manages your
                     personal information.
                 </p>
 
                 {privacyPolicy.lastUpdated && (
-                    <p className='mt-2 text-xs text-gray-500'>
+                    <p className='mt-2 text-xs text-gray-700'>
                     Last updated: {privacyPolicy.lastUpdated}
                     </p>
                 )}
@@ -68,10 +68,10 @@ const PrivacyPolicy = () => {
             <section className='mt-10 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
                 <div className='flex items-start gap-4'>
                     <div className='mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#EAF3FA]'>
-                        <FiShield className='text-[#002B5B]' size={19} />
+                        <FiShield aria-hidden="true" className='text-[#002B5B]' size={19} />
                     </div>
 
-                    <div className='text-[10px] leading-6 text-gray-600 sm:text-[12px]'>
+                    <div className='text-[10px] leading-6 text-gray-700 sm:text-[12px]'>
                         {privacyPolicy.intro?.paragraphs?.map((paragraph, index) => (
                             <p key={index}>{paragraph}</p>
                         ))}
@@ -106,7 +106,7 @@ const PrivacyPolicy = () => {
                         {section.paragraphs?.map((paragraph, paragraphIndex) => (
                             <p
                             key={paragraphIndex}
-                            className='mt-3 text-[10px] text-gray-600 sm:text-sm'
+                            className='mt-3 text-[10px] text-gray-700 sm:text-sm'
                             >
                             {paragraph}
                             </p>
@@ -118,9 +118,10 @@ const PrivacyPolicy = () => {
                             {section.items!.map((item, itemIndex) => (
                                 <li
                                 key={itemIndex}
-                                className='flex items-start gap-3 text-[10px] leading-7 text-gray-600 sm:text-sm'
+                                className='flex items-start gap-3 text-[10px] leading-7 text-gray-700 sm:text-sm'
                                 >
                                 <FiArrowRight
+                                    aria-hidden="true"
                                     size={15}
                                     className='mt-1.5 shrink-0 text-[#002B5B]'
                                 />
@@ -145,7 +146,7 @@ const PrivacyPolicy = () => {
                                     (paragraph, paragraphIndex) => (
                                         <p
                                             key={paragraphIndex}
-                                            className='mt-2 text-[10px] text-gray-600 sm:text-sm'
+                                            className='mt-2 text-[10px] text-gray-700 sm:text-sm'
                                         >
                                             {paragraph}
                                         </p>
@@ -157,9 +158,10 @@ const PrivacyPolicy = () => {
                                         {subsection.items!.map((item, itemIndex) => (
                                         <li
                                             key={itemIndex}
-                                            className='flex items-start gap-3 text-[10px] leading-7 text-gray-600 sm:text-sm'
+                                            className='flex items-start gap-3 text-[10px] leading-7 text-gray-700 sm:text-sm'
                                         >
                                             <FiArrowRight
+                                                aria-hidden="true"
                                                 size={17}
                                                 className='mt-1.5 shrink-0 text-[#002B5B]'
                                             />
@@ -176,7 +178,7 @@ const PrivacyPolicy = () => {
 
                         {/* Footer paragraph */}
                         {section.footerParagraph && (
-                            <p className='mt-5 text-[10px] leading-7 text-gray-600 sm:text-sm'>
+                            <p className='mt-5 text-[10px] leading-7 text-gray-700 sm:text-sm'>
                                 {section.footerParagraph}
                             </p>
                         )}
@@ -192,7 +194,7 @@ const PrivacyPolicy = () => {
                     Questions about your privacy?
                 </h3>
 
-                <p className='mt-2 text-sm leading-6 text-gray-600'>
+                <p className='mt-2 text-sm leading-6 text-gray-700'>
                     If you have any questions or concerns about how JustFlip handles
                     your information, our support team is available to help.
                 </p>
@@ -201,13 +203,13 @@ const PrivacyPolicy = () => {
                     href='mailto:support@justflip.in'
                     className='mt-4 inline-flex items-center gap-2 font-medium text-[#002B5B] transition-colors hover:text-[#001F42] hover:underline'
                 >
-                    <FiMail size={16} />
+                    <FiMail aria-hidden="true" size={16} />
                     support@justflip.in
                 </a>
             </section>
 
             {/* Footer */}
-            <footer className='py-10 text-center text-sm text-gray-400'>
+            <footer className='py-10 text-center text-sm text-gray-600'>
                 <p>© {new Date().getFullYear()} JustFlip. All rights reserved.</p>
             </footer>
         </div>

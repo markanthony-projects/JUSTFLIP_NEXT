@@ -18,21 +18,29 @@ async function getBlogData({ id }: { id: string }) {
 }
 
 export async function generateMetadata({ params }: BlogDetailsProps): Promise<Metadata> {
-  const { slug } = await params;
-  const { name, id } = parseBlogDetailsUrl(slug);
+  try {
+    const { slug } = await params;
+    const { name, id } = parseBlogDetailsUrl(slug);
 
-  const blog = await getBlogData({ id });
+    const blog = await getBlogData({ id });
 
-  const title = blog?.title || blog?.heading ? `${blog?.title || blog?.heading} | JustFlip Blogs` : `${name} - Real Estate Blog | JustFlip`;
-  const description = blog?.shortDescription || blog?.meta?.description || blog?.subHeading || (blog?.description ? blog.description.replace(/<[^>]+>/g, '').substring(0, 160) : `Read the latest insights on ${name}. Get expert real estate news, market trends, and investment tips on JustFlip Blogs.`);
+    const title = blog?.title || blog?.heading ? `${blog?.title || blog?.heading} | JustFlip Blogs` : `${name || "Real Estate Blog"} | JustFlip`;
+    const cleanDescription = (blog?.shortDescription || blog?.meta?.description || blog?.subHeading || (blog?.description ? blog.description.replace(/<[^>]+>/g, '').substring(0, 160) : `Read the latest insights and updates on ${name || "real estate"}. Get expert property news, market trends, and investment tips on JustFlip Blogs.`)).trim();
 
-  return constructMetadata({
-    title,
-    description,
-    canonical: `/blogs/${slug}`,
-    image: blog?.image?.url || 'https://justflip.in/logo.png',
-    type: 'article'
-  });
+    return constructMetadata({
+      title,
+      description: cleanDescription,
+      canonical: `/blogs/${slug}`,
+      image: blog?.image?.url || 'https://justflip.in/logo.png',
+      type: 'article'
+    });
+  } catch {
+    return constructMetadata({
+      title: "Real Estate Blog | JustFlip Blogs",
+      description: "Read the latest real estate news, market trends, and expert property investment guides on JustFlip Blogs.",
+      canonical: "/blogs"
+    });
+  }
 }
 
 export const revalidate = 3600;

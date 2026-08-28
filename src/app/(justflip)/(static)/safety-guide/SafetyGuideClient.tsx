@@ -101,14 +101,14 @@ const SafetyGuideClient = () => {
         {/* Hero */}
         <header className='mt-6 rounded-2xl bg-[#EAF3FA] px-6 py-6 text-center sm:px-8 sm:py-8'>
           <div className='mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white shadow-sm'>
-            <AiFillSafetyCertificate size={36} className='text-[#002B5B]' />
+            <AiFillSafetyCertificate aria-hidden="true" size={36} className='text-[#002B5B]' />
           </div>
 
           <h1 className='mt-2 text-2xl font-bold tracking-tight text-[#002B5B] sm:text-3xl'>
             Stay Safe with JustFlip
           </h1>
 
-          <p className='mx-auto max-w-2xl text-[12px] leading-6 text-gray-600'>
+          <p className='mx-auto max-w-2xl text-xs leading-6 text-gray-700'>
             Your safety matters to us. Follow these guidelines to help protect
             yourself from scams and make safer property decisions.
           </p>
@@ -118,7 +118,7 @@ const SafetyGuideClient = () => {
         <section className='mt-6 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
           <div className='flex items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FA]'>
-              <FiCheckCircle size={24} className='text-[#002B5B]' />
+              <FiCheckCircle aria-hidden="true" size={24} className='text-[#002B5B]' />
             </div>
 
             <div>
@@ -126,7 +126,7 @@ const SafetyGuideClient = () => {
                 A few simple precautions can make a big difference
               </h2>
 
-              <p className='text-[12px] leading-6 text-gray-600'>
+              <p className='text-xs leading-6 text-gray-700'>
                 Whether you are buying, renting, selling, or simply exploring
                 properties, take time to verify information and avoid making
                 rushed decisions.
@@ -142,7 +142,7 @@ const SafetyGuideClient = () => {
               Essential Safety Tips
             </h2>
 
-            <p className='text-sm text-gray-600'>
+            <p className='text-sm text-gray-700'>
               Keep these points in mind whenever you interact with a property
               listing or another user.
             </p>
@@ -159,7 +159,7 @@ const SafetyGuideClient = () => {
                 >
                   <div className='flex items-start gap-4'>
                     <div className='flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#EAF3FA]'>
-                      <Icon size={22} className='text-[#002B5B]' />
+                      <Icon aria-hidden="true" size={22} className='text-[#002B5B]' />
                     </div>
 
                     <div>
@@ -167,7 +167,7 @@ const SafetyGuideClient = () => {
                         {item.title}
                       </h3>
 
-                      <p className='mt-1 text-sm leading-6 text-gray-600'>
+                      <p className='mt-1 text-sm leading-6 text-gray-700'>
                         {item.description}
                       </p>
                     </div>
@@ -182,7 +182,7 @@ const SafetyGuideClient = () => {
         <section className='mt-8 rounded-2xl border border-[#F0D7B5] bg-[#FFF9F0] p-6 sm:p-8'>
           <div className='flex flex-col sm:flex-row items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white'>
-              <FiAlertTriangle size={25} className='text-[#d0190c]' />
+              <FiAlertTriangle aria-hidden="true" size={25} className='text-[#d0190c]' />
             </div>
 
             <div className='flex-1'>
@@ -190,7 +190,7 @@ const SafetyGuideClient = () => {
                 Watch Out for Red Flags
               </h2>
 
-              <p className='text-[12px] leading-6 text-gray-600'>
+              <p className='text-xs leading-6 text-gray-700'>
                 Be especially cautious when you notice any of the following
                 situations:
               </p>
@@ -199,9 +199,10 @@ const SafetyGuideClient = () => {
                 {redFlags.map(flag => (
                   <li
                     key={flag}
-                    className='flex items-start gap-3 text-sm leading-6 text-gray-700'
+                    className='flex items-start gap-3 text-sm leading-6 text-gray-800'
                   >
                     <FiAlertTriangle
+                      aria-hidden="true"
                       size={17}
                       className='mt-1 shrink-0 text-[#d0190c]'
                     />
@@ -218,7 +219,7 @@ const SafetyGuideClient = () => {
         <section className='mt-8 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
           <div className='flex flex-col sm:flex-row items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FA]'>
-              <SiGooglestreetview size={24} className='text-[#002B5B]' />
+              <SiGooglestreetview aria-hidden="true" size={24} className='text-[#002B5B]' />
             </div>
 
             <div>
@@ -226,7 +227,7 @@ const SafetyGuideClient = () => {
                 When Viewing a Property
               </h2>
 
-              <p className='text-[12px] leading-6 text-gray-600'>
+              <p className='text-xs leading-6 text-gray-700'>
                 An online listing is only the beginning. Take reasonable steps
                 to verify what you see online before moving forward.
               </p>
@@ -243,11 +244,12 @@ const SafetyGuideClient = () => {
                     className='flex items-start gap-2 rounded-xl bg-[#F7FAFC] p-3'
                   >
                     <FiCheckCircle
+                      aria-hidden="true"
                       size={18}
                       className='mt-0.5 shrink-0 text-[#002B5B]'
                     />
 
-                    <span className='text-sm leading-6 text-gray-600'>
+                    <span className='text-sm leading-6 text-gray-700'>
                       {item}
                     </span>
                   </div>
@@ -261,7 +263,7 @@ const SafetyGuideClient = () => {
         <section className='mt-8 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
           <div className='flex flex-col sm:flex-row items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FA]'>
-              <FiCreditCard size={24} className='text-[#002B5B]' />
+              <FiCreditCard aria-hidden="true" size={24} className='text-[#002B5B]' />
             </div>
 
             <div className='flex-1 w-full'>
@@ -269,7 +271,7 @@ const SafetyGuideClient = () => {
                 Before Making a Transaction
               </h2>
 
-              <p className='text-[12px] leading-6 text-gray-600'>
+              <p className='text-xs leading-6 text-gray-700'>
                 Property transactions can involve significant amounts of money.
                 Take the time to verify the details before proceeding.
               </p>
@@ -284,7 +286,7 @@ const SafetyGuideClient = () => {
                       {index + 1}
                     </div>
 
-                    <p className='text-sm leading-6 text-gray-600'>{step}</p>
+                    <p className='text-sm leading-6 text-gray-700'>{step}</p>
                   </div>
                 ))}
               </div>
@@ -296,7 +298,7 @@ const SafetyGuideClient = () => {
         <section className='mt-8 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
           <div className='flex flex-col sm:flex-row items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FA]' >
-              <FiLock size={24} className='text-[#002B5B]' />
+              <FiLock aria-hidden="true" size={24} className='text-[#002B5B]' />
             </div>
 
             <div>
@@ -304,7 +306,7 @@ const SafetyGuideClient = () => {
                 Protect Your Personal Information
               </h2>
 
-              <p className='mt-2 text-sm leading-6 text-gray-600'>
+              <p className='mt-2 text-sm leading-6 text-gray-700'>
                 Keep sensitive information private and never share information
                 that another person does not legitimately need.
               </p>
@@ -321,11 +323,12 @@ const SafetyGuideClient = () => {
                     className='flex items-start gap-3 rounded-xl border border-[#D8E4EE] p-4'
                   >
                     <FiLock
+                      aria-hidden="true"
                       size={17}
                       className='mt-1 shrink-0 text-[#002B5B]'
                     />
 
-                    <span className='text-sm leading-6 text-gray-600'>
+                    <span className='text-sm leading-6 text-gray-700'>
                       {item}
                     </span>
                   </div>
@@ -339,7 +342,7 @@ const SafetyGuideClient = () => {
         <section className='mt-8 rounded-2xl bg-[#002B5B] p-6 text-white sm:p-8'>
           <div className='flex items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10'>
-              <FiFlag size={24} className='text-white' />
+              <FiFlag aria-hidden="true" size={24} className='text-white' />
             </div>
 
             <div>
@@ -347,7 +350,7 @@ const SafetyGuideClient = () => {
                 See Something Suspicious?
               </h2>
 
-              <p className='mt-2 text-sm leading-6 text-white/80'>
+              <p className='mt-2 text-sm leading-6 text-blue-50'>
                 If you come across a suspicious listing, unusual request, or
                 behaviour that appears fraudulent, do not proceed with the
                 transaction. Report the activity to JustFlip so it can be
@@ -359,7 +362,7 @@ const SafetyGuideClient = () => {
                 type='button'
                 className='mt-5 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-[#002B5B] transition hover:bg-[#EAF3FA]'
               >
-                <FiFlag size={17} />
+                <FiFlag aria-hidden="true" size={17} />
                 Report Suspicious Activity
               </button>
             </div>
@@ -370,7 +373,7 @@ const SafetyGuideClient = () => {
         <section className='mt-6 rounded-2xl border border-[#D8E4EE] bg-[#EAF3FA] p-6 sm:p-8'>
           <div className='flex items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white'>
-              <FiShield size={24} className='text-[#002B5B]' />
+              <FiShield aria-hidden="true" size={24} className='text-[#002B5B]' />
             </div>
 
             <div>
@@ -378,7 +381,7 @@ const SafetyGuideClient = () => {
                 Important
               </h2>
 
-              <p className='mt-2 text-sm leading-6 text-gray-600'>
+              <p className='mt-2 text-sm leading-6 text-gray-700'>
                 JustFlip provides a platform for property-related interactions.
                 Always use your own judgment and take appropriate precautions
                 before entering into any financial or legal transaction.
@@ -388,7 +391,7 @@ const SafetyGuideClient = () => {
         </section>
 
         {/* Footer */}
-        <footer className='py-10 text-center text-sm text-gray-400'>
+        <footer className='py-10 text-center text-sm text-gray-600'>
           © {new Date().getFullYear()} JustFlip. All rights reserved.
         </footer>
       </div>

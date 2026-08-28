@@ -65,6 +65,7 @@ const ReportModal = ({
           <div className="flex items-start gap-3">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#EAF3FA]">
               <MdOutlineReportProblem
+                aria-hidden="true"
                 size={21}
                 className="text-[#b33411]"
               />
@@ -78,7 +79,7 @@ const ReportModal = ({
                 Report Suspicious Activity
               </h2>
 
-              <p className="text-[12px] text-gray-500">
+              <p className="text-xs text-gray-600">
                 Help us keep JustFlip safe.
               </p>
             </div>
@@ -88,9 +89,9 @@ const ReportModal = ({
             type="button"
             onClick={onClose}
             aria-label="Close report modal"
-            className="rounded-full p-1 text-gray-400 transition hover:bg-red-600 hover:text-white"
+            className="rounded-full p-1 text-gray-500 transition hover:bg-red-600 hover:text-white"
           >
-            <FiX className="w-4 h-4" />
+            <FiX aria-hidden="true" className="w-4 h-4" />
           </button>
         </div>
 
@@ -113,7 +114,7 @@ const ReportModal = ({
               value={category}
               onChange={ (e) => setCategory(e.target.value as ReportCategory) }
               required
-              className="mt-2 w-full rounded-lg border border-[#D8E4EE] bg-white px-4 py-3 text-sm text-gray-700 outline-none focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
+              className="mt-2 w-full rounded-lg border border-[#D8E4EE] bg-white px-4 py-3 text-sm text-gray-800 outline-none focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
             >
               <option value="" disabled>
                 Select a category
@@ -152,7 +153,7 @@ const ReportModal = ({
               className="block text-sm font-semibold text-[#002B5B]"
             >
               Property / Listing URL
-              <span className="ml-1 text-[12px] font-normal text-gray-400">
+              <span className="ml-1 text-xs font-normal text-gray-600">
                 (optional)
               </span>
             </label>
@@ -163,7 +164,7 @@ const ReportModal = ({
               value={listing}
               onChange={(e) => setListing(e.target.value)}
               placeholder="Paste listing URL or property ID"
-              className="mt-2 w-full rounded-xl border border-[#D8E4EE] px-4 py-3 text-sm text-gray-700 outline-none placeholder:text-gray-400 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
+              className="mt-2 w-full rounded-xl border border-[#D8E4EE] px-4 py-3 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
             />
           </div>
 
@@ -174,7 +175,7 @@ const ReportModal = ({
               className="block text-sm font-semibold text-[#002B5B]"
             >
               What happened?
-              <span className="ml-1 text-red-500">
+              <span className="ml-1 text-red-600">
                 *
               </span>
             </label>
@@ -187,10 +188,10 @@ const ReportModal = ({
               rows={5}
               maxLength={1500}
               placeholder="Please describe what you noticed..."
-              className="mt-2 w-full resize-none rounded-xl border border-[#D8E4EE] px-4 py-3 text-sm text-gray-700 outline-none placeholder:text-gray-400 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
+              className="mt-2 w-full resize-none rounded-xl border border-[#D8E4EE] px-4 py-3 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
             />
 
-            <div className="mt-1 text-right text-xs text-gray-400">
+            <div className="mt-1 text-right text-xs text-gray-600">
               {description.length}/1500
             </div>
           </div>
@@ -202,7 +203,7 @@ const ReportModal = ({
               className="block text-sm font-semibold text-[#002B5B]"
             >
               Evidence
-              <span className="ml-1 text-[12px] font-normal text-gray-400">
+              <span className="ml-1 text-xs font-normal text-gray-600">
                 (optional)
               </span>
             </label>
@@ -212,10 +213,10 @@ const ReportModal = ({
               type="file"
               accept="image/*,.pdf"
               onChange={(e) => { setFile(e.target.files?.[0] || null) }}
-              className="mt-2 w-full rounded-lg border border-[#D8E4EE] px-4 py-1 text-sm text-gray-600 file:mr-4 file:rounded-lg file:border-0 file:bg-[#EAF3FA] file:px-3 file:py-2 file:text-sm file:font-medium file:text-[#002B5B]"
+              className="mt-2 w-full rounded-lg border border-[#D8E4EE] px-4 py-1 text-sm text-gray-700 file:mr-4 file:rounded-lg file:border-0 file:bg-[#EAF3FA] file:px-3 file:py-2 file:text-sm file:font-medium file:text-[#002B5B]"
             />
 
-            <p className="mt-1 text-xs text-gray-400">
+            <p className="mt-1 text-xs text-gray-600">
               Upload a screenshot or relevant document.
             </p>
           </div>
@@ -227,7 +228,7 @@ const ReportModal = ({
               className="block text-sm font-semibold text-[#002B5B]"
             >
               Your email
-              <span className="ml-1 text-red-500">
+              <span className="ml-1 text-red-600">
                 *
               </span>
             </label>
@@ -239,10 +240,10 @@ const ReportModal = ({
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="you@example.com"
-              className="mt-2 w-full rounded-lg border border-[#D8E4EE] px-4 py-3 text-sm text-gray-700 outline-none placeholder:text-gray-400 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
+              className="mt-2 w-full rounded-lg border border-[#D8E4EE] px-4 py-3 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
             />
 
-            <p className="mt-1 text-xs text-gray-400">
+            <p className="mt-1 text-xs text-gray-600">
               We may contact you if additional information is required.
             </p>
           </div>

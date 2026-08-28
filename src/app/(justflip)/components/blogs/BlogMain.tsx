@@ -57,13 +57,14 @@ function BlogMain({
 
     return (
         <section className="mb-12">
-            <nav className="flex space-x-2 md:space-x-3 py-6 overflow-x-auto scrollbar-hidden">
+            <nav aria-label="Blog categories" className="flex space-x-2 md:space-x-3 py-6 overflow-x-auto scrollbar-hidden">
                 {categories.map((cat) => (
                     <button
+                        type="button"
                         key={cat}
                         className={`px-5 py-2.5 text-sm font-medium rounded-full whitespace-nowrap transition-all duration-300 ${category === cat
                                 ? "bg-black text-white shadow-md"
-                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                             }`}
                         onClick={() => {
                             setCategory(cat);

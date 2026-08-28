@@ -19,7 +19,7 @@ export interface LogoProps {
 
 const Logo = ({
   className = "w-20 h-7.5 sm:w-24 sm:h-9 lg:w-28 lg:h-10.5",
-  priority = false,
+  priority = true,
 }: LogoProps) => {
   return (
     <Link href="/" aria-label="Go to homepage" className="inline-block shrink-0">
@@ -31,6 +31,7 @@ const Logo = ({
           sizes="(max-width: 640px) 80px, (max-width: 1024px) 96px, 112px"
           className="object-contain"
           priority={priority}
+          fetchPriority="high"
         />
       </div>
     </Link>

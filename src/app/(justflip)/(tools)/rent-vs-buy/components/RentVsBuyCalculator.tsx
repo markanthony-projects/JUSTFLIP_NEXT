@@ -3,16 +3,6 @@
 import Link from "next/link";
 import React, { useState, useMemo } from "react";
 import { FaArrowRight, FaHome } from "react-icons/fa";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 
 // Helper function to format Indian Currency dynamically into Lakh / Cr
 const formatIndianCurrency = (amountInRupees: number): string => {
@@ -31,6 +21,7 @@ export default function RentVsBuyCalculator() {
   const [loanInterestRate, setLoanInterestRate] = useState<number>(8.9); // 8.9%
   const [investmentReturn, setInvestmentReturn] = useState<number>(12); // 12%
   const [tenureYears, setTenureYears] = useState<number>(15); // 15 Years
+  const [hoveredYearIndex, setHoveredYearIndex] = useState<number | null>(null);
 
   const downPaymentPercent = 0.2; // 20%
   const rentInflation = 0.05; // 5% annual rent hike
@@ -55,7 +46,7 @@ export default function RentVsBuyCalculator() {
     let renterInvestmentCorpus = downPayment;
     let monthlyRent = currentRent;
 
-    const chartData = [];
+    const chartData: { year: number; buyerNetWorthNum: number; renterNetWorthNum: number }[] = [];
 
     for (let year = 1; year <= tenureYears; year++) {
       // 1. BUYING SCENARIO
@@ -85,16 +76,14 @@ export default function RentVsBuyCalculator() {
       monthlyRent *= 1 + rentInflation;
 
       chartData.push({
-        year: `Yr ${year}`,
-        buyerNetWorthNum: buyerNetWorth,
-        renterNetWorthNum: renterInvestmentCorpus,
+        year,
+        buyerNetWorthNum: Math.round(buyerNetWorth),
+        renterNetWorthNum: Math.round(renterInvestmentCorpus),
       });
     }
 
     const finalBuyerNW = chartData[chartData.length - 1].buyerNetWorthNum;
-    console.log("buyer....",finalBuyerNW)
     const finalRenterNW = chartData[chartData.length - 1].renterNetWorthNum;
-    console.log("renter ...",finalRenterNW)
     const buyingIsBetter = finalBuyerNW > finalRenterNW;
 
     return {
@@ -116,11 +105,54 @@ export default function RentVsBuyCalculator() {
 
   const THEME_COLOR = "#002B5B";
 
+  // SVG Line Chart Dimensions & Coordinate Mapping
+  const chartWidth = 520;
+  const chartHeight = 220;
+  const paddingLeft = 65;
+  const paddingRight = 20;
+  const paddingTop = 20;
+  const paddingBottom = 30;
+
+  const plotWidth = chartWidth - paddingLeft - paddingRight;
+  const plotHeight = chartHeight - paddingTop - paddingBottom;
+
+  const maxVal = useMemo(() => {
+    const allValues = calculationData.chartData.flatMap((d) => [
+      d.buyerNetWorthNum,
+      d.renterNetWorthNum,
+    ]);
+    return Math.max(...allValues, 100000) * 1.1;
+  }, [calculationData.chartData]);
+
+  const getX = (index: number, total: number) => {
+    if (total <= 1) return paddingLeft + plotWidth / 2;
+    return paddingLeft + (index / (total - 1)) * plotWidth;
+  };
+
+  const getY = (val: number) => {
+    return paddingTop + plotHeight - (Math.max(0, val) / maxVal) * plotHeight;
+  };
+
+  const buyerPoints = calculationData.chartData
+    .map((d, i) => `${getX(i, calculationData.chartData.length)},${getY(d.buyerNetWorthNum)}`)
+    .join(" ");
+
+  const renterPoints = calculationData.chartData
+    .map((d, i) => `${getX(i, calculationData.chartData.length)},${getY(d.renterNetWorthNum)}`)
+    .join(" ");
+
+  const yTicks = [0, 0.25, 0.5, 0.75, 1];
+
+  const activePoint =
+    hoveredYearIndex !== null && calculationData.chartData[hoveredYearIndex]
+      ? calculationData.chartData[hoveredYearIndex]
+      : calculationData.chartData[calculationData.chartData.length - 1];
+
   return (
     <div className="w-full max-w-6xl mx-auto p-3 md:p-8 bg-white rounded-2xl shadow-sm border border-slate-100">
-      <h2 className="text-xl md:text-3xl font-bold text-slate-800 mb-8">
+      <h1 className="text-xl md:text-3xl font-bold text-slate-900 mb-8">
         Rent vs Buy Financial Decision Tool
-      </h2>
+      </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Inputs Panel */}
@@ -128,7 +160,7 @@ export default function RentVsBuyCalculator() {
           {/* Property Price */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
-              <label htmlFor="property-price-range" className="text-slate-600">Property Price</label>
+              <label htmlFor="property-price-range" className="text-slate-700 font-medium">Property Price</label>
               <span style={{ color: THEME_COLOR }} className="font-bold">
                 {formatIndianCurrency(propertyPrice)}
               </span>
@@ -151,7 +183,7 @@ export default function RentVsBuyCalculator() {
           {/* Monthly Rent */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
-              <label htmlFor="monthly-rent-range" className="text-slate-600">Monthly Rent</label>
+              <label htmlFor="monthly-rent-range" className="text-slate-700 font-medium">Monthly Rent</label>
               <span style={{ color: THEME_COLOR }} className="font-bold">
                 ₹{currentRent.toLocaleString("en-IN")}
               </span>
@@ -174,7 +206,7 @@ export default function RentVsBuyCalculator() {
           {/* Home Loan Interest Rate */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
-              <label htmlFor="loan-interest-rate-range" className="text-slate-600">Home Loan Interest Rate</label>
+              <label htmlFor="loan-interest-rate-range" className="text-slate-700 font-medium">Home Loan Interest Rate</label>
               <span style={{ color: THEME_COLOR }} className="font-bold">
                 {loanInterestRate}%
               </span>
@@ -197,7 +229,7 @@ export default function RentVsBuyCalculator() {
           {/* Time Horizon (Tenure) */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
-              <label htmlFor="tenure-years-range" className="text-slate-600">Time Horizon</label>
+              <label htmlFor="tenure-years-range" className="text-slate-700 font-medium">Time Horizon</label>
               <span style={{ color: THEME_COLOR }} className="font-bold">
                 {tenureYears} Years
               </span>
@@ -220,7 +252,7 @@ export default function RentVsBuyCalculator() {
           {/* Property Appreciation */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
-              <label htmlFor="appreciation-rate-range" className="text-slate-600">Expected Property Growth</label>
+              <label htmlFor="appreciation-rate-range" className="text-slate-700 font-medium">Expected Property Growth</label>
               <span style={{ color: THEME_COLOR }} className="font-bold">
                 {appreciationRate}%
               </span>
@@ -243,7 +275,7 @@ export default function RentVsBuyCalculator() {
           {/* SIP Investment Return */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
-              <label htmlFor="investment-return-range" className="text-slate-600">SIP Investment Return</label>
+              <label htmlFor="investment-return-range" className="text-slate-700 font-medium">SIP Investment Return</label>
               <span style={{ color: THEME_COLOR }} className="font-bold">
                 {investmentReturn}%
               </span>
@@ -265,21 +297,21 @@ export default function RentVsBuyCalculator() {
 
           {/* Breakdown Box */}
           <div className="pt-3 border-t border-slate-200 space-y-2 text-xs md:text-sm">
-            <div className="flex justify-between text-slate-600">
+            <div className="flex justify-between text-slate-700 font-medium">
               <span>Down Payment (20%):</span>
-              <span className="font-semibold text-slate-800">
+              <span className="font-semibold text-slate-900">
                 {formatIndianCurrency(calculationData.downPayment)}
               </span>
             </div>
-            <div className="flex justify-between text-slate-600">
+            <div className="flex justify-between text-slate-700 font-medium">
               <span>Loan Principal Amount:</span>
-              <span className="font-semibold text-slate-800">
+              <span className="font-semibold text-slate-900">
                 {formatIndianCurrency(calculationData.loanAmount)}
               </span>
             </div>
             <div className="flex justify-between items-center text-slate-900 pt-1 font-bold">
               <span>Estimated EMI:</span>
-              <span className="text-base">
+              <span className="text-base font-bold text-[#002B5B]">
                 ₹{calculationData.emi.toLocaleString("en-IN")}/mo
               </span>
             </div>
@@ -292,14 +324,14 @@ export default function RentVsBuyCalculator() {
             className="p-5 rounded-2xl text-center border shadow-sm transition-all"
             style={{
               backgroundColor: calculationData.buyingIsBetter
-                ? "#02BD5B10"
+                ? "#002B5B10"
                 : "#2563EB10",
               borderColor: calculationData.buyingIsBetter
                 ? THEME_COLOR
                 : "#2563EB",
             }}
           >
-            <h3
+            <h2
               className="text-xl md:text-2xl font-extrabold"
               style={{
                 color: calculationData.buyingIsBetter ? THEME_COLOR : "#2563EB",
@@ -308,8 +340,8 @@ export default function RentVsBuyCalculator() {
               {calculationData.buyingIsBetter
                 ? "Buying is Financially Better"
                 : "Renting & Investing is Better"}
-            </h3>
-            <p className="text-sm md:text-base font-medium text-slate-600 mt-1">
+            </h2>
+            <p className="text-sm md:text-base font-medium text-slate-700 mt-1">
               Over {tenureYears} years,{" "}
               {calculationData.buyingIsBetter ? "buying" : "renting"} generates{" "}
               <strong className="text-slate-900 font-bold">
@@ -326,7 +358,7 @@ export default function RentVsBuyCalculator() {
               </div>
               <div>
                 <p className="text-xs sm:text-sm font-bold text-gray-900">Ready to make a move?</p>
-                <p className="text-[11px] text-gray-600">Browse properties matching your budget up to {formatIndianCurrency(propertyPrice)}</p>
+                <p className="text-xs text-gray-700 font-medium">Browse properties matching your budget up to {formatIndianCurrency(propertyPrice)}</p>
               </div>
             </div>
             <Link
@@ -338,56 +370,139 @@ export default function RentVsBuyCalculator() {
             </Link>
           </div>
 
-          {/* Chart Section */}
-          <div className="w-full h-[360px] pt-2">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart
-                data={calculationData.chartData}
-                margin={{ top: 10, right: 20, left: 10, bottom: 0 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-                <XAxis
-                  dataKey="year"
-                  stroke="#64748B"
-                  fontSize={12}
-                  tickLine={false}
+          {/* Zero-Overhead Pure Vector SVG Comparison Chart */}
+          <div className="w-full bg-slate-50/50 rounded-2xl p-4 border border-slate-100">
+            {/* Live Hover Metrics Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200 text-xs sm:text-sm">
+              <span className="font-bold text-slate-800">
+                Year {activePoint.year} Projection:
+              </span>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1.5 font-bold text-[#002B5B]">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#002B5B]" />
+                  <span>Buy: {formatIndianCurrency(activePoint.buyerNetWorthNum)}</span>
+                </div>
+                <div className="flex items-center gap-1.5 font-bold text-emerald-700">
+                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-600" />
+                  <span>Rent: {formatIndianCurrency(activePoint.renterNetWorthNum)}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Vector Chart */}
+            <div className="w-full aspect-[2/1] min-h-[220px] max-h-[300px]">
+              <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} className="w-full h-full">
+                {/* Horizontal Grid Lines & Y-Axis Labels */}
+                {yTicks.map((ratio) => {
+                  const yPos = paddingTop + plotHeight * (1 - ratio);
+                  const labelVal = maxVal * ratio;
+                  return (
+                    <g key={ratio}>
+                      <line
+                        x1={paddingLeft}
+                        y1={yPos}
+                        x2={chartWidth - paddingRight}
+                        y2={yPos}
+                        stroke="#e2e8f0"
+                        strokeDasharray="3 3"
+                        strokeWidth="1"
+                      />
+                      <text
+                        x={paddingLeft - 8}
+                        y={yPos + 4}
+                        textAnchor="end"
+                        fontSize="10"
+                        fontWeight="600"
+                        fill="#64748b"
+                      >
+                        {formatIndianCurrency(labelVal)}
+                      </text>
+                    </g>
+                  );
+                })}
+
+                {/* X-Axis Ticks & Labels */}
+                {calculationData.chartData.map((d, i) => {
+                  const total = calculationData.chartData.length;
+                  const showLabel =
+                    i === 0 ||
+                    i === Math.floor(total / 2) ||
+                    i === total - 1 ||
+                    total <= 6;
+                  const xPos = getX(i, total);
+
+                  return (
+                    <g key={d.year}>
+                      {showLabel && (
+                        <text
+                          x={xPos}
+                          y={chartHeight - 8}
+                          textAnchor="middle"
+                          fontSize="10"
+                          fontWeight="600"
+                          fill="#64748b"
+                        >
+                          Yr {d.year}
+                        </text>
+                      )}
+                    </g>
+                  );
+                })}
+
+                {/* Renter Polyline (Green) */}
+                <polyline
+                  points={renterPoints}
+                  fill="none"
+                  stroke="#10b981"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
-                <YAxis
-                  stroke="#64748B"
-                  fontSize={12}
-                  tickLine={false}
-                  tickFormatter={(val) => formatIndianCurrency(val)}
+
+                {/* Buyer Polyline (Navy) */}
+                <polyline
+                  points={buyerPoints}
+                  fill="none"
+                  stroke="#002B5B"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
-                <Tooltip
-                  formatter={(value) => [
-                    formatIndianCurrency(Number(value)),
-                    "",
-                  ]}
-                  contentStyle={{
-                    borderRadius: "12px",
-                    borderColor: "#E2E8F0",
-                    boxShadow: "0px 4px 12px rgba(0,0,0,0.05)",
-                  }}
-                />
-                <Legend wrapperStyle={{ paddingTop: "15px" }} />
-                <Line
-                  type="monotone"
-                  dataKey="buyerNetWorthNum"
-                  name="Buying Net Worth"
-                  stroke={calculationData.buyingIsBetter ? THEME_COLOR : "#94A3B8"}
-                  strokeWidth={calculationData.buyingIsBetter ? 3.5 : 2}
-                  dot={false}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="renterNetWorthNum"
-                  name="Renting Net Worth"
-                  stroke={!calculationData.buyingIsBetter ? THEME_COLOR : "#94A3B8"}
-                  strokeWidth={!calculationData.buyingIsBetter ? 3.5 : 2}
-                  dot={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+
+                {/* Interactive Hover Columns */}
+                {calculationData.chartData.map((d, i) => {
+                  const total = calculationData.chartData.length;
+                  const xPos = getX(i, total);
+                  const colWidth = plotWidth / total;
+
+                  return (
+                    <rect
+                      key={d.year}
+                      x={xPos - colWidth / 2}
+                      y={paddingTop}
+                      width={colWidth}
+                      height={plotHeight}
+                      fill="transparent"
+                      className="cursor-pointer"
+                      onMouseEnter={() => setHoveredYearIndex(i)}
+                      onMouseLeave={() => setHoveredYearIndex(null)}
+                    />
+                  );
+                })}
+              </svg>
+            </div>
+
+            {/* Legend */}
+            <div className="flex justify-center items-center gap-6 pt-3 text-xs font-semibold">
+              <div className="flex items-center gap-2 text-slate-800">
+                <span className="h-3 w-3 rounded-full bg-[#002B5B]" />
+                <span>Buying Net Worth</span>
+              </div>
+              <div className="flex items-center gap-2 text-slate-800">
+                <span className="h-3 w-3 rounded-full bg-emerald-600" />
+                <span>Renting & Investing Net Worth</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

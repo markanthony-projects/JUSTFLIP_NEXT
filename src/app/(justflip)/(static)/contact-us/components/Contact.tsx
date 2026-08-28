@@ -116,7 +116,7 @@ const Contact = () => {
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#002B5B]">
               Contact Us
             </h1>
-            <p className="mt-2 sm:mt-3 text-sm sm:text-lg text-[#64748B] font-medium leading-relaxed">
+            <p className="mt-2 sm:mt-3 text-sm sm:text-lg text-slate-700 font-medium leading-relaxed">
               Whether you&apos;re looking to buy, sell, or rent, our property specialists are here to assist you every step of the way.
             </p>
           </div>
@@ -137,15 +137,16 @@ const Contact = () => {
               <div className="space-y-5 sm:space-y-6 pt-2 sm:pt-5">
                 <div className="flex items-center space-x-4">
                   <div className="p-3.5 bg-white text-[#002B5B] rounded-2xl border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
-                    <FiMail className="w-5 h-5" />
+                    <FiMail aria-hidden="true" className="w-5 h-5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[11px] font-bold tracking-wider text-[#8C9BAB] uppercase">
+                    <p className="text-[11px] font-bold tracking-wider text-slate-600 uppercase">
                       Direct Email
                     </p>
                     <a
                       href="mailto:Justflipcontact@gmail.co.in"
-                      className="text-sm sm:text-base font-bold text-[#002B5B] hover:text-[#002B5B] transition-colors break-all block mt-0.5"
+                      aria-label="Send direct email to Justflipcontact@gmail.co.in"
+                      className="text-sm sm:text-base font-bold text-[#002B5B] hover:text-[#001F42] hover:underline transition-colors break-all block mt-0.5"
                     >
                       Justflipcontact@gmail.co.in
                     </a>
@@ -155,10 +156,10 @@ const Contact = () => {
                 {/* Phone Support */}
                 <div className="flex items-center space-x-4">
                   <div className="p-3.5 bg-white text-[#002B5B] rounded-2xl border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
-                    <FiPhone className="w-5 h-5" />
+                    <FiPhone aria-hidden="true" className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-[11px] font-bold tracking-wider text-[#8C9BAB] uppercase">
+                    <p className="text-[11px] font-bold tracking-wider text-slate-600 uppercase">
                       Phone Support
                     </p>
                     <p className="text-sm sm:text-base font-bold text-[#002B5B] mt-0.5">
@@ -169,10 +170,10 @@ const Contact = () => {
 
                 <div className="flex items-center space-x-4">
                   <div className="p-3.5 bg-white text-[#002B5B] rounded-2xl border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
-                    <FiMapPin className="w-5 h-5" />
+                    <FiMapPin aria-hidden="true" className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-[11px] font-bold tracking-wider text-[#8C9BAB] uppercase">
+                    <p className="text-[11px] font-bold tracking-wider text-slate-600 uppercase">
                       Office Address
                     </p>
                     <p className="text-sm sm:text-base font-bold text-[#002B5B] mt-0.5">
@@ -185,7 +186,7 @@ const Contact = () => {
 
             <div className="mt-8 pt-6 border-t border-slate-200/80">
               <p className="text-xs text-[#002B5B] font-semibold leading-relaxed flex items-center justify-center space-x-1">
-                <span>&#x1F6E1;</span>
+                <span aria-hidden="true">&#x1F6E1;</span>
                 <span>100% Secure & Private Listing</span>
               </p>
             </div>
@@ -195,9 +196,9 @@ const Contact = () => {
           <div className="lg:col-span-7 bg-transparent sm:bg-white border-0 sm:border sm:border-slate-200/60 p-0 sm:p-8 rounded-2xl sm:shadow-xs flex flex-col justify-between">
             {isSubmitted ? (
               <div className="text-center py-12 space-y-4 my-auto">
-                <FiCheckCircle className="w-16 h-16 text-emerald-500 mx-auto" />
+                <FiCheckCircle aria-hidden="true" className="w-16 h-16 text-emerald-500 mx-auto" />
                 <h3 className="text-2xl font-extrabold text-[#002B5B]">Message Sent!</h3>
-                <p className="text-[#64748B] max-w-md mx-auto text-sm font-medium leading-relaxed">
+                <p className="text-slate-700 max-w-md mx-auto text-sm font-medium leading-relaxed">
                   Thank you for reaching out. We have received your query and will get back to you shortly.
                 </p>
                 <button
@@ -216,10 +217,10 @@ const Contact = () => {
                 )}
 
                 <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#8C9BAB] mb-2.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2.5">
                     Transaction Type
                   </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+                  <div role="group" aria-label="Transaction Type" className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                     {assistanceOptions.map((option) => {
                       const isSelected = formData.transaction === option.value;
                       const Icon = option.icon;
@@ -228,13 +229,13 @@ const Contact = () => {
                           type="button"
                           key={option.value}
                           onClick={() => handleTransactionSelect(option.value)}
-                          className={`w-full py-2.5 px-2 rounded-xl text-xs sm:text-xs font-bold border transition-all duration-200 flex items-center justify-center space-x-1.5 cursor-pointer min-w-0 ${
+                          className={`w-full py-2.5 px-2 rounded-xl text-xs font-bold border transition-all duration-200 flex items-center justify-center space-x-1.5 cursor-pointer min-w-0 ${
                             isSelected
                               ? "bg-[#002B5B] text-white border-[#002B5B] shadow-md shadow-[#002B5B]/20"
-                              : "bg-white text-[#8C9BAB] border-slate-200 hover:bg-slate-50 hover:text-[#092242]"
+                              : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:text-[#002B5B]"
                           }`}
                         >
-                          <Icon className="w-3.5 h-3.5 shrink-0" />
+                          <Icon aria-hidden="true" className="w-3.5 h-3.5 shrink-0" />
                           <span className="whitespace-nowrap">{option.label}</span>
                         </button>
                       );
@@ -248,10 +249,11 @@ const Contact = () => {
                 {/* Name, Email, Phone Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="flex flex-col">
-                    <label className="block text-[11px] font-bold uppercase tracking-wider text-[#8C9BAB] mb-2">
+                    <label htmlFor="contact-name" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
                       Name
                     </label>
                     <input
+                      id="contact-name"
                       type="text"
                       name="name"
                       value={formData.name}
@@ -259,7 +261,7 @@ const Contact = () => {
                       placeholder="Enter your name"
                       className={`w-full bg-slate-50/50 border ${
                         errors.name ? "border-red-500" : "border-slate-200"
-                      } focus:bg-white focus:border-[#002B5C] focus:ring-2 focus:ring-[#002B5C]/10 rounded-xl px-4 py-3 text-sm font-semibold text-[#092242] placeholder-[#8C9BAB] outline-none transition`}
+                      } focus:bg-white focus:border-[#002B5C] focus:ring-2 focus:ring-[#002B5C]/10 rounded-xl px-4 py-3 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition`}
                     />
                     {errors.name && (
                       <p className="text-red-500 text-xs font-medium mt-1.5">{errors.name}</p>
@@ -267,10 +269,11 @@ const Contact = () => {
                   </div>
 
                   <div className="flex flex-col">
-                    <label className="block text-[11px] font-bold uppercase tracking-wider text-[#8C9BAB] mb-2">
+                    <label htmlFor="contact-email" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
                       Email
                     </label>
                     <input
+                      id="contact-email"
                       type="email"
                       name="email"
                       value={formData.email}
@@ -278,7 +281,7 @@ const Contact = () => {
                       placeholder="name@example.com"
                       className={`w-full bg-slate-50/50 border ${
                         errors.email ? "border-red-500" : "border-slate-200"
-                      } focus:bg-white focus:border-[#002B5C] focus:ring-2 focus:ring-[#002B5C]/10 rounded-xl px-4 py-3 text-sm font-semibold text-[#092242] placeholder-[#8C9BAB] outline-none transition`}
+                      } focus:bg-white focus:border-[#002B5C] focus:ring-2 focus:ring-[#002B5C]/10 rounded-xl px-4 py-3 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition`}
                     />
                     {errors.email && (
                       <p className="text-red-500 text-xs font-medium mt-1.5">{errors.email}</p>
@@ -286,10 +289,11 @@ const Contact = () => {
                   </div>
 
                   <div className="flex flex-col">
-                    <label className="block text-[11px] font-bold uppercase tracking-wider text-[#8C9BAB] mb-2">
+                    <label htmlFor="contact-phone" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
                       Phone Number
                     </label>
                     <input
+                      id="contact-phone"
                       type="tel"
                       name="phone"
                       value={formData.phone}
@@ -297,7 +301,7 @@ const Contact = () => {
                       placeholder="10-digit number"
                       className={`w-full bg-slate-50/50 border ${
                         errors.phone ? "border-red-500" : "border-slate-200"
-                      } focus:bg-white focus:border-[#002B5C] focus:ring-2 focus:ring-[#002B5C]/10 rounded-xl px-4 py-3 text-sm font-semibold text-[#092242] placeholder-[#8C9BAB] outline-none transition`}
+                      } focus:bg-white focus:border-[#002B5C] focus:ring-2 focus:ring-[#002B5C]/10 rounded-xl px-4 py-3 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition`}
                     />
                     {errors.phone && (
                       <p className="text-red-500 text-xs font-medium mt-1.5">{errors.phone}</p>
@@ -307,10 +311,11 @@ const Contact = () => {
 
                 {/* Message Textarea */}
                 <div className="flex flex-col">
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-[#8C9BAB] mb-2">
+                  <label htmlFor="contact-message" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
                     Message to us
                   </label>
                   <textarea
+                    id="contact-message"
                     name="message"
                     rows={4}
                     value={formData.message}
@@ -318,7 +323,7 @@ const Contact = () => {
                     placeholder="Enter your message here..."
                     className={`w-full bg-slate-50/50 border ${
                       errors.message ? "border-red-500" : "border-slate-200"
-                    } focus:bg-white focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10 rounded-xl p-4 text-sm font-semibold text-[#092242] placeholder-[#8C9BAB] outline-none transition resize-none`}
+                    } focus:bg-white focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10 rounded-xl p-4 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition resize-none`}
                   />
                   {errors.message && (
                     <p className="text-red-500 text-xs font-medium mt-1.5">{errors.message}</p>
@@ -333,7 +338,7 @@ const Contact = () => {
                     className="w-full py-3.5 bg-[#002B5B] hover:bg-[#002046] active:scale-[0.99] text-white font-bold text-sm rounded-xl shadow-md shadow-[#002B5C]/20 transition-all flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <span>{isSubmitting ? "Submitting..." : "Submit Inquiry"}</span>
-                    <FiSend className="w-4 h-4" />
+                    <FiSend aria-hidden="true" className="w-4 h-4" />
                   </button>
                 </div>
               </form>

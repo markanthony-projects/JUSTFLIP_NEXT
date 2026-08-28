@@ -101,13 +101,20 @@ export default function SearchBarClient({ showCitySelector = true }: SearchBarCl
     const [placeholderIndex, setPlaceholderIndex] = useState(0);
 
     useEffect(() => {
-        if (search.length === 0) {
-            const interval = setInterval(() => {
-                setPlaceholderIndex((prev) => (prev + 1) % searchPlaceholderList.length);
-            }, 3500);
+        if (search.length !== 0) return;
 
-            return () => clearInterval(interval);
-        }
+        // Delay interval start to allow initial page load and hydration to complete smoothly
+        let interval: NodeJS.Timeout | null = null;
+        const initialDelay = setTimeout(() => {
+            interval = setInterval(() => {
+                setPlaceholderIndex((prev) => (prev + 1) % searchPlaceholderList.length);
+            }, 4000);
+        }, 3000);
+
+        return () => {
+            clearTimeout(initialDelay);
+            if (interval) clearInterval(interval);
+        };
     }, [search]);
 
     const debounceRef = useRef<NodeJS.Timeout | null>(null);
