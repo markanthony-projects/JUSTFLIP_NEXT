@@ -20,7 +20,8 @@ export default function BlogGridCard({ blog }: BlogGridCardProps) {
 
     return (
         <Link
-            href={`/blogs/${formatUrl(blog.heading)}-${blog?.id}`}
+            href={`/blogs/${formatUrl(blog.heading || "blog")}-${blog?.id}`}
+            aria-label={blog.heading || "Read blog post"}
             className="group w-full flex flex-col h-full bg-white border border-gray-200/60 rounded-2xl overflow-hidden hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1.5"
         >
             <div className="relative w-full aspect-[16/10] overflow-hidden bg-gray-50">
@@ -37,7 +38,7 @@ export default function BlogGridCard({ blog }: BlogGridCardProps) {
             </div>
 
             <div className="p-6 flex flex-col flex-1">
-                <time className="text-xs font-semibold text-gray-500 mb-3 uppercase tracking-widest block">
+                <time className="text-xs font-semibold text-gray-600 mb-3 uppercase tracking-widest block">
                     {published}
                 </time>
 
@@ -46,7 +47,7 @@ export default function BlogGridCard({ blog }: BlogGridCardProps) {
                 </h3>
 
                 {description && (
-                    <div className="line-clamp-3 text-[14px] text-gray-500 leading-relaxed">
+                    <div className="line-clamp-3 text-sm text-gray-600 leading-relaxed">
                         {description.replace(/<[^>]*>?/gm, '')}
                     </div>
                 )}

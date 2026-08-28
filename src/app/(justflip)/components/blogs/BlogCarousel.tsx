@@ -45,9 +45,19 @@ const BlogCarousel = ({ blogs = [], loading }: BlogCarouselProps) => {
             <div className="flex transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${current * 100}%)` }}>
                 {blogs.map((blog, index) => (
                     <div key={index} className="min-w-full relative group" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${length}`}>
-                        <Link href={`/blogs/${formatUrl(blog.heading)}-${blog?.id}`}>
+                        <Link
+                            href={`/blogs/${formatUrl(blog.heading || "blog")}-${blog?.id}`}
+                            aria-label={blog.heading || `Featured blog slide ${index + 1}`}
+                        >
                             <div className="w-full h-[300px] md:h-[400px] lg:h-[500px] relative overflow-hidden bg-gray-900">
-                                <Image src={blog.image?.url} alt={blog.heading} className="object-cover w-full h-full transform transition-transform duration-1000 group-hover:scale-105" />
+                                <Image
+                                    src={blog.image?.url}
+                                    alt={blog.heading || "Blog image"}
+                                    priority={index === 0}
+                                    loading={index === 0 ? "eager" : "lazy"}
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 1280px"
+                                    className="object-cover w-full h-full transform transition-transform duration-1000 group-hover:scale-105"
+                                />
                                 
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 md:p-12 pb-16 md:pb-20">
                                     <div className="max-w-3xl transform transition-transform duration-500 translate-y-2 group-hover:translate-y-0">
@@ -65,14 +75,17 @@ const BlogCarousel = ({ blogs = [], loading }: BlogCarouselProps) => {
                 ))}
             </div>
 
-            <div className="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+            <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 flex items-center justify-center gap-0.5 z-10">
                 {blogs?.map((_, i) => (
                     <button
+                        type="button"
                         key={i}
-                        aria-label={`Slide ${i + 1}`}
+                        aria-label={`Go to slide ${i + 1} of ${length}`}
+                        aria-current={current === i ? "true" : undefined}
                         onClick={() => setCurrent(i)}
-                        className="focus:outline-none group py-2"
+                        className="min-w-12 min-h-12 flex items-center justify-center cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white rounded-full group"
                     >
+                        <span className="sr-only">{`Go to slide ${i + 1} of ${length}`}</span>
                         <div className={`h-1.5 rounded-full transition-all duration-300 ease-in-out ${current === i ? "w-8 bg-white shadow-lg" : "w-2 bg-white/40 group-hover:bg-white/70"}`} />
                     </button>
                 ))}

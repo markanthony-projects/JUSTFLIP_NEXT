@@ -13,19 +13,11 @@ export interface BlogsPageProps {
     searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export async function generateMetadata(props: BlogsPageProps): Promise<Metadata> {
-    const searchParams = await props.searchParams;
-    const category = (searchParams?.category as string) || "Trending Blog";
-    const title = `${category} - Real Estate News, Market Trends & Guides | JustFlip`;
-    const description = `Read the latest ${category.toLowerCase()} about real estate in India and Dubai. Discover top market trends, property buying guides, and expert investment tips on JustFlip.`;
-    const url = `/blogs${category !== "Trending Blog" ? `?category=${category}` : ''}`;
-
-    return constructMetadata({
-        title,
-        description,
-        canonical: url
-    });
-}
+export const metadata: Metadata = constructMetadata({
+    title: "Trending Blog - Real Estate News, Market Trends & Guides | JustFlip",
+    description: "Read the latest blogs about real estate in India and Dubai. Discover top market trends, property buying guides, and expert investment tips on JustFlip.",
+    canonical: "/blogs"
+});
 
 export const revalidate = 3600;
 
@@ -49,8 +41,13 @@ async function Blogs(props: BlogsPageProps) {
         })) || []
     );
 
+    const heroImage = initialBlogData?.blogs?.[0]?.image?.url;
+
     return (
         <div>
+            {heroImage && (
+                <link rel="preload" as="image" href={heroImage} fetchPriority="high" />
+            )}
             <ScrollToTop />
             <script
                 type="application/ld+json"
