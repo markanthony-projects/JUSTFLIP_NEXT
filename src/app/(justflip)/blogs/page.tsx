@@ -10,21 +10,29 @@ import { Blog } from "@/src/types";
 import type { Metadata } from 'next';
 
 export interface BlogsPageProps {
-    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+    searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-export async function generateMetadata(props: BlogsPageProps): Promise<Metadata> {
-    const searchParams = await props.searchParams;
-    const category = (searchParams?.category as string) || "Trending Blog";
-    const title = `${category} - Real Estate News, Market Trends & Guides | JustFlip`;
-    const description = `Read the latest ${category.toLowerCase()} about real estate in India and Dubai. Discover top market trends, property buying guides, and expert investment tips on JustFlip.`;
-    const url = `/blogs${category !== "Trending Blog" ? `?category=${category}` : ''}`;
+export async function generateMetadata(props?: BlogsPageProps): Promise<Metadata> {
+    try {
+        const searchParams = props?.searchParams ? await props.searchParams : {};
+        const category = (searchParams?.category as string) || "Trending Blog";
+        const title = `${category} - Real Estate News, Market Trends & Guides | JustFlip`;
+        const description = `Read the latest ${category.toLowerCase()} about real estate in India and Dubai. Discover top market trends, property buying guides, and expert investment tips on JustFlip.`;
+        const url = `/blogs${category !== "Trending Blog" ? `?category=${encodeURIComponent(category)}` : ''}`;
 
-    return constructMetadata({
-        title,
-        description,
-        canonical: url
-    });
+        return constructMetadata({
+            title,
+            description,
+            canonical: url
+        });
+    } catch {
+        return constructMetadata({
+            title: "Trending Blog - Real Estate News, Market Trends & Guides | JustFlip",
+            description: "Read the latest blogs about real estate in India and Dubai. Discover top market trends, property buying guides, and expert investment tips on JustFlip.",
+            canonical: "/blogs"
+        });
+    }
 }
 
 export const revalidate = 3600;
