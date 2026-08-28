@@ -28,7 +28,7 @@ export default function SearchResultsList() {
 
   if (isInitialized && !isLoading && results.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 lg:py-32 text-center px-4 bg-white rounded-2xl border border-gray-100 shadow-sm mt-2">
+      <div className="flex flex-col items-center justify-center py-20 lg:py-32 text-center px-4 bg-white rounded-2xl shadow-sm mt-2">
         <div className="w-24 h-24 mb-6 bg-gray-50 rounded-full flex items-center justify-center relative">
           <svg className="w-10 h-10 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
