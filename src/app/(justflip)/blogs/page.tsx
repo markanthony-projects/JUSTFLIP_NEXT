@@ -41,8 +41,13 @@ async function Blogs(props: BlogsPageProps) {
         })) || []
     );
 
+    const heroImage = initialBlogData?.blogs?.[0]?.image?.url;
+
     return (
         <div>
+            {heroImage && (
+                <link rel="preload" as="image" href={heroImage} fetchPriority="high" />
+            )}
             <ScrollToTop />
             <script
                 type="application/ld+json"
