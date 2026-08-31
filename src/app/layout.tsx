@@ -35,7 +35,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     type="image/svg+xml"
                     href={favicon.src}
                 />
-                <link rel="preconnect" href="https://media.justflip.in" crossOrigin="anonymous" />
                 <link rel="dns-prefetch" href="https://media.justflip.in" />
 
                 <script
