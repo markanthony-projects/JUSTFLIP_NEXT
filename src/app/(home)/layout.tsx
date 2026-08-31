@@ -5,7 +5,7 @@ export default function HomeLayout({ children }: { children: ReactNode }) {
 
     return (
         <div> 
-            <link rel="preconnect" href="https://media.justflip.in" crossOrigin="anonymous" />
+            <link rel="preconnect" href="https://media.justflip.in" />
             <Header />
             {children}
         </div>
