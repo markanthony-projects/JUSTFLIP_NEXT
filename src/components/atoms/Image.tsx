@@ -43,7 +43,7 @@ function SmartImage({
     return (
         <div className={clsx("relative w-full h-full overflow-hidden", wrapperClassName)}>
             {priority && typeof src === "string" && (
-                <link rel="preload" as="image" href={src} fetchPriority="high" />
+                <link rel="preload" as="image" href={src} fetchPriority="high" crossOrigin="anonymous" />
             )}
 
             {isLoading && !priority && (
@@ -56,6 +56,7 @@ function SmartImage({
                 fill
                 sizes={sizes}
                 priority={priority}
+                crossOrigin="anonymous"
                 fetchPriority={priority ? "high" : (props.fetchPriority as any)}
                 loading={priority ? "eager" : props.loading}
                 quality={85}

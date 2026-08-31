@@ -261,6 +261,7 @@ function SlideImage({
                 <img
                     srcSet={desktopSrcSet}
                     {...desktopRest}
+                    crossOrigin="anonymous"
                     fetchPriority={priority ? "high" : "auto"}
                     loading={priority ? "eager" : "lazy"}
                 />
