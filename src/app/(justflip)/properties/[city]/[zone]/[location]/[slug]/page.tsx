@@ -257,9 +257,6 @@ async function PropertyDetails({ params }: ProjectPageProps) {
                             <Suspense fallback={<CallbackFormSkeleton />}>
                                 <LeadForm data={projectData} />
                             </Suspense>
-                            <Suspense fallback={<CompareCarouselSkeleton />} >
-                                <SimilarProjectsWrapper locationId={locationId} projectId={id} type="compare" />
-                            </Suspense>
                         </div>
                     </div>
                 </div>
