@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import MortgageCalculator from './components/MortgageCalculator';
@@ -16,10 +16,12 @@ const MortgageCalculatorPage = () => {
   ];
 
   return (
-    <div className="w-full">
-      <Breadcrumb items={breadcrumbItems} />
-      <MortgageCalculator />
-    </div>
+    <Suspense>
+      <div className="w-full">
+        <Breadcrumb items={breadcrumbItems} />
+        <MortgageCalculator />
+      </div>
+    </Suspense>
   );
 };
 
