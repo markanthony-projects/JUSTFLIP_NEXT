@@ -60,9 +60,15 @@ export function convertToIndianWords(num: number): string {
   return convertIndianRecursive(num).trim();
 }
 
-export function useStampDutyCalculator(initialPrice?:number) {
+export function useStampDutyCalculator(initialPrice?:number, defaultStateProp?:string) {
   const searchParams = useSearchParams();
-  const [selectedState, setSelectedState] = useState<string>('Karnataka');
+  const [selectedState, setSelectedState] = useState<string>(defaultStateProp || 'Karnataka');
+
+  useEffect(() => {
+    if(defaultStateProp && stampDutyData[defaultStateProp]){
+      setSelectedState(defaultStateProp)
+    }
+  },[defaultStateProp])
 
   const initialVal = initialPrice && !isNaN(initialPrice) ? initialPrice : 5000000
   const [propertyValue, setPropertyValue] = useState<number>(initialVal);

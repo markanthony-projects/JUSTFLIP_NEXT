@@ -40,9 +40,12 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
 
 interface stampDutyCalculatorProps{
   initialPrice?:number;
+  defaultState?:string;
+  cityName?:string;
+  cityId?:string;
 }
 
-export default function StampDutyCalculator({initialPrice}: stampDutyCalculatorProps): React.JSX.Element {
+export default function StampDutyCalculator({initialPrice, defaultState, cityName, cityId}: stampDutyCalculatorProps): React.JSX.Element {
   const {
     selectedState,
     setSelectedState,
@@ -63,7 +66,11 @@ export default function StampDutyCalculator({initialPrice}: stampDutyCalculatorP
     availableStates,
     MIN_PROPERTY_VALUE,
     MAX_PROPERTY_VALUE,
-  } = useStampDutyCalculator(initialPrice);
+  } = useStampDutyCalculator(initialPrice,defaultState);
+
+  const searchUrl = cityId 
+    ? `/search?cityId=${cityId}&maxPrice=${propertyValue}` 
+    : `/search?maxPrice=${propertyValue}`;
 
   if (!currentConfig) return <div className="p-4 text-slate-700">State configuration not found.</div>;
 
@@ -266,7 +273,7 @@ export default function StampDutyCalculator({initialPrice}: stampDutyCalculatorP
               </div>
             </div>
             <Link
-              href={`/search?maxPrice=${propertyValue}`}
+              href={searchUrl}
               target='_blank'
               rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#002B49] px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-opacity-90 shrink-0"
