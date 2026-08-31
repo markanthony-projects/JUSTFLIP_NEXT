@@ -3,7 +3,7 @@ import Image from "@/src/components/atoms/Image";
 import { createProjectUrl } from "@/src/utils/url";
 import Link from "next/link";
 import { FaWhatsapp, FaPhoneAlt } from 'react-icons/fa';
-import { FiShare2, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiShare2, FiChevronLeft, FiChevronRight, FiHome } from 'react-icons/fi';
 import FavouriteButton from "@/src/components/atoms/FavouriteButton";
 import { Project } from "@/src/types";
 import { toast } from '@/src/utils/toast';
@@ -15,6 +15,7 @@ interface SearchResultCardProps {
 }
 
 const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
+  console.log("Result card...",project)
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isImageHovered, setIsImageHovered] = useState(false);
@@ -25,7 +26,8 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
   const cityName = project?.city?.name || "";
   const zoneName = project?.zone?.name || project?.location?.zone?.name || "";
   const projectName = project?.name || "";
-
+  const propertyType = project?.type || "Property"
+ 
   const projectUrl = createProjectUrl(
     cityName,
     zoneName,
@@ -83,7 +85,6 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
   // Possession Date
   const possessionDateStr = project.possessionDate ? new Date(project.possessionDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : 'Ready to Move';
 
-  const tags = project.tags ? project.tags.split(',')[0] : 'Featured Properties';
 
   const handleCall = () => {
     window.location.href = 'tel:+918431362126'
@@ -176,10 +177,10 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
             ))}
           </div>
         )}
-        <div className="absolute top-3 left-3 z-10">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm shadow-md text-xs font-semibold text-gray-800">
-            <span className="text-orange-500">🔥</span>
-            {tags}
+        <div className="absolute top-4 left-3 z-10 flex items-center gap-2">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md shadow-sm text-xs font-bold text-gray-700 capitalize">
+            <FiHome className="text-orange-500" />
+            {propertyType}
           </span>
         </div>
         <div className="absolute top-3 right-3 z-10">
@@ -251,6 +252,7 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
             <span className="font-bold text-sm sm:text-base text-gray-900">{possessionDateStr}</span>
           </div>
         </div>
+
 
         {/* Action Buttons */}
         <div className="flex items-center justify-between mt-auto">

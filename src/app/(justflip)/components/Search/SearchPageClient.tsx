@@ -95,7 +95,7 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
   }, [query, JSON.stringify(filters), sort, page, limit, activeCity?.id]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <div className={
         isMapMode 
           ? "w-full max-w-[1920px] mx-auto px-0 py-0 flex-1 flex flex-col lg:flex-row relative" 
@@ -125,9 +125,9 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
             </div>
           )}
 
-          <ResultsHeader />
           
           <div className="mt-4 flex-1">
+            <ResultsHeader />
             <SearchResultsList />
           </div>
         </main>

@@ -14,7 +14,7 @@ export default function ReviewsList({ reviews = {}, onWriteReview }: ReviewsList
     ? reviews
     : reviews?.reviews || reviews?.data || [];
 
-  const hasOnlyRatingsWithoutMessages = reviewList.length > 0 && reviewList.every((review: any) => !review?.comment && review.comment.trim() === "");
+  const hasOnlyRatingsWithoutMessages = reviewList.length > 0 && reviewList.every((review: any) => !review?.comment);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-4 bg-[#F8FAFC] border border-gray-200/70 rounded-xl p-4 md:p-5">
