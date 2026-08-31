@@ -49,6 +49,7 @@ import { buildRealEstateSchema } from "@/src/utils/schema";
 import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 import Link from 'next/link';
 import Image from 'next/image';
+import QuickCalculations from '@/src/app/(justflip)/components/Project/QuickCalculations';
 
 const FloatingActions = dynamic(() => import('@/src/app/(justflip)/components/Project/FloatingActions'));
 
@@ -93,6 +94,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
     }
 
     const { projectData } = data;
+
 
     const locationId = projectData?.location?.id;
     const cityUrl = createCityUrl(cityName, projectData?.city?.id || "")
@@ -191,6 +193,8 @@ async function PropertyDetails({ params }: ProjectPageProps) {
                                 </Suspense>
                             </div>
                         )}
+
+                        <QuickCalculations project={projectData}/>
 
                         {/* 4. Explore Map / Transit / Essentials */}
                         <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">

@@ -38,7 +38,11 @@ const CATEGORY_ICONS: Record<string, React.ReactNode> = {
   joint_mf: <JointIcon />,
 };
 
-export default function StampDutyCalculator(): React.JSX.Element {
+interface stampDutyCalculatorProps{
+  initialPrice?:number;
+}
+
+export default function StampDutyCalculator({initialPrice}: stampDutyCalculatorProps): React.JSX.Element {
   const {
     selectedState,
     setSelectedState,
@@ -46,7 +50,6 @@ export default function StampDutyCalculator(): React.JSX.Element {
     inputValue,
     handleInputChange,
     handleInputBlur,
-    handleKeyDown,
     updatePropertyValue,
     gender,
     setGender,
@@ -60,7 +63,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
     availableStates,
     MIN_PROPERTY_VALUE,
     MAX_PROPERTY_VALUE,
-  } = useStampDutyCalculator();
+  } = useStampDutyCalculator(initialPrice);
 
   if (!currentConfig) return <div className="p-4 text-slate-700">State configuration not found.</div>;
 
@@ -205,7 +208,6 @@ export default function StampDutyCalculator(): React.JSX.Element {
                   type="number"
                   value={inputValue}
                   onChange={handleInputChange}
-                  onKeyDown={handleKeyDown}
                   onBlur={handleInputBlur}
                   className="w-full p-3 bg-transparent text-[#002B49] font-bold focus:outline-none"
                 />
@@ -229,18 +231,18 @@ export default function StampDutyCalculator(): React.JSX.Element {
 
               <div className="flex justify-between text-xs text-slate-700 font-semibold mt-1">
                 <span>₹5 Lakh</span>
-                <span>₹50 Crore</span>
+                <span>₹10 Crore</span>
               </div>
 
               {/* Quick Select Buttons */}
-              <div className="flex items-center gap-2 mt-3 overflow-x-auto pb-1">
-                <span className="text-xs font-bold text-slate-700 mr-1">Quick:</span>
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mt-3">
+                <span className="text-xs font-bold text-slate-700 mr-0.5">Quick:</span>
                 {PRESET_VALUES.map((preset) => (
                   <button
                     key={preset.value}
                     type="button"
                     onClick={() => updatePropertyValue(preset.value)}
-                    className={`px-2.5 py-1 text-xs font-bold rounded-lg border transition ${
+                    className={`px-2 py-1 text-xs font-bold rounded-lg border transition shrink-0 ${
                       propertyValue === preset.value
                         ? 'bg-[#002B49] text-white border-[#002B49]'
                         : 'bg-slate-50 text-[#002B49] border-slate-200 hover:bg-slate-100'
@@ -265,6 +267,8 @@ export default function StampDutyCalculator(): React.JSX.Element {
             </div>
             <Link
               href={`/search?maxPrice=${propertyValue}`}
+              target='_blank'
+              rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#002B49] px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-opacity-90 shrink-0"
             >
               <span>View Properties</span>
@@ -283,7 +287,7 @@ export default function StampDutyCalculator(): React.JSX.Element {
         </div>
 
         {/* Right Output Panel */}
-        <div className="md:col-span-5 px-0 p-6 sm:p-8 flex flex-col justify-between bg-slate-50 border-t md:border-t-0 md:border-l border-slate-200 order-1 lg:order-2">
+        <div className="md:col-span-5 px-0 p-6 sm:p-8 flex flex-col justify-between order-1 lg:order-2">
           <div className="space-y-5">
             <h2 className="text-xs font-bold text-[#002B49] uppercase tracking-wider">
               Stamp Duty Breakdown
