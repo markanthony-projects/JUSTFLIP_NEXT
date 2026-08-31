@@ -51,7 +51,7 @@ export default function PostPropertyCTA() {
           <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-0.5 w-full sm:w-auto">
             <Link
               href="/post-property"
-              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg bg-[#10B981] hover:bg-[#059669] text-white font-semibold text-xs sm:text-sm transition-colors shadow-xs"
+              className="inline-flex items-center justify-center gap-1.5 px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg bg-[#047857] hover:bg-[#065f46] text-white font-semibold text-xs sm:text-sm transition-colors shadow-xs"
             >
               <span>Post Property — Free</span>
               <FiArrowRight className="w-3.5 h-3.5" />
