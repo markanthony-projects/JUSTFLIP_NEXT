@@ -49,7 +49,6 @@ const nextConfig = {
     ],
     qualities: [75, 85],
   },
-  productionBrowserSourceMaps: true,
   experimental: {
     optimizeCss: true,
     optimizePackageImports: [
