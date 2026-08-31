@@ -57,30 +57,17 @@ type ProjectPageProps = {
 };
 export async function generateMetadata({ params }: ProjectPageProps) {
     const { city, zone, location, slug } = await params;
-    const { cityName, locationName, name, id } = parseProjectUrl(city, zone, location, slug);
-    let projectData: any = null;
-    try {
-        const data = await getProjectPageData(id);
-        projectData = data?.projectData || null;
-    } catch {
-        projectData = null;
-    }
+    const { cityName, locationName, name } = parseProjectUrl(city, zone, location, slug);
 
-    const title = projectData?.name
-        ? `${projectData.name} in ${locationName || cityName}, ${cityName} - Price, Floor Plans, Reviews`
-        : `${name || 'Property'} in ${locationName || cityName}, ${cityName} - Price, Floor Plans, Reviews | JustFlip`;
-
-    const description = projectData?.description?.trim()
-        ? projectData.description.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().substring(0, 157) + '...'
-        : `Explore ${name || 'Property'} located in ${locationName || cityName}, ${cityName}. View exact pricing, 2/3/4 BHK floor plans, amenities, and read verified reviews on JustFlip.`;
-
+    const title = `${name || 'Property'} in ${locationName || cityName}, ${cityName} - Price, Floor Plans, Reviews`;
+    const description = `Explore ${name || 'Property'} located in ${locationName || cityName}, ${cityName}. View exact pricing, 2/3/4 BHK floor plans, amenities, photos, and read verified reviews on JustFlip.`;
     const url = `/properties/${city}/${zone}/${location}/${slug}`;
 
     return constructMetadata({
         title,
         description,
         canonical: url,
-        image: projectData?.displayImage || projectData?.banner?.url || 'https://justflip.in/logo.png'
+        image: 'https://justflip.in/logo.png'
     });
 }
 
