@@ -36,12 +36,18 @@ type CityPageProps = {
 export async function generateMetadata({ params }: CityPageProps): Promise<Metadata> {
   const { city } = await params;
   const { name, id } = parseCityUrl(city);
-  const data = await getCityPageData(id);
-  if (!data || !data.cityData) return {};
-  const { cityData } = data;
+  let cityData: any = null;
+  try {
+    const data = await getCityPageData(id);
+    cityData = data?.cityData || null;
+  } catch {
+    cityData = null;
+  }
 
-  const title = `2/3/4 BHK Flats, Villas & Plots in ${name} - Prices, Photos | JustFlip`;
-  const description = cityData?.description ? cityData.description.replace(/<[^>]+>/g, '').substring(0, 157) + '...' : `Browse 500+ verified properties, apartments, and villas for sale in ${name}. View photos, floor plans, and price trends. Find your dream home today!`.substring(0, 160);
+  const title = `2/3/4 BHK Flats, Villas & Plots in ${name || 'City'} - Prices, Photos | JustFlip`;
+  const description = cityData?.description?.trim()
+    ? cityData.description.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().substring(0, 157) + '...'
+    : `Browse 500+ verified properties, apartments, and villas for sale in ${name || 'City'}. View photos, floor plans, and price trends. Find your dream home today!`.substring(0, 160);
 
   return constructMetadata({
     title,

@@ -46,12 +46,18 @@ type LocationPageProps = {
 export async function generateMetadata({ params }: LocationPageProps): Promise<Metadata> {
   const { city, zone, location } = await params;
   const { cityName, name, id } = parseLocationUrl(city, zone, location);
-  const data = await getLocationPageData(id);
-  if (!data || !data.locationData) return {};
-  const { locationData } = data;
+  let locationData: any = null;
+  try {
+    const data = await getLocationPageData(id);
+    locationData = data?.locationData || null;
+  } catch {
+    locationData = null;
+  }
 
-  const title = `Properties in ${name}, ${cityName} - Buy Flats, Villas & Plots | JustFlip`;
-  const description = locationData?.description ? locationData.description.replace(/<[^>]+>/g, '').substring(0, 157) + '...' : `Explore verified residential properties, flats, and villas in ${name}, ${cityName}. View prices, photos, and builder reviews.`;
+  const title = `Properties in ${name || 'Location'}, ${cityName} - Buy Flats, Villas & Plots | JustFlip`;
+  const description = locationData?.description?.trim()
+    ? locationData.description.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().substring(0, 157) + '...'
+    : `Explore verified residential properties, flats, and villas in ${name || 'Location'}, ${cityName}. View prices, photos, and builder reviews on JustFlip.`;
 
   return constructMetadata({
     title,

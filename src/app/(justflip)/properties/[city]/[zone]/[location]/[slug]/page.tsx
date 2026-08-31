@@ -58,19 +58,29 @@ type ProjectPageProps = {
 export async function generateMetadata({ params }: ProjectPageProps) {
     const { city, zone, location, slug } = await params;
     const { cityName, locationName, name, id } = parseProjectUrl(city, zone, location, slug);
-    const data = await getProjectPageData(id);
-    if (!data || !data.projectData) return {};
-    const { projectData } = data;
+    let projectData: any = null;
+    try {
+        const data = await getProjectPageData(id);
+        projectData = data?.projectData || null;
+    } catch {
+        projectData = null;
+    }
 
-    const title = projectData ? `${projectData.name} in ${locationName}, ${cityName} - Price, Floor Plans, Reviews` : `${name} Properties | Justflip`;
-    const description = projectData?.description ? projectData.description.replace(/<[^>]+>/g, '').substring(0, 157) + '...' : `Explore ${name} located in ${locationName}, ${cityName}. View exact pricing, 2/3/4 BHK floor plans, amenities, and read verified reviews.`;
+    const title = projectData?.name
+        ? `${projectData.name} in ${locationName || cityName}, ${cityName} - Price, Floor Plans, Reviews`
+        : `${name || 'Property'} in ${locationName || cityName}, ${cityName} - Price, Floor Plans, Reviews | JustFlip`;
+
+    const description = projectData?.description?.trim()
+        ? projectData.description.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().substring(0, 157) + '...'
+        : `Explore ${name || 'Property'} located in ${locationName || cityName}, ${cityName}. View exact pricing, 2/3/4 BHK floor plans, amenities, and read verified reviews on JustFlip.`;
+
     const url = `/properties/${city}/${zone}/${location}/${slug}`;
 
     return constructMetadata({
         title,
         description,
         canonical: url,
-        image: projectData?.displayImage || 'https://justflip.in/logo.png'
+        image: projectData?.displayImage || projectData?.banner?.url || 'https://justflip.in/logo.png'
     });
 }
 

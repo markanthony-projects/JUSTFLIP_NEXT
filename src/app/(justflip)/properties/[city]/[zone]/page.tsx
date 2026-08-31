@@ -35,12 +35,18 @@ type ZonePageProps = {
 export async function generateMetadata({ params }: ZonePageProps): Promise<Metadata> {
   const { city, zone } = await params;
   const { cityName, name, id } = parseZoneUrl(city, zone);
-  const data = await getZonePageData(id);
-  if (!data || !data.zoneData) return {};
-  const { zoneData } = data;
+  let zoneData: any = null;
+  try {
+    const data = await getZonePageData(id);
+    zoneData = data?.zoneData || null;
+  } catch {
+    zoneData = null;
+  }
 
-  const title = `Buy Flats, Villas & Plots in ${name}, ${cityName} - Photos & Prices | JustFlip`;
-  const description = zoneData?.description ? zoneData.description.replace(/<[^>]+>/g, '').substring(0, 157) + '...' : `Browse top residential properties, apartments, and villas for sale in ${name}, ${cityName}. Check latest prices, floor plans & reviews.`;
+  const title = `Buy Flats, Villas & Plots in ${name || 'Zone'}, ${cityName} - Photos & Prices | JustFlip`;
+  const description = zoneData?.description?.trim()
+    ? zoneData.description.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim().substring(0, 157) + '...'
+    : `Browse top residential properties, apartments, and villas for sale in ${name || 'Zone'}, ${cityName}. Check latest prices, floor plans & reviews on JustFlip.`;
 
   return constructMetadata({
     title,
