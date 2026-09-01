@@ -52,6 +52,21 @@ import Image from 'next/image';
 import QuickCalculations from '@/src/app/(justflip)/components/Project/QuickCalculations';
 import PropertyDetailNavTabs from '@/src/app/(justflip)/components/PropertyDetailsNavTabs';
 
+const propertyNavItems = [
+  { id: "overview", label: "About the Project" },
+  { id: "floor-plans", label: "Floor Plans" },
+  { id: "amenities", label: "Amenities & Specifications" },
+  { id: "tools", label: "Financial & Tax Estimator"},
+  { id: "location", label: "Location & Connectivity"},
+  { id: "highlights", label: "Highlights" },
+  { id: "reviews", label: "Reviews" },
+  { id: "developer", label: "Developer Legacy" },
+  { id: "price-trend", label: "Price Trend" },
+  { id: "gallery", label: "Gallery" },
+  { id: "similar-properties", label: "Similar Properties" },
+  { id: "faq", label: "FAQ" },
+];
+
 const FloatingActions = dynamic(() => import('@/src/app/(justflip)/components/Project/FloatingActions'));
 
 type ProjectPageProps = {
@@ -151,7 +166,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
 
                 <Description project={projectData} />
 
-                <PropertyDetailNavTabs />
+                <PropertyDetailNavTabs navItems={propertyNavItems}/>
 
                 {/* <ImageBanner project={projectData} /> */}
 

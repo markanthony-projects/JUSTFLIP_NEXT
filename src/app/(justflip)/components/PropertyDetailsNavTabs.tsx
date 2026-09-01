@@ -2,40 +2,67 @@
 
 import { useState, useEffect, useRef } from "react";
 
-const navItems = [
-  { id: "overview", label: "About the Project" },
-  { id: "floor-plans", label: "Floor Plans" },
-  { id: "amenities", label: "Amenities & Specifications" },
-  { id: "tools", label: "Financial & Tax Estimator"},
-  { id: "location", label: "Location & Connectivity"},
-  { id: "highlights", label: "Highlights" },
-  { id: "reviews", label: "Reviews" },
-  { id: "developer", label: "Developer Legacy" },
-  { id: "price-trend", label: "Price Trend" },
-  { id: "gallery", label: "Gallery" },
-  { id: "similar-properties", label: "Similar Properties" },
-  { id: "faq", label: "FAQ" },
-];
+export type navItems = {
+    id: string;
+    label: string;
+};
 
-export default function PropertyDetailNavTabs() {
+type navTabProps = {
+    navItems: navItems[];
+    scrollThreshold?: number;
+    showArrows?:boolean;
+}
+
+export default function PropertyDetailNavTabs({navItems, scrollThreshold = 500, showArrows = true}: navTabProps) {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState(navItems[0]?.id || "");
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
   const navContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 500) {
+      if (window.scrollY > scrollThreshold) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
       }
     };
 
+    handleScroll()
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [scrollThreshold]);
+
+  useEffect(() => {
+    const observerCallback: IntersectionObserverCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveTab(entry.target.id);
+        }
+      });
+    };
+
+    const observerOptions: IntersectionObserverInit = {
+      root: null,
+      rootMargin: "-20% 0px -60% 0px",
+      threshold: 0,
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    navItems.forEach((item) => {
+      const element = document.getElementById(item.id);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [navItems]);
 
   const handleTabScroll = () => {
     const container = navContainerRef.current;
@@ -84,7 +111,7 @@ export default function PropertyDetailNavTabs() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative flex items-center">
         {/* Left Arrow Indicator */}
-        {showLeftArrow && (
+        {showArrows && showLeftArrow && (
           <button
             onClick={() => scrollByAmount(-200)}
             className="absolute left-2 z-10 bg-gradient-to-r from-white via-white/90 to-transparent pr-4 pl-1 py-3 flex items-center text-gray-600 hover:text-gray-900 transition-opacity cursor-pointer"
@@ -129,7 +156,7 @@ export default function PropertyDetailNavTabs() {
         </div>
 
         {/* Right Arrow Indicator */}
-        {showRightArrow && (
+        {showArrows && showRightArrow && (
           <button
             onClick={() => scrollByAmount(200)}
             className="absolute right-2 z-10 bg-gradient-to-l from-white via-white/90 to-transparent pl-4 pr-1 py-3 flex items-center text-gray-600 hover:text-gray-900 transition-opacity cursor-pointer"

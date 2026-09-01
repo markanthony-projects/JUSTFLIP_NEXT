@@ -27,6 +27,18 @@ const FAQ = dynamic(() => import("../../components/FAQ"));
 import { constructMetadata } from "@/src/utils/seo";
 import { Metadata } from 'next';
 import ScrollToTop from "@/src/components/atoms/ScrollToTop";
+import PropertyDetailNavTabs from "../../components/PropertyDetailsNavTabs";
+
+const cityNavItems = [
+  { id: "overview", label: "Overview" },
+  { id: "properties", label: "Explore More Properties"},
+  { id: "highlights", label: "City Highlights" },
+  { id: "builders", label: "Top Builders" },
+  { id: "reviews", label: "Reviews" },
+  { id: "gallery", label: "Gallery" },
+  { id: "blogs", label: "Blogs" },
+  { id: "faq", label: "Frequently Asked Questions" },
+];
 
 
 type CityPageProps = {
@@ -80,12 +92,16 @@ export default async function CityPage({ params }: CityPageProps) {
       <ScrollToTop />
       <Breadcrumb items={breadcrumbItems} />
 
+      <PropertyDetailNavTabs navItems={cityNavItems} scrollThreshold={100} showArrows={false}/>
+
       <div className="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-4 gap-6 mx-auto">
         {/* Left Column: Stack of individual, clean tile cards */}
         <div className="lg:col-span-4 xl:col-span-3 space-y-4 md:space-y-6">
 
           {/* 1. Header / City Overview */}
-          <HeaderTop data={cityData} bannerImage={bannerImage} />
+          <div id="overview">
+            <HeaderTop data={cityData} bannerImage={bannerImage} />
+          </div>
 
           {/* Mobile Sidebar Cards (Price Trends & Top Properties) */}
           <div className="block lg:hidden space-y-4">
@@ -99,33 +115,43 @@ export default async function CityPage({ params }: CityPageProps) {
 
           {/* 2. Explore Properties by Category & Price Filter */}
           <Suspense fallback={<PropertySupplySkeleton />}>
-            <PropertySupply type="city" data={cityData as any} typeName={name} typeId={id} />
+            <div id="properties">
+              <PropertySupply type="city" data={cityData as any} typeName={name} typeId={id} />
+            </div>
           </Suspense>
 
           {/* 3. City Highlights Tile (What Stands Out & What Goes Unnoticed) */}
           <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<HighlightSkeleton />}>
-              <Highlight data={cityData} />
+              <div id="highlights">
+                <Highlight data={cityData} />
+              </div>
             </Suspense>
           </div>
 
           {/* 4. Top Builders & Developers Tile */}
           <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<TopBuildersSkeleton />}>
-              <BuildersSection builders={builders} city={cityData} />
+              <div id="builders">
+                <BuildersSection builders={builders} city={cityData} />
+              </div>
             </Suspense>
           </div>
 
           {/* 5. Ratings & Reviews Tile */}
           <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<ReviewsSkeleton />}>
-              <ReviewsSectionClient typeName={name} typeId={id} type="city" reviews={reviewList} />
+              <div id="reviews">
+                <ReviewsSectionClient typeName={name} typeId={id} type="city" reviews={reviewList} />
+              </div>
             </Suspense>
           </div>
 
           {/* 6. City Photo Gallery */}
           <Suspense fallback={<GallerySkeleton />}>
-            <PropertyGallery data={cityData} title={`${name} - At a Glance`} />
+            <div id="gallery">
+              <PropertyGallery data={cityData} title={`${name} - At a Glance`} />
+            </div>
           </Suspense>
 
         </div>
@@ -145,11 +171,15 @@ export default async function CityPage({ params }: CityPageProps) {
       {/* Full-Width Centered Sections Below Grid */}
       <div className="w-full space-y-8 my-8">
         <Suspense fallback={<BlogsSkeleton />}>
-          <Blogs tag="Popular Blogs" />
+          <div id="blogs">
+            <Blogs tag="Popular Blogs" />
+          </div>
         </Suspense>
 
         <Suspense fallback={<FAQSkeleton />}>
-          <FAQ data={cityData} />
+          <div id="faq">
+            <FAQ data={cityData} />
+          </div>
         </Suspense>
       </div>
     </div>
