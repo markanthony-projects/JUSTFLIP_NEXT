@@ -99,7 +99,7 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
       <div className={
         isMapMode 
           ? "w-full max-w-[1920px] mx-auto px-0 py-0 flex-1 flex flex-col lg:flex-row relative" 
-          : "container mx-auto px-4 lg:px-8 max-w-7xl pt-2.5 pb-6 flex-1 flex gap-6"
+          : "container mx-auto px-3 sm:px-4 lg:px-8 max-w-7xl pt-2 pb-6 flex-1 flex gap-6"
       }>
         
         {/* Left Sidebar (Desktop Filters & Breadcrumb) - Only in List Mode */}
@@ -126,7 +126,7 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
           )}
 
           
-          <div className="mt-4 flex-1">
+          <div className="mt-2 flex-1">
             <ResultsHeader />
             <SearchResultsList />
           </div>
