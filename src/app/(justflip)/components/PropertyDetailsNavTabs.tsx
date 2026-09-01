@@ -21,19 +21,25 @@ export default function PropertyDetailNavTabs({navItems, scrollThreshold = 500, 
   const navContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > scrollThreshold) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
+    const handleScrollVisibility = () => {
+      if (!navItems.length) return;
+      const lastItem = navItems[navItems.length - 1];
+      const lastElement = document.getElementById(lastItem.id);
+
+      let pastLastSection = false;
+      if (lastElement) {
+        const rect = lastElement.getBoundingClientRect();
+        pastLastSection = rect.bottom < 0;
       }
+
+      const passThreshold = window.scrollY > scrollThreshold;
+      setIsVisible(passThreshold && !pastLastSection);
     };
 
-    handleScroll()
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrollThreshold]);
+    handleScrollVisibility();
+    window.addEventListener("scroll", handleScrollVisibility);
+    return () => window.removeEventListener("scroll", handleScrollVisibility);
+  }, [scrollThreshold, navItems]);
 
   useEffect(() => {
     const observerCallback: IntersectionObserverCallback = (entries) => {
@@ -64,15 +70,34 @@ export default function PropertyDetailNavTabs({navItems, scrollThreshold = 500, 
     };
   }, [navItems]);
 
+  // Auto-scroll the active tab into view horizontally
+  useEffect(() => {
+    if (!activeTab || !navContainerRef.current) return;
+    const container = navContainerRef.current;
+    const activeButton = container.querySelector(`[data-tab-id="${activeTab}"]`) as HTMLElement;
+
+    if (activeButton) {
+      const containerWidth = container.clientWidth;
+      const buttonLeft = activeButton.offsetLeft;
+      const buttonWidth = activeButton.offsetWidth;
+
+      // Center the active tab within the container viewport
+      const targetScrollLeft = buttonLeft - containerWidth / 2 + buttonWidth / 2;
+
+      container.scrollTo({
+        left: targetScrollLeft,
+        behavior: "smooth",
+      });
+    }
+  }, [activeTab]);
+
   const handleTabScroll = () => {
     const container = navContainerRef.current;
     if (container) {
       const scrollLeft = container.scrollLeft;
       const maxScrollLeft = container.scrollWidth - container.clientWidth;
 
-      // Show/hide left arrow based on scroll position
       setShowLeftArrow(scrollLeft > 10);
-      // Show/hide right arrow based on whether we reached the end
       setShowRightArrow(scrollLeft < maxScrollLeft - 10);
     }
   };
@@ -111,10 +136,12 @@ export default function PropertyDetailNavTabs({navItems, scrollThreshold = 500, 
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative flex items-center">
         {/* Left Arrow Indicator */}
-        {showArrows && showLeftArrow && (
+        {showLeftArrow && (
           <button
             onClick={() => scrollByAmount(-200)}
-            className="absolute left-2 z-10 bg-gradient-to-r from-white via-white/90 to-transparent pr-4 pl-1 py-3 flex items-center text-gray-600 hover:text-gray-900 transition-opacity cursor-pointer"
+            className={`absolute left-2 z-10 bg-gradient-to-r from-white via-white/90 to-transparent pr-4 pl-1 py-3 items-center text-gray-600 hover:text-gray-900 transition-opacity cursor-pointer ${
+              showArrows ? "flex" : "flex lg:hidden"
+            }`}
             aria-label="Scroll left"
           >
             <svg
@@ -142,6 +169,7 @@ export default function PropertyDetailNavTabs({navItems, scrollThreshold = 500, 
             return (
               <button
                 key={item.id}
+                data-tab-id={item.id}
                 onClick={() => scrollToSection(item.id)}
                 className={`whitespace-nowrap py-1 text-sm font-semibold transition-all border-b-2 ${
                   isActive
@@ -156,10 +184,12 @@ export default function PropertyDetailNavTabs({navItems, scrollThreshold = 500, 
         </div>
 
         {/* Right Arrow Indicator */}
-        {showArrows && showRightArrow && (
+        {showRightArrow && (
           <button
             onClick={() => scrollByAmount(200)}
-            className="absolute right-2 z-10 bg-gradient-to-l from-white via-white/90 to-transparent pl-4 pr-1 py-3 flex items-center text-gray-600 hover:text-gray-900 transition-opacity cursor-pointer"
+            className={`absolute right-2 z-10 bg-gradient-to-l from-white via-white/90 to-transparent pl-4 pr-1 py-3 items-center text-gray-600 hover:text-gray-900 transition-opacity cursor-pointer ${
+              showArrows ? "flex" : "flex lg:hidden"
+            }`}
             aria-label="Scroll right"
           >
             <svg
