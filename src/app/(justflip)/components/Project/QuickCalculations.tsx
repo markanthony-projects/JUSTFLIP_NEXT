@@ -121,7 +121,7 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
           <div>
-            <h3 className="text-lg sm:text-xl font-bold text-[#002B5B] tracking-tight">
+            <h3 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
               Financial & Tax Estimator
             </h3>
             <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
