@@ -1,7 +1,10 @@
+'use client';
+
 import React, { useEffect } from 'react';
 import { useSearchStore } from '@/src/stores/search.store';
 import { SEARCH_CONFIG } from '@/src/services/search/searchConfig';
 import FilterFactory from './FilterFactory';
+import FilterChips from './FilterChips';
 
 export default function MobileFilterSheet() {
   const { isFilterOpen, toggleFilterSheet, clearFilters, filters, total } = useSearchStore();
@@ -23,12 +26,12 @@ export default function MobileFilterSheet() {
     <>
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 app-overlay z-[60] lg:hidden transition-opacity"
+        className="fixed inset-0 app-overlay z-[110] lg:hidden transition-opacity"
         onClick={toggleFilterSheet}
       />
 
       {/* Bottom Sheet */}
-      <div className="fixed inset-x-0 bottom-0 z-[70] bg-white rounded-t-2xl lg:hidden flex flex-col max-h-[90vh] shadow-2xl animate-slide-up">
+      <div className="fixed inset-x-0 bottom-0 z-[120] bg-white rounded-t-2xl lg:hidden flex flex-col max-h-[90vh] shadow-2xl animate-slide-up">
         
         {/* Drag handle */}
         <div className="w-full flex justify-center py-3" onClick={toggleFilterSheet}>
@@ -47,6 +50,9 @@ export default function MobileFilterSheet() {
             </svg>
           </button>
         </div>
+
+        {/* Active Filter Chips */}
+        <FilterChips />
 
         {/* Filter Content */}
         <div className="flex-1 overflow-y-auto px-4 pb-20 scrollbar-thin">
