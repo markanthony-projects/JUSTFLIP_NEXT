@@ -50,6 +50,7 @@ import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 import Link from 'next/link';
 import Image from 'next/image';
 import QuickCalculations from '@/src/app/(justflip)/components/Project/QuickCalculations';
+import PropertyDetailNavTabs from '@/src/app/(justflip)/components/PropertyDetailsNavTabs';
 
 const FloatingActions = dynamic(() => import('@/src/app/(justflip)/components/Project/FloatingActions'));
 
@@ -150,6 +151,8 @@ async function PropertyDetails({ params }: ProjectPageProps) {
 
                 <Description project={projectData} />
 
+                <PropertyDetailNavTabs />
+
                 {/* <ImageBanner project={projectData} /> */}
 
                 {/* <Suspense fallback={<PropertyHeaderSkeleton />} >
@@ -167,7 +170,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
                     <div className="lg:col-span-4 xl:col-span-5 space-y-4 md:space-y-6">
                         
                         {/* 1. Project Overview */}
-                        <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                        <div id="overview" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                             <Suspense fallback={<ProjectOverviewSkeleton />}>
                                 <ProjectOverview project={projectData} />
                             </Suspense>
@@ -175,7 +178,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
 
                         {/* 2. Floor Plans / Unit Table */}
                         {projectData?.units && projectData.units.length > 0 && (
-                            <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                            <div id="floor-plans" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                                 <Suspense fallback={<UnitTableSkeleton />}>
                                     <UnitTable project={projectData} />
                                 </Suspense>
@@ -184,17 +187,19 @@ async function PropertyDetails({ params }: ProjectPageProps) {
 
                         {/* 3. Features & Amenities */}
                         {projectData?.amenities && projectData.amenities.length > 0 && (
-                            <div className="!bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                            <div id="amenities" className="!bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                                 <Suspense fallback={<FeaturesSkeleton />}>
                                     <Features project={projectData} />
                                 </Suspense>
                             </div>
                         )}
 
-                        <QuickCalculations project={projectData}/>
+                        <div id="tools">
+                            <QuickCalculations project={projectData}/>
+                        </div>
 
                         {/* 4. Explore Map / Transit / Essentials */}
-                        <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                        <div id="location" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                             <Suspense fallback={<ExploreMapSkeleton />}>
                                 <ExploreMap project={projectData} />
                             </Suspense>
@@ -202,7 +207,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
 
                         {/* 5. Project Highlights */}
                         {projectData?.advantages && projectData.advantages.length > 0 && (
-                            <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                            <div id="highlights" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                                 <Suspense fallback={<HighlightProjectSkeleton />}>
                                     <HighlightsProject project={projectData} />
                                 </Suspense>
@@ -210,7 +215,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
                         )}
 
                         {/* 6. Ratings & Reviews */}
-                        <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                        <div id="reviews" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                             <Suspense fallback={<ReviewsSkeleton />}>
                                 <ReviewsWrapper projectId={id} projectName={projectData?.name} />
                             </Suspense>
@@ -262,10 +267,14 @@ async function PropertyDetails({ params }: ProjectPageProps) {
                     <FloatingActions data={projectData} />
                 </section>
                 <Suspense fallback={<SimilarPropertiesSkeleton />}>
+                    <div id="similar-properties">
                     <SimilarProjectsWrapper locationId={locationId} projectId={id} type="similar" />
+                    </div>
                 </Suspense>
                 <Suspense fallback={<FAQSkeleton />}>
-                    <FAQ data={projectData} />
+                    <div id="faq">
+                        <FAQ data={projectData} />
+                    </div>
                 </Suspense>
 
             </div>
@@ -284,7 +293,7 @@ async function LocationInfoWrapper({ locationId, projectData }: { locationId: st
     return (
         <div className="space-y-4 md:space-y-6">
             {projectData?.builder && (
-                <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                <div id="developer" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                     <DeveloperDetail project={projectData} data={locationData} />
                 </div>
             )}
@@ -292,12 +301,14 @@ async function LocationInfoWrapper({ locationId, projectData }: { locationId: st
                 <Highlight data={locationData} />
             </div>
             {locationData?.pricings && locationData.pricings.length > 0 && (
-                <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                <div id="price-trend" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                     <PriceTrendSection data={locationData as any} />
                     <PriceTrendSchema trends={locationData?.pricings} />
                 </div>
             )}
-            <PropertyGallery data={locationData} />
+            <div id="gallery">
+                <PropertyGallery data={locationData} />
+            </div>
         </div>
     );
 }
