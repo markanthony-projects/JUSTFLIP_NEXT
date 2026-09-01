@@ -36,6 +36,11 @@ function SummaryCard({ label, value, dotClass, borderClass = "border-gray-200" }
 interface QuickCalculationsProps {
   project?: {
     name?: string;
+    city?:{
+      id?:string;
+      name?:string;
+      region?:string;
+    }
     units?: Array<{
       minPrice?: number | string;
     }>;
@@ -281,7 +286,7 @@ export default function QuickCalculations({ project }: QuickCalculationsProps) {
                 </div>
               ) : (
                 <div className="w-full">
-                  <StampDutyCalculator initialPrice={minPrice}/>
+                  <StampDutyCalculator initialPrice={minPrice} defaultState={project?.city?.region} cityName={project?.city?.name} cityId={project?.city?.id}/>
                 </div>
               )}
             </div>
