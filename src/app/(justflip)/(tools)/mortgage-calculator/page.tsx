@@ -16,21 +16,12 @@ const MortgageCalculatorPage = () => {
   ];
 
   return (
-<<<<<<< HEAD
-    <div className="w-full">
-      <Breadcrumb items={breadcrumbItems} />
-      <Suspense fallback={<div className="w-full h-96 bg-gray-50 animate-pulse rounded-2xl" />}>
-        <MortgageCalculator />
-      </Suspense>
-    </div>
-=======
     <Suspense>
       <div className="w-full">
         <Breadcrumb items={breadcrumbItems} />
         <MortgageCalculator />
       </div>
     </Suspense>
->>>>>>> 0beab96763fac77bc1928c6d2123dee1bad5c5ed
   );
 };
 
