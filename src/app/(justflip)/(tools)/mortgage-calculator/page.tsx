@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import MortgageCalculator from './components/MortgageCalculator';
@@ -18,7 +18,9 @@ const MortgageCalculatorPage = () => {
   return (
     <div className="w-full">
       <Breadcrumb items={breadcrumbItems} />
-      <MortgageCalculator />
+      <Suspense fallback={<div className="w-full h-96 bg-gray-50 animate-pulse rounded-2xl" />}>
+        <MortgageCalculator />
+      </Suspense>
     </div>
   );
 };
