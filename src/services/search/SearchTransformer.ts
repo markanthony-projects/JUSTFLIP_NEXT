@@ -24,6 +24,7 @@ export function transformSearchResponse(raw: Record<string, any>, limit: number 
 
 function transformProject(p: Record<string, any>): Project {
   return {
+    ...p,
     id: p.id,
     name: p.name,
     slug: p.slug,
@@ -42,6 +43,7 @@ function transformProject(p: Record<string, any>): Project {
     possessionStatus: p.possessionStatus,
     builder: p.builder,
     approval: p.approval,
+    rera: p.rera || p.reraNumber || (p as any)?.reraNo || null,
     createdAt: p.createdAt,
     coordinates: p.coordinates || p.locationData,
   } as Project;
