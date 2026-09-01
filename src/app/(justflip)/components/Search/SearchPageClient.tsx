@@ -63,7 +63,8 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
     // Skip first render if we wanted to rely on server data, 
     // but for now let's just fetch client-side on mount
     const fetchResults = async () => {
-      if (page === 1) {
+      const isInitialOrEmpty = page === 1 || useSearchStore.getState().results.length === 0;
+      if (isInitialOrEmpty) {
         setLoading(true);
       } else {
         setLoadingMore(true);
@@ -71,7 +72,7 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
       setError(null);
       try {
         const data = await adapter.search({ query, filters, sort, page, limit });
-        if (page === 1) {
+        if (isInitialOrEmpty) {
           setResults(data);
         } else {
           appendResults(data);
@@ -79,11 +80,8 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
       } catch (err) {
         console.error('Search error:', err);
         setError('Failed to fetch search results. Please try again.');
-        if (page === 1) {
-          setLoading(false);
-        } else {
-          setLoadingMore(false);
-        }
+        setLoading(false);
+        setLoadingMore(false);
       }
     };
 
