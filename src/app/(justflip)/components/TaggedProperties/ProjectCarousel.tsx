@@ -6,8 +6,8 @@ import Carousel from "@/src/components/Carousel";
 import { Project } from "@/src/types";
 
 interface ProjectCarouselProps{
-    projects: Project[]
-    varient: "featured" | "default"
+    projects: Project[];
+    varient?: "featured" | "default";
 }
 
 export default function ProjectCarousel({ projects, varient = "default" }: ProjectCarouselProps) {
