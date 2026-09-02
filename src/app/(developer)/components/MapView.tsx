@@ -59,7 +59,7 @@ function MapView({ projects = [] }: MapViewProps) {
 
   return (
     <div 
-      className="h-[400px] rounded overflow-hidden shadow z-0"
+      className="h-[400px] rounded overflow-hidden shadow relative z-0"
       style={{touchAction: "pan-x pan-y"}}
     >
       <MapContainer
@@ -85,8 +85,8 @@ function MapView({ projects = [] }: MapViewProps) {
         //limits for zoomin/zoomout
         minZoom={5}
         maxZoom={18}
-        style={{ width: "100%", height: "100%" }}
-        className=""
+        style={{ width: "100%", height: "100%", zIndex: 0 }}
+        className="z-0"
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
