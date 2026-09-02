@@ -12,8 +12,6 @@
   import FavouriteButton from '../atoms/FavouriteButton';
   import LoginModal from '../organisms/LoginModal';
   import * as ProjectService from "@/src/services/ProjectService";
-import { div } from 'framer-motion/client';
-
 
   interface FeaturedPropertyProps{
     project: Project
@@ -63,21 +61,7 @@ import { div } from 'framer-motion/client';
 
           return ()=>{mounted = false}
       },[projectId])
-
-      console.log(details)
-
-      if(loading){
-        return (
-          <div className="w-full max-w-[400px] overflow-hidden rounded-xl border border-[#E8E1D6] bg-[#FAF7F2] animate-pulse">
-              <div className="h-62 w-full bg-[#E8E1D6]" />
-              <div className="space-y-3 px-5 py-4">
-                  <div className="h-5 w-2/3 rounded bg-[#E8E1D6]" />
-                  <div className="h-3 w-full rounded bg-[#E8E1D6]" />
-                  <div className="h-10 w-full rounded bg-[#E8E1D6]" />
-              </div>
-            </div>
-        ); 
-      }
+      
     
       const amenities = details?.amenities || []
 
@@ -95,6 +79,7 @@ import { div } from 'framer-motion/client';
       };
 
       const bhk =
+          // details?.summary
           propertyData.bhk ||
           propertyData.residenceType ||
           "Apartment";
