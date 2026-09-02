@@ -70,7 +70,9 @@ export const revalidate = 1800;
 
 export default async function LocationPage({ params }: LocationPageProps) {
   const { city, zone, location } = await params;
+  console.log(zone)
   const { cityName, zoneName, name, id } = parseLocationUrl(city, zone, location)
+  console.log("zone Name...",zoneName)
   const data = await getLocationPageData(id)
 
   if (!data || !data.locationData) {
@@ -79,7 +81,8 @@ export default async function LocationPage({ params }: LocationPageProps) {
 
   const { locationData, builders, reviewData, reviewList, trends } = data;
   const cityUrl = createCityUrl(cityName, locationData?.zone?.city?.id)
-  const zoneUrl = createZoneUrl(cityName, name, locationData?.zone?.id)
+  const zoneUrl = createZoneUrl(cityName, zone, locationData?.zone?.id)
+  console.log(zoneUrl)
 
   const breadcrumbItems = [
     { label: "Properties", href: "/properties" },
