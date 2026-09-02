@@ -12,6 +12,7 @@ import { PropertyCardSkeletonList } from "../Skelton/PropertyCardSkeleton";
 import { useCityStore } from "@/src/stores/city.store";
 import * as ProjectService from "@/src/services/ProjectService";
 import { City, Project } from "@/src/types";
+import { FeaturedPropertySkeletonList } from "../Skelton/FeaturedPropertySkeleton";
 
 export default function DeferredProjectSection({ city, tag }: { city?: City; tag: string }) {
 
@@ -139,12 +140,13 @@ export default function DeferredProjectSection({ city, tag }: { city?: City; tag
             <LazyHydrate
                 key={`${resolvedCityId}-${tag}`}
                 rootMargin="500px"
-                placeholder={<PropertyCardSkeletonList />}
+                placeholder={tag === "Featured Properties" ? <FeaturedPropertySkeletonList/> : <PropertyCardSkeletonList />}
                 onVisible={() => setEnabled(true)}
             >
 
                 {loading || !projects.length ? (
-                    <PropertyCardSkeletonList />
+                    // <PropertyCardSkeletonList />
+                    `${tag === "Featured Properties" ? <FeaturedPropertySkeletonList/> : <PropertyCardSkeletonList />}`
                 ) : (
                     <ProjectCarousel projects={projects} 
                         varient = {tag === "Featured Properties" ? "featured" : "default"}
