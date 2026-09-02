@@ -146,7 +146,9 @@ export default function DeferredProjectSection({ city, tag }: { city?: City; tag
                 {loading || !projects.length ? (
                     <PropertyCardSkeletonList />
                 ) : (
-                    <ProjectCarousel projects={projects} />
+                    <ProjectCarousel projects={projects} 
+                        varient = {tag === "Featured Properties" ? "featured" : "default"}
+                    />
                 )}
 
             </LazyHydrate>
