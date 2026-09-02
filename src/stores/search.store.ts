@@ -37,7 +37,7 @@ export interface SearchActions {
   setPage: (page: number) => void;
   
   setResults: (data: { results: Project[]; total: number; totalPages: number; hasMore: boolean; facets?: any }) => void;
-  appendResults: (data: { results: Project[]; hasMore: boolean; totalPages: number }) => void;
+  appendResults: (data: { results: Project[]; hasMore: boolean; totalPages: number; total?: number }) => void;
 
   setLoading: (isLoading: boolean) => void;
   setLoadingMore: (isLoadingMore: boolean) => void;
@@ -108,12 +108,16 @@ export const useSearchStore = create<SearchState & SearchActions>((set, get) => 
     results: [...state.results, ...data.results],
     hasMore: data.hasMore,
     totalPages: data.totalPages,
+    total: data.total !== undefined ? data.total : state.total,
+    isLoading: false,
     isLoadingMore: false,
+    isInitialized: true,
+    error: null,
   })),
 
   setLoading: (isLoading) => set({ isLoading }),
   setLoadingMore: (isLoadingMore) => set({ isLoadingMore }),
-  setError: (error) => set({ error, isLoading: false }),
+  setError: (error) => set({ error, isLoading: false, isLoadingMore: false }),
   toggleFilterSheet: () => set((state) => ({ isFilterOpen: !state.isFilterOpen })),
   toggleSearchModal: () => set((state) => ({ isSearchModalOpen: !state.isSearchModalOpen })),
   closeSearchModal: () => set({ isSearchModalOpen: false }),
@@ -123,7 +127,7 @@ export const useSearchStore = create<SearchState & SearchActions>((set, get) => 
   hydrateFromUrl: (searchParams, initialSeoFilters = null) => {
     let query = searchParams.get('q') || '';
     const sort = searchParams.get('sort') || 'relevance';
-    const page = parseInt(searchParams.get('page') || '1', 10);
+    const page = 1; // Infinite scroll feeds always start from page 1 on fresh load/reload
     
     const filters: Record<string, any> = {};
     const filterKeys = Object.keys(SEARCH_CONFIG.filters);
@@ -170,12 +174,11 @@ export const useSearchStore = create<SearchState & SearchActions>((set, get) => 
 
   // Generate URL search params from state
   toSearchParams: () => {
-    const { query, filters, sort, page } = get();
+    const { query, filters, sort } = get();
     const params = new URLSearchParams();
     
     if (query) params.set('q', query);
     if (sort !== 'relevance') params.set('sort', sort);
-    if (page > 1) params.set('page', String(page));
 
     Object.entries(filters).forEach(([key, value]) => {
       if (value !== undefined && value !== null && value !== '') {

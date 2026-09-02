@@ -208,7 +208,7 @@ export default function ExploreMap({ project }: { project: Project }) {
             </div>
 
             {/* Top Map Preview Banner */}
-            <div className="relative w-full h-[160px] sm:h-[190px] md:h-[210px] rounded-2xl overflow-hidden my-4 border border-gray-100 bg-slate-100">
+            <div className="relative w-full h-[160px] sm:h-[190px] md:h-[210px] rounded-2xl overflow-hidden my-4 border border-gray-100 bg-slate-100 isolate">
                 <MapView
                     project={project}
                     activeCategory={activeTab}
@@ -217,7 +217,7 @@ export default function ExploreMap({ project }: { project: Project }) {
                 />
 
                 {/* View on Map Centered Button (opens full explorer page) */}
-                <div className="absolute inset-0 bg-black/10 backdrop-blur-[1px] flex items-center justify-center pointer-events-auto">
+                <div className="absolute inset-0 bg-black/10 backdrop-blur-[1px] flex items-center justify-center pointer-events-auto z-[999]">
                     <button
                         type="button"
                         onClick={() => setIsMapModalOpen(true)}
@@ -312,4 +312,4 @@ export default function ExploreMap({ project }: { project: Project }) {
             )}
         </section>
     );
-}
+}

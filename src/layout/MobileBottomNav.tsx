@@ -21,7 +21,11 @@ export default function MobileBottomNav() {
     const router = useRouter();
     const { isAuthenticated, user, authType } = useAuthStore();
     const { openSlider } = useSlider();
-    const { toggleSearchModal, isSearchModalOpen } = useSearchStore();
+    const { toggleSearchModal, isSearchModalOpen, isFilterOpen } = useSearchStore();
+
+    if (isFilterOpen) {
+        return isSearchModalOpen ? <MobileSearchModal /> : null;
+    }
 
     const handleSearchClick = () => {
         toggleSearchModal();

@@ -63,7 +63,8 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
     // Skip first render if we wanted to rely on server data, 
     // but for now let's just fetch client-side on mount
     const fetchResults = async () => {
-      if (page === 1) {
+      const isInitialOrEmpty = page === 1 || useSearchStore.getState().results.length === 0;
+      if (isInitialOrEmpty) {
         setLoading(true);
       } else {
         setLoadingMore(true);
@@ -71,7 +72,7 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
       setError(null);
       try {
         const data = await adapter.search({ query, filters, sort, page, limit });
-        if (page === 1) {
+        if (isInitialOrEmpty) {
           setResults(data);
         } else {
           appendResults(data);
@@ -79,11 +80,8 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
       } catch (err) {
         console.error('Search error:', err);
         setError('Failed to fetch search results. Please try again.');
-        if (page === 1) {
-          setLoading(false);
-        } else {
-          setLoadingMore(false);
-        }
+        setLoading(false);
+        setLoadingMore(false);
       }
     };
 
@@ -95,11 +93,11 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
   }, [query, JSON.stringify(filters), sort, page, limit, activeCity?.id]);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <div className={
         isMapMode 
           ? "w-full max-w-[1920px] mx-auto px-0 py-0 flex-1 flex flex-col lg:flex-row relative" 
-          : "container mx-auto px-4 lg:px-8 max-w-7xl pt-2.5 pb-6 flex-1 flex gap-6"
+          : "container mx-auto px-3 sm:px-4 lg:px-8 max-w-7xl pt-2 pb-6 flex-1 flex gap-6"
       }>
         
         {/* Left Sidebar (Desktop Filters & Breadcrumb) - Only in List Mode */}
@@ -125,9 +123,9 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
             </div>
           )}
 
-          <ResultsHeader />
           
-          <div className="mt-4 flex-1">
+          <div className="mt-2 flex-1">
+            <ResultsHeader />
             <SearchResultsList />
           </div>
         </main>

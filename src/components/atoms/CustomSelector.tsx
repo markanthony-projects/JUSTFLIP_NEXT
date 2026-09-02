@@ -74,6 +74,8 @@ const CustomSelect = ({
                         <div className="p-2 border-b flex items-center gap-2">
                             <FiSearch className="text-gray-400" />
                             <input
+                                id="custom-selector-search"
+                                name="customSelectorSearch"
                                 type="text"
                                 placeholder="Search..."
                                 value={search}

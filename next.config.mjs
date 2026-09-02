@@ -41,6 +41,11 @@ const nextConfig = {
         hostname: "*.justflip.in",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "media.justflip.in",
+        pathname: "/**",
+      },
     ],
     qualities: [75, 85],
   },

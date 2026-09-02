@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { CiCalculator1 } from "react-icons/ci";
+import { useSearchParams } from "next/navigation";
 
 interface SummaryCardProps {
     label: string;
@@ -30,12 +31,24 @@ function SummaryCard({ label, value, dotClass, borderClass = "border-gray-200" }
 }
 
 export default function MortgageCalculator() {
+    const searchParams = useSearchParams();
+
     const [loanAmount, setLoanAmount] = useState("1000000");
     const [years, setYears] = useState("5");
     const [months, setMonths] = useState("5");
     const [interestRate, setInterestRate] = useState("8");
 
     const [results, setResults] = useState<any>(null);
+
+    useEffect(() => {
+        const amountParam = searchParams.get("amount");
+        if(amountParam){
+            const parsed = Number(amountParam)
+            if(!isNaN(parsed) && parsed > 0 && parsed <= 1000000000){
+                setLoanAmount(parsed.toString())
+            }
+        }
+    },[searchParams])
 
     useEffect(() => {
         calculateMortgage();

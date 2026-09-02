@@ -77,8 +77,10 @@ export default function BaseHeaderClient({ children, config }: BaseHeaderClientP
         },
     ];
 
+    const isSearchPage = pathname?.startsWith("/search");
+
     return (
-        <header className={`${isHome ? (config.sticky ? "fixed " : "relative") : "sticky"} top-0 left-0 z-50 w-full h-15 flex items-center ${config.bg} transition-[transform,opacity] duration-300 ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`} >
+        <header className={`${isSearchPage ? "hidden lg:flex" : "flex"} ${isHome ? (config.sticky ? "fixed " : "relative") : "sticky"} top-0 left-0 z-50 w-full h-15 items-center ${config.bg} transition-[transform,opacity] duration-300 ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`} >
             {/* `relative` anchors the absolutely-centred search bar slot. */}
             <div className="relative flex h-full flex-1 gap-2 sm:gap-4 items-center justify-between px-2 md:px-4 w-full mx-auto md:max-w-[1440px]">
                 {children}

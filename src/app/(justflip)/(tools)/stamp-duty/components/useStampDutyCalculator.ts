@@ -12,7 +12,7 @@ import {
 const stampDutyData = rawStampDutyData as StampDutyDataSet;
 
 export const MIN_PROPERTY_VALUE = 500000;      // 5 Lakh
-export const MAX_PROPERTY_VALUE = 500000000;   // 50 Crore
+export const MAX_PROPERTY_VALUE = 100000000;   // 10 Crore
 
 export const PRESET_VALUES = [
   { label: '₹25L', value: 2500000 },
@@ -60,11 +60,19 @@ export function convertToIndianWords(num: number): string {
   return convertIndianRecursive(num).trim();
 }
 
-export function useStampDutyCalculator() {
+export function useStampDutyCalculator(initialPrice?:number, defaultStateProp?:string) {
   const searchParams = useSearchParams();
-  const [selectedState, setSelectedState] = useState<string>('Gujarat');
-  const [propertyValue, setPropertyValue] = useState<number>(5000000);
-  const [inputValue, setInputValue] = useState<string>('5000000');
+  const [selectedState, setSelectedState] = useState<string>(defaultStateProp || 'Karnataka');
+
+  useEffect(() => {
+    if(defaultStateProp && stampDutyData[defaultStateProp]){
+      setSelectedState(defaultStateProp)
+    }
+  },[defaultStateProp])
+
+  const initialVal = initialPrice && !isNaN(initialPrice) ? initialPrice : 5000000
+  const [propertyValue, setPropertyValue] = useState<number>(initialVal);
+  const [inputValue, setInputValue] = useState<string>(initialVal.toString());
   const [gender, setGender] = useState<BuyerGender>('male');
   const [locationType] = useState<LocationType>('urban');
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
@@ -89,16 +97,6 @@ export function useStampDutyCalculator() {
 
   const updatePropertyValue = (val: number) => {
     validateAndSetPropertyValue(val);
-  };
-
-  // Intercept key presses to stop Backspace or Delete when already at or below 5 Lakh
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const numericVal = Number(inputValue);
-
-    if ((e.key === 'Backspace' || e.key === 'Delete') && numericVal <= MIN_PROPERTY_VALUE) {
-      e.preventDefault();
-      toast.error('Minimum property value allowed is ₹5 Lakh (₹5,00,000)');
-    }
   };
 
   // Prevent entering or pasting any number outside the range [500000, 500000000]
@@ -216,7 +214,6 @@ export function useStampDutyCalculator() {
     propertyValue,
     inputValue,
     handleInputChange,
-    handleKeyDown,
     handleInputBlur,
     updatePropertyValue,
     gender,

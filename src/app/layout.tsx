@@ -20,6 +20,9 @@ import { ReactNode } from 'react';
 
 export const metadata: Metadata = {
     metadataBase: new URL("https://justflip.in"),
+    icons: {
+        icon: favicon.src,
+    },
     ...constructMetadata({}),
 };
 
@@ -29,23 +32,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
     return (
         <html lang="en">
-            <head>
-                <link
-                    rel="icon"
-                    type="image/svg+xml"
-                    href={favicon.src}
-                />
-                <link rel="preconnect" href="https://media.justflip.in" crossOrigin="anonymous" />
-                <link rel="dns-prefetch" href="https://media.justflip.in" />
-
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{
-                        __html: JSON.stringify(orgSchema),
-                    }}
-                />
-            </head>
-
             <body
                 className={`
                     ${firaSans.className}
@@ -57,6 +43,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     pb-16 md:pb-0
                 `}
             >
+                <link rel="dns-prefetch" href="https://media.justflip.in" />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify(orgSchema),
+                    }}
+                />
                 {/* <CompareInitializer /> */}
 
                 <SliderProvider>

@@ -202,6 +202,8 @@ export default function SearchBarClient({ showCitySelector = true }: SearchBarCl
 
             <div className="relative flex-1 min-w-0 h-full">
                 <input
+                    id="main-search-input"
+                    name="search"
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}

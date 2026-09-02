@@ -47,6 +47,8 @@ const SearchDropdown = ({
     return (
         <div className="relative" ref={dropdownRef}>
             <input
+                id="searchable-dropdown-input"
+                name="dropdownSearch"
                 type="text"
                 placeholder={disabled ? "Select Previous Option first..." : placeholder}
                 value={value}

@@ -1,74 +1,92 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import { useSearchStore } from '@/src/stores/search.store';
 import SortDropdown from './SortDropdown';
-
 import { BsList, BsMap } from 'react-icons/bs';
 import { FaRegBell } from 'react-icons/fa';
+import { LuSlidersHorizontal } from 'react-icons/lu';
 import SaveSearchModal from './SaveSearchModal';
 
 export default function ResultsHeader() {
-  const { total, query, toggleFilterSheet, viewMode, setViewMode } = useSearchStore();
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const { total, query, toggleFilterSheet, viewMode, setViewMode, filters } = useSearchStore();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Count active filters for mobile badge
+  const activeFilterCount = Object.entries(filters).filter(([_, v]) => v !== undefined && v !== null && v !== '').length;
 
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-2 border-b border-gray-100 mb-4">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-2 mb-2">
       <div>
-        <h1 className="text-xl font-bold text-gray-900">
-          {total > 0 ? `${total} Results` : 'Search Results'}
-        </h1>
-        {query && (
-          <p className="text-sm text-gray-500 mt-1">
-            for "{query}"
-          </p>
-        )}
+        <div className="flex items-baseline gap-2">
+          <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+            {total > 0 ? `${total.toLocaleString()} Properties` : 'Search Results'}
+          </h1>
+          {query && (
+            <span className="text-xs sm:text-sm text-slate-500 font-medium truncate max-w-[200px] sm:max-w-xs">
+              in &ldquo;{query}&rdquo;
+            </span>
+          )}
+        </div>
       </div>
 
-      <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
+      <div className="flex items-center justify-between sm:justify-end gap-2.5 w-full sm:w-auto">
+        {/* Save Search Button */}
         <button
           onClick={() => setIsModalOpen(true)}
-          className="hidden sm:flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-100 text-[#002B5B] rounded-lg text-sm font-medium hover:bg-blue-100 transition-colors"
+          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 bg-slate-50 border border-slate-200 text-[#002B5B] hover:bg-slate-100 rounded-xl text-xs font-semibold transition-colors cursor-pointer"
         >
           <FaRegBell className="w-3.5 h-3.5" />
-          Save Search
+          <span>Save Search</span>
         </button>
 
-        <button 
+        {/* Mobile Filter Sheet Trigger */}
+        <button
           onClick={toggleFilterSheet}
-          className="lg:hidden flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium hover:bg-gray-50"
+          className="lg:hidden inline-flex items-center gap-1.5 px-3.5 py-2 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-slate-800 hover:bg-slate-50 transition-colors shadow-2xs"
         >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-          </svg>
-          Filters
+          <LuSlidersHorizontal className="w-3.5 h-3.5 text-slate-600" />
+          <span>Filters</span>
+          {activeFilterCount > 0 && (
+            <span className="ml-1 w-4 h-4 bg-[#002B5B] text-white rounded-full text-[10px] flex items-center justify-center font-bold">
+              {activeFilterCount}
+            </span>
+          )}
         </button>
 
-        <div className="hidden lg:flex items-center bg-gray-100 p-1 rounded-lg">
+        {/* List / Map Switcher */}
+        <div className="hidden lg:flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/60">
           <button
             onClick={() => setViewMode('list')}
-            className={`flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
-              viewMode === 'list' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors cursor-pointer ${
+              viewMode === 'list'
+                ? 'bg-white shadow-xs text-slate-900'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
-            <BsList className="w-4 h-4" />
-            List
+            <BsList className="w-3.5 h-3.5" />
+            <span>List</span>
           </button>
           <button
             onClick={() => setViewMode('map')}
-            className={`flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
-              viewMode === 'map' ? 'bg-white shadow-sm text-gray-900' : 'text-gray-500 hover:text-gray-700'
+            className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors cursor-pointer ${
+              viewMode === 'map'
+                ? 'bg-white shadow-xs text-slate-900'
+                : 'text-slate-500 hover:text-slate-800'
             }`}
           >
-            <BsMap className="w-4 h-4" />
-            Map
+            <BsMap className="w-3.5 h-3.5" />
+            <span>Map</span>
           </button>
         </div>
 
+        {/* Sort Dropdown */}
         <SortDropdown />
       </div>
 
-      <SaveSearchModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+      <SaveSearchModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
     </div>
   );
