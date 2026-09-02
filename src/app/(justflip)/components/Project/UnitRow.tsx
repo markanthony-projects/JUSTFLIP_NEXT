@@ -48,7 +48,7 @@ export default function UnitRow({ product, getCurrencySymbol, onView }: { produc
         </h3>
 
         {/* Price Range */}
-        <div className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight mb-2">
+        <div className="text-sm sm:text-xl font-bold text-slate-900 tracking-tight mb-2">
           {price}
         </div>
 
