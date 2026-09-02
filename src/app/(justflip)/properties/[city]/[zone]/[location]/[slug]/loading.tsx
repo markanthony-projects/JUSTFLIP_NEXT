@@ -12,7 +12,7 @@ import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
 export default function Loading() {
     return (
-        <div className="w-full max-w-full overflow-x-hidden px-2 md:px-4 !bg-[#F1F1F]">
+        <div className="w-full max-w-full overflow-x-hidden px-2 md:px-4 bg-gray-50/50">
             <ScrollToTop />
 
             {/* Breadcrumb Skeleton */}

@@ -1,7 +1,7 @@
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import { notFound } from 'next/navigation';
 import { createCityUrl, createZoneUrl, parseLocationUrl } from '@/src/utils/url';
-import React, { Suspense } from 'react'
+import React, { Suspense } from 'react';
 import { getLocationPageData } from '@/src/app/(justflip)/components/CityComponent/city.server';
 import HeaderTop from '@/src/app/(justflip)/components/HeaderTop';
 
@@ -20,7 +20,6 @@ import MapFilterSkeleton from '@/src/app/(justflip)/components/Skelton/MapFilter
 import PriceTrendSchema from '@/src/components/seo/PriceTrendSchema';
 import { ReviewsSkeleton } from '@/src/app/(justflip)/components/Skelton/ReviewsSkeleton';
 import PriceTrendSkeleton from '@/src/app/(justflip)/components/Skelton/PriceTrendSkeleton';
-
 
 const BuildersSection = dynamic(() => import("@/src/app/(justflip)/components/CityComponent/BuilderSection"));
 const PriceTrendClient = dynamic(() => import("@/src/app/(justflip)/components/PriceTrendClient"));
@@ -70,24 +69,25 @@ export const revalidate = 1800;
 
 export default async function LocationPage({ params }: LocationPageProps) {
   const { city, zone, location } = await params;
-  const { cityName, zoneName, name, id } = parseLocationUrl(city, zone, location)
-  const data = await getLocationPageData(id)
+  const { cityName, zoneName, name, id } = parseLocationUrl(city, zone, location);
+  const data = await getLocationPageData(id);
 
   if (!data || !data.locationData) {
     return notFound();
   }
 
   const { locationData, builders, reviewData, reviewList, trends } = data;
-  const cityUrl = createCityUrl(cityName, locationData?.zone?.city?.id)
-  const zoneUrl = createZoneUrl(cityName, name, locationData?.zone?.id)
+  const cityUrl = createCityUrl(cityName, locationData?.zone?.city?.id);
+  const zoneUrl = createZoneUrl(cityName, name, locationData?.zone?.id);
 
   const breadcrumbItems = [
     { label: "Properties", href: "/properties" },
     { label: cityName || "City Details", href: `${cityUrl}` },
     { label: zoneName || "Zone Details", href: `${zoneUrl}` },
-    { label: name }];
+    { label: name }
+  ];
 
-  const bannerImage = locationData?.medias?.find((o: any) => o.title === 'logo')
+  const bannerImage = locationData?.medias?.find((o: any) => o.title === 'logo');
 
   return (
     <div className="w-full px-2 md:px-4">

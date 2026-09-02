@@ -1,33 +1,33 @@
 import Breadcrumb from "@/src/components/organisms/breadCrumb";
 import { notFound } from 'next/navigation';
 import { parseCityUrl } from "@/src/utils/url";
-import { getCityPageData } from "../../components/CityComponent/city.server";
-import HeaderTop from "../../components/HeaderTop";
+import { getCityPageData } from "@/src/app/(justflip)/components/CityComponent/city.server";
+import HeaderTop from "@/src/app/(justflip)/components/HeaderTop";
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
-import { HighlightSkeleton } from "../../components/Skelton/HighlightSkeleton";
-import { TopBuildersSkeleton } from "../../components/Skelton/TopBuildersSkeleton";
-import { PropertySupplySkeleton } from "../../components/Skelton/PropertySupplySkeleton";
-import { ReviewsSkeleton } from "../../components/Skelton/ReviewsSkeleton";
-import { BlogsSkeleton } from "../../components/Skelton/BlogsSkelton";
-import { GallerySkeleton } from "../../components/Skelton/GallerySkeleton";
-import { FAQSkeleton } from "../../components/Skelton/FAQSkeleton";
-import { RatingCardSkeleton } from "../../components/Skelton/RatingCardSkeleton";
-import { TopPropertySkeleton } from "../../components/Skelton/TopPropertySkeleton";
+import { HighlightSkeleton } from "@/src/app/(justflip)/components/Skelton/HighlightSkeleton";
+import { TopBuildersSkeleton } from "@/src/app/(justflip)/components/Skelton/TopBuildersSkeleton";
+import { PropertySupplySkeleton } from "@/src/app/(justflip)/components/Skelton/PropertySupplySkeleton";
+import { ReviewsSkeleton } from "@/src/app/(justflip)/components/Skelton/ReviewsSkeleton";
+import { BlogsSkeleton } from "@/src/app/(justflip)/components/Skelton/BlogsSkelton";
+import { GallerySkeleton } from "@/src/app/(justflip)/components/Skelton/GallerySkeleton";
+import { FAQSkeleton } from "@/src/app/(justflip)/components/Skelton/FAQSkeleton";
+import { RatingCardSkeleton } from "@/src/app/(justflip)/components/Skelton/RatingCardSkeleton";
+import { TopPropertySkeleton } from "@/src/app/(justflip)/components/Skelton/TopPropertySkeleton";
 
-const BuildersSection = dynamic(() => import("../../components/CityComponent/BuilderSection"));
-const TopProperty = dynamic(() => import("../../components/TopProperty"));
-const PriceTrendClient = dynamic(() => import("../../components/PriceTrendClient"));
-const ReviewsSectionClient = dynamic(() => import("../../components/CityComponent/ReviewsSectionClient"));
-const Highlight = dynamic(() => import("../../components/Highlight"));
-const Blogs = dynamic(() => import("../../components/Blogs"));
-const PropertyGallery = dynamic(() => import("../../components/PropertyGallery"));
-const PropertySupply = dynamic(() => import("../../components/PropertySupply"));
-const FAQ = dynamic(() => import("../../components/FAQ"));
+const BuildersSection = dynamic(() => import("@/src/app/(justflip)/components/CityComponent/BuilderSection"));
+const TopProperty = dynamic(() => import("@/src/app/(justflip)/components/TopProperty"));
+const PriceTrendClient = dynamic(() => import("@/src/app/(justflip)/components/PriceTrendClient"));
+const ReviewsSectionClient = dynamic(() => import("@/src/app/(justflip)/components/CityComponent/ReviewsSectionClient"));
+const Highlight = dynamic(() => import("@/src/app/(justflip)/components/Highlight"));
+const Blogs = dynamic(() => import("@/src/app/(justflip)/components/Blogs"));
+const PropertyGallery = dynamic(() => import("@/src/app/(justflip)/components/PropertyGallery"));
+const PropertySupply = dynamic(() => import("@/src/app/(justflip)/components/PropertySupply"));
+const FAQ = dynamic(() => import("@/src/app/(justflip)/components/FAQ"));
 import { constructMetadata } from "@/src/utils/seo";
 import { Metadata } from 'next';
 import ScrollToTop from "@/src/components/atoms/ScrollToTop";
-import PropertyDetailNavTabs from "../../components/PropertyDetailsNavTabs";
+import PropertyDetailNavTabs from "@/src/app/(justflip)/components/PropertyDetailsNavTabs";
 
 const cityNavItems = [
   { id: "overview", label: "Overview" },
@@ -73,9 +73,6 @@ export const revalidate = 1800;
 export default async function CityPage({ params }: CityPageProps) {
   const { city } = await params;
   const { name, id } = parseCityUrl(city);
-
-  // TEMPORARY ARTIFICIAL DELAY: Sleeps for 10 seconds to allow you to inspect the loading skeleton
-  // await new Promise(resolve => setTimeout(resolve, 10000));
 
   const data = await getCityPageData(id);
 

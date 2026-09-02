@@ -1,29 +1,29 @@
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import { notFound } from 'next/navigation';
 import { createCityUrl, parseZoneUrl } from '@/src/utils/url';
-import React, { Suspense } from 'react'
-import { getZonePageData } from '../../../components/CityComponent/city.server';
-import HeaderTop from '../../../components/HeaderTop';
-import { TopBuildersSkeleton } from '../../../components/Skelton/TopBuildersSkeleton';
-import { TopPropertySkeleton } from '../../../components/Skelton/TopPropertySkeleton';
-import { RatingCardSkeleton } from '../../../components/Skelton/RatingCardSkeleton';
-import { ReviewsSkeleton } from '../../../components/Skelton/ReviewsSkeleton';
-import { HighlightSkeleton } from '../../../components/Skelton/HighlightSkeleton';
-import { BlogsSkeleton } from '../../../components/Skelton/BlogsSkelton';
-import { GallerySkeleton } from '../../../components/Skelton/GallerySkeleton';
-import { PropertySupplySkeleton } from '../../../components/Skelton/PropertySupplySkeleton';
+import React, { Suspense } from 'react';
+import { getZonePageData } from '@/src/app/(justflip)/components/CityComponent/city.server';
+import HeaderTop from '@/src/app/(justflip)/components/HeaderTop';
+import { TopBuildersSkeleton } from '@/src/app/(justflip)/components/Skelton/TopBuildersSkeleton';
+import { TopPropertySkeleton } from '@/src/app/(justflip)/components/Skelton/TopPropertySkeleton';
+import { RatingCardSkeleton } from '@/src/app/(justflip)/components/Skelton/RatingCardSkeleton';
+import { ReviewsSkeleton } from '@/src/app/(justflip)/components/Skelton/ReviewsSkeleton';
+import { HighlightSkeleton } from '@/src/app/(justflip)/components/Skelton/HighlightSkeleton';
+import { BlogsSkeleton } from '@/src/app/(justflip)/components/Skelton/BlogsSkelton';
+import { GallerySkeleton } from '@/src/app/(justflip)/components/Skelton/GallerySkeleton';
+import { PropertySupplySkeleton } from '@/src/app/(justflip)/components/Skelton/PropertySupplySkeleton';
 import dynamic from 'next/dynamic';
-import { FAQSkeleton } from '../../../components/Skelton/FAQSkeleton';
+import { FAQSkeleton } from '@/src/app/(justflip)/components/Skelton/FAQSkeleton';
 
-const BuildersSection = dynamic(() => import("../../../components/CityComponent/BuilderSection"));
-const TopProperty = dynamic(() => import("../../../components/TopProperty"));
-const PriceTrendClient = dynamic(() => import("../../../components/PriceTrendClient"));
-const ReviewsSectionClient = dynamic(() => import("../../../components/CityComponent/ReviewsSectionClient"));
-const Highlight = dynamic(() => import("../../../components/Highlight"));
-const Blogs = dynamic(() => import("../../../components/Blogs"));
-const PropertyGallery = dynamic(() => import("../../../components/PropertyGallery"));
-const FAQ = dynamic(() => import("../../../components/FAQ"));
-const PropertySupply = dynamic(() => import("../../../components/PropertySupply"));
+const BuildersSection = dynamic(() => import("@/src/app/(justflip)/components/CityComponent/BuilderSection"));
+const TopProperty = dynamic(() => import("@/src/app/(justflip)/components/TopProperty"));
+const PriceTrendClient = dynamic(() => import("@/src/app/(justflip)/components/PriceTrendClient"));
+const ReviewsSectionClient = dynamic(() => import("@/src/app/(justflip)/components/CityComponent/ReviewsSectionClient"));
+const Highlight = dynamic(() => import("@/src/app/(justflip)/components/Highlight"));
+const Blogs = dynamic(() => import("@/src/app/(justflip)/components/Blogs"));
+const PropertyGallery = dynamic(() => import("@/src/app/(justflip)/components/PropertyGallery"));
+const FAQ = dynamic(() => import("@/src/app/(justflip)/components/FAQ"));
+const PropertySupply = dynamic(() => import("@/src/app/(justflip)/components/PropertySupply"));
 import { constructMetadata } from "@/src/utils/seo";
 import { Metadata } from 'next';
 import ScrollToTop from '@/src/components/atoms/ScrollToTop';
@@ -72,7 +72,7 @@ export default async function ZonePage({ params }: ZonePageProps) {
     { label: cityName, href: createCityUrl(cityName, zoneData?.city?.id) },
     { label: name }
   ];
-  const bannerImage = zoneData?.medias?.find((o: any) => o.title === 'logo')
+  const bannerImage = zoneData?.medias?.find((o: any) => o.title === 'logo');
 
   return (
     <div className="w-full px-2 md:px-4">

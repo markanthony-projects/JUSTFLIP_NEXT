@@ -1,15 +1,15 @@
 import React from 'react';
 import ScrollToTop from '@/src/components/atoms/ScrollToTop';
-import { SkeletonBlock } from '../../components/Skelton/SkeletonSection';
-import { HighlightSkeleton } from "../../components/Skelton/HighlightSkeleton";
-import { TopBuildersSkeleton } from "../../components/Skelton/TopBuildersSkeleton";
-import { PropertySupplySkeleton } from "../../components/Skelton/PropertySupplySkeleton";
-import { ReviewsSkeleton } from "../../components/Skelton/ReviewsSkeleton";
-import { BlogsSkeleton } from "../../components/Skelton/BlogsSkelton";
-import { GallerySkeleton } from "../../components/Skelton/GallerySkeleton";
-import { FAQSkeleton } from "../../components/Skelton/FAQSkeleton";
-import { RatingCardSkeleton } from "../../components/Skelton/RatingCardSkeleton";
-import { TopPropertySkeleton } from "../../components/Skelton/TopPropertySkeleton";
+import { SkeletonBlock } from '@/src/app/(justflip)/components/Skelton/SkeletonSection';
+import { HighlightSkeleton } from "@/src/app/(justflip)/components/Skelton/HighlightSkeleton";
+import { TopBuildersSkeleton } from "@/src/app/(justflip)/components/Skelton/TopBuildersSkeleton";
+import { PropertySupplySkeleton } from "@/src/app/(justflip)/components/Skelton/PropertySupplySkeleton";
+import { ReviewsSkeleton } from "@/src/app/(justflip)/components/Skelton/ReviewsSkeleton";
+import { BlogsSkeleton } from "@/src/app/(justflip)/components/Skelton/BlogsSkelton";
+import { GallerySkeleton } from "@/src/app/(justflip)/components/Skelton/GallerySkeleton";
+import { FAQSkeleton } from "@/src/app/(justflip)/components/Skelton/FAQSkeleton";
+import { RatingCardSkeleton } from "@/src/app/(justflip)/components/Skelton/RatingCardSkeleton";
+import { TopPropertySkeleton } from "@/src/app/(justflip)/components/Skelton/TopPropertySkeleton";
 
 export default function Loading() {
     return (
