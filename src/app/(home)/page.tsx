@@ -23,6 +23,7 @@ import ExploreByBudget from "../(justflip)/components/ExploreByBudget";
 import { constructMetadata } from "@/src/utils/seo";
 import { buildWebsiteSchema, buildBreadcrumbSchema } from "@/src/utils/schema";
 import PropertyRecommend from "../(justflip)/components/PropertyRecommend";
+import HomeReviewCard from "../(justflip)/components/HomeReviewCard";
 
 export const metadata = constructMetadata({
     title: "Buy Apartments, Villas & Plots in India & Dubai | JustFlip.in",
@@ -87,6 +88,8 @@ export default async function JustFlipHomePage() {
                         <PopularCities />
                     </Suspense>
                 </LazyHydrate>
+
+                <HomeReviewCard />
 
                 <PostPropertyCTA />
 
