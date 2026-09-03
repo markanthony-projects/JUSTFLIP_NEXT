@@ -7,21 +7,30 @@ export function useSearchQuery(initialSeoFilters: Record<string, any> | null = n
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const isHydrating = useRef(false);
   const isInitial = useRef(true);
   
   const { hydrateFromUrl, toSearchParams, query, filters, sort, page } = useSearchStore();
 
-  // On mount: URL → Store
+  const searchParamsString = searchParams ? searchParams.toString() : '';
+
+  // URL → Store (on mount and when searchParams change in URL)
   useEffect(() => {
-    // If it's an SEO route, we skip hydrating from empty URL searchParams for the ones already in seoFilters
+    isHydrating.current = true;
     hydrateFromUrl(searchParams, initialSeoFilters);
     isInitial.current = false;
+    
+    // Reset hydrating flag so store-to-URL doesn't overwrite
+    const timer = setTimeout(() => {
+      isHydrating.current = false;
+    }, 50);
+    return () => clearTimeout(timer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Only on mount
+  }, [searchParamsString]);
 
-  // On state change: Store → URL (skip initial)
+  // Store → URL (when state changes from user interaction inside search UI)
   useEffect(() => {
-    if (isInitial.current) return;
+    if (isInitial.current || isHydrating.current) return;
     
     const params = toSearchParams();
 
@@ -39,10 +48,10 @@ export function useSearchQuery(initialSeoFilters: Record<string, any> | null = n
     }
 
     const queryString = params.toString();
-    const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
-    
-    // Only replace if it actually changes the query string, avoid loops
-    router.replace(newUrl, { scroll: false });
+    if (queryString !== searchParamsString) {
+      const newUrl = queryString ? `${pathname}?${queryString}` : pathname;
+      router.replace(newUrl, { scroll: false });
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, JSON.stringify(filters), sort, page, pathname, router]);
 }

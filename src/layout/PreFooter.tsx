@@ -97,6 +97,20 @@ const CITY_AREAS_DATA: Record<string, CityAreas> = {
     // Add other cities here following the exact same format!
 };
 
+const CITY_IDS: Record<string, string> = {
+    "Bangalore": "007787eb-284b-4a20-9654-cacff161cf1e",
+    "Pune": "f0f132fa-4514-42d7-b1fb-aea7eeed9a71",
+    "Mysuru": "bfe4371d-a38d-4417-ab91-98be9b9a2482",
+    "Chennai": "a7d6821a-4555-4f2f-9065-b4635adb7a8a",
+    "Mumbai": "872f9c6e-e9f6-4a1e-9ef3-6204dc6528d7",
+    "Hyderabad": "8395c36e-1740-468b-8705-31364d134f9a",
+    "New Delhi": "9caeffa2-6465-49a1-8aa9-49268556c446",
+    "Ahmedabad": "8b2f1231-b88d-41cf-ba64-6f080e20236f",
+    "Kolkata": "eae772ac-5893-4b4d-b6d5-4eb65e174b0b",
+    "Gurgaon": "78616bc2-3c71-4c7e-9849-497bb7179b20",
+    "Noida": "7eff95ca-14e3-4304-b401-5e37fb16b5a8"
+};
+
 // Generate data for the selected city to populate the columns
 const generateCityData = (cityName: string) => {
     // Look up the specific areas for this city, or provide a generic fallback
@@ -109,26 +123,29 @@ const generateCityData = (cityName: string) => {
     const plots = cityData.plots || defaultAreas;
     const villas = cityData.villas || defaultAreas;
 
+    const cityId = CITY_IDS[cityName];
+    const cityIdParam = cityId ? `&cityId=${cityId}` : "";
+
     return [
         {
             title: `Flats in ${cityName}`,
-            links: flats.map(area => ({ label: `Flats in ${area}`, href: `/search?q=${area.toLowerCase().replace(/\s+/g, "-")}&propertyType=apartment` }))
+            links: flats.map(area => ({ label: `Flats in ${area}`, href: `/search?q=${encodeURIComponent(area)}${cityIdParam}&propertyType=apartment` }))
         },
         {
             title: `House for Sale in ${cityName}`,
-            links: houses.map(area => ({ label: `House for Sale in ${area}`, href: `/search?q=${area.toLowerCase().replace(/\s+/g, "-")}&propertyType=villa` }))
+            links: houses.map(area => ({ label: `House for Sale in ${area}`, href: `/search?q=${encodeURIComponent(area)}${cityIdParam}&propertyType=villa` }))
         },
         {
             title: `Property in ${cityName}`,
-            links: property.map(area => ({ label: `Property in ${area}`, href: `/search?q=${area.toLowerCase().replace(/\s+/g, "-")}` }))
+            links: property.map(area => ({ label: `Property in ${area}`, href: `/search?q=${encodeURIComponent(area)}${cityIdParam}` }))
         },
         {
             title: `Plots in ${cityName}`,
-            links: plots.map(area => ({ label: `Plots in ${area}`, href: `/search?q=${area.toLowerCase().replace(/\s+/g, "-")}&propertyType=plot` }))
+            links: plots.map(area => ({ label: `Plots in ${area}`, href: `/search?q=${encodeURIComponent(area)}${cityIdParam}&propertyType=plot` }))
         },
         {
             title: `Villas in ${cityName}`,
-            links: villas.map(area => ({ label: `Villas in ${area}`, href: `/search?q=${area.toLowerCase().replace(/\s+/g, "-")}&propertyType=villa` }))
+            links: villas.map(area => ({ label: `Villas in ${area}`, href: `/search?q=${encodeURIComponent(area)}${cityIdParam}&propertyType=villa` }))
         }
     ];
 };

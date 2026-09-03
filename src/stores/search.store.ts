@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import { SEARCH_CONFIG } from '@/src/services/search/searchConfig';
 import { Project } from '@/src/types';
-import { useCityStore } from './city.store';
 
 export interface SearchState {
   // ── Query State ──
@@ -150,18 +149,6 @@ export const useSearchStore = create<SearchState & SearchActions>((set, get) => 
     if (cityId) filters.cityId = cityId;
     if (zoneId) filters.zoneId = zoneId;
     if (locationId) filters.locationId = locationId;
-
-    if (cityId) {
-      const cityStore = useCityStore.getState();
-      if (cityStore.activeCity?.id !== cityId) {
-        const matchingCity = cityStore.cityList.find((c) => c.id === cityId);
-        if (matchingCity) {
-          cityStore.setActiveCity(matchingCity);
-        } else {
-          cityStore.setActiveCity({ id: cityId, name: '' } as any);
-        }
-      }
-    }
 
     if (initialSeoFilters) {
       if (!query && initialSeoFilters.search) query = initialSeoFilters.search;
