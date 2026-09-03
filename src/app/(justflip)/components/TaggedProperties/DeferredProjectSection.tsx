@@ -131,7 +131,7 @@ export default function DeferredProjectSection({ city, tag }: { city?: City; tag
 
                 </div>
 
-                <p className="text-xs md:text-sm text-gray-600">
+                <p className="hidden md:block text-xs md:text-sm text-gray-600">
                     {content.subtitle}
                 </p>
 

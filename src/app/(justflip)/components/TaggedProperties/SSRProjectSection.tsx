@@ -104,7 +104,7 @@ export default function SSRProjectSection({ city, tag, projects: initialProjects
 
                 </div>
 
-                <p className="text-xs md:text-sm text-gray-600">
+                <p className="hidden md:block text-xs md:text-sm text-gray-600">
                     {subtitle}
                 </p>
 
