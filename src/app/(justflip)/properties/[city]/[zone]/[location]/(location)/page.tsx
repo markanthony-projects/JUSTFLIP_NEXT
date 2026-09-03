@@ -65,9 +65,19 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
   });
 }
 
+import LocationLoading from './LocationLoading';
+
 export const revalidate = 1800;
 
-export default async function LocationPage({ params }: LocationPageProps) {
+export default function LocationPage(props: LocationPageProps) {
+  return (
+    <Suspense fallback={<LocationLoading />}>
+      <LocationPageContent {...props} />
+    </Suspense>
+  );
+}
+
+async function LocationPageContent({ params }: LocationPageProps) {
   const { city, zone, location } = await params;
   const { cityName, zoneName, name, id } = parseLocationUrl(city, zone, location);
   const data = await getLocationPageData(id);

@@ -15,7 +15,7 @@ import MapFilterSkeleton from '@/src/app/(justflip)/components/Skelton/MapFilter
 import { ReviewsSkeleton } from '@/src/app/(justflip)/components/Skelton/ReviewsSkeleton';
 import PriceTrendSkeleton from '@/src/app/(justflip)/components/Skelton/PriceTrendSkeleton';
 
-export default function Loading() {
+export default function LocationLoading() {
     return (
         <>
             <ScrollToTop />

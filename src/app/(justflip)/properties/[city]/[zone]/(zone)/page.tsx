@@ -55,9 +55,19 @@ export async function generateMetadata({ params }: ZonePageProps): Promise<Metad
   });
 }
 
+import ZoneLoading from './ZoneLoading';
+
 export const revalidate = 1800;
 
-export default async function ZonePage({ params }: ZonePageProps) {
+export default function ZonePage(props: ZonePageProps) {
+  return (
+    <Suspense fallback={<ZoneLoading />}>
+      <ZonePageContent {...props} />
+    </Suspense>
+  );
+}
+
+async function ZonePageContent({ params }: ZonePageProps) {
   const { city, zone } = await params;
   const { cityName, name, id } = parseZoneUrl(city, zone);
   const data = await getZonePageData(id);

@@ -68,9 +68,19 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
   });
 }
 
+import CityLoading from "./CityLoading";
+
 export const revalidate = 1800;
 
-export default async function CityPage({ params }: CityPageProps) {
+export default function CityPage(props: CityPageProps) {
+  return (
+    <Suspense fallback={<CityLoading />}>
+      <CityPageContent {...props} />
+    </Suspense>
+  );
+}
+
+async function CityPageContent({ params }: CityPageProps) {
   const { city } = await params;
   const { name, id } = parseCityUrl(city);
 

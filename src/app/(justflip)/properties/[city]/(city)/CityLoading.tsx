@@ -11,7 +11,7 @@ import { FAQSkeleton } from "@/src/app/(justflip)/components/Skelton/FAQSkeleton
 import { RatingCardSkeleton } from "@/src/app/(justflip)/components/Skelton/RatingCardSkeleton";
 import { TopPropertySkeleton } from "@/src/app/(justflip)/components/Skelton/TopPropertySkeleton";
 
-export default function Loading() {
+export default function CityLoading() {
     return (
         <>
             <ScrollToTop />
