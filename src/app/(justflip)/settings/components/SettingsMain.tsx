@@ -15,17 +15,14 @@ import NotificationsSection from '../../profile/components/user/NotificationsSec
 
 const SettingsMain = () => {
   const router = useRouter();
-  const { logout } = useAuthStore();
-  
-  // Dummy states for UI demonstration
-  const [theme, setTheme] = useState('light');
-  const [currency, setCurrency] = useState('INR');
-  const [language, setLanguage] = useState('English');
+  const { authType, logout } = useAuthStore();
   
   const handleLogout = async () => {
     await logout();
     router.push("/");
   };
+
+  console.log(authType)
 
   return (
     <div className="py-2 max-w-4xl mx-auto">
@@ -39,7 +36,7 @@ const SettingsMain = () => {
       <div className="space-y-6">
         
         {/* Global Preferences */}
-        <div className="bg-white border border-[#E6EEF2] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+        {/* <div className="bg-white border border-[#E6EEF2] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
            <div className="px-5 py-3.5 bg-gradient-to-r from-[#F4F7F9] to-white border-b border-[#E6EEF2] flex items-center gap-3">
              <div className="bg-white p-1.5 rounded-lg shadow-sm">
                <HiOutlineGlobeAlt className="text-[#002B5B]" size={20} />
@@ -101,10 +98,11 @@ const SettingsMain = () => {
                  </select>
               </div>
            </div>
-        </div>
+        </div> */}
 
         {/* Account Security */}
-        <div className="bg-white border border-[#E6EEF2] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+        {authType === "broker" && 
+          (<div className="bg-white border border-[#E6EEF2] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
            <div className="px-5 py-3.5 bg-gradient-to-r from-[#F4F7F9] to-white border-b border-[#E6EEF2] flex items-center gap-3">
              <div className="bg-white p-1.5 rounded-lg shadow-sm">
                <HiOutlineShieldCheck className="text-[#002B5B]" size={20} />
@@ -123,7 +121,7 @@ const SettingsMain = () => {
                </button>
              </div>
            </div>
-        </div>
+         </div>)}
 
         {/* Notifications Section */}
         <div className="bg-white border border-[#E6EEF2] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
