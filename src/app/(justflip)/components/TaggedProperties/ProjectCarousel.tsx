@@ -2,12 +2,13 @@
 
 import FeaturedProperty from "@/src/components/Cards/FeaturedProperty";
 import ProjectCard from "@/src/components/Cards/ProjectCard";
+import UpcomingProperty from "@/src/components/Cards/UpcomingProperty";
 import Carousel from "@/src/components/Carousel";
 import { Project } from "@/src/types";
 
 interface ProjectCarouselProps{
     projects: Project[];
-    varient?: "featured" | "default";
+    varient?: "featured" | "upcoming" | "default";
 }
 
 export default function ProjectCarousel({ projects, varient = "default" }: ProjectCarouselProps) {
@@ -23,11 +24,18 @@ export default function ProjectCarousel({ projects, varient = "default" }: Proje
                     key={project?.id}
                     project={project}
                     priority={i < 2}/>
-                ):(<ProjectCard
+                ):varient === 'upcoming'?(
+                <UpcomingProperty
                     key={project?.id}
                     project={project}
                     priority={i < 2}
-                />)
+                />):(
+                    <ProjectCard 
+                    key={project?.id}
+                    project={project}
+                    priority={i < 2}
+                    />
+                )
             }
         />
     );
