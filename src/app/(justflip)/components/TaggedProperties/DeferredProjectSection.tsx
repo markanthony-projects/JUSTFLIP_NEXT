@@ -44,7 +44,7 @@ export default function DeferredProjectSection({ city, tag }: { city?: City; tag
             case "Featured Properties":
                 return {
                     title: `Featured Properties ${cityText}`,
-                    subtitle: `Handpicked premium residential projects in prime locations across ${resolvedCity?.name}.`
+                    subtitle: `Handpicked premium residential projects in prime locations ${cityText || "across India"}.`
                 };
 
             default:
@@ -55,13 +55,18 @@ export default function DeferredProjectSection({ city, tag }: { city?: City; tag
 
         }
 
-    }, [tag, cityText, resolvedCity?.name]);
+    }, [tag, cityText]);
+
+    const [prevCityId, setPrevCityId] = useState(resolvedCityId);
 
     useEffect(() => {
-        setEnabled(false);
-        setProjects([]);
-        setLoading(false);
-    }, [resolvedCityId, tag]);
+        if (prevCityId && prevCityId !== resolvedCityId) {
+            setPrevCityId(resolvedCityId);
+            setEnabled(false);
+            setProjects([]);
+            setLoading(false);
+        }
+    }, [resolvedCityId, prevCityId]);
 
     useEffect(() => {
 
@@ -115,7 +120,7 @@ export default function DeferredProjectSection({ city, tag }: { city?: City; tag
     }
 
     return (
-        <section>
+        <section className="w-full flex flex-col">
 
             <div className="mb-0 md:mb-2">
 

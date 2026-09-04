@@ -18,9 +18,9 @@ export default function BlogsClient({ tag, initialBlogs }: { tag?: string; initi
     const [blogs] = useState(initialBlogs);
 
     return (
-        <div className="pt-2">
+        <div className="w-full flex flex-col">
 
-            <div className="flex justify-between items-center mb-2">
+            <div className="flex justify-between items-center mb-0 md:mb-2">
                 <h2 className="font-bold text-base sm:text-lg text-[#002b5b]">
                     Explore blogs to simplify your home buying
                 </h2>

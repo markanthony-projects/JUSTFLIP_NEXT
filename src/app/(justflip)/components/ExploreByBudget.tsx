@@ -36,9 +36,9 @@ const BUDGET_BUCKETS = [
 
 export default function ExploreByBudget() {
   return (
-    <section>
+    <section className="w-full flex flex-col">
       {/* Section Header */}
-      <div className="md:mb-3 mb-2 flex items-center justify-between">
+      <div className="md:mb-2 mb-0 flex items-center justify-between">
         <div>
           <h2 className="text-sm md:text-xl font-semibold text-[#002B5B]">
             Explore Properties by Budget

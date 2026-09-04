@@ -90,9 +90,9 @@ export default function TopBuildersClient({
 
 
     return (
-        <section>
+        <section className="w-full flex flex-col">
 
-            <div className="md:mb-2">
+            <div className="mb-0 md:mb-2">
 
                 <div className="flex gap-2 items-center justify-between">
 

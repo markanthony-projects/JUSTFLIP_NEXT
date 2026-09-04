@@ -84,9 +84,10 @@ const emptySuggestions = {
 
 export interface SearchBarClientProps {
     showCitySelector?: boolean;
+    initialCity?: any;
 }
 
-export default function SearchBarClient({ showCitySelector = true }: SearchBarClientProps) {
+export default function SearchBarClient({ showCitySelector = true, initialCity }: SearchBarClientProps) {
     const router = useRouter();
     const pathname = usePathname();
     const { setQuery } = useSearchStore();
@@ -194,6 +195,7 @@ export default function SearchBarClient({ showCitySelector = true }: SearchBarCl
                         <NearestCity
                             className="relative w-full h-full"
                             buttonClassName="h-full bg-transparent text-[#002B5B] font-semibold text-[11px] sm:text-[12px] gap-0.5 sm:gap-1"
+                            initialCity={initialCity}
                         />
                     </div>
                     <div className="w-px h-4 sm:h-5 bg-gray-300 shrink-0 mx-2 lg:hidden" />

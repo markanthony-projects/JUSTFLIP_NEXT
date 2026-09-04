@@ -11,7 +11,7 @@ const CitySelectorModal = dynamic(() => import("./CitySelectorModal"), { ssr: fa
 const cx = (...c: (string | boolean | null | undefined)[]) => c.filter(Boolean).join(" ");
 
 export interface NearestCityClientProps {
-    initialCity?: { name: string; id: string | number } | null;
+    initialCity?: { name: string; id?: string | number } | null;
     placeholder?: string;
     className?: string;
     buttonClassName?: string;
@@ -33,6 +33,10 @@ export default function NearestCityClient({
     useEffect(() => {
         if (typeof window === "undefined") return;
 
+        if (initialCity?.id && !activeCity) {
+            useCityStore.getState().setActiveCity(initialCity as any);
+        }
+
         const handle = typeof window.requestIdleCallback !== "undefined"
             ? window.requestIdleCallback(() => ensureNearestCity(initialCity), { timeout: 2000 })
             : setTimeout(() => ensureNearestCity(initialCity), 300);
@@ -44,9 +48,9 @@ export default function NearestCityClient({
                 clearTimeout(handle as any);
             }
         };
-    }, [initialCity]);
+    }, [initialCity, activeCity]);
 
-    const label = activeCity?.name || placeholder;
+    const label = activeCity?.name || initialCity?.name || placeholder;
 
     return (
         <div className={className}>
