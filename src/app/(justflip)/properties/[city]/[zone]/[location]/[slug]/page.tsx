@@ -7,27 +7,20 @@ import PriceTrendSchema from '@/src/components/seo/PriceTrendSchema';
 import { createCityUrl, createLocationUrl, createZoneUrl, parseProjectUrl } from '@/src/utils/url';
 import HighlightProjectSkeleton from '@/src/app/(justflip)/components/Project/HighlightProjectSkeleton';
 import CallbackFormSkeleton from '@/src/app/(justflip)/components/Skelton/CallbackFormSkeleton';
-import CompareCarouselSkeleton from '@/src/app/(justflip)/components/Skelton/CompareCarouselSkeleton';
-import DescriptionSkeleton from '@/src/app/(justflip)/components/Skelton/DescriptionSkeleton';
 import DeveloperLegacySkeleton from '@/src/app/(justflip)/components/Skelton/DeveloperDetailsSkeleton';
 import ExploreMapSkeleton from '@/src/app/(justflip)/components/Skelton/ExploreMapSkeleton';
 import { FAQSkeleton } from '@/src/app/(justflip)/components/Skelton/FAQSkeleton';
 import FeaturesSkeleton from '@/src/app/(justflip)/components/Skelton/FeaturesSkeleton';
-import FloatingActionsSkeleton from '@/src/app/(justflip)/components/Skelton/FloatingActionsSkeleton';
 import { HighlightSkeleton } from '@/src/app/(justflip)/components/Skelton/HighlightSkeleton';
-import ImageBannerSkeleton from '@/src/app/(justflip)/components/Skelton/ImageBannerSkeleton';
 import LocationImageGallerySkeleton from '@/src/app/(justflip)/components/Skelton/LocationImageGallerySkeleton';
 import PriceTrendSkeleton from '@/src/app/(justflip)/components/Skelton/PriceTrendSkeleton';
 import ProjectOverviewSkeleton from '@/src/app/(justflip)/components/Skelton/ProjectOverviewSkeleton';
-import PropertyHeaderSkeleton from '@/src/app/(justflip)/components/Skelton/PropertyHeaderSkeleton';
 import { ReviewsSkeleton } from '@/src/app/(justflip)/components/Skelton/ReviewsSkeleton';
 import SimilarPropertiesSkeleton from '@/src/app/(justflip)/components/Skelton/SimilarPropertiesSkeleton';
 import UnitTableSkeleton from '@/src/app/(justflip)/components/Skelton/UnitTableSkeleton';
 import bcd from "@/public/banners/bcd.webp"
 
 const Description = dynamic(() => import('@/src/app/(justflip)/components/Project/Description'));
-const ImageBanner = dynamic(() => import('@/src/app/(justflip)/components/Project/ImageBanner'));
-const PropertyHeader = dynamic(() => import('@/src/app/(justflip)/components/Project/PropertyHeader'));
 const ProjectOverview = dynamic(() => import('@/src/app/(justflip)/components/Project/ProjectOverview'));
 const UnitTable = dynamic(() => import('@/src/app/(justflip)/components/Project/UnitTable'));
 const Features = dynamic(() => import('@/src/app/(justflip)/components/Project/Feature'));
@@ -42,7 +35,6 @@ const LeadForm = dynamic(() => import('@/src/components/molecules/LeadForm'));
 const CompareCarousel = dynamic(() => import('@/src/app/(justflip)/components/Project/CompareProject'));
 const SimilarProject = dynamic(() => import('@/src/app/(justflip)/components/Project/SimilarProject'));
 const FAQ = dynamic(() => import('@/src/app/(justflip)/components/FAQ'));
-const SocialMedia = dynamic(() => import('@/src/app/(justflip)/components/Project/socialMedia'));
 
 import { constructMetadata } from "@/src/utils/seo";
 import { buildRealEstateSchema } from "@/src/utils/schema";
