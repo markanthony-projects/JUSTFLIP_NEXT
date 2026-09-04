@@ -11,7 +11,7 @@ const CitySelectorModal = dynamic(() => import("./CitySelectorModal"), { ssr: fa
 const cx = (...c: (string | boolean | null | undefined)[]) => c.filter(Boolean).join(" ");
 
 export interface NearestCityClientProps {
-    initialCity?: { name: string; id: string | number } | null;
+    initialCity?: { name: string; id?: string | number } | null;
     placeholder?: string;
     className?: string;
     buttonClassName?: string;
