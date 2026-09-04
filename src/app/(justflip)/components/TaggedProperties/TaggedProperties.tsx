@@ -13,7 +13,7 @@ export default async function TaggedProperties({ city }: { city?: City }) {
     });
 
     return (
-        <div className="flex flex-col gap-4 md:gap-8">
+        <div className="flex flex-col w-full space-y-8 md:space-y-10">
 
             <SSRProjectSection
                 city={city}

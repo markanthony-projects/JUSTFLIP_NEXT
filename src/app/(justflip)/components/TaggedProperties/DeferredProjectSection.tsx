@@ -119,7 +119,7 @@ export default function DeferredProjectSection({ city, tag }: { city?: City; tag
     }
 
     return (
-        <section>
+        <section className="w-full flex flex-col">
 
             <div className="mb-0 md:mb-2">
 

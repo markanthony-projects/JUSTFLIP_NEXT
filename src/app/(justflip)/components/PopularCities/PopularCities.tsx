@@ -13,9 +13,9 @@ export default async function PopularCities() {
     });
 
     return (
-        <section className="space-y-2">
+        <section className="w-full flex flex-col">
 
-            <div className="max-w-3xl">
+            <div className="mb-0 md:mb-2 max-w-3xl">
                 <h2 className="text-sm md:text-xl font-semibold text-[#002b5b]">
                     Explore Properties Across India’s Most Popular Cities
                 </h2>
