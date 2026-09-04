@@ -29,7 +29,6 @@ function isValidRera(rera?: string | null): boolean {
 
 const getBannerContent = (data: Record<string, any> | null | undefined) => {
   if (!data || typeof data !== "object") return null;
-  console.log(data.possessionStatus)
 
   // Extract location safely
   const locName = isValidString(data.location?.name) ? data.location.name.trim() : null;

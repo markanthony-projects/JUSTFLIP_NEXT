@@ -25,7 +25,6 @@ import { Project } from "@/src/types";
 // Pure helper — runs once per properties change, no hooks involved
 // ---------------------------------------------------------------------------
 function derivePropertyData(properties: Project) {
-    console.log(properties)
     const units = properties?.units ?? [];
     const medias = properties?.medias ?? [];
 
@@ -53,7 +52,6 @@ function derivePropertyData(properties: Project) {
         { logo: null, banner: null, others_images: [], videos: [] }
     );
 
-    console.log("others_images.....",others_images)
 
     const allImages = medias.filter(m => m.type === 'image');
     
@@ -176,7 +174,6 @@ function Description({ project: properties }: { project: Project }) {
         [properties]
     );
 
-    console.log("derived...",derived)
 
     const handleGalleryOpen = useCallback((type = "images") => {
         setModalType(type);
@@ -229,7 +226,6 @@ function Description({ project: properties }: { project: Project }) {
         lat, lng, address, builder, unitSummaryLabel, isPriceOnRequest
     } = derived;
 
-    console.log("videos....",videos)
 
     function isValidRera(rera?: string | null): boolean {
         if (!rera || typeof rera !== "string") return false;

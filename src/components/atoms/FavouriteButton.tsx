@@ -5,6 +5,7 @@ import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
 import { Project } from "@/src/types";
 import clsx from "clsx";
 import { useFavourite } from "@/src/hooks/useFavourite";
+import { useAuthStore } from "@/src/stores/auth.store";
 
 export interface FavouriteButtonProps {
   project: Project;
@@ -23,6 +24,9 @@ function FavouriteButton({
   variant = "icon",
   onAuthRequired,
 }: FavouriteButtonProps) {
+
+  const {user} = useAuthStore();
+
   const { isFavourite, toggleFavourite } = useFavourite(project);
   const [animate, setAnimate] = useState(false);
 
@@ -42,6 +46,7 @@ function FavouriteButton({
   return (
     <button
       type="button"
+      key={user?.id}
       aria-pressed={isFavourite}
       aria-label={isFavourite ? "Remove from saved properties" : "Save property"}
       title={isFavourite ? "Remove from saved properties" : "Save property"}

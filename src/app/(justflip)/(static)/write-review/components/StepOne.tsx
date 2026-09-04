@@ -35,8 +35,7 @@ export default function StepOne({ onNext, initialData }: StepOneProps) {
   const [suggestions, setSuggestions] = useState<{
     projects: any[];
     locations: any[];
-    builders: any[];
-  }>({ projects: [], locations: [], builders: [] });
+  }>({ projects: [], locations: [] });
   const [isOpen, setIsOpen] = useState(false);
 
   const [userRole, setUserRole] = useState(initialData?.userRole || "");
@@ -57,7 +56,7 @@ export default function StepOne({ onNext, initialData }: StepOneProps) {
     if (debounceRef.current) clearTimeout(debounceRef.current);
 
     if (!searchQuery.trim() || selectedTarget?.name === searchQuery) {
-      setSuggestions({ projects: [], locations: [], builders: [] });
+      setSuggestions({ projects: [], locations: []});
       setIsOpen(false);
       return;
     }
@@ -90,12 +89,6 @@ export default function StepOne({ onNext, initialData }: StepOneProps) {
       id: l.id,
       name: l.name,
       icon: <SlLocationPin className="text-emerald-600 text-lg" />,
-    })),
-    ...(suggestions.builders || []).map((b) => ({
-      type: "builder" as const,
-      id: b.id,
-      name: b.name,
-      icon: <BsBuildingFillGear className="text-amber-600 text-lg" />,
     })),
   ];
 

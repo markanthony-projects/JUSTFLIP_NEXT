@@ -8,11 +8,6 @@ export default function PropertyRecommend() {
         
         {/* Left Column: Title, Description & CTA */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#002B5B]/5 rounded-full border border-[#002B5B]/10 text-[#002B5B] text-xs font-bold uppercase tracking-wider">
-            <span className="w-2 h-2 rounded-full bg-[#002B5B]"></span>
-            Quick Property Matcher
-          </div>
-
           <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#002B5B] leading-snug">
             Find Your Property in 2 Simple Steps
           </h3>
