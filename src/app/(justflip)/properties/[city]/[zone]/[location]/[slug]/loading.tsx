@@ -17,7 +17,7 @@ export default function Loading() {
 
             {/* Breadcrumb Skeleton */}
             <div className="py-2 text-sm w-full overflow-hidden px-2 md:px-0">
-                <div className="h-4 w-64 bg-gray-200 animate-pulse rounded-sm my-1"></div>
+                <div className="h-4 w-64 bg-transparent rounded-sm my-1"></div>
             </div>
 
             {/* Hero / Description Skeleton */}
