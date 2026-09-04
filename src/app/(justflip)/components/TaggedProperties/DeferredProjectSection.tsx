@@ -145,8 +145,7 @@ export default function DeferredProjectSection({ city, tag }: { city?: City; tag
             >
 
                 {loading || !projects.length ? (
-                    // <PropertyCardSkeletonList />
-                    `${tag === "Featured Properties" ? <FeaturedPropertySkeletonList/> : <PropertyCardSkeletonList />}`
+                    tag === "Featured Properties" ? <FeaturedPropertySkeletonList/> : <PropertyCardSkeletonList />
                 ) : (
                     <ProjectCarousel projects={projects} 
                         varient = {tag === "Featured Properties" ? "featured" : tag === "Upcoming Launches" ? "upcoming" : "default"}
