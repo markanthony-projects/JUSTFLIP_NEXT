@@ -13,6 +13,7 @@ import { useCityStore } from "@/src/stores/city.store";
 import * as ProjectService from "@/src/services/ProjectService";
 import { City, Project } from "@/src/types";
 import { FeaturedPropertySkeletonList } from "../Skelton/FeaturedPropertySkeleton";
+import { UpcomingPropertySkeletonList } from "../Skelton/UpcomingPropertySkeleton";
 
 export default function DeferredProjectSection({ city, tag }: { city?: City; tag: string }) {
 
@@ -140,12 +141,12 @@ export default function DeferredProjectSection({ city, tag }: { city?: City; tag
             <LazyHydrate
                 key={`${resolvedCityId}-${tag}`}
                 rootMargin="500px"
-                placeholder={tag === "Featured Properties" ? <FeaturedPropertySkeletonList/> : <PropertyCardSkeletonList />}
+                placeholder={tag === "Featured Properties" ? <FeaturedPropertySkeletonList/> :  tag === "Upcoming Launches" ? <UpcomingPropertySkeletonList/> :<PropertyCardSkeletonList/> }
                 onVisible={() => setEnabled(true)}
             >
 
                 {loading || !projects.length ? (
-                    tag === "Featured Properties" ? <FeaturedPropertySkeletonList/> : <PropertyCardSkeletonList />
+                    tag === "Featured Properties" ? <FeaturedPropertySkeletonList/> :  tag === "Upcoming Launches" ? <UpcomingPropertySkeletonList/> :<PropertyCardSkeletonList />
                 ) : (
                     <ProjectCarousel projects={projects} 
                         varient = {tag === "Featured Properties" ? "featured" : tag === "Upcoming Launches" ? "upcoming" : "default"}

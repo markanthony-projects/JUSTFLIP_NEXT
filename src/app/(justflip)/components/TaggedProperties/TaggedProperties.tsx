@@ -15,10 +15,9 @@ export default async function TaggedProperties({ city }: { city?: City }) {
     return (
         <div className="flex flex-col gap-4 md:gap-8">
 
-            <SSRProjectSection
+            <DeferredProjectSection
                 city={city}
-                tag="New Launches"
-                projects={newLaunches}
+                tag="Featured Properties"
             />
 
             <DeferredProjectSection
@@ -26,10 +25,12 @@ export default async function TaggedProperties({ city }: { city?: City }) {
                 tag="Upcoming Launches"
             />
 
-            <DeferredProjectSection
+            <SSRProjectSection
                 city={city}
-                tag="Featured Properties"
+                tag="New Launches"
+                projects={newLaunches}
             />
+
 
         </div>
     );

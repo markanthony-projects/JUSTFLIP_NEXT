@@ -4,7 +4,7 @@ import { SkeletonBlock } from "./SkeletonSection";
 // eslint-disable-next-line react/display-name
 export const FeaturedPropertySkeleton = memo(() => {
   return (
-    <article className="group relative w-full max-w-[400px] overflow-hidden rounded-xl bg-white border border-gray-200">
+    <article className="group relative w-full min-w-[350px] overflow-hidden rounded-xl bg-white border border-gray-200">
       
       {/* ================= IMAGE ================= */}
       <div className="relative h-54 w-full overflow-hidden bg-gray-100">
