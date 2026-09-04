@@ -64,7 +64,7 @@ export default function PostPropertyCTA() {
             <img
               alt="Happy homeowner receiving keys"
               className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-              src="https://lh3.googleusercontent.com/aida/AEtjO1WNDC69dkZStonpfwi_wJ5TEIuFv88ncg9t6H6ujTpDojlsqMb2E_bRTuTX4lLZ0SS7_V9TFnD6DGUylII_zWOCA12EJNlOPGqZ4sPakzsETALRSltfURhfXaqrkc_IjXTrqF6YiGKMxRViI6l3L3nxxofm0ShN-0VeQLb7LbD_zAGS9rCrgNn-B98SAKwPjIsEGTinV0J63vjVGpydk8lPn9d6Mi8QUk8comVrWCo5MdA0gIZcxYPKD6zE"
+              src="/banners/post-property-cta.webp"
               loading="lazy"
             />
 
