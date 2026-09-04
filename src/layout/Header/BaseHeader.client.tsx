@@ -34,17 +34,44 @@ export default function BaseHeaderClient({ children, config }: BaseHeaderClientP
             return;
         }
 
+        const updateVisibility = () => {
+            const target = document.getElementById("banner-end");
+            if (target) {
+                const rect = target.getBoundingClientRect();
+                // Visible ONLY when the user has scrolled past banner-end
+                setVisible(rect.top <= 0);
+            } else {
+                // Fallback before target mounts: check scroll position
+                setVisible(window.scrollY > 350);
+            }
+        };
+
+        // Initial check on mount / route change
+        updateVisibility();
+
         const target = document.getElementById("banner-end");
-        if (!target) return;
+        let observer: IntersectionObserver | null = null;
 
-        const observer = new IntersectionObserver(
-            ([entry]) => setVisible(!entry.isIntersecting),
-            { threshold: 0 }
-        );
+        if (target) {
+            observer = new IntersectionObserver(
+                () => {
+                    updateVisibility();
+                },
+                { threshold: [0] }
+            );
+            observer.observe(target);
+        }
 
-        observer.observe(target);
-        return () => observer.disconnect();
-    }, [isHome, config.sticky]);
+        // Scroll and resize listeners guarantee accuracy even during fast scroll, resize, or async layout shift
+        window.addEventListener("scroll", updateVisibility, { passive: true });
+        window.addEventListener("resize", updateVisibility, { passive: true });
+
+        return () => {
+            if (observer) observer.disconnect();
+            window.removeEventListener("scroll", updateVisibility);
+            window.removeEventListener("resize", updateVisibility);
+        };
+    }, [isHome, config.sticky, pathname]);
 
     const handleSliderOpen = () => {
         if (authType === "broker") {
@@ -80,7 +107,7 @@ export default function BaseHeaderClient({ children, config }: BaseHeaderClientP
     const isSearchPage = pathname?.startsWith("/search");
 
     return (
-        <header className={`${isSearchPage ? "hidden lg:flex" : "flex"} ${isHome ? (config.sticky ? "fixed " : "relative") : "sticky"} top-0 left-0 z-50 w-full h-15 items-center ${config.bg} transition-[transform,opacity] duration-300 ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"}`} >
+        <header className={`${isSearchPage ? "hidden lg:flex" : "flex"} ${isHome ? (config.sticky ? "fixed " : "relative") : "sticky"} top-0 left-0 z-50 w-full h-15 items-center ${config.bg} transition-[transform,opacity] duration-300 ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"}`} >
             {/* `relative` anchors the absolutely-centred search bar slot. */}
             <div className="relative flex h-full flex-1 gap-2 sm:gap-4 items-center justify-between px-2 md:px-4 w-full mx-auto md:max-w-[1440px]">
                 {children}

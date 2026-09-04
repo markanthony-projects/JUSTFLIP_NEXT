@@ -1,0 +1,870 @@
+================================================================================
+             JUSTFLIP.IN — COMPETITIVE ANALYSIS & IMPROVEMENT ROADMAP
+                         Full Platform Study (August 2026)
+================================================================================
+
+Prepared by: Engineering Team
+Benchmark Against: 99acres, MagicBricks, Housing.com, NoBroker, Square Yards,
+                   Zillow, Redfin
+
+
+================================================================================
+PART 1: CURRENT STATE AUDIT — WHAT JUSTFLIP HAS TODAY
+================================================================================
+
+After a complete codebase analysis, here is what JustFlip currently offers:
+
+EXISTING FEATURES:
+  ✓ Property listing portal (apartments, villas, plots)
+  ✓ City → Zone → Location → Project hierarchical navigation
+  ✓ Search with filters (property type, budget, BHK, furnishing, posted by)
+  ✓ Sort options (relevance, price asc/desc, newest, popular)
+  ✓ Property detail pages with:
+      - Project overview, unit table, features/amenities
+      - Developer details, price trends (line chart)
+      - Explore Map (OpenStreetMap), highlights
+      - Reviews system, FAQ section
+      - Similar properties, compare carousel
+      - Media gallery with images/videos
+  ✓ Property comparison tool (side-by-side)
+  ✓ Wishlist / favourites (heart button)
+  ✓ Lead form / callback request
+  ✓ Post property (for owners + brokers)
+  ✓ Developer/builder directory with individual profiles
+  ✓ Blog section
+  ✓ Mortgage/EMI calculator
+  ✓ Popular cities section
+  ✓ Tagged properties (New Launches, Upcoming, Featured)
+  ✓ Authentication (visitor OTP + broker login, JWT)
+  ✓ User profile and settings
+  ✓ SEO foundations (sitemaps, canonical URLs, meta tags, structured data)
+  ✓ Mobile-responsive design with bottom nav
+  ✓ Breadcrumb navigation
+  ✓ RERA badge component
+
+MISSING / WEAK AREAS (vs competitors):
+  ✗ No map-based property discovery (map search)
+  ✗ No AI-powered search or recommendations
+  — Virtual 360° tours (out of scope by design — high photography/hardware cost)
+  ✗ No push notifications / PWA
+  ✗ No saved search alerts (price drop / new listing)
+  ✗ No locality/neighborhood intelligence pages
+  ✗ No programmatic SEO landing pages
+  ✗ No user-generated content beyond reviews
+  — Exclusively focused on Property Sales & New Launches (Rentals out of scope by design)
+  ✗ No home loan integration / pre-approval
+  ✗ No agent/broker profiles or marketplace
+  ✗ No price estimation / Zestimate equivalent
+  ✗ No recently viewed properties
+  ✗ No social sharing optimization
+  — English-only interface (Multi-lingual support out of scope by design)
+  ✗ Limited filtering (no area/sqft, floor, age, possession date)
+  ✗ No NRI-focused features
+  ✗ No investment analytics or ROI projections
+
+
+================================================================================
+PART 2: COMPETITOR FEATURE MATRIX
+================================================================================
+
+Rating Scale: ★★★ = Best-in-class | ★★ = Good | ★ = Basic | — = Missing
+
+┌─────────────────────────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
+│ FEATURE                     │ JustFlip │ 99acres  │ MagicBr  │ Housing  │ NoBroker │ Zillow   │
+├─────────────────────────────┼──────────┼──────────┼──────────┼──────────┼──────────┼──────────┤
+│ Property Inventory          │ ★        │ ★★★    │ ★★★    │ ★★     │ ★★       │ ★★★     │
+│ Search & Filters            │ ★        │ ★★★    │ ★★★     │ ★★★    │ ★★      │ ★★★     │
+│ Map-Based Search            │ —        │ ★★      │ ★★       │ ★★★   │ ★        │ ★★★     │
+│ AI/NLP Search               │ —        │ —        │ ★        │ ★★     │ —        │ ★★★     │
+│ Property Detail Richness    │ ★★       │ ★★★    │ ★★★     │ ★★★   │ ★★      │ ★★★     │
+│ Virtual Tours / 3D          │ —        │ ★        │ ★        │ ★★     │ ★        │ ★★★     │
+│ Price Trends & Analytics    │ ★★      │ ★★★      │ ★★     │ ★★★    │ ★        │ ★★★     │
+│ Saved Searches & Alerts     │ —        │ ★★★      │ ★★      │ ★★     │ ★★       │ ★★★    │
+│ Compare Tool                │ ★★       │ ★★       │ ★★★    │ ★★     │ ★        │ ★★      │
+│ Reviews & Ratings           │ ★★       │ ★★       │ ★★      │ ★★     │ ★★★    │ ★★★     │
+│ EMI / Loan Calculator       │ ★★       │ ★★       │ ★★★    │ ★★★    │ ★★      │ ★★★     │
+│ Blog / Content              │ ★        │ ★★       │ ★★      │ ★★★    │ ★        │ ★★★     │
+│ SEO / Organic Traffic       │ ★        │ ★★★      │ ★★★    │ ★★★    │ ★★      │ ★★★     │
+│ Mobile App / PWA            │ —        │ ★★★      │ ★★★     │ ★★★    │ ★★★     │ ★★★    │
+│ Push Notifications          │ —        │ ★★       │ ★★       │ ★★     │ ★★★    │ ★★★      │
+│ Locality Intelligence       │ —        │ ★★★      │ ★★      │ ★★★    │ ★        │ ★★★     │
+│ Developer Directory         │ ★★       │ ★★       │ ★★★    │ ★★      │ —        │ —        │
+│ Post Property (Seller)      │ ★        │ ★★★      │ ★★★    │ ★★      │ ★★★     │ ★★★    │
+│ Trust Signals (RERA etc)    │ ★        │ ★★★      │ ★★      │ ★★     │ ★★       │ ★★★    │
+│ Multi-language              │ —        │ ★         │ ★        │ ★       │ ★★       │ ★       │
+│ Personalization             │ —        │ ★★       │ ★★       │ ★★★    │ ★        │ ★★★    │
+│ Social Sharing              │ ★        │ ★★       │ ★★       │ ★★     │ ★        │ ★★★    │
+│ Performance (Speed)         │ ★★       │ ★        │ ★        │ ★★★    │ ★★       │ ★★★    │
+└─────────────────────────────┴───────────┴──────────┴───────────┴──────────┴──────────┴──────────┘
+
+KEY TAKEAWAY: JustFlip has solid engineering foundations (Next.js 16, RSC,
+Suspense, skeleton loading, ISR) but lacks the feature breadth that drives
+user retention, organic traffic, and competitive moat.
+
+
+================================================================================
+PART 3: STRATEGIC GAPS RANKED BY BUSINESS IMPACT
+================================================================================
+
+Each gap is scored on two axes:
+  • USER IMPACT (how much it affects conversion, retention, engagement)
+  • SEO/GROWTH IMPACT (how much it drives organic traffic and user acquisition)
+  • IMPLEMENTATION EFFORT (Low/Medium/High)
+
+Priority is calculated as: (User Impact + Growth Impact) / Effort
+
+┌────┬──────────────────────────────────┬────────────┬────────────┬────────┬──────────┐
+│ #  │ GAP                              │ User Impact│ SEO Impact │ Effort │ Priority │
+├────┼──────────────────────────────────┼────────────┼────────────┼────────┼──────────┤
+│  1 │ Programmatic SEO Landing Pages   │ ★★        │ ★★★       │ Medium │ CRITICAL │
+│  2 │ Saved Searches + Price Alerts    │ ★★★       │ ★★        │ Medium │ CRITICAL │
+│  3 │ Advanced Search Filters          │ ★★★       │ ★★        │ Low    │ CRITICAL │
+│  4 │ Recently Viewed Properties       │ ★★★       │ ★          │ Low    │ HIGH     │
+│  5 │ Map-Based Property Discovery     │ ★★★       │ ★★        │ High   │ HIGH     │
+│  6 │ Locality Intelligence Pages      │ ★★        │ ★★★       │ Medium │ HIGH     │
+│  7 │ PWA + Push Notifications         │ ★★★       │ ★          │ Medium │ HIGH     │
+│  8 │ Enhanced Schema Markup           │ ★          │ ★★★       │ Low    │ HIGH     │
+│  9 │ Social Sharing + Open Graph      │ ★★         │ ★★        │ Low    │ HIGH     │
+│ 10 │ Builder/Developer Marketplace    │ ★★★       │ ★★         │ Medium │ HIGH     │
+│ 11 │ AI-Powered Search                │ ★★★       │ ★★         │ High   │ MEDIUM   │
+│ 12 │ Builder Video Walkthroughs/Plans │ ★★         │ ★          │ Low    │ HIGH     │
+│ 13 │ Home Loan Pre-Approval           │ ★★         │ ★          │ High   │ MEDIUM   │
+│ 14 │ NRI Portal Features              │ ★★         │ ★★         │ Medium │ MEDIUM  │
+│ 15 │ Stamp Duty & Total Cost Engine   │ ★★         │ ★★★       │ Low    │ HIGH    │
+└────┴──────────────────────────────────┴─────────────┴────────────┴────────┴──────────┘
+
+
+================================================================================
+PART 4: IMPLEMENTATION ROADMAP
+================================================================================
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 1: "FOUNDATION & QUICK WINS" (Weeks 1–4)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Goal: Maximize impact with minimal effort. These are features that competitors
+all have but JustFlip is missing. Users EXPECT them.
+
+────────────────────────────────────────────────────────────────────────────────
+1.1  ADVANCED SEARCH FILTERS (Week 1)
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEM: JustFlip has only 5 filters (property type, budget, BHK, furnishing,
+         posted by). Competitors have 15-20+ filters.
+
+WHAT TO ADD:
+  • Area range filter (sq.ft min-max slider)
+  • Possession status (Ready to Move / Under Construction / New Launch)
+  • Possession date (year picker)
+  • Number of bathrooms
+  • Floor preference (Low/Mid/High rise)
+  • Age of property (0-1yr, 1-3yr, 3-5yr, 5-10yr, 10+yr)
+  • Facing direction (East, West, North, South)
+  • Amenities quick-filter (Pool, Gym, Parking, Garden, Clubhouse)
+  • RERA approved only toggle
+
+WHERE TO CHANGE:
+  File: src/services/search/searchConfig.ts
+    → Add new FilterConfig entries to the `filters` object
+    → The UI auto-generates from config (FilterFactory.tsx)
+
+  File: src/app/(justflip)/components/Search/Filters/filters/
+    → Create: AreaRangeFilter.tsx (reuse PriceRangeFilter pattern)
+    → Create: PossessionFilter.tsx (single-select)
+    → Create: AmenityFilter.tsx (multi-select with icons)
+
+  File: src/app/(justflip)/components/Search/Filters/FilterFactory.tsx
+    → Register new filter types
+
+  Backend: API needs to support these query parameters
+
+IMPACT: Reduces bounce rate by 20-30% on search pages. Users who can't
+        filter precisely leave immediately.
+
+────────────────────────────────────────────────────────────────────────────────
+1.2  RECENTLY VIEWED PROPERTIES (Week 1)
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEM: Users browse 10-15 properties per session. Without "recently viewed,"
+         they lose track and leave. Every major competitor has this.
+
+IMPLEMENTATION:
+  • Create: src/stores/recentlyViewed.store.ts
+    → Zustand store with localStorage persistence
+    → Store last 30 viewed project IDs + timestamps
+    → Auto-prune entries older than 30 days
+
+  • Create: src/hooks/useTrackView.ts
+    → Hook called on property detail page mount
+    → Records { projectId, name, image, price, location, viewedAt }
+
+  • Create: src/app/(justflip)/components/RecentlyViewed/
+    → RecentlyViewedCarousel.tsx (horizontal scroll)
+    → Show on homepage (below TaggedProperties)
+    → Show on search results page (sidebar or top)
+
+  • Modify: src/app/(justflip)/properties/[city]/[zone]/[location]/[slug]/page.tsx
+    → Add useTrackView(projectId) hook call in client wrapper
+
+IMPACT: Increases session duration by 15-25%. Drives repeat visits.
+
+────────────────────────────────────────────────────────────────────────────────
+1.3  ENHANCED SCHEMA MARKUP (Week 1-2)
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEM: JustFlip only has basic Organization, Website, RealEstate, and
+         Breadcrumb schemas. Missing critical schemas that drive rich results.
+
+WHAT TO ADD:
+  File: src/utils/schema.ts (expand existing)
+
+  a) FAQPage Schema    ✅
+     → Already have FAQ component on property pages
+     → Add JSON-LD FAQPage schema generation alongside the visual FAQ
+     → File: src/app/(justflip)/components/FAQ.tsx
+
+  b) Product Schema for Property Listings  ✅
+     → Add offers.price, offers.priceCurrency on property detail pages
+     → Add aggregateRating from reviews
+     → File: property detail page.tsx
+
+  c) LocalBusiness Schema for Developer Profiles  ✅
+     → File: src/app/(developer)/developers/[slug]/page.tsx
+
+  d) Article Schema for Blog Posts  ✅
+     → File: src/app/(justflip)/blogs/[slug]/page.tsx
+
+  e) VideoObject Schema  ✅
+     → When properties have video media
+     → File: src/app/(justflip)/components/PropertyGallery.tsx
+
+  f) Review Schema (Individual reviews)  ✅
+     → File: src/app/(justflip)/components/CityComponent/ReviewsSectionClient.tsx
+
+IMPACT: 20-40% increase in organic CTR from rich snippets.
+
+────────────────────────────────────────────────────────────────────────────────
+1.4  SOCIAL SHARING OPTIMIZATION (Week 2)
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEM: No share buttons on property pages. OG images are generic logo.
+
+IMPLEMENTATION:
+  a) Dynamic OG Image Generation
+     → Create: src/app/api/og/route.tsx (Next.js OG Image API)
+     → Generate property-specific OG cards showing:
+       - Property image, name, price, location, BHK config
+       - JustFlip branding
+     → Use @vercel/og or next/og for edge-generated images
+
+  b) Share Button Component
+     → Create: src/components/atoms/ShareButton.tsx
+     → Web Share API (navigator.share) on mobile
+     → Fallback: WhatsApp, Twitter, Facebook, Copy Link
+     → Add to: property detail pages, project cards
+
+  c) WhatsApp-Optimized Sharing
+     → Pre-formatted message: "Check out {property} in {location} - ₹{price}"
+     → Critical for India market (WhatsApp is #1 sharing channel)
+
+  d) Improve existing constructMetadata()
+     → File: src/utils/seo.ts
+     → Add twitter:card, og:image with dynamic property images
+     → Add og:price:amount and og:price:currency
+
+IMPACT: 10-15% of traffic on Indian RE portals comes from WhatsApp/social.
+
+────────────────────────────────────────────────────────────────────────────────
+1.5  SAVED SEARCH & PRICE DROP ALERTS (Week 2-3)
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEM: Users search → leave → forget. No way to bring them back. This is
+         the #1 retention feature on every property portal.
+
+IMPLEMENTATION:
+  a) Save Search Button
+     → Add "Save this Search" button on search results page
+     → Store: current filters + sort + location as a named search
+     → File: src/app/(justflip)/components/Search/SearchPageClient.tsx
+
+  b) Zustand Store for Saved Searches
+     → Create: src/stores/savedSearches.store.ts
+     → Persist to localStorage + sync to backend when authenticated
+
+  c) Saved Searches Dashboard
+     → Create: src/app/(justflip)/saved-searches/page.tsx
+     → Show all saved searches with result count badges
+     → Quick re-run any saved search
+
+  d) Backend: Alert System (requires backend changes)
+     → Email notifications when new properties match saved criteria
+     → Price drop alerts for wishlisted properties
+     → Weekly digest email with new matches
+
+  e) Browser Push Notifications (see 1.7 PWA section)
+
+IMPACT: 40-60% of repeat visits on 99acres/MagicBricks come from alerts.
+        This is the single most important retention mechanism.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 2: "SEO & ORGANIC GROWTH ENGINE" (Weeks 4–8)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Goal: Build the organic traffic machine. This is how 99acres and MagicBricks
+get 50M+ monthly visits. JustFlip needs programmatic pages that rank for
+thousands of long-tail keywords.
+
+────────────────────────────────────────────────────────────────────────────────
+2.1  PROGRAMMATIC SEO LANDING PAGES (Week 4-6)
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEM: JustFlip has NO landing pages for queries like:
+  "2 BHK flats in Whitefield Bangalore"
+  "villas for sale in Electronic City"
+  "apartments under 50 lakhs in Hyderabad"
+
+These queries get 100K+ monthly searches. 99acres ranks for ALL of them.
+JustFlip ranks for NONE.
+
+IMPLEMENTATION:
+
+  a) SEO Catch-All Route (already exists partially)
+     File: src/app/(justflip)/[...slug]/page.tsx
+     → This is where programmatic pages should live
+
+  b) Create URL Patterns:
+     /flats-in-{city}
+     /villas-in-{city}
+     /plots-in-{city}
+     /properties-in-{city}
+     /2-bhk-flats-in-{city}
+     /3-bhk-flats-in-{city}
+     /flats-in-{location}-{city}
+     /properties-under-50-lakhs-in-{city}
+     /properties-under-1-crore-in-{city}
+     /ready-to-move-flats-in-{city}
+     /new-launch-apartments-in-{city}
+     /rera-approved-projects-in-{city}
+
+  c) Page Template Structure:
+     → H1: "2 BHK Flats for Sale in Whitefield, Bangalore"
+     → Key stats bar: X properties, Price range, Avg price/sqft
+     → Filter bar (pre-applied filters from URL)
+     → Property listing grid (server-rendered for SEO)
+     → Locality insights section (schools, hospitals, transport)
+     → Price trend chart for that locality
+     → FAQ section (auto-generated from data)
+     → Nearby localities internal links
+     → Breadcrumb: Home > Bangalore > Whitefield > 2 BHK Flats
+
+  d) Sitemap Expansion:
+     File: src/app/sitemap.ts
+     → Add SEO URL fragments for every city×propertyType combination
+     → Add city×bhk, city×budget, city×locality combinations
+     → Target: 5,000–50,000 indexable pages
+
+  e) Internal Linking Mesh:
+     → Each city page links to its zone pages
+     → Each zone page links to its locality pages
+     → Each locality page links to filter variants (2BHK, 3BHK, villas)
+     → Footer: "Popular Searches" section with top 20 SEO URLs
+
+IMPACT: This single feature can 10-50x organic traffic within 6 months.
+        It is the primary growth strategy of every RE portal.
+
+────────────────────────────────────────────────────────────────────────────────
+2.2  LOCALITY INTELLIGENCE PAGES (Week 5-7)
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEM: Housing.com has comprehensive locality pages with walkability scores,
+price heatmaps, school ratings, etc. JustFlip has nothing.
+
+IMPLEMENTATION:
+  a) Create: src/app/(justflip)/localities/[city]/[locality]/page.tsx
+
+  b) Content Sections:
+     → Overview (population, pin code, connectivity)
+     → Price trends (per sqft over 1yr/3yr/5yr)
+     → Properties for sale count + average pricing
+     → Nearby landmarks (schools, hospitals, malls, metro)
+       → Pull from OpenStreetMap Overpass API
+       → File: src/services/osm.service.ts (already has OSM integration)
+     → Pros & Cons (curated or AI-generated)
+     → Reviews from residents (extend existing review system)
+     → Photo gallery of the area
+     → Connectivity score (distance to airport, railway, IT hubs)
+     → FAQ with local data
+
+  c) Data Sources:
+     → OSM/Nominatim for POI data (already integrated)
+     → Backend price trend data
+     → Government census data (static seed)
+
+IMPACT: Locality pages rank for "best areas to live in {city}" queries.
+        These are high-intent informational queries that convert to
+        property searches.
+
+────────────────────────────────────────────────────────────────────────────────
+2.3  BLOG & CONTENT STRATEGY UPGRADE (Week 6-8)
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEM: Blog exists but is basic. Need content that ranks for informational
+queries and establishes JustFlip as an authority.
+
+CONTENT CATEGORIES TO ADD:
+  • Market reports: "Bangalore Real Estate Market Report Q3 2026"
+  • Buying guides: "Complete Guide to Buying a Flat in Hyderabad"
+  • Locality guides: "Top 10 Localities to Buy Property in Pune 2026"
+  • Investment insights: "Best Areas for Real Estate Investment in India"
+  • Legal guides: "RERA Explained: How to Verify Your Property"
+  • NRI guides: "How NRIs Can Buy Property in India – Step by Step"
+  • Comparison articles: "Whitefield vs Electronic City: Where to Buy?"
+
+TECHNICAL CHANGES:
+  File: src/app/(justflip)/blogs/[slug]/page.tsx
+    → Add Table of Contents component (auto-generated from headings)
+    → Add reading time estimate
+    → Add "Related Properties" CTA within blog posts
+    → Add author bio with schema markup
+    → Add article publish/update dates visibly
+
+  New: src/app/(justflip)/blogs/category/[category]/page.tsx
+    → Category-based blog listing pages
+
+IMPACT: Content marketing drives 20-30% of organic traffic on Housing.com.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 3: "ENGAGEMENT & RETENTION" (Weeks 8–12)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Goal: Convert visitors into returning users. Increase session duration,
+pages per session, and repeat visit rate.
+
+────────────────────────────────────────────────────────────────────────────────
+3.1  MAP-BASED PROPERTY DISCOVERY (Week 8-10)
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEM: This is Housing.com's signature feature. Users want to browse
+properties ON a map, not just in a list. JustFlip has OpenStreetMap
+components but only on individual property detail pages.
+
+IMPLEMENTATION:
+  a) Create: src/app/(justflip)/map-search/page.tsx
+     → Split-screen layout: Map (60%) + Property list (40%)
+     → Cluster markers by area with price labels
+     → Click marker → property card popup
+     → Pan/zoom map → results update automatically
+
+  b) Leverage existing OSM infrastructure:
+     File: src/components/osm/OSMCustomMarker.tsx (already exists)
+     File: src/services/osm.service.ts (already exists)
+     → Extend to render multiple property markers
+
+  c) Add "Map View" toggle to search results page
+     File: src/app/(justflip)/components/Search/SearchPageClient.tsx
+     → Toggle between Grid View and Map View
+
+  d) Property Marker Component:
+     → Show price label on marker (like Zillow)
+     → Hover: show mini property card
+     → Click: navigate to detail page
+
+  e) Draw-on-Map Search:
+     → Advanced: let users draw a polygon on the map
+     → Search properties within that area
+     → This is a premium feature none of the Indian portals have
+
+IMPACT: Map search increases engagement by 3-5x on Housing.com.
+        Users spend 4x more time on map view vs list view.
+
+────────────────────────────────────────────────────────────────────────────────
+3.2  PWA & PUSH NOTIFICATIONS (Week 9-10)
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEM: No way to re-engage users after they leave. Mobile web users
+have zero recall without push notifications.
+
+IMPLEMENTATION:
+  a) PWA Setup:
+     → Create: public/manifest.json
+     → Create: public/sw.js (service worker)
+     → Add to: src/app/layout.tsx (manifest link, theme-color)
+     → Enable offline support for cached pages
+
+  b) Push Notification Integration:
+     → Use Firebase Cloud Messaging (FCM) or OneSignal
+     → Notification types:
+       - Price drop on wishlisted property
+       - New property matching saved search
+       - Weekly market insights digest
+       - Property visit reminder
+     → Permission prompt: show after 2nd visit (not immediately)
+
+  c) Add-to-Home-Screen Banner:
+     → Smart banner after 2+ page views
+     → Custom "Install JustFlip" prompt
+
+IMPACT: Push notifications have 4-7x higher engagement than email.
+        PWA install increases return visits by 60%.
+
+────────────────────────────────────────────────────────────────────────────────
+3.3  PERSONALIZED HOMEPAGE (Week 10-11)
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEM: Every user sees the same homepage. Competitors personalize based
+on browsing behavior, saved city, and search history.
+
+IMPLEMENTATION:
+  a) City Detection & Persistence:
+     → Auto-detect city from IP/geolocation on first visit
+     → Let user change city (persist in localStorage)
+     → Homepage content adapts to selected city
+
+  b) Personalized Sections:
+     → "Recommended for You" (based on viewed BHK + price range + city)
+     → "Recently Viewed" carousel (from Phase 1)
+     → "New in {Your City}" (city-specific new launches)
+     → "Price Drops Near You" (wishlisted area price changes)
+
+  c) Modify: src/app/(home)/page.tsx
+     → Accept city from client-side store
+     → Fetch city-specific tagged properties
+     → Currently: city = undefined (hardcoded!)
+
+IMPACT: Personalized homepages increase conversion by 30-50%.
+
+────────────────────────────────────────────────────────────────────────────────
+3.4  ENHANCED PROPERTY DETAIL PAGE (Week 11-12)
+────────────────────────────────────────────────────────────────────────────────
+
+PROBLEM: Property pages are good but missing several elements competitors
+have.
+
+ADDITIONS:
+  a) Loan Affordability Widget
+     → "Can you afford this property?"
+     → Pre-filled EMI calculation based on property price
+     → Monthly income input → shows affordability ratio
+     → CTA: "Check Home Loan Eligibility"
+
+  b) Neighborhood Scorecard
+     → Connectivity Score (1-10)
+     → Safety Score
+     → Livability Score
+     → Green Cover Score
+     → Pull data from OSM POI counts
+
+  c) Similar Properties in Same Budget
+     → Not just same location — same BUDGET across nearby localities
+     → "₹1.2Cr can also get you..." section
+
+  d) Construction Progress Timeline
+     → Visual timeline: Land Acquisition → Foundation → Structure → Finishing
+     → Status indicator for under-construction projects
+
+  e) Stamp Duty & Registration Calculator
+     → State-specific calculations
+     → Total cost = Property Price + Stamp Duty + Registration + GST
+
+  f) Pros & Cons Section
+     → Auto-generated from amenities and location data
+     → "Pros: Near Metro, Gated Community, Swimming Pool"
+     → "Cons: Highway noise, Distance from airport"
+
+WHERE TO CHANGE:
+  File: src/app/(justflip)/properties/[city]/[zone]/[location]/[slug]/page.tsx
+  File: src/app/(justflip)/components/Project/
+
+IMPACT: Rich detail pages reduce bounce rate and increase lead form fills.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PHASE 4: "COMPETITIVE MOAT & INNOVATION" (Months 4–12)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Goal: Build features that differentiate JustFlip from ALL competitors.
+These are the features that make users choose JustFlip over 99acres.
+
+────────────────────────────────────────────────────────────────────────────────
+4.1  AI-POWERED CONVERSATIONAL SEARCH (Month 4-5)
+────────────────────────────────────────────────────────────────────────────────
+
+WHY: Zillow and Housing.com both launched ChatGPT-integrated search in 2026.
+     This is no longer optional — it's expected.
+
+IMPLEMENTATION:
+  → Natural language search: "3BHK near metro under 80 lakhs in Bangalore"
+  → AI parses intent and maps to filters
+  → Conversational refinement: "Show me only with swimming pool"
+  → Integration options: OpenAI API, Google Gemini API, or self-hosted LLM
+  → Start simple: intent extraction → filter mapping → standard search API
+
+────────────────────────────────────────────────────────────────────────────────
+4.2  BUILDER VIDEO WALKTHROUGHS & MEDIA EMBEDS (Month 5-6)
+────────────────────────────────────────────────────────────────────────────────
+
+WHY: Real estate buyers and NRIs value video walkthroughs, but dedicated 360°
+     photography for every listing is cost-prohibitive. Builders already produce
+     high-quality YouTube/MP4 walkthroughs and floor plans at zero cost to JustFlip.
+
+IMPLEMENTATION:
+  → Embed YouTube/Vimeo/MP4 video walkthroughs uploaded by builders
+  → Add high-res downloadable master layout & 2D/3D floor plans
+  → "Video Tour Available" badge on property cards
+  → Note: In-house 360° virtual tours & Matterport capture are explicitly out of
+    scope to eliminate photography & equipment overhead.
+
+────────────────────────────────────────────────────────────────────────────────
+4.3  [OUT OF SCOPE / REMOVED] RENTAL LISTING SUPPORT
+────────────────────────────────────────────────────────────────────────────────
+
+STATUS: Dropped from roadmap per business model.
+
+BUSINESS DECISION:
+  → JustFlip focuses strictly on Property Sales, New Launches, and Primary 
+    Transactions.
+  → Rental listings are explicitly out of scope to avoid dilution and maintain 
+    laser focus as India's dedicated home discovery and buying platform.
+
+
+────────────────────────────────────────────────────────────────────────────────
+4.4  PRICE ESTIMATION ENGINE (Month 7-9)
+────────────────────────────────────────────────────────────────────────────────
+
+WHY: Zillow's "Zestimate" is their most-searched feature. No Indian portal
+     has a reliable equivalent.
+
+IMPLEMENTATION:
+  → ML model trained on historical transaction data
+  → Input: locality, BHK, sqft, floor, age, amenities
+  → Output: estimated market value with confidence range
+  → Show on every property: "JustFlip Estimate: ₹1.15-1.25 Cr"
+  → This becomes JustFlip's UNIQUE selling point
+
+────────────────────────────────────────────────────────────────────────────────
+4.5  INVESTMENT ANALYTICS DASHBOARD (Month 8-10)
+────────────────────────────────────────────────────────────────────────────────
+
+WHY: No Indian portal offers proper investment analysis. This attracts
+     high-value users (investors) who generate more leads.
+
+IMPLEMENTATION:
+  → ROI calculator (appreciation + rental yield)
+  → Area-wise investment heatmap
+  → "Investment Score" for each property (1-10)
+  → Portfolio tracker: track your owned properties' value over time
+  → Comparison: "Property A vs Fixed Deposit vs Mutual Fund"
+
+────────────────────────────────────────────────────────────────────────────────
+4.6  BROKER/AGENT MARKETPLACE (Month 9-12)
+────────────────────────────────────────────────────────────────────────────────
+
+WHY: Revenue diversification. Broker subscriptions are the #1 revenue
+     source for 99acres and MagicBricks.
+
+IMPLEMENTATION:
+  → Agent profiles with ratings, deals closed, specialization
+  → "Find an Agent" feature
+  → Agent dashboard: lead management, listing analytics
+  → Tiered subscription plans (Free/Silver/Gold/Platinum)
+  → Featured agent placements
+  → This also improves trust — verified agents = verified listings
+
+
+================================================================================
+PART 5: TECHNICAL DEBT & QUICK CODE FIXES
+================================================================================
+
+These are code-level issues found during the audit that should be fixed
+alongside feature development:
+
+1. HOMEPAGE CITY IS HARDCODED TO undefined
+   File: src/app/(home)/page.tsx, Line 34
+   → const city = undefined;
+   → This means TopBuilders never fetches data on homepage!
+   → Fix: Detect city from cookie/geolocation or show all cities
+
+2. ScrollToTop STILL USED ON PROPERTY DETAIL PAGE
+   File: src/app/(justflip)/properties/[city]/[zone]/[location]/[slug]/page.tsx
+   → Line 123: <ScrollToTop />
+   → Same issue we fixed on homepage. Remove it here too.
+   → Next.js handles scroll reset on navigation automatically.
+
+3. SEARCH PAGE HAS noIndex: true
+   File: src/app/(justflip)/search/page.tsx, Line 16
+   → noIndex: true means Google IGNORES your search results pages
+   → This is correct for dynamic user-searched queries
+   → BUT: programmatic SEO pages should NOT have noIndex
+
+4. IMAGE OPTIMIZATION OPPORTUNITY (without Vercel paid)
+   → Consider self-hosted image optimization:
+     - Use sharp + Next.js custom loader
+     - Or Cloudflare Images ($5/month for 100K transformations)
+     - Or Imgproxy (self-hosted, free)
+   → This restores the LCP benefits without Vercel charges
+
+5. MISSING ERROR BOUNDARIES
+   → No error boundaries on key pages
+   → If API fails, user sees blank white screen
+   → Add error.tsx files in route segments
+
+
+================================================================================
+PART 6: KEY METRICS TO TRACK
+================================================================================
+
+Set up analytics to track these metrics BEFORE and AFTER implementing changes:
+
+ACQUISITION METRICS:
+  • Organic traffic (Google Search Console)
+  • Number of indexed pages (GSC)
+  • Average position for target keywords
+  • Click-through rate from SERPs
+
+ENGAGEMENT METRICS:
+  • Pages per session
+  • Average session duration
+  • Bounce rate (overall + per page type)
+  • Search-to-detail-page conversion rate
+  • Wishlist saves per session
+  • Lead form submission rate
+
+RETENTION METRICS:
+  • Returning visitor rate (7-day, 30-day)
+  • Saved searches created
+  • Push notification opt-in rate
+  • PWA installs
+
+BUSINESS METRICS:
+  • Lead form fills per day
+  • Cost per lead
+  • Lead-to-site-visit conversion
+  • Revenue per listing
+
+
+================================================================================
+PART 7: COMPETITIVE POSITIONING STRATEGY
+================================================================================
+
+JustFlip should NOT try to be "another 99acres." You will lose.
+They have 20 years of data, 50M monthly visits, and massive budgets.
+
+INSTEAD, JustFlip should own a SPECIFIC niche and expand from there:
+
+RECOMMENDED POSITIONING:
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                                                                              │
+│   "JustFlip — India's Smartest New Home Discovery Platform"                  │
+│                                                                              │
+│   Focus: NEW LAUNCHES & PRIMARY SALES (not resale, not rentals initially)    │
+│   Differentiator: Better data, better UX, smarter tools                      │
+│   USP: Investment analytics + Price estimation + Builder intelligence        │
+│                                                                              │
+│   Target Users:                                                              │
+│   1. First-time home buyers (ages 28-40)                                     │
+│   2. Real estate investors                                                   │
+│   3. NRIs looking to invest in India                                         │
+│                                                                              │
+│   Why users choose JustFlip:                                                 │
+│   • "JustFlip told me this property is overpriced by 12%"                    │
+│   • "JustFlip showed me the builder's track record across 5 projects"        │
+│   • "JustFlip calculated my exact ROI including stamp duty and loan cost"    │
+│   • "JustFlip sent me an alert the moment prices dropped in my area"         │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+THE MOAT:
+  • 99acres = breadth (everything, everywhere)
+  • MagicBricks = developer partnerships
+  • Housing.com = clean UI/UX
+  • NoBroker = zero brokerage
+  • JustFlip = INTELLIGENCE (smart data, analytics, AI recommendations)
+
+BUILD INTELLIGENCE INTO EVERY FEATURE:
+  • Don't just list price → Show if it's above/below market average
+  • Don't just show builder → Show builder's delivery track record
+  • Don't just show location → Show investment potential score
+  • Don't just show trends → Show predictive pricing
+
+This positioning makes JustFlip irreplaceable even when users also
+browse 99acres or MagicBricks.
+
+
+================================================================================
+SUMMARY: PRIORITIZED ACTION ITEMS
+================================================================================
+
+IMMEDIATE (This Week):
+  □ Fix city=undefined on homepage
+  □ Remove ScrollToTop from property detail page
+  □ Add 8-10 new search filters to searchConfig.ts
+  □ Add Recently Viewed Properties store + carousel
+  □ Enhance schema markup (FAQ, Product, Article, Review)
+
+NEXT 2 WEEKS:
+  □ Social sharing (WhatsApp + Web Share API + dynamic OG images)
+  □ Saved searches + price drop alert UI (backend alerts can come later)
+  □ Start building programmatic SEO page templates
+
+NEXT MONTH:
+  □ Launch 1,000+ programmatic SEO pages
+  □ Locality intelligence pages
+  □ Map-based property discovery (split-screen)
+  □ PWA + push notifications
+
+NEXT QUARTER:
+  □ AI-powered search (natural language → filter mapping)
+  □ Price estimation engine
+  □ Investment analytics dashboard
+  □ Broker / Developer marketplace & verified listings
+
+================================================================================
+END OF REPORT
+================================================================================
+
+
+class Solution {
+public:
+    void solve(int idx, string &curr, string num, int target, vector<string>&ans){
+        if(idx==num.length()){
+          ans.push_back(curr);
+          return;
+        }
+        for(int i=0;i<num.size();i++){
+          if
+        }
+    }
+    vector<string> addOperators(string num, int target) {
+        vector<string>ans;
+        string curr="";
+        solve(0, curr, num, target, ans);
+        return ans;
+    }
+};
+
+
+class Solution {
+  public:
+    void solve(int idx, int sum, int &total, vector<int>&arr, int &target){
+      if(idx==arr.size()){
+        if(sum==target){
+          total++;
+        }
+        return;
+      }
+      solve(idx+1, sum+arr[i], total, arr, target);
+      solve(idx+1, sum, total, arr, target);
+    }
+    int perfectSum(vector<int>& arr, int target) {
+        // code here
+        int total = 0;
+        solve(0, 0, total, arr, target)
+    }
+};
+
+class Solution {
+  public:
+    vector<int> increasingNumbers(int n) {
+        // code here
+        
+    }
+};
