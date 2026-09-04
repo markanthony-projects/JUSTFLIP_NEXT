@@ -26,6 +26,7 @@ export interface FavouritesActions {
     fetchFavouriteData: () => Promise<void>;
     fetchFavouriteIds: () => Promise<void>;
     modifyFavourite: (params: { action: "add" | "remove"; id: string; property?: Partial<Project> }) => Promise<void>;
+    setUserStorageKey: () => void;
 }
 
 export const useFavouritesStore = create<FavouritesState & FavouritesActions>()(
@@ -106,9 +107,18 @@ export const useFavouritesStore = create<FavouritesState & FavouritesActions>()(
                         });
                     }
                 },
+
+                setUserStorageKey: () => {
+                    const newKey = `favourites-storage-${getUserType()}`;
+                    useFavouritesStore.persist.setOptions({name: newKey});
+                    useFavouritesStore.persist.rehydrate();
+
+                    set({list: [], dataList: []});
+                    get().fetchFavouriteIds();
+                },
             }),
             {
-                name: "favourites-storage",
+                name: `favourites-storage-${getUserType()}`,
                 storage: createJSONStorage(() => localStorage),
                 partialize: (state) => ({ list: state.list, dataList: state.dataList }),
             }
