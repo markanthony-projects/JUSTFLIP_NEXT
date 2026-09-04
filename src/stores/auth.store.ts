@@ -5,6 +5,7 @@ import { persist } from 'zustand/middleware'
 import AuthService from '../services/AuthService'
 import { AuthUser } from '../types'
 import { useCompareStore } from './useCompare.store';
+import { useFavouritesStore } from './favourites.store';
 
 export type AuthType = 'visitor' | 'broker' | null;
 
@@ -57,6 +58,7 @@ export const useAuthStore = create<AuthState & AuthActions>()(
           })
 
           useCompareStore.getState().setUserStorageKey()
+          useFavouritesStore.getState().setUserStorageKey()
 
           return { success: true }
         } catch (err: any) {
@@ -84,6 +86,7 @@ export const useAuthStore = create<AuthState & AuthActions>()(
           })
 
           useCompareStore.getState().setUserStorageKey()
+          useFavouritesStore.getState().setUserStorageKey()
 
           return { success: true }
         } catch (err: any) {
@@ -117,6 +120,7 @@ export const useAuthStore = create<AuthState & AuthActions>()(
             error: null
           })
           useCompareStore.getState().setUserStorageKey();
+          useFavouritesStore.getState().setUserStorageKey();
         }
       },
 
@@ -172,6 +176,7 @@ export const useAuthStore = create<AuthState & AuthActions>()(
           isAuthenticated: true
         })
         useCompareStore.getState().setUserStorageKey();
+        useFavouritesStore.getState().setUserStorageKey();
       },
 
       updateUser: (data) =>

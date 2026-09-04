@@ -131,7 +131,7 @@ export default function DeferredProjectSection({ city, tag }: { city?: City; tag
 
                 </div>
 
-                <p className="text-xs md:text-sm text-gray-600">
+                <p className="hidden md:block text-xs md:text-sm text-gray-600">
                     {content.subtitle}
                 </p>
 
@@ -149,7 +149,7 @@ export default function DeferredProjectSection({ city, tag }: { city?: City; tag
                     `${tag === "Featured Properties" ? <FeaturedPropertySkeletonList/> : <PropertyCardSkeletonList />}`
                 ) : (
                     <ProjectCarousel projects={projects} 
-                        varient = {tag === "Featured Properties" ? "featured" : "default"}
+                        varient = {tag === "Featured Properties" ? "featured" : tag === "Upcoming Launches" ? "upcoming" : "default"}
                     />
                 )}
 
