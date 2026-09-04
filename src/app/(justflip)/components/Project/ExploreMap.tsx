@@ -15,6 +15,7 @@ import { TiShoppingCart } from "react-icons/ti";
 import { TbRoute } from "react-icons/tb";
 import { FiMapPin } from "react-icons/fi";
 import { toast } from "@/src/utils/toast";
+import { useSearchParams } from "next/navigation";
 
 const MapView = dynamic(() => import("./Map/MapView"), { ssr: false });
 const CommuteExplorerModal = dynamic(() => import("./Map/CommuteExplorerModal"), { ssr: false });
@@ -58,6 +59,16 @@ export default function ExploreMap({ project }: { project: Project }) {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [isMapModalOpen, setIsMapModalOpen] = useState<boolean>(false);
     const [showAll, setShowAll] = useState<boolean>(false);
+
+    const searchParams = useSearchParams()
+
+    useEffect(()=>{
+        const map = searchParams.get("openMap")
+
+        if(map){
+            setIsMapModalOpen(true)
+        }
+    },[searchParams])
 
     // Fetch genuine real places from OpenStreetMap
     useEffect(() => {

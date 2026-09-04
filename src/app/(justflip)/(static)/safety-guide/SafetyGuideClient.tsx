@@ -28,7 +28,7 @@ const SafetyGuideClient = () => {
   useEffect(() => {
     const report = searchParams.get('report')
 
-    if(report === 'true'){
+    if(report){
         setShowReportModal(true)
     } 
   },[searchParams])
