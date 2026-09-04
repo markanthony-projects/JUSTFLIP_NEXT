@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export default function PostPropertyCTA() {
-  const benefits = [
+  const desktopBenefits = [
     {
       title: "100% Free Listing",
       description: "Zero brokerage, zero hidden fees",
@@ -55,40 +55,111 @@ export default function PostPropertyCTA() {
   return (
     <section aria-label="Property Owner and Partner Banner" className="w-full">
       {/* Outer Card Shell with Ambient Shadow & Border Reflection */}
-      <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-white border border-slate-200 shadow-xl p-6 sm:p-8 lg:p-10 text-slate-900">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-          {/* Left Content Column */}
-          <div className="lg:col-span-7 flex flex-col items-start justify-center space-y-5 sm:space-y-6">
-            {/* Tag / Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide shadow-xs bg-[#002B5B]/5 border border-[#002B5B]/25 text-[#002B5B]">
+      <div className="relative overflow-hidden rounded-lg md:rounded-lg bg-white border border-slate-200/90 shadow-sm md:shadow-md p-5 sm:p-8 lg:p-10 text-slate-900">
+        
+        {/* ======================= MOBILE VIEW (< lg) ======================= */}
+        <div className="flex flex-col gap-5 lg:hidden">
+          {/* Mobile Featured Visual with Trust Badge */}
+          <div className="relative w-full aspect-[16/10] rounded-lg sm:rounded-lg overflow-hidden shadow-xs sm:shadow-sm border border-slate-200 bg-slate-100 group shrink-0">
+            <img
+              alt="Happy homeowner receiving keys"
+              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              src="https://lh3.googleusercontent.com/aida/AEtjO1WNDC69dkZStonpfwi_wJ5TEIuFv88ncg9t6H6ujTpDojlsqMb2E_bRTuTX4lLZ0SS7_V9TFnD6DGUylII_zWOCA12EJNlOPGqZ4sPakzsETALRSltfURhfXaqrkc_IjXTrqF6YiGKMxRViI6l3L3nxxofm0ShN-0VeQLb7LbD_zAGS9rCrgNn-B98SAKwPjIsEGTinV0J63vjVGpydk8lPn9d6Mi8QUk8comVrWCo5MdA0gIZcxYPKD6zE"
+              loading="lazy"
+            />
+
+            {/* Floating Trust Pill Overlay */}
+            <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-md rounded-full px-3 py-1.5 border border-slate-200/80 shadow-xs flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-[11px] font-bold text-slate-800 tracking-tight">Avg. 14 Days to Close</span>
+            </div>
+
+            <div className="absolute bottom-3 right-3 bg-primary/90 backdrop-blur-md rounded-lg px-2.5 py-1 text-[11px] font-bold text-white shadow-xs">
+              Direct Owner Deal
+            </div>
+          </div>
+
+          {/* Header & Content Hierarchy */}
+          <div className="flex flex-col items-start gap-2.5">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-slate-100 text-primary border border-slate-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+              <span>Zero Brokerage • Direct Owners</span>
+            </div>
+
+            <h3 className="text-2xl font-extrabold tracking-tight leading-tight text-slate-900">
+              Sell or Rent Your Property{" "}
+              <span className="text-primary block">Faster &amp; at Best Price</span>
+            </h3>
+
+            <p className="text-slate-600 text-xs sm:text-sm leading-relaxed font-normal">
+              List your property on JustFlip and connect directly with 50,000+ verified buyers with zero brokerage.
+            </p>
+          </div>
+
+          {/* Mobile 2x2 Value Pillars Grid */}
+          <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 py-1 text-xs text-slate-700 font-semibold">
+            {[
+              "100% Free Listing",
+              "50k+ Active Buyers",
+              "Direct Buyer Chats",
+              "3-Min Fast Post",
+            ].map((feature) => (
+              <div key={feature} className="flex items-center gap-2">
+                <svg
+                  className="w-4 h-4 text-primary shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  viewBox="0 0 24 24"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile Touch-friendly Actions */}
+          <div className="flex flex-col gap-2.5 pt-1">
+            <Link
+              href="/post-property"
+              className="group w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg text-white font-bold text-sm tracking-tight shadow-md hover:shadow-lg transition-all duration-200 active:scale-[0.99] bg-primary hover:bg-primary-hover"
+            >
+              <span>Post Property — Free</span>
               <svg
-                className="w-3.5 h-3.5"
+                className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"
                 fill="none"
-                stroke="#002B5B"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+                stroke="currentColor"
                 strokeWidth="2.5"
                 viewBox="0 0 24 24"
               >
-                <polyline points="20 6 9 17 4 12" />
+                <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <span className="uppercase tracking-wider font-bold text-xs text-[#002B5B]">
-                For Owners &amp; Channel Partners
-              </span>
-              <span className="ml-1 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase bg-[#002B5B]/10 text-[#002B5B] border border-[#002B5B]/15">
-                Zero Brokerage
-              </span>
-            </div>
+            </Link>
+
+            <Link
+              href="/register?type=broker"
+              className="w-full inline-flex items-center justify-center px-4 py-2.5 rounded-lg font-semibold text-xs text-slate-700 hover:text-slate-900 transition-colors border border-slate-200 bg-white hover:bg-slate-50"
+            >
+              For Brokers &amp; Agents
+            </Link>
+          </div>
+        </div>
+
+        {/* ======================= DESKTOP VIEW (>= lg) ======================= */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+          {/* Left Content Column */}
+          <div className="lg:col-span-7 flex flex-col items-start justify-center space-y-5 sm:space-y-6">
 
             {/* Headline & Description */}
             <div className="space-y-2.5 sm:space-y-3">
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold tracking-tight leading-[1.15] text-slate-900">
-                Sell or Rent Your Property{" "}
-                <span className="block sm:inline underline decoration-wavy decoration-slate-300 decoration-2 underline-offset-4 text-[#002B5B]">
+              <h2 className="text-2xl lg:text-5xl font-extrabold tracking-tight leading-[1.15] text-slate-900">
+                Sell or Rent Your Property <br />
+                <span className="block sm:inline underline decoration-wavy decoration-slate-300 decoration-2 underline-offset-4 text-primary">
                   Faster &amp; at Best Price
                 </span>
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base lg:text-lg max-w-xl leading-relaxed font-normal">
+              <p className="text-slate-600 text-base lg:text-sm max-w-xl leading-relaxed font-normal">
                 List your home, apartment, or plot on JustFlip and connect directly with verified, genuine buyers. Warm human
                 support, direct negotiations, and zero middlemen fees.
               </p>
@@ -98,7 +169,7 @@ export default function PostPropertyCTA() {
             <div className="flex flex-wrap items-center gap-3.5 pt-1 w-full sm:w-auto">
               <Link
                 href="/post-property"
-                className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl text-white font-bold text-sm sm:text-base tracking-tight shadow-md transition-all duration-200 ease-in-out transform hover:-translate-y-0.5 active:opacity-95 bg-[#002B5B] hover:bg-[#00234a]"
+                className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3 sm:py-3.5 rounded-lg text-white font-bold text-sm sm:text-base tracking-tight shadow-md transition-all duration-200 ease-in-out transform hover:-translate-y-0.5 active:opacity-95 bg-primary hover:bg-primary-hover"
               >
                 <span>Post Property — Free</span>
                 <svg
@@ -114,7 +185,7 @@ export default function PostPropertyCTA() {
 
               <Link
                 href="/register?type=broker"
-                className="inline-flex items-center justify-center px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl font-semibold text-sm sm:text-base tracking-tight transition-colors shadow-xs border border-[#002B5B]/20 text-[#002B5B] bg-white hover:bg-[#002B5B]/5"
+                className="inline-flex items-center justify-center px-5 sm:px-6 py-3 sm:py-3.5 rounded-lg font-semibold text-sm sm:text-base tracking-tight transition-colors shadow-xs border border-primary/20 text-primary bg-white hover:bg-primary/5"
               >
                 For Brokers &amp; Agents
               </Link>
@@ -153,12 +224,12 @@ export default function PostPropertyCTA() {
 
             {/* 2x2 Feature Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 w-full">
-              {benefits.map((item, index) => (
+              {desktopBenefits.map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-50 hover:bg-slate-100/80 transition-colors border border-slate-200/80 shadow-xs"
+                  className="flex items-center gap-3 p-3.5 rounded-lg bg-slate-50 hover:bg-slate-100/80 transition-colors border border-slate-200/80 shadow-xs"
                 >
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 bg-[#002b5b]/10 text-[#002b5b]">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0 bg-primary/10 text-primary">
                     {item.icon}
                   </div>
                   <div>
@@ -172,7 +243,7 @@ export default function PostPropertyCTA() {
 
           {/* Right Column: Hero Image with Floating Badges */}
           <div className="lg:col-span-5 w-full h-full flex items-center justify-center">
-            <div className="relative w-full rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-slate-100 group">
+            <div className="relative w-full rounded-lg overflow-hidden shadow-sm md:shadow-md border border-slate-200 bg-slate-100 group">
               <img
                 alt="Happy homeowner handing over keys in front of modern property"
                 className="w-full h-72 sm:h-96 lg:h-[480px] object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
@@ -181,22 +252,11 @@ export default function PostPropertyCTA() {
               />
 
               {/* Floating Top Badge */}
-              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md rounded-xl px-3.5 py-2 border border-slate-200/80 shadow-md flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-[#002b5b]" />
+              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md rounded-lg px-3.5 py-2 border border-slate-200/80 shadow-md flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-primary" />
                 <div className="text-xs font-bold text-slate-800">
                   Deal Closed in 14 Days <span className="text-slate-500 font-normal">(Avg.)</span>
                 </div>
-              </div>
-
-              {/* Floating Bottom Badge */}
-              <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md rounded-xl p-3 border border-slate-200/80 shadow-md flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-2.5 h-2.5 rounded-full animate-pulse bg-[#002b5b]" />
-                  <span className="text-xs font-bold text-slate-800">Verified Inquiries Live</span>
-                </div>
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-md text-[#002B5B] bg-[#002B5B]/10 border border-[#002B5B]/15">
-                  Zero Brokerage
-                </span>
               </div>
             </div>
           </div>

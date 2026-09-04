@@ -90,6 +90,8 @@ export default async function JustFlipHomePage() {
                     </Suspense>
                 </LazyHydrate>
 
+                <PostPropertyCTA />
+
                 <LazyHydrate rootMargin="300px">
                     <MortgageCalculator />
                 </LazyHydrate>
@@ -104,7 +106,7 @@ export default async function JustFlipHomePage() {
 
                 <HomeReviewCard />
 
-                <PostPropertyCTA />
+                
 
                 <LazyHydrate rootMargin="350px" placeholder={<HomeBlogsSkeleton />}>
                     <Suspense fallback={<HomeBlogsSkeleton />}>
