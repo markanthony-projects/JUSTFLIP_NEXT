@@ -7,11 +7,14 @@ import NearestCity from "@/src/components/NearestCity/NearestCity.client";
 import { SEARCH_BAR_SLOT } from "../../components/SearchBar/search-bar.slot";
 import { HEADER_PILL_SKIN } from "./header.config";
 
+import { City } from "@/src/types";
+
 interface HeaderContentProps {
     searchBar: React.ReactNode;
+    initialCity?: City;
 }
 
-export default function HeaderContent({ searchBar }: HeaderContentProps) {
+export default function HeaderContent({ searchBar, initialCity }: HeaderContentProps) {
     const pathname = usePathname();
     const isSearchPage = pathname?.startsWith("/search");
 
@@ -21,7 +24,7 @@ export default function HeaderContent({ searchBar }: HeaderContentProps) {
             <div className={`${isSearchPage ? "flex" : "hidden sm:flex"} items-center gap-4 shrink-0`}>
                 <Logo priority />
                 <div className="hidden lg:block">
-                    <NearestCity buttonClassName={HEADER_PILL_SKIN} />
+                    <NearestCity buttonClassName={HEADER_PILL_SKIN} initialCity={initialCity} />
                 </div>
             </div>
 

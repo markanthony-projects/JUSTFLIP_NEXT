@@ -25,6 +25,9 @@ import { buildWebsiteSchema, buildBreadcrumbSchema } from "@/src/utils/schema";
 import PropertyRecommend from "../(justflip)/components/PropertyRecommend";
 import HomeReviewCard from "../(justflip)/components/HomeReviewCard";
 
+import { cookies } from "next/headers";
+import { City } from "@/src/types";
+
 export const metadata = constructMetadata({
     title: "Buy Apartments, Villas & Plots in India & Dubai | JustFlip.in",
     description: "Browse 10,000+ verified new homes, apartments, villas, and plots from top developers across India and Dubai. Find your dream home on JustFlip today!",
@@ -34,7 +37,17 @@ export const metadata = constructMetadata({
 export const revalidate = 3600;
 
 export default async function JustFlipHomePage() {
-    const city = undefined;
+    const cookieStore = await cookies();
+    const activeCityRaw = cookieStore.get("activeCity")?.value;
+    let city: City | undefined = undefined;
+
+    if (activeCityRaw) {
+        try {
+            city = JSON.parse(decodeURIComponent(activeCityRaw));
+        } catch (e) {
+            city = undefined;
+        }
+    }
 
     const websiteSchema = buildWebsiteSchema();
     const breadcrumbSchema = buildBreadcrumbSchema([{ label: "Home", href: "/" }]);
@@ -53,10 +66,10 @@ export default async function JustFlipHomePage() {
             <section className="relative w-full">
                 <Banners />
                 <div className="absolute top-0 left-0 w-full z-20 bg-linear-to-b from-black/90 via-black/60 to-transparent">
-                    <InchargeHeader />
+                    <InchargeHeader initialCity={city} />
                 </div>
                 <div className={`${SEARCH_BAR_SLOT} -bottom-6 z-30`}>
-                    <SearchBar />
+                    <SearchBar initialCity={city} />
                 </div>
             </section>
 

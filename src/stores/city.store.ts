@@ -48,13 +48,15 @@ export interface CityActions {
 
 export const useCityStore = create<CityState & CityActions>()(
     persist(
-        (set, get) => ({
-            activeCity: null,
-            cityList: [],
-            hasResolvedCity: false,
+        (set, get) => {
+            const initialCityFromCookie = getCityFromCookie();
+            return {
+                activeCity: initialCityFromCookie,
+                cityList: [],
+                hasResolvedCity: !!initialCityFromCookie,
 
-            setActiveCity: (city) => {
-                if (city && get().activeCity?.id === city.id) return;
+                setActiveCity: (city) => {
+                    if (city && get().activeCity?.id === city.id) return;
 
                 set({
                     activeCity: city,
@@ -100,8 +102,9 @@ export const useCityStore = create<CityState & CityActions>()(
                 });
                 setCityCookie(null);
             },
-        }),
-        {
+        };
+    },
+    {
             name: STORAGE_KEY,
             partialize: (state) => ({
                 activeCity: state.activeCity,
