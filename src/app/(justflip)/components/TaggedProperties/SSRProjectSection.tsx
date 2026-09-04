@@ -87,9 +87,9 @@ export default function SSRProjectSection({ city, tag, projects: initialProjects
     }
 
     return (
-        <section>
+        <section className="w-full flex flex-col">
 
-            <div className="md:mb-2">
+            <div className="mb-0 md:mb-2">
 
                 <div className="flex items-center justify-between">
 
