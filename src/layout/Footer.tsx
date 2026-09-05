@@ -32,7 +32,7 @@ const sections = [
         links: [
             { label: "Blogs", url: "/blogs" },
             { label: "Sitemap", url: "/sitemap.xml", target: "_blank" },
-            { label: "Mortgage Calculator", url: "/#mortgage-calculator" },
+            { label: "Mortgage Calculator", url: "/mortgage-calculator" },
             { label: "Area Converter", url: "/area-converter" },
             { label: "Rent Vs Buy", url: "/rent-vs-buy" },
             { label: "Loan Eligibility", url: "/loan-eligibility" },
