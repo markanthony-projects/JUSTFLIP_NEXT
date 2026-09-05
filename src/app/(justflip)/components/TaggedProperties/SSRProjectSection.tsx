@@ -93,7 +93,7 @@ export default function SSRProjectSection({ city, tag, projects: initialProjects
 
                 <div className="flex items-center justify-between">
 
-                    <h2 className="text-sm md:text-xl font-semibold text-[#002b5b]">
+                    <h2 className="text-lg md:text-xl font-semibold text-primary">
                         {title}
                     </h2>
 

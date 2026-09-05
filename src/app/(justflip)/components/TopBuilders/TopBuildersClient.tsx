@@ -96,11 +96,11 @@ export default function TopBuildersClient({
 
                 <div className="flex gap-2 items-center justify-between">
 
-                    <h2 className="text-sm md:text-xl font-semibold text-[#002b5b]">
+                    <h2 className="text-lg md:text-2xl font-semibold text-primary">
                         {`Top Real Estate Builders in ${cityText}`}
                     </h2>
 
-                    <Link aria-label="View More" href="/developers" className="text-[#002B5B] flex items-center gap-1 items-center py-0.5 px-1 rounded-xs hover:bg-[#002B5B]/5 hover:underline transition-all duration-300 ease-in-out">
+                    <Link aria-label="View More" href="/developers" className="text-primary flex items-center gap-1 items-center py-0.5 px-1 rounded-xs hover:bg-primary/5 hover:underline transition-all duration-300 ease-in-out">
                         <span className="hidden sm:block text-xs md:text-sm font-semibold">View More</span>
                         <MdReadMore className="text-xl" />
                     </Link>

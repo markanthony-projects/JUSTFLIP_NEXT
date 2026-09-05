@@ -85,7 +85,7 @@ export default function PropertyTools({
     <section className="w-full flex flex-col">
       {/* Section Header */}
       <div className="md:mb-2 mb-0 flex items-center justify-between">
-        <h2 className="text-sm md:text-xl font-semibold text-[#002B5B]">
+        <h2 className="text-lg md:text-xl font-semibold text-primary">
           {title}
         </h2>
       </div>
