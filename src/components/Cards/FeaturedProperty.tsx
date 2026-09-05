@@ -7,7 +7,7 @@
     import Link from "next/link";
 
     //icons import 
-    import { MdOutlineApartment, MdOutlineArrowForward, MdOutlineCalendarMonth, MdOutlineLayers, MdOutlineLocationOn, MdOutlineSquareFoot, MdOutlineStarBorder } from "react-icons/md";
+    import { MdLocationOn, MdOutlineApartment, MdOutlineArrowForward, MdOutlineCalendarMonth, MdOutlineLayers, MdOutlineLocationOn, MdOutlineSquareFoot, MdOutlineStarBorder, MdVerified } from "react-icons/md";
 
     import FavouriteButton from '../atoms/FavouriteButton';
     import LoginModal from '../organisms/LoginModal';
@@ -97,13 +97,10 @@
             propertyData.possession ||
             "";
 
-        const pricePerSqft =
-            propertyData.pricePerSqft ||
-            ""; 
 
       return (
         <>
-        <article className='group relative w-full min-w-[350px] overflow-hidden rounded-xl bg-white border border-gray-200 transition-all duration-300  hover:shadow-[0_5px_20px_rgba(0,40,80,0.18)]'>
+        <article className='group relative w-full min-w-[350px] overflow-hidden rounded-lg bg-white border border-gray-200 transition-all duration-300  hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:border-gray-300'>
 
           {/* for image */}
           <Link href={projectUrl} className="block">
@@ -129,6 +126,14 @@
                   Featured
                 </div>
               )} */}
+              {details?.rera !== null ? (
+                <span className="absolute left-0 top-4 flex gap-0.5 rounded-r-lg bg-[#002B5B] pl-1 pr-3 py-1 text-xs font-medium text-white uppercase backdrop-blur-sm shadow-sm shadow-gray-800">
+                  <MdVerified className="size={15}" fill='currentColor'/>
+                  RERA Approved
+                </span>
+              ) : (
+                <span />
+              )}
 
               {/* LOCATION */}
               <div className="absolute bottom-3 left-0 bg-white/95 backdrop-blur-sm shadow-md text-[#002B5B] flex items-center rounded-r-lg shadow-gray-800 h-7 px-2.5" >
@@ -156,7 +161,7 @@
           </Link>
 
           {/* content- description about the project */}
-          <div className='px-5 py-3'>
+          <div className='px-5 py-3 border border-gray-200'>
 
             {/* STATUS */}
             {/* <div className="mb-3">
@@ -174,12 +179,38 @@
                 </span>
             </div> */}
 
-            {/* TITLE */}
-            <Link href={projectUrl}>
+            <div className="flex items-start justify-between gap-4">
+              <Link href={projectUrl}>
                 <h2 className="line-clamp-1 text-[16px] font-extrabold leading-tight tracking-tight text-[#002B5B] transition-colors hover:text-[#00437A]" >
                     {projectName}
                 </h2>
-            </Link>
+              </Link>
+
+              <Link
+                href={`${projectUrl}${'?openMap=true'}`}
+                type="button"
+                className="hidden sm:flex shrink-0 text-[12px] font-semibold text-[#002B5B] hover:underline text-center"
+              >
+                <MdLocationOn className="text-[14px] text-[#d51717e8]" />
+                <span className="sm:inline">Locate</span>
+              </Link>
+              
+              <Link
+                href={`${projectUrl}${'?openMap=true'}`}
+                type="button"
+                className="text-[12px] font-semibold text-center sm:hidden"
+              >
+
+                <Image
+                  src='/icons/MapLocation.svg'
+                  height={20}
+                  width={40}
+                  alt="See in map"
+                  className=''
+                />
+                
+              </Link>
+            </div>
 
             {/* LOCATION */}
 
@@ -195,7 +226,7 @@
             </div> */}
               
             {/* DESCRIPTION */}
-            <p className="line-clamp-2 text-[12px] text-gray-500">
+            <p className="line-clamp-2 text-[12px] text-gray-500 max-w-3/4 truncate">
               {project.summary || project.address ||
                 `${project.residenceType || "Property"} • ${
                     project.transactionTag || "For Sale"
@@ -230,7 +261,7 @@
             </div>
 
             {/* amenities */}
-            {amenities.length > 0 && (
+            {/* {amenities.length > 0 && (
               <div className="mt-3 rounded-lg bg-[#F4F7FA] p-2">
                 <div className="flex flex-wrap gap-1">
                   {amenities.slice(0, 4).map( (amenity,index) => (
@@ -255,7 +286,7 @@
                   )}
                 </div>
               </div>
-            )}
+            )} */}
 
             {/* Price */}
             <div className=" mt-3 border-t border-gray-200 pt-5 " >
@@ -279,7 +310,7 @@
                 </div>
 
                   <Link href={projectUrl}
-                    className="flex shrink-0 items-end gap-1 rounded-xl bg-[#002B5B] px-4 py-2 text-xs font-bold text-white transition-all duration-200 hover:bg-[#003D7A] hover:shadow-lg ">
+                    className="flex shrink-0 items-end gap-1 rounded-lg bg-[#002B5B] px-4 py-2 text-xs font-bold text-white transition-all duration-200 hover:bg-[#003D7A] hover:shadow-lg ">
                         View Details<MdOutlineArrowForward size={18} className="font-bold text-xs"/>
                   </Link>
 
@@ -322,7 +353,7 @@
     function AmenitySpec({ icon, value, label,
     }: {icon?: string; value: string; label: string;}) {
       return (
-        <div className="flex min-w-0 w-14 truncate flex-col items-center justify-center px-2 py-2 text-center bg-white rounded-md" >
+        <div className="flex min-w-0 w-14 truncate flex-col items-center justify-center px-2 py-2 text-center bg-white rounded-lg" >
           {icon && <Image
             src={icon}
             alt={label || "icon"}

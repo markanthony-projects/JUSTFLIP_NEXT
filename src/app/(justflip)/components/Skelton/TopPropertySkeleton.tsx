@@ -2,7 +2,7 @@ import { memo } from "react";
 import { PropertyCardSkeleton } from "./PropertyCardSkeleton";
 import { SkeletonBlock } from "./SkeletonSection";
 
-export const TopPropertySkeleton = memo(() => {
+export const TopPropertySkeleton = memo( function TopPropertySkeleton(){
   return (
     <section
       className="lg:border border-gray-300 rounded-xl lg:p-4 bg-white w-full"
