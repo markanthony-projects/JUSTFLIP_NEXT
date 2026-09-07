@@ -16,7 +16,7 @@ export default function PopularCityCard({ city, priority = false }: PopularCityC
     return (
         <Link
             href={slug}
-            className="group block relative w-[150px] md:w-[200px] h-24 md:h-30 rounded-lg overflow-hidden shadow-lg"
+            className="group block relative w-[150px] md:w-[200px] h-24 md:h-30 rounded-lg overflow-hidden"
         >
             <Image
                 src={city?.banner}

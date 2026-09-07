@@ -99,7 +99,7 @@ export default function TopBuildersClient({
 
                 <div className="flex gap-0 items-center justify-between">
 
-                    <h2 className="text-lg md:text-2xl font-semibold text-primary">
+                    <h2 className="section-heading">
                         {`Top Real Estate Builders in ${cityText}`}
                     </h2>
 

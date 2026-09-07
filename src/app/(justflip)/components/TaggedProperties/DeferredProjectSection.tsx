@@ -126,7 +126,7 @@ export default function DeferredProjectSection({ city, tag }: { city?: City; tag
 
                 <div className="flex items-center justify-between">
 
-                    <h2 className="text-lg md:text-2xl font-semibold text-primary">
+                    <h2 className="section-heading">
                         {content.title}
                     </h2>
 

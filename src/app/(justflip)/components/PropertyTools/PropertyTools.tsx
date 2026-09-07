@@ -74,20 +74,20 @@ export default function PropertyTools({
       {/* Section Header */}
       {title && (
         <div className="mb-2 md:mb-3">
-          <h2 className="text-lg md:text-2xl font-semibold text-primary">
+          <h2 className="section-heading">
             {title}
           </h2>
         </div>
       )}
 
       {/* Clean 3D Tools Bar */}
-      <div className="w-full bg-white rounded-2xl border border-slate-200/80 shadow-[0_2px_14px_-2px_rgba(0,43,91,0.06)] p-4 sm:p-6 md:py-8 md:px-6">
+      <div className="w-full bg-white rounded-lg border border-slate-200/80 shadow-[0_2px_14px_-2px_rgba(0,43,91,0.06)] p-4 sm:p-6 md:py-8 md:px-6">
         <div className="flex items-center justify-start md:justify-between overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden gap-3 md:gap-0">
           {tools.map((tool, index) => (
             <React.Fragment key={tool.id}>
               <Link
                 href={tool.href}
-                className="group flex-1 min-w-[125px] sm:min-w-[140px] md:min-w-0 flex flex-col items-center justify-center p-3 sm:p-4 rounded-2xl transition-all duration-200 hover:bg-slate-50/80 cursor-pointer"
+                className="group flex-1 min-w-[125px] sm:min-w-[140px] md:min-w-0 flex flex-col items-center justify-center p-3 sm:p-4 rounded-lg transition-all duration-200 hover:bg-slate-50/80 cursor-pointer"
               >
                 {/* 3D Isometric Icon */}
                 <div className="relative w-18 h-18 sm:w-22 sm:h-22 md:w-24 md:h-24 lg:w-26 lg:h-26 flex items-center justify-center">

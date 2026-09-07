@@ -87,7 +87,7 @@ export default function ExploreByBudget() {
       {/* Section Header */}
       <div className="mb-2 md:mb-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg md:text-2xl font-semibold text-primary">
+          <h2 className="section-heading">
             Explore Properties by Budget
           </h2>
 

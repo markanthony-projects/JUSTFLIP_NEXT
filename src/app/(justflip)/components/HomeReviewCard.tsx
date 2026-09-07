@@ -12,7 +12,7 @@ export default function HomeReviewPromptCard() {
       <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
         
         {/* Image */}
-        <div className="relative w-50 h-40 sm:w-80 sm:h-64 shrink-0 md:ml-8">
+        <div className="relative w-40 h-40 md:w-80 md:h-64 shrink-0 md:ml-8">
           <Image
             src={review}
             alt="Rate your locality or society"
@@ -24,11 +24,11 @@ export default function HomeReviewPromptCard() {
 
         {/* Center Content: Title, Stars, Tags fully centered */}
         <div className="flex flex-col items-center text-center space-y-3 flex-1">
-          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-[#002B5B]">
+          <h3 className="-mt-8 md:mt-0 text-md sm:text-2xl md:text-3xl font-bold tracking-tight text-primary">
             Rate Your Locality & Residential Project?
           </h3>
 
-          <p className="text-xs sm:text-sm font-semibold tracking-wide text-slate-400 uppercase">
+          <p className="text-xs sm:text-sm tracking-wider text-slate-400">
             Tap to Review
           </p>
 
@@ -48,21 +48,11 @@ export default function HomeReviewPromptCard() {
           <div className="pt-1 w-full">
             {/* Mobile View: Forced 3 and 2 Stacked Rows with tighter sizing */}
             <div className="flex flex-col items-center gap-2 sm:hidden w-full">
-              <div className="flex items-center justify-center gap-1.5 whitespace-nowrap w-full">
+              <div className="flex items-center justify-center gap-1.5 whitespace-nowrap w-full mb-5 md:mb-0">
                 {positiveTags.map((tag, index) => (
                   <span
                     key={index}
-                    className="text-[11px] font-medium px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className="flex items-center justify-center gap-2 whitespace-nowrap">
-                {otherTags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="text-xs font-medium px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-200"
+                    className="text-[11px] font-medium px-2 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0"
                   >
                     {tag}
                   </span>
@@ -75,7 +65,7 @@ export default function HomeReviewPromptCard() {
               {[...positiveTags, ...otherTags].map((tag, index) => (
                 <span
                   key={index}
-                  className={`text-sm font-medium px-3 py-1 rounded-full border ${
+                  className={`text-sm font-medium px-3 py-1 rounded-lg border ${
                     index < 3
                       ? "bg-emerald-50 text-emerald-700 border-emerald-200"
                       : "bg-slate-100 text-slate-700 border-slate-200"
