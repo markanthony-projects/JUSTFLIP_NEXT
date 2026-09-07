@@ -108,11 +108,10 @@ export default function ExploreByBudget() {
                 onClick={() => scroll("left")}
                 disabled={!canScrollLeft}
                 aria-label="Scroll left"
-                className={`w-7 h-7 rounded-full border border-slate-200 flex items-center justify-center transition-all ${
-                  canScrollLeft
-                    ? "text-slate-700 hover:bg-primary hover:text-white hover:border-primary cursor-pointer shadow-xs"
+                className={`w-7 h-7 rounded-full border border-slate-200 flex items-center justify-center transition-all ${canScrollLeft
+                    ? "text-slate-700 hover:bg-primary hover:text-white hover:border-primary cursor-pointer"
                     : "text-slate-300 border-slate-100 cursor-not-allowed opacity-40"
-                }`}
+                  }`}
               >
                 <FiChevronLeft className="w-4 h-4" />
               </button>
@@ -121,11 +120,10 @@ export default function ExploreByBudget() {
                 onClick={() => scroll("right")}
                 disabled={!canScrollRight}
                 aria-label="Scroll right"
-                className={`w-7 h-7 rounded-full border border-slate-200 flex items-center justify-center transition-all ${
-                  canScrollRight
-                    ? "text-slate-700 hover:bg-primary hover:text-white hover:border-primary cursor-pointer shadow-xs"
+                className={`w-7 h-7 rounded-full border border-slate-200 flex items-center justify-center transition-all ${canScrollRight
+                    ? "text-slate-700 hover:bg-primary hover:text-white hover:border-primary cursor-pointer"
                     : "text-slate-300 border-slate-100 cursor-not-allowed opacity-40"
-                }`}
+                  }`}
               >
                 <FiChevronRight className="w-4 h-4" />
               </button>
@@ -148,7 +146,7 @@ export default function ExploreByBudget() {
           <Link
             key={index}
             href={`/search?minPrice=${bucket.minPrice}&maxPrice=${bucket.maxPrice}`}
-            className="group relative flex flex-col justify-between w-[260px] sm:w-[285px] md:w-[305px] h-64 sm:h-72 shrink-0 snap-start rounded-lg overflow-hidden border border-slate-200/90 bg-slate-900 shadow-xs hover:shadow-lg transition-all duration-200 p-4 text-white"
+            className="group relative flex flex-col justify-between w-[260px] sm:w-[285px] md:w-[305px] h-64 sm:h-72 shrink-0 snap-start rounded-lg overflow-hidden border border-slate-200/90 bg-slate-900 transition-all duration-200 p-4 text-white"
           >
             {/* Background Image */}
             <img
@@ -162,11 +160,11 @@ export default function ExploreByBudget() {
 
             {/* Top Floating Badges */}
             <div className="relative z-10 flex items-center justify-between w-full">
-              <span className="bg-white/95 backdrop-blur-md text-[10px] sm:text-[11px] font-semibold text-slate-800 px-2.5 py-1 rounded-full shadow-xs border border-white/80 flex items-center gap-1.5">
+              <span className="bg-white/95 backdrop-blur-md text-[10px] sm:text-[11px] font-semibold text-slate-800 px-2.5 py-1 rounded-full border border-white/80 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                 {bucket.tag}
               </span>
-              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/95 backdrop-blur text-slate-700 flex items-center justify-center shadow-xs transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
+              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/95 backdrop-blur text-slate-700 flex items-center justify-center transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
                 <FiArrowUpRight className="w-4 h-4" />
               </span>
             </div>
