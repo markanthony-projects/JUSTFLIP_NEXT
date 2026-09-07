@@ -51,16 +51,16 @@ async function resolve() {
 export function ensureNearestCity(initialCity?: any): Promise<any> {
     const { activeCity, setActiveCity, hydrateFromCookie } = useCityStore.getState();
 
-    if (initialCity?.id) {
-        setActiveCity(initialCity);
-        return Promise.resolve(initialCity);
-    }
-
     if (activeCity?.id) return Promise.resolve(activeCity);
 
     hydrateFromCookie();
     const fromCookie = useCityStore.getState().activeCity;
     if (fromCookie?.id) return Promise.resolve(fromCookie);
+
+    if (initialCity?.id) {
+        setActiveCity(initialCity);
+        return Promise.resolve(initialCity);
+    }
 
     if (inflight) return inflight;
 

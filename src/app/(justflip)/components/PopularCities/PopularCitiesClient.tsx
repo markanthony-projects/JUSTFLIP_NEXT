@@ -139,7 +139,7 @@ export default function PopularCitiesClient({
 
                 <>
                     <Carousel
-                        rows={2}
+                        rows={3}
                         items={cities}
                         gap={16}
                         showDots={false}

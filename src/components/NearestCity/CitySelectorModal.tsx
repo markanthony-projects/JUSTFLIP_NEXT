@@ -2,6 +2,7 @@
 
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { HiOutlineOfficeBuilding, HiOutlineSearch, HiOutlineX } from "react-icons/hi";
 import { BiTargetLock } from "react-icons/bi";
 import Modal from "@/src/components/ui/Modal";
@@ -104,6 +105,7 @@ export default function CitySelectorModal({ isOpen, onClose, onCitySelect, updat
     const activeCity = useCityStore((s) => s.activeCity);
     const cityList = useCityStore((s) => s.cityList);
     const setActiveCity = useCityStore((s) => s.setActiveCity);
+    const router = useRouter();
 
     const [query, setQuery] = useState("");
     const [popularCities, setPopularCities] = useState<any[]>([]);
@@ -141,16 +143,20 @@ export default function CitySelectorModal({ isOpen, onClose, onCitySelect, updat
                 onCitySelect(city);
             }
             close();
+            router.refresh();
         },
-        [setActiveCity, close, updateGlobalState, onCitySelect]
+        [setActiveCity, close, updateGlobalState, onCitySelect, router]
     );
 
     const handleDetect = useCallback(async () => {
         setDetecting(true);
         const city = await detectNearestCity();
         setDetecting(false);
-        if (city?.id) close();
-    }, [close]);
+        if (city?.id) {
+            close();
+            router.refresh();
+        }
+    }, [close, router]);
 
     const trimmedQuery = query.trim();
     const searching = trimmedQuery.length > 0;
