@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 
+import Image from 'next/image';
+import Link from 'next/link';
+
+import FavouriteButton from '../atoms/FavouriteButton';
 import { Project } from '@/src/types';
 import { createProjectUrl } from '@/src/utils/url';
 import * as ProjectService from "@/src/services/ProjectService";
-import Image from 'next/image';
-import { MdApartment, MdArrowForward, MdCalendarMonth, MdLocationOn, MdOutlineLocationOn, MdVerified } from 'react-icons/md';
-import FavouriteButton from '../atoms/FavouriteButton';
-import Link from 'next/link';
 
+import { MdApartment, MdArrowForward, MdCalendarMonth, MdLocationOn, MdOutlineLocationOn, MdVerified } from 'react-icons/md';
+import { ImLocation2 } from "react-icons/im";
 interface UpcomingPropertyProps{
     project: Project
     priority?: boolean
@@ -57,6 +59,7 @@ const UpcomingProperty = ({ project, priority } : UpcomingPropertyProps) => {
     },[projectId])
     
   return (
+  <>
     <article className="group relative flex w-87.5 flex-col overflow-hidden rounded-lg border border-gray-100 bg-white transition-all duration-300  hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:border-gray-300">
       
       <Link href={projectUrl}>
@@ -123,21 +126,22 @@ const UpcomingProperty = ({ project, priority } : UpcomingPropertyProps) => {
               type="button"
               className="hidden sm:flex shrink-0 text-[12px] font-semibold text-[#002B5B] hover:underline text-center"
             >
-              <MdLocationOn className="text-[14px] text-[#d51717e8]" />
-              <span className="sm:inline">Locate</span>
+              <ImLocation2 className="text-[14px] text-[#d51717e8]" />
+              <span className="sm:inline">See on map</span>
             </Link>
             <Link
               href={`${projectUrl}${'?openMap=true'}`}
               type="button"
-              className="text-[12px] font-semibold text-center sm:hidden"
-            >
-              <Image
+              className="text-[16px] font-semibold text-center sm:hidden"
+               >
+              {/* <Image
                 src='/icons/MapLocation.svg'
                 height={20}
                 width={40}
                 alt="See in map"
                 className=''
-              />
+              /> */}
+              <ImLocation2 className='text-[#d51717e8]'/>
             </Link>
           </div>
 
@@ -164,7 +168,7 @@ const UpcomingProperty = ({ project, priority } : UpcomingPropertyProps) => {
           </div>
 
           {/* Possession */}
-          <div className="flex items-center gap-2 text-sm text-slate-700">
+          <div className="flex items-center gap-2 text-sm text-slate-900">
             <MdCalendarMonth className="text-lg" />
 
             <span>
@@ -219,6 +223,15 @@ const UpcomingProperty = ({ project, priority } : UpcomingPropertyProps) => {
         </div>
       </div>
     </article>
+    {showLoginPrompt && (
+          <LoginModal
+            isOpen={showLoginPrompt}
+            closeModal={() =>
+                setShowLoginPrompt(false)
+            }
+          />
+        )}
+  </>
   )
 }
 

@@ -1,6 +1,7 @@
 "use client";
 
 import FeaturedProperty from "@/src/components/Cards/FeaturedProperty";
+import NewLaunhesProperty from "@/src/components/Cards/NewLaunhesProperty";
 import ProjectCard from "@/src/components/Cards/ProjectCard";
 import UpcomingProperty from "@/src/components/Cards/UpcomingProperty";
 import Carousel from "@/src/components/Carousel";
@@ -30,7 +31,7 @@ export default function ProjectCarousel({ projects, varient = "default" }: Proje
                     project={project}
                     priority={i < 2}
                 />):(
-                    <ProjectCard 
+                    <NewLaunhesProperty 
                     key={project?.id}
                     project={project}
                     priority={i < 2}
