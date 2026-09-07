@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import { MdReadMore } from "react-icons/md";
+import { CgChevronRightO } from "react-icons/cg";
 import { FiArrowUpRight, FiArrowRight, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const BUDGET_BUCKETS = [
@@ -94,10 +94,11 @@ export default function ExploreByBudget() {
           <Link
             aria-label="View All Budget Brackets"
             href="/search"
-            className="text-primary flex items-center gap-1 py-0.5 px-1 rounded-xs hover:bg-primary/5 hover:underline transition-all duration-300 ease-in-out text-xs md:text-sm font-semibold"
+            className="text-primary flex items-center gap-1 items-center py-0.5 px-1 transition-all duration-300 hover:underline"
           >
-            <span className="hidden sm:block">View All Brackets</span>
-            <MdReadMore className="text-xl" />
+            <span className="hidden sm:block text-lg font-semibold">View All Brackets</span>
+            <CgChevronRightO className="text-2xl" />
+
           </Link>
         </div>
 

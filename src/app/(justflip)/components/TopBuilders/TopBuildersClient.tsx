@@ -8,7 +8,7 @@ import { useCityStore } from "@/src/stores/city.store";
 import { formatUrl } from "@/src/utils/URLFormatter";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { MdKeyboardDoubleArrowRight, MdReadMore } from "react-icons/md";
+import { CgChevronRightO } from "react-icons/cg";
 import { City, Builder } from "@/src/types";
 
 
@@ -103,9 +103,9 @@ export default function TopBuildersClient({
                         {`Top Real Estate Builders in ${cityText}`}
                     </h2>
 
-                    <Link aria-label="View More" href="/developers" className="text-primary flex items-center gap-1 items-center py-0.5 px-1 rounded-xs hover:bg-primary/5 hover:underline transition-all duration-300 ease-in-out">
-                        <span className="hidden sm:block text-xs md:text-sm font-semibold">View More</span>
-                        <MdReadMore className="text-xl" />
+                    <Link aria-label="View More" href="/developers" className="text-primary flex items-center gap-1 items-center py-0.5 px-1 transition-all duration-300 hover:underline">
+                        <span className="hidden sm:block text-lg font-semibold">View More</span>
+                        <CgChevronRightO className="text-2xl"/>
                     </Link>
 
                 </div>
