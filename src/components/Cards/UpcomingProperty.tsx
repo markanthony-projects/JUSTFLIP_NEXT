@@ -10,7 +10,6 @@ import * as ProjectService from "@/src/services/ProjectService";
 
 import { MdApartment, MdArrowForward, MdCalendarMonth, MdLocationOn, MdOutlineLocationOn, MdVerified } from 'react-icons/md';
 import { ImLocation2 } from "react-icons/im";
-
 interface UpcomingPropertyProps{
     project: Project
     priority?: boolean
