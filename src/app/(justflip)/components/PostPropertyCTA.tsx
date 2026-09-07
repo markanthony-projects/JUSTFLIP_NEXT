@@ -73,19 +73,10 @@ export default function PostPropertyCTA() {
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-[11px] font-bold text-slate-800 tracking-tight">Avg. 14 Days to Close</span>
             </div>
-
-            <div className="absolute bottom-3 right-3 bg-primary/90 backdrop-blur-md rounded-lg px-2.5 py-1 text-[11px] font-bold text-white shadow-xs">
-              Direct Owner Deal
-            </div>
           </div>
 
           {/* Header & Content Hierarchy */}
           <div className="flex flex-col items-start gap-2.5">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider uppercase bg-slate-100 text-primary border border-slate-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-              <span>Zero Brokerage • Direct Owners</span>
-            </div>
-
             <h3 className="text-2xl font-extrabold tracking-tight leading-tight text-slate-900">
               Sell or Rent Your Property{" "}
               <span className="text-primary block">Faster &amp; at Best Price</span>

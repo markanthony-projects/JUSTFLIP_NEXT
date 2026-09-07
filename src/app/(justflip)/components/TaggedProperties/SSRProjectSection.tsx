@@ -35,8 +35,13 @@ export default function SSRProjectSection({ city, tag, projects: initialProjects
     }, [cityText]);
 
     useEffect(() => {
+        if (!activeCity?.id) return;
 
-        if (!activeCity?.id || activeCity?.id === city?.id) return;
+        if (activeCity?.id === city?.id) {
+            setProjects(initialProjects || []);
+            setFetchedCityId(city?.id || null);
+            return;
+        }
 
         let mounted = true;
 
@@ -77,7 +82,7 @@ export default function SSRProjectSection({ city, tag, projects: initialProjects
             mounted = false;
         };
 
-    }, [activeCity?.id, city?.id, tag]);
+    }, [activeCity?.id, city?.id, tag, initialProjects]);
 
     const currentCityId = activeCity?.id || city?.id;
     const isDataForCurrentCity = fetchedCityId === currentCityId;
@@ -93,7 +98,7 @@ export default function SSRProjectSection({ city, tag, projects: initialProjects
 
                 <div className="flex items-center justify-between">
 
-                    <h2 className="text-sm md:text-xl font-semibold text-[#002b5b]">
+                    <h2 className="section-heading">
                         {title}
                     </h2>
 

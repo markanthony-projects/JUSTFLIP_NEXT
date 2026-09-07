@@ -22,7 +22,7 @@ export default function BlogCard({ blog }: BlogCardProps) {
             href={`/blogs/${formatUrl(blog.heading)}-${blog?.id}`}
             className="group w-[300px] md:w-[320px] flex-shrink-0 h-[380px] flex flex-col"
         >
-            <div className="relative w-full h-[190px] flex-shrink-0 rounded-xl overflow-hidden bg-gray-100">
+            <div className="relative w-full h-[190px] flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
                 {blog?.image?.url ? (
                     <Image
                         src={blog.image.url}

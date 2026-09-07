@@ -3,7 +3,7 @@ import { SkeletonBlock } from "./SkeletonSection";
 
 const SectionSkeleton = () => (
     <section>
-        <div className="md:mb-2 mt-12">
+        <div className="md:mb-2">
             <div className="flex items-center justify-between">
                 <SkeletonBlock className="h-6 w-48 md:w-64" />
                 <SkeletonBlock className="hidden sm:block h-5 w-20" />
@@ -17,7 +17,7 @@ const SectionSkeleton = () => (
 );
 
 export const TaggedPropertiesSkeleton = () => (
-    <div className="flex flex-col gap-4 md:gap-8">
+    <div className="contents">
         <SectionSkeleton />
         <SectionSkeleton />
         <SectionSkeleton />

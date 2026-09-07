@@ -16,7 +16,7 @@ export default function PopularCityCard({ city, priority = false }: PopularCityC
     return (
         <Link
             href={slug}
-            className="group block relative w-[240px] sm:w-[260px] md:w-[280px] h-36 sm:h-36 md:h-40 rounded-2xl overflow-hidden shadow-lg"
+            className="group block relative w-[150px] md:w-[200px] h-24 md:h-30 rounded-lg overflow-hidden"
         >
             <Image
                 src={city?.banner}
@@ -28,10 +28,10 @@ export default function PopularCityCard({ city, priority = false }: PopularCityC
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
             <div className="absolute bottom-0 left-0 right-0 p-3 text-white">
-                <h3 className="text-base sm:text-lg md:text-xl font-bold leading-snug line-clamp-2">
+                <h3 className="text-base md:text-lg font-bold leading-snug line-clamp-2">
                     {city?.name}
                 </h3>
-                <p className="mt-1 text-xs sm:text-sm">
+                <p className="mt-0 md:mt-1 text-xs">
                     {city?.projectCount > 0
                         ? `${city.projectCount.toLocaleString()}+ Properties`
                         : "No Properties"}

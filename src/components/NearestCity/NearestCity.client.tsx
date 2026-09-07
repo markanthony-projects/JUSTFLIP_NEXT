@@ -29,12 +29,15 @@ export default function NearestCityClient({
     const [open, setOpen] = useState(false);
 
     /* ---------------- Resolve active city ---------------- */
-    /* Defer IP lookup to idle time so initial main thread hydration is instant */
     useEffect(() => {
         if (typeof window === "undefined") return;
 
-        if (initialCity?.id && !activeCity) {
+        const currentActive = useCityStore.getState().activeCity;
+        if (currentActive?.id) return;
+
+        if (initialCity?.id) {
             useCityStore.getState().setActiveCity(initialCity as any);
+            return;
         }
 
         const handle = typeof window.requestIdleCallback !== "undefined"
@@ -48,7 +51,7 @@ export default function NearestCityClient({
                 clearTimeout(handle as any);
             }
         };
-    }, [initialCity, activeCity]);
+    }, [initialCity]);
 
     const label = activeCity?.name || initialCity?.name || placeholder;
 
