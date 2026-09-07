@@ -55,7 +55,7 @@ export default function ReviewsSectionClient({ typeId, typeName, type, reviews: 
     };
     
     return (
-        <section className="">
+        <section>
             {reviewSchemas && (
                 <script
                     type="application/ld+json"
@@ -63,7 +63,7 @@ export default function ReviewsSectionClient({ typeId, typeName, type, reviews: 
                 />
             )}
             <div className="flex justify-between items-center mb-4">
-                <h2 className="text-sm md:text-lg font-semibold">Reviews</h2>
+                <h2 className="text-sm font-semibold md:text-lg">Reviews</h2>
                 {reviewList.length > 0 && (
                     <button onClick={handleRating} className="border-b text-sm">
                         Write a Review

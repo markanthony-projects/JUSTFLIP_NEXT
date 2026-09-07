@@ -39,7 +39,7 @@ export default function UnitRow({ product, getCurrencySymbol, onView }: { produc
   }
 
   return (
-    <div className="border border-slate-200/60 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow flex flex-col h-fit overflow-hidden max-w-[340px] w-full">
+    <div className="border border-slate-200/60 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow flex flex-col h-fit overflow-hidden max-w-[340px] w-full mt-2">
       {/* Upper Content Section */}
       <div className="px-4 pt-4 sm:px-5 sm:pt-5 pb-3">
         {/* Category Header */}

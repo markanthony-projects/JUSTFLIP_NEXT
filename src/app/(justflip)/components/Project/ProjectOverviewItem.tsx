@@ -9,8 +9,8 @@ export default function ProjectOverviewItem({ label, value }: ProjectOverviewIte
   return (
       <div className="flex items-start gap-2 p-2 w-full">
         <div className="flex flex-col">
-          <span className="text-sm font-semibold">{label}</span>
-          <span className="text-sm font-normal">{value}</span>
+          <span className="text-sm font-normal">{label}</span>
+          <span className="text-sm font-semibold">{value}</span>
         </div>
       </div>
   );

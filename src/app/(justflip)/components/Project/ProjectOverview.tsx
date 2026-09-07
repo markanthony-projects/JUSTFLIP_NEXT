@@ -7,8 +7,6 @@ import { Project } from "@/src/types";
 
 function ProjectOverview({ project }: { project: Project }) {
     const units = project?.units || [];
-    // console.log("units",units)
-    // console.log(project)
 
     const { avgPrice, interiorRange, configText } = useMemo(() => {
         if (!units.length) { return { avgPrice: 0, interiorRange: "-", configText: "-", } }
@@ -58,8 +56,8 @@ function ProjectOverview({ project }: { project: Project }) {
 
     return (
         <section>
-            <h2 className="text-sm font-semibold p-2 md:text-lg">Project Overview</h2>
-            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 bg-white px-2 rounded-lg">
+            <h2 className="text-sm font-semibold mb-2 md:text-lg">Project Overview</h2>
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 bg-white rounded-lg">
                 <div className="flex items-center">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
