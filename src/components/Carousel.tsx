@@ -369,7 +369,7 @@ export default function Carousel({
                 <button
                     aria-label="Previous"
                     onClick={scrollPrev}
-                    className="hidden md:flex absolute -left-3 top-1/2 -translate-y-1/2 z-20 h-8 w-6 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
+                    className="hidden md:flex absolute -left-6 top-1/2 -translate-y-1/2 z-20 h-8 w-8 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
                 >
                     <FiChevronLeft size={22} />
                 </button>
@@ -381,7 +381,7 @@ export default function Carousel({
                 <button
                     aria-label="Next"
                     onClick={scrollNext}
-                    className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 h-8 w-6 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
+                    className="hidden md:flex absolute -right-6 top-1/2 -translate-y-1/2 z-20 h-8 w-8 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
                 >
                     <FiChevronRight size={22} />
                 </button>
