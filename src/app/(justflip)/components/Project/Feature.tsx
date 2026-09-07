@@ -1,44 +1,3 @@
-// "use client";
-
-// import { useState, useMemo, useCallback } from "react";
-// import FeatureItem from "./FeatureItem";
-// import ToggleButton from "@/src/components/atoms/ToggleButton";
-
-// import { Project, Amenity } from "@/src/types";
-
-// export default function Features({ project }: { project: Project }) {
-//     const [expanded, setExpanded] = useState(false);
-//     const amenities = project?.amenities || [];
-
-//     const visibleAmenities = useMemo(() => {
-//         return expanded ? amenities : amenities.slice(0, 8);
-//     }, [expanded, amenities]);
-
-//     const remainingCount = amenities.length - visibleAmenities.length;
-
-//     const toggle = useCallback(() => {
-//         setExpanded((prev) => !prev);
-//     }, []);
-
-//     if (!amenities.length) return null;
-
-//     return (
-//         <section className="">
-//             <h2 className="m-2 text-sm font-semibold md:text-lg">Features</h2>
-
-//             <div className="grid grid-cols-2 my-2 lg:flex lg:flex-wrap lg:m-2 gap-y-2">
-//                 {visibleAmenities.map((item: Amenity, index: number) => (
-//                     <FeatureItem key={item?.id || index} item={item} />
-//                 ))}
-//             </div>
-
-//             <div className="ml-4">
-//                 <ToggleButton expanded={expanded} remainingCount={remainingCount} onToggle={toggle} />
-//             </div>
-//         </section>
-//     );
-// }
-
 "use client";
 
 import { useState } from "react";
@@ -49,30 +8,26 @@ export default function Features({ project }: { project: Project }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const amenities = project?.amenities || [];
 
-    // Show only the top 8 highlights on the main page
     const topAmenities = amenities.slice(0, 8);
 
     if (!amenities.length) return null;
 
     return (
-        <section className="my-1">
-            {/* Section Header */}
-            <div className="flex items-center justify-between mb-4 px-1">
+        <section>
+            <div className="flex items-center justify-between mb-4">
                 <div>
-                    <h2 className="text-sm font-semibold text-gray-900 md:text-lg">
+                    <h2 className="text-sm font-semibold md:text-lg">
                         Top Amenities & Features
                     </h2>
                 </div>
             </div>
 
-            {/* Clean 4-column grid for top highlights */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                 {topAmenities.map((item: Amenity, index: number) => (
                     <FeatureItem key={item?.id || index} item={item} />
                 ))}
             </div>
 
-            {/* Trigger Button to Open Modal if there are more than 8 */}
             {amenities.length > 8 && (
                 <div className="mt-4 pt-3 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                     <span className="text-xs text-gray-500 font-medium">

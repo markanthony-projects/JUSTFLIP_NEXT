@@ -77,7 +77,7 @@ const HighlightLocation = ({ data = {}, name = "" }: { data?: any; name?: string
   const [isDisOpen, setIsDisOpen] = useState(false);
 
   return (
-    <section className="w-full">
+    <section>
       <div className='mb-5 shadow shadow-gray-100 p-1 '> 
         {/* City Title */}
         <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-2 tracking-tight">

@@ -24,8 +24,8 @@ export default function DeveloperDetail({ project, data }: { project: Project; d
     const displayText = expanded ? description : isLong ? `${description.slice(0, 1000)}...` : description;
 
     return (
-        <section className="">
-            <h2 className="pb-4 text-sm font-semibold p-2 md:text-lg">
+        <section>
+            <h2 className="text-sm font-semibold mb-3 md:text-lg">
                 Developer's Legacy
             </h2>
 

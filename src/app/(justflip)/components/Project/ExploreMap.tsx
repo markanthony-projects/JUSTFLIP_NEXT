@@ -152,7 +152,7 @@ export default function ExploreMap({ project }: { project: Project }) {
     };
 
     return (
-        <section className="w-full">
+        <section>
             {/* Fullscreen Interactive Map Explorer Modal */}
             {isMapModalOpen && (
                 <CommuteExplorerModal
@@ -164,7 +164,7 @@ export default function ExploreMap({ project }: { project: Project }) {
 
             {/* Header with See on Google Maps and Share / Copy / WhatsApp actions */}
             <div className="pb-3 border-b border-gray-100 flex flex-wrap items-center justify-between gap-3">
-                <h2 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
+                <h2 className="text-sm font-semibold md:text-lg">
                     Locality & Commute
                 </h2>
 
