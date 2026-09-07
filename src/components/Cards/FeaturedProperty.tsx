@@ -8,6 +8,7 @@
 
     //icons import 
     import { MdLocationOn, MdOutlineApartment, MdOutlineArrowForward, MdOutlineCalendarMonth, MdOutlineLayers, MdOutlineLocationOn, MdOutlineSquareFoot, MdOutlineStarBorder, MdVerified } from "react-icons/md";
+    import { ImLocation2 } from "react-icons/im";
 
     import FavouriteButton from '../atoms/FavouriteButton';
     import LoginModal from '../organisms/LoginModal';
@@ -191,23 +192,24 @@
                 type="button"
                 className="hidden sm:flex shrink-0 text-[12px] font-semibold text-[#002B5B] hover:underline text-center"
               >
-                <MdLocationOn className="text-[14px] text-[#d51717e8]" />
-                <span className="sm:inline">Locate</span>
+                <ImLocation2 className="text-[14px] text-[#d51717e8]" />
+                <span className="sm:inline">See on map</span>
               </Link>
               
               <Link
                 href={`${projectUrl}${'?openMap=true'}`}
                 type="button"
-                className="text-[12px] font-semibold text-center sm:hidden"
+                className="text-[16px] font-semibold text-center sm:hidden px-2"
               >
 
-                <Image
+                {/* <Image
                   src='/icons/MapLocation.svg'
                   height={20}
                   width={40}
                   alt="See in map"
                   className=''
-                />
+                /> */}
+                <ImLocation2 className='text-[#d51717e8]'/>
                 
               </Link>
             </div>
