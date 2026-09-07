@@ -58,16 +58,12 @@ const ALL_TOOLS: ToolItem[] = [
 
 interface PropertyToolsProps {
   title?: string;
-  excludeId?: string;
 }
 
 export default function PropertyTools({
   title = "Financial & Planning Tools",
-  excludeId,
 }: PropertyToolsProps) {
-  const tools = excludeId
-    ? ALL_TOOLS.filter((t) => t.id !== excludeId)
-    : ALL_TOOLS;
+  const tools = ALL_TOOLS;
 
   return (
     <section className="w-full flex flex-col">
@@ -100,11 +96,11 @@ export default function PropertyTools({
                 </div>
 
                 {/* Clean Label */}
-                <span className="text-sm sm:text-[15px] md:text-base font-bold text-slate-800 group-hover:text-primary transition-colors text-center mt-3 leading-snug line-clamp-2">
+                <span className="text-sm sm:text-[15px] md:text-xl font-bold text-slate-800 group-hover:text-primary transition-colors text-center mt-6 leading-snug line-clamp-2">
                   {tool.title}
                 </span>
                 {tool.desc && (
-                  <span className="text-[11px] sm:text-xs text-slate-500 mt-0.5 font-medium group-hover:text-primary transition-colors text-center">
+                  <span className="text-[11px] sm:text-sm text-slate-500 mt-1 font-medium group-hover:text-primary transition-colors text-center">
                     {tool.desc}
                   </span>
                 )}
