@@ -40,7 +40,7 @@ export default function TopBuildersClient({
 
     const { activeCity } = useCityStore();
 
-    const resolvedCity = city || activeCity;
+    const resolvedCity = activeCity || city;
     const resolvedCityId = resolvedCity?.id;
 
 
@@ -52,40 +52,43 @@ export default function TopBuildersClient({
     }, [resolvedCity?.name]);
 
     useEffect(() => {
-        // If server provided city data, we don't need to fetch on client
-        if (city?.id) return;
+        if (!activeCity?.id) return;
 
-        // Fetch when activeCity is available
-        if (activeCity?.id) {
-            let mounted = true;
-            
-            const fetchBuilders = async () => {
-                try {
-                    setLoading(true);
-                    const response = await BuilderService.fetchTopBuilders({
-                        cityId: activeCity.id,
-                        limit: 20
-                    });
-                    
-                    if (mounted) {
-                        setBuilders(response || []);
-                    }
-                } catch (error) {
-                    console.error(error);
-                } finally {
-                    if (mounted) {
-                        setLoading(false);
-                    }
-                }
-            };
-            
-            fetchBuilders();
-            
-            return () => {
-                mounted = false;
-            };
+        if (activeCity?.id === city?.id) {
+            if (initialBuilders?.length) {
+                setBuilders(initialBuilders);
+            }
+            return;
         }
-    }, [activeCity?.id, city?.id]);
+
+        let mounted = true;
+        
+        const fetchBuilders = async () => {
+            try {
+                setLoading(true);
+                const response = await BuilderService.fetchTopBuilders({
+                    cityId: activeCity.id,
+                    limit: 20
+                });
+                
+                if (mounted) {
+                    setBuilders(response || []);
+                }
+            } catch (error) {
+                console.error(error);
+            } finally {
+                if (mounted) {
+                    setLoading(false);
+                }
+            }
+        };
+        
+        fetchBuilders();
+        
+        return () => {
+            mounted = false;
+        };
+    }, [activeCity?.id, city?.id, initialBuilders]);
 
 
 
@@ -94,7 +97,7 @@ export default function TopBuildersClient({
 
             <div className="mb-0 md:mb-2">
 
-                <div className="flex gap-2 items-center justify-between">
+                <div className="flex gap-0 items-center justify-between">
 
                     <h2 className="text-lg md:text-2xl font-semibold text-primary">
                         {`Top Real Estate Builders in ${cityText}`}
@@ -113,7 +116,7 @@ export default function TopBuildersClient({
 
             </div>
 
-            <div className="mt-4">
+            <div className="mt-1">
                 {loading || !builders.length ? (
 
                     <BuilderSkeleton />
