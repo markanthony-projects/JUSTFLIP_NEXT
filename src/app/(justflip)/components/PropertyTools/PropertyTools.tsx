@@ -74,7 +74,7 @@ export default function PropertyTools({
       {/* Section Header */}
       {title && (
         <div className="mb-2 md:mb-3">
-          <h2 className="text-lg md:text-xl font-semibold text-primary">
+          <h2 className="text-lg md:text-2xl font-semibold text-primary">
             {title}
           </h2>
         </div>

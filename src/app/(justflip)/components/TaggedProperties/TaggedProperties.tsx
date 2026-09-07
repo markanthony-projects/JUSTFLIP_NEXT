@@ -13,7 +13,7 @@ export default async function TaggedProperties({ city }: { city?: City }) {
     });
 
     return (
-        <div className="flex flex-col w-full space-y-8 md:space-y-10">
+        <div className="contents">
 
             <DeferredProjectSection
                 city={city}
