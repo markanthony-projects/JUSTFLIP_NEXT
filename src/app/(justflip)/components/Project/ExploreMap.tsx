@@ -219,7 +219,7 @@ export default function ExploreMap({ project }: { project: Project }) {
             </div>
 
             {/* Top Map Preview Banner */}
-            <div className="relative w-full h-[160px] sm:h-[190px] md:h-[210px] rounded-2xl overflow-hidden my-4 border border-gray-100 bg-slate-100 isolate">
+            <div className="relative w-full h-[160px] sm:h-[190px] md:h-[210px] rounded-lg overflow-hidden my-4 border border-gray-100 bg-slate-100 isolate">
                 <MapView
                     project={project}
                     activeCategory={activeTab}

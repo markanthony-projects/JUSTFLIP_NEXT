@@ -47,7 +47,7 @@ export default function Features({ project }: { project: Project }) {
 
             {isModalOpen && (
                 <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-                    <div className="bg-white w-full max-w-2xl max-h-[80vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                    <div className="bg-white w-full max-w-2xl max-h-[80vh] rounded-lg flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                         
                         <div className="p-5 border-b border-gray-100 flex items-center justify-between">
                             <h3 className="text-lg font-bold text-gray-900">All Project Amenities ({amenities.length})</h3>

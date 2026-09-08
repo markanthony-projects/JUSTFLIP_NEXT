@@ -23,13 +23,6 @@ function HighlightsProject({ project }: { project: Project }) {
         Highlights of {name}
       </h2>
 
-      <div className="border border-gray-300 rounded-xl overflow-hidden bg-white">
-        <div className="bg-[#002B5B] text-white px-5 py-4">
-          <p className="text-sm md:text-lg font-medium">
-            Why Choose {name}?
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5 py-4 md:py-6 px-4">
           {advantages.map((advantage: any, index: number) => (
             <HighlightItem
@@ -41,7 +34,7 @@ function HighlightsProject({ project }: { project: Project }) {
             />
           ))}
         </div>
-      </div>
+      
     </section>
   );
 }

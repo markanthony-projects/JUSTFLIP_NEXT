@@ -30,8 +30,8 @@ export default function DeveloperDetail({ project, data }: { project: Project; d
             </h2>
 
             <div className="grid md:grid-cols-[200px_1fr] gap-4  items-start">
-                <div className="bg-[#F3F8FA] rounded-2xl p-4 flex flex-col items-center gap-4 shadow-sm">
-                    <div className="relative w-[150px] h-[150px] rounded-xl overflow-hidden shadow-md">
+                <div className="bg-[#F3F8FA] rounded-lg p-4 flex flex-col items-center gap-4 shadow-sm">
+                    <div className="relative w-[150px] h-[150px] rounded-lg overflow-hidden shadow-md">
                         <Image
                             src={project?.builder?.logo?.url}
                             alt={project?.builder?.name || 'builder'}
