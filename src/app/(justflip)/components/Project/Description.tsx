@@ -359,7 +359,7 @@ function Description({ project: properties }: { project: Project }) {
                                 href={mapsHref}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-700 bg-blue-50/80 hover:bg-blue-100/80 px-2.5 py-0.5 rounded-full border border-blue-100 transition-colors shrink-0"
+                                className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:text-primary/80 bg-blue-50/80 hover:bg-blue-70/80 px-2.5 py-0.5 rounded-full border border-blue-100 transition-colors shrink-0"
                             >
                                 <span>View on Map</span>
                                 <FiExternalLink className="text-[11px]" />
