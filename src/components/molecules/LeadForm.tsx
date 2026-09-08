@@ -190,8 +190,8 @@ const LeadForm = ({ data }: LeadFormProps) => {
 
   return (
     <div
-      className="bg-white rounded-xl p-4 md:p-6 lg:p-6"
-      style={{ boxShadow: "0px 0px 10px 1px #dad6d6" }}
+      className="bg-white rounded-lg p-4 md:p-6 lg:p-6"
+      style={{ boxShadow: "0px 0px 5px 1px #dad6d6" }}
     >
       {/* Dynamic Toast / Banner */}
       {banner && (

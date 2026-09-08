@@ -19,7 +19,7 @@ function HighlightsProject({ project }: { project: Project }) {
 
   return (
     <section>
-      <h2 className="text-sm font-semibold mb-2 md:text-lg">
+      <h2 className="section-heading">
         Highlights of {name}
       </h2>
 

@@ -16,7 +16,7 @@ export default function Features({ project }: { project: Project }) {
         <section>
             <div className="flex items-center justify-between mb-4">
                 <div>
-                    <h2 className="text-sm font-semibold md:text-lg">
+                    <h2 className="section-heading">
                         Top Amenities & Features
                     </h2>
                 </div>

@@ -164,7 +164,7 @@ export default function ExploreMap({ project }: { project: Project }) {
 
             {/* Header with See on Google Maps and Share / Copy / WhatsApp actions */}
             <div className="pb-3 border-b border-gray-100 flex flex-wrap items-center justify-between gap-3">
-                <h2 className="text-sm font-semibold md:text-lg">
+                <h2 className="section-heading">
                     Locality & Commute
                 </h2>
 

@@ -62,7 +62,7 @@ export default function ReviewsSectionClient({ typeId, typeName, type, reviews: 
             {/* Section Header */}
             <div className="flex justify-between items-center mb-6 gap-2">
                 <div>
-                    <h2 className="text-sm font-semibold mb-2 md:text-lg">Ratings & Reviews</h2>
+                    <h2 className="section-heading">Ratings & Reviews</h2>
                 </div>
                 <button 
                     onClick={handleRating} 

@@ -163,7 +163,7 @@ export default function PropertyGallery({
                         <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#002B5B] flex items-center justify-center shadow-xs">
                             <MdOutlinePhotoLibrary size={18} />
                         </div>
-                        <h2 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 tracking-tight">
+                        <h2 className="section-heading tracking-tight">
                             {displayTitle}
                         </h2>
                     </div>
@@ -203,7 +203,7 @@ export default function PropertyGallery({
                         
                         {/* Main Image Stage (8 Cols on Desktop) */}
                         <div 
-                            className="lg:col-span-8 relative w-full h-[230px] sm:h-[320px] md:h-[400px] lg:h-[420px] rounded-2xl overflow-hidden bg-gray-950 group cursor-pointer"
+                            className="lg:col-span-8 relative w-full h-[230px] sm:h-[320px] md:h-[400px] lg:h-[420px] rounded-lg overflow-hidden bg-gray-950 group cursor-pointer"
                             onClick={() => setIsLightboxOpen(true)}
                             onMouseEnter={() => setIsImageHovered(true)}
                             onMouseLeave={() => setIsImageHovered(false)}
@@ -266,7 +266,7 @@ export default function PropertyGallery({
 
                             {/* Bottom Caption Pill */}
                             <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none z-10">
-                                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-black/60 backdrop-blur-md text-white text-xs border border-white/10 max-w-[85%] truncate">
+                                <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-md text-white text-xs border border-white/10 max-w-[85%] truncate">
                                     <FiMapPin size={13} className="text-red-400 shrink-0" />
                                     <span className="truncate font-medium">
                                         {activeImage?.alt || data?.name || "Locality Showcase"}
@@ -301,7 +301,7 @@ export default function PropertyGallery({
                                                     }
                                                 }}
                                                 aria-label={isLastAndMore ? `View all ${totalImages} photos` : `View image ${index + 1}`}
-                                                className={`relative shrink-0 cursor-pointer rounded-xl overflow-hidden transition-all duration-300 w-24 sm:w-28 md:w-32 lg:w-full h-18 sm:h-20 lg:h-[98px] group/thumb ${
+                                                className={`relative shrink-0 cursor-pointer rounded-lg overflow-hidden transition-all duration-300 w-24 sm:w-28 md:w-32 lg:w-full h-18 sm:h-20 lg:h-[98px] group/thumb ${
                                                     isActive
                                                         ? "ring-2 ring-[#002B5B] ring-offset-2 shadow-md opacity-100 scale-[0.99]"
                                                         : "opacity-75 hover:opacity-100 hover:scale-[1.02] border border-gray-200"
@@ -316,7 +316,7 @@ export default function PropertyGallery({
                                                 
                                                 {/* Active Tag Indicator */}
                                                 {isActive && !isLastAndMore && (
-                                                    <div className="absolute inset-0 bg-[#002B5B]/15 border border-[#002B5B]/30 rounded-xl pointer-events-none" />
+                                                    <div className="absolute inset-0 bg-[#002B5B]/15 border border-[#002B5B]/30 rounded-lg pointer-events-none" />
                                                 )}
 
                                                 {/* +N More Overlay if more than 6 photos exist */}
@@ -326,7 +326,7 @@ export default function PropertyGallery({
                                                         <span className="text-[10px] font-medium text-gray-200">More</span>
                                                     </div>
                                                 ) : (
-                                                    <div className="absolute bottom-1 right-1 px-1.5 py-0.5 rounded-md bg-black/60 backdrop-blur-xs text-[10px] text-white font-medium opacity-80 group-hover/thumb:opacity-100">
+                                                    <div className="absolute bottom-1 right-1 px-1.5 py-0.5 rounded-lg bg-black/60 backdrop-blur-xs text-[10px] text-white font-medium opacity-80 group-hover/thumb:opacity-100">
                                                         #{index + 1}
                                                     </div>
                                                 )}
@@ -341,7 +341,7 @@ export default function PropertyGallery({
                                 <button
                                     type="button"
                                     onClick={() => setIsLightboxOpen(true)}
-                                    className="hidden lg:flex mt-2.5 w-full items-center justify-center gap-2 py-2 px-4 rounded-xl bg-gray-50 hover:bg-gray-100 text-[#002B5B] border border-gray-200 text-xs font-semibold transition-colors duration-200 cursor-pointer shadow-xs hover:shadow-sm"
+                                    className="hidden lg:flex mt-2.5 w-full items-center justify-center gap-2 py-2 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 text-[#002B5B] border border-gray-200 text-xs font-semibold transition-colors duration-200 cursor-pointer shadow-xs hover:shadow-sm"
                                 >
                                     <FiMaximize2 size={13} />
                                     <span>View All {totalImages} Photos in Fullscreen</span>
@@ -403,7 +403,7 @@ export default function PropertyGallery({
                                 alt={activeImage?.alt || `Image ${activeIndex + 1}`}
                                 priority
                                 sizes="100vw"
-                                className="max-w-full max-h-[75vh] object-contain rounded-xl shadow-2xl transition-all duration-300"
+                                className="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl transition-all duration-300"
                             />
                         </div>
 
@@ -436,7 +436,7 @@ export default function PropertyGallery({
                         className="w-full flex justify-center overflow-x-auto py-2 z-20 scrollbar-hide"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <div className="flex gap-2 p-1.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+                        <div className="flex gap-2 p-1.5 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md">
                             {images.map((img: Media, idx: number) => {
                                 const isActive = idx === activeIndex;
                                 return (

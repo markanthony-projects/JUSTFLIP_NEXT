@@ -63,7 +63,7 @@ export default function UnitTable({ project }: { project: Project }) {
     return (
         <div>
             
-            <h2 className="text-sm font-semibold mb-2 md:text-lg">
+            <h2 className="section-heading">
                 Floor Plans & Pricing
             </h2>
 

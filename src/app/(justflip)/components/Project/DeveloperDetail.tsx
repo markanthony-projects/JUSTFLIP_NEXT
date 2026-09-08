@@ -25,7 +25,7 @@ export default function DeveloperDetail({ project, data }: { project: Project; d
 
     return (
         <section>
-            <h2 className="text-sm font-semibold mb-3 md:text-lg">
+            <h2 className="section-heading mb-1">
                 Developer's Legacy
             </h2>
 

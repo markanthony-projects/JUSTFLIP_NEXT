@@ -11,7 +11,7 @@ interface FAQProps {
     showContactLink?: boolean;
 }
 
-export default function FAQ({ data, title = "Frequently Asked Questions", showContactLink = true }: FAQProps) {
+export default function FAQ({ data, title = "Frequently Asked Questions (FAQ's)", showContactLink = true }: FAQProps) {
     const faqs = data?.faqs || data;
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
@@ -40,7 +40,7 @@ export default function FAQ({ data, title = "Frequently Asked Questions", showCo
             )}
             <div className="w-full max-w-4xl mx-auto px-1 sm:px-2">
                 <div className="text-center mb-6 md:mb-8 px-2">
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 tracking-tight">
+                    <h2 className="section-heading">
                         {title}
                     </h2>
                     {showContactLink && (
@@ -53,7 +53,7 @@ export default function FAQ({ data, title = "Frequently Asked Questions", showCo
                     )}
                 </div>
 
-                <div className="bg-white rounded-xl md:rounded-2xl border border-gray-200/90 shadow-sm divide-y divide-gray-100 overflow-hidden">
+                <div className="bg-white rounded-lg border border-gray-200/90 shadow-sm divide-y divide-gray-100 overflow-hidden">
                     {faqs.map((faq: any, index: number) => {
                         const isOpen = openIndex === index;
                         const question = formatQuestion(faq?.question);

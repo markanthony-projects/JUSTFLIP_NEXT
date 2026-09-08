@@ -8,7 +8,7 @@ function SimilarProject({ data }: { data: Project[] }) {
     return (
         <div className="">
             <div className="pt-6">
-                <h2 className="text-sm font-semibold md:text-lg">
+                <h2 className="section-heading">
                     Similar Properties
                 </h2>
             </div>

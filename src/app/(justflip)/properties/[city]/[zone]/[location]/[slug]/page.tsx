@@ -185,7 +185,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
 
                         {/* 2. Floor Plans / Unit Table */}
                         {projectData?.units && projectData.units.length > 0 && (
-                            <div id="floor-plans" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                            <div id="floor-plans" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                                 <Suspense fallback={<UnitTableSkeleton />}>
                                     <UnitTable project={projectData} />
                                 </Suspense>
@@ -194,7 +194,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
 
                         {/* 3. Features & Amenities */}
                         {projectData?.amenities && projectData.amenities.length > 0 && (
-                            <div id="amenities" className="!bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                            <div id="amenities" className="!bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                                 <Suspense fallback={<FeaturesSkeleton />}>
                                     <Features project={projectData} />
                                 </Suspense>
@@ -206,7 +206,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
                         </div>
 
                         {/* 4. Explore Map / Transit / Essentials */}
-                        <div id="location" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                        <div id="location" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                             <Suspense fallback={<ExploreMapSkeleton />}>
                                 <ExploreMap project={projectData} />
                             </Suspense>
@@ -214,7 +214,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
 
                         {/* 5. Project Highlights */}
                         {projectData?.advantages && projectData.advantages.length > 0 && (
-                            <div id="highlights" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                            <div id="highlights" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                                 <Suspense fallback={<HighlightProjectSkeleton />}>
                                     <HighlightsProject project={projectData} />
                                 </Suspense>
@@ -222,7 +222,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
                         )}
 
                         {/* 6. Ratings & Reviews */}
-                        <div id="reviews" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                        <div id="reviews" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                             <Suspense fallback={<ReviewsSkeleton />}>
                                 <ReviewsWrapper projectId={id} projectName={projectData?.name} />
                             </Suspense>
@@ -300,15 +300,15 @@ async function LocationInfoWrapper({ locationId, projectData }: { locationId: st
     return (
         <div className="space-y-4 md:space-y-6">
             {projectData?.builder && (
-                <div id="developer" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                <div id="developer" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                     <DeveloperDetail project={projectData} data={locationData} />
                 </div>
             )}
-            <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+            <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                 <Highlight data={locationData} />
             </div>
             {locationData?.pricings && locationData.pricings.length > 0 && (
-                <div id="price-trend" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                <div id="price-trend" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                     <PriceTrendSection data={locationData as any} />
                     <PriceTrendSchema trends={locationData?.pricings} />
                 </div>
