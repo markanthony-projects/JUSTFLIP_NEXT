@@ -177,7 +177,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
                     <div className="lg:col-span-4 xl:col-span-5 space-y-4 md:space-y-6">
                         
                         {/* 1. Project Overview */}
-                        <div id="overview" className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                        <div id="overview" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                             <Suspense fallback={<ProjectOverviewSkeleton />}>
                                 <ProjectOverview project={projectData} />
                             </Suspense>
