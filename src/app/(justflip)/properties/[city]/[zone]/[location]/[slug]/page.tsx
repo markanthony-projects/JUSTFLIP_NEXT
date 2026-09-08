@@ -150,7 +150,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
 
     return (
         <>
-            <div className='w-full max-w-full overflow-x-hidden px-2 md:px-4 !bg-[#F1F1F]'>
+            <div className='w-full max-w-full overflow-x-hidden bg-white'>
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateSchema) }} />
                 <ScrollToTop />
 
