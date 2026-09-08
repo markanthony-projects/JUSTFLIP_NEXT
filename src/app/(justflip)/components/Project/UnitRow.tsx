@@ -38,7 +38,7 @@ export default function UnitRow({ product, getCurrencySymbol, onView }: { produc
   }
 
   return (
-    <div className="group border border-slate-200/80 rounded-2xl bg-white shadow-sm hover:shadow-xl hover:border-slate-300 transition-all duration-300 flex flex-col h-fit overflow-hidden max-w-[380px] w-full mt-2 relative">
+    <div className="group border border-slate-200/80 rounded-lg transition-all duration-300 flex flex-col h-fit overflow-hidden max-w-[380px] w-full mt-2 relative">
       <div className="absolute right-[-30px] top-[-3px] bottom-1 w-3/4 pointer-events-none overflow-hidden flex items-center justify-end z-0">
         <img 
           src="/assets/building_watermark.png" 
@@ -87,7 +87,7 @@ export default function UnitRow({ product, getCurrencySymbol, onView }: { produc
       <button
         type="button"
         onClick={onView}
-        className="w-full border-t border-slate-100 px-5 py-3 flex items-center justify-between text-[#002B5B] transition-colors text-left group/btn relative z-10"
+        className="w-full border-t border-slate-100 px-5 py-3 flex items-center justify-between text-[#002B5B] transition-colors text-left group/btn relative z-10 cursor-pointer"
       >
         <div className="flex items-center gap-2 font-semibold text-xs sm:text-sm">
           <div className="w-6 h-6 rounded-full bg-[#002B5B]/10 flex items-center justify-center text-[#002B5B] group-hover/btn:bg-[#002B5B] group-hover/btn:text-white transition-colors">

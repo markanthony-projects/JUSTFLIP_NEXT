@@ -160,7 +160,7 @@ export default function PropertyGallery({
             <div className="flex items-center justify-between gap-3 mb-4">
                 <div>
                     <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-xl bg-blue-50 text-[#002B5B] flex items-center justify-center shadow-xs">
+                        <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#002B5B] flex items-center justify-center shadow-xs">
                             <MdOutlinePhotoLibrary size={18} />
                         </div>
                         <h2 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 tracking-tight">
@@ -186,7 +186,7 @@ export default function PropertyGallery({
             {/* Content Body */}
             {totalImages === 0 ? (
                 // Empty State
-                <div className="w-full rounded-2xl bg-gradient-to-b from-gray-50 to-gray-100/60 border border-gray-200/80 p-8 text-center flex flex-col items-center justify-center min-h-[220px]">
+                <div className="w-full rounded-lg bg-gradient-to-b from-gray-50 to-gray-100/60 border border-gray-200/80 p-8 text-center flex flex-col items-center justify-center min-h-[220px]">
                     <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-gray-400 mb-3">
                         <FiImage size={24} />
                     </div>
@@ -198,7 +198,7 @@ export default function PropertyGallery({
                     </p>
                 </div>
             ) : (
-                <div className="bg-white rounded-2xl p-2 sm:p-3 md:p-4 border border-gray-100 shadow-[0_4px_25px_rgb(0,0,0,0.04)]">
+                <div className="bg-white rounded-lg p-2 sm:p-3 md:p-4 border border-gray-100 shadow-[0_4px_25px_rgb(0,0,0,0.04)]">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 items-stretch">
                         
                         {/* Main Image Stage (8 Cols on Desktop) */}
