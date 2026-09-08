@@ -101,7 +101,7 @@ export default async function JustFlipHomePage() {
 
                 <HomeReviewCard />
 
-                
+
 
                 <LazyHydrate rootMargin="350px" placeholder={<HomeBlogsSkeleton />}>
                     <Suspense fallback={<HomeBlogsSkeleton />}>

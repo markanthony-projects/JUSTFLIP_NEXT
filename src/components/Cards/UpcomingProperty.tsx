@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import FavouriteButton from '../atoms/FavouriteButton';
+import LoginModal from '../organisms/LoginModal';
 import { Project } from '@/src/types';
 import { createProjectUrl } from '@/src/utils/url';
 import * as ProjectService from "@/src/services/ProjectService";
