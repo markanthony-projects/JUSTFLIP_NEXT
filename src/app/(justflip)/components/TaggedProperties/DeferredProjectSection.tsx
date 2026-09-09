@@ -14,6 +14,7 @@ import * as ProjectService from "@/src/services/ProjectService";
 import { City, Project } from "@/src/types";
 import { FeaturedPropertySkeletonList } from "../Skelton/FeaturedPropertySkeleton";
 import { UpcomingPropertySkeletonList } from "../Skelton/UpcomingPropertySkeleton";
+import { NewLaunhesPropertySkeletonList } from "../Skelton/NewLaunchesPropertySkeleton";
 
 export default function DeferredProjectSection({ city, tag }: { city?: City; tag: string }) {
 
@@ -146,12 +147,12 @@ export default function DeferredProjectSection({ city, tag }: { city?: City; tag
             <LazyHydrate
                 key={`${resolvedCityId}-${tag}`}
                 rootMargin="500px"
-                placeholder={tag === "Featured Properties" ? <FeaturedPropertySkeletonList/> :  tag === "Upcoming Launches" ? <UpcomingPropertySkeletonList/> :<PropertyCardSkeletonList/> }
+                placeholder={tag === "Featured Properties" ? <FeaturedPropertySkeletonList/> :  tag === "Upcoming Launches" ? <UpcomingPropertySkeletonList/> :<NewLaunhesPropertySkeletonList/> }
                 onVisible={() => setEnabled(true)}
             >
 
                 {loading || !projects.length ? (
-                    tag === "Featured Properties" ? <FeaturedPropertySkeletonList/> :  tag === "Upcoming Launches" ? <UpcomingPropertySkeletonList/> :<PropertyCardSkeletonList />
+                    tag === "Featured Properties" ? <FeaturedPropertySkeletonList/> :  tag === "Upcoming Launches" ? <UpcomingPropertySkeletonList/> :<NewLaunhesPropertySkeletonList />
                 ) : (
                     <ProjectCarousel projects={projects} 
                         varient = {tag === "Featured Properties" ? "featured" : tag === "Upcoming Launches" ? "upcoming" : "default"}
