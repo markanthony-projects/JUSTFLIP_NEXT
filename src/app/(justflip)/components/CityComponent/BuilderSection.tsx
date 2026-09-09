@@ -4,7 +4,7 @@ import { City, Builder } from "@/src/types";
 export default function BuildersSection({ builders, city }: { builders?: Builder[]; city?: City }) {
     return (
         <div >
-            <TopBuildersClient city={city} initialBuilders={builders || []} />
+            <TopBuildersClient city={city} initialBuilders={builders || []} isFixedCity={true} />
         </div>
     );
 }

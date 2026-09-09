@@ -35,12 +35,13 @@ function BuilderSkeleton() {
 
 export default function TopBuildersClient({
     city,
-    initialBuilders
-}: { city?: City; initialBuilders?: Builder[] }) {
+    initialBuilders,
+    isFixedCity = false
+}: { city?: City; initialBuilders?: Builder[]; isFixedCity?: boolean }) {
 
     const { activeCity } = useCityStore();
 
-    const resolvedCity = activeCity || city;
+    const resolvedCity = isFixedCity ? (city || activeCity) : (activeCity || city);
     const resolvedCityId = resolvedCity?.id;
 
 
@@ -52,6 +53,11 @@ export default function TopBuildersClient({
     }, [resolvedCity?.name]);
 
     useEffect(() => {
+        if (isFixedCity) {
+            setBuilders(initialBuilders || []);
+            return;
+        }
+
         if (!activeCity?.id) return;
 
         if (activeCity?.id === city?.id) {
@@ -88,7 +94,7 @@ export default function TopBuildersClient({
         return () => {
             mounted = false;
         };
-    }, [activeCity?.id, city?.id, initialBuilders]);
+    }, [isFixedCity, activeCity?.id, city?.id, initialBuilders]);
 
 
 
