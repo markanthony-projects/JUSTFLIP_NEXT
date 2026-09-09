@@ -105,7 +105,7 @@
 
       const propertySpecData = [
         {
-          id: "type",
+          key: "type",
           label: "Type",
           value: type,
           icon: <MdOutlineApartment size={16} />,
@@ -290,15 +290,24 @@
     )
   }
 
-  function PropertySpec({key, icon, value, label,
-  }: {key:string, icon: React.ReactNode; value: string; label: string;}) {
+  function PropertySpec({
+    key,
+    icon,
+    value,
+    label,
+  }: {
+    key?: string;
+    icon: React.ReactNode;
+    value: string | number;
+    label: string;
+  }) {
     return (
       <div key={key} className="flex min-w-0 flex-col items-center justify-center px-1.5 py-4 text-center border-t border-r border-slate-100 gap-1 " >
         <div className="text-primary flex gap-0.5">
-            {icon}
-             <p className="mt-0.5 text-[10px] font-medium text-primary">
+          {icon}
+          <p className="mt-0.5 text-[10px] font-medium text-primary">
             {label}
-        </p>
+          </p>
         </div>
         <p className="max-w-4/5 truncate text-[12px] font-medium text-gray-500 ">
             {value}
