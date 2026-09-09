@@ -11,9 +11,11 @@ export interface LoginModalProps {
     isOpen: boolean;
     closeModal: () => void;
     onSuccess?: () => void;
+    title?: string;
+    subtitle?: string;
 }
 
-export default function LoginModal({ isOpen, closeModal, onSuccess }: LoginModalProps) {
+export default function LoginModal({ isOpen, closeModal, onSuccess, title, subtitle }: LoginModalProps) {
     const visitorLogin = useAuthStore((s) => s.visitorLogin);
     const [email, setEmail] = useState("");
     const [showOtp, setShowOtp] = useState(false);
@@ -153,11 +155,11 @@ export default function LoginModal({ isOpen, closeModal, onSuccess }: LoginModal
                 <form onSubmit={handleLogin}>
                     <div className={`${showOtp ? 'hidden' : ' space-y-1'}`}>
                         <h2 className={`text-start text-2xl font-bold text-[#002B5B] `}>
-                            Find Your Dream Home
+                            {title}
                         </h2>
 
                         <p className={`text-sm font-bold mb-4 grid justify-start text-gray-600 `}>
-                            Access saved searches and favorites
+                            {subtitle}
                         </p>
                         <div className={`mb-1`}>
                             <label className="block text-sm font-bold text-[#484747] mb-1">

@@ -96,6 +96,8 @@ export default function ReviewsSectionClient({ typeId, typeName, type, reviews: 
                         toast.warn(`Brokers are not eligible to leave ${entityLabel.toLowerCase()} reviews.`);
                     }
                 }}
+                title="Find Your Dream Home"
+                subtitle="Access saved searches and favorites"
             />
         </section>
     );

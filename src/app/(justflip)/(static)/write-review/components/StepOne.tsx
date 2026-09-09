@@ -115,7 +115,7 @@ export default function StepOne({ onNext, initialData }: StepOneProps) {
   };
 
   return (
-    <div className="bg-white  p-7 md:p-10 rounded-2xl border border-gray-100 shadow-md w-full">
+    <div className="bg-white p-7 md:p-10 rounded-lg border border-gray-100 shadow-md w-full">
       <div className="mb-8">
         <h2 className="text-3xl font-extrabold text-[#002B5B] tracking-tight">
           Write a Review
@@ -132,7 +132,7 @@ export default function StepOne({ onNext, initialData }: StepOneProps) {
         </label>
         <input
           type="text"
-          placeholder="Search projects, locations, or developers..."
+          placeholder="Search projects and locations"
           value={searchQuery}
           onFocus={() => flatSuggestions.length > 0 && setIsOpen(true)}
           onChange={(e) => {
