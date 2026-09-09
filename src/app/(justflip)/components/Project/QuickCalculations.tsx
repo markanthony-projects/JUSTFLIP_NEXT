@@ -115,7 +115,7 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
 
   return (
     <>
-      <div className="w-full rounded-lg border border-gray-100 bg-white p-5 sm:p-6 shadow-sm shadow-slate-100 transition-all duration-300">
+      <div className="w-full rounded-lg border border-gray-100 bg-white p-5 sm:p-6 shadow-xl shadow-slate-100 transition-all duration-300">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div>

@@ -35,12 +35,13 @@ function BuilderSkeleton() {
 
 export default function TopBuildersClient({
     city,
-    initialBuilders
-}: { city?: City; initialBuilders?: Builder[] }) {
+    initialBuilders,
+    isFixedCity = false
+}: { city?: City; initialBuilders?: Builder[]; isFixedCity?: boolean }) {
 
     const { activeCity } = useCityStore();
 
-    const resolvedCity = activeCity || city;
+    const resolvedCity = isFixedCity ? (city || activeCity) : (activeCity || city);
     const resolvedCityId = resolvedCity?.id;
 
 
@@ -52,6 +53,11 @@ export default function TopBuildersClient({
     }, [resolvedCity?.name]);
 
     useEffect(() => {
+        if (isFixedCity) {
+            setBuilders(initialBuilders || []);
+            return;
+        }
+
         if (!activeCity?.id) return;
 
         if (activeCity?.id === city?.id) {
@@ -88,7 +94,7 @@ export default function TopBuildersClient({
         return () => {
             mounted = false;
         };
-    }, [activeCity?.id, city?.id, initialBuilders]);
+    }, [isFixedCity, activeCity?.id, city?.id, initialBuilders]);
 
 
 
@@ -138,7 +144,7 @@ export default function TopBuildersClient({
                             return (
                                 <Link href={`/developers/${formatUrl(builder?.name)}-${builder?.id}`}>
 
-                                    <div className="md:w-[280px] w-[250px] rounded-lg flex items-center p-2 border border-gray-200 hover:shadow-md transition gap-4">
+                                    <div className="bg-white md:w-[280px] w-[250px] rounded-lg flex items-center p-2 border border-gray-200 hover:shadow-md transition gap-4">
 
                                         <div className="shadow h-16 w-16 md:h-20 md:w-20 overflow-hidden rounded-md relative flex-shrink-0">
                                             <Image

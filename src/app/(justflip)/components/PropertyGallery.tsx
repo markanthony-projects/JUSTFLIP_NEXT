@@ -146,59 +146,70 @@ export default function PropertyGallery({
     }
 
     const displayTitle = title || (data?.name ? `${data.name} - At a Glance` : "Photo Gallery");
-    const displaySubtitle = subtitle || "Visual tour of key landmarks and neighborhood surroundings";
+    // const displaySubtitle = subtitle || "Visual tour of key landmarks and neighborhood surroundings";
 
     return (
-        <section className={`w-full my-6 ${className}`}>
+        <section className={`w-full ${className}`}>
             {videoSchemas && (
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchemas) }}
                 />
             )}
-            {/* Header Section */}
-            <div className="flex items-center justify-between gap-3 mb-4">
-                <div>
-                    <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#002B5B] flex items-center justify-center shadow-xs">
-                            <MdOutlinePhotoLibrary size={18} />
-                        </div>
-                        <h2 className="section-heading tracking-tight">
-                            {displayTitle}
-                        </h2>
-                    </div>
-                    
-                    <p className="text-xs text-gray-500 mt-1 pl-10">
-                        {displaySubtitle}
-                    </p>
-                </div>
-
-                {totalImages > 0 && (
-                    <div className="flex items-center shrink-0">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-semibold">
-                            <FiCamera className="text-[#002B5B]" size={13} />
-                            {totalImages} {totalImages === 1 ? "Photo" : "Photos"}
-                        </span>
-                    </div>
-                )}
-            </div>
 
             {/* Content Body */}
             {totalImages === 0 ? (
                 // Empty State
-                <div className="w-full rounded-lg bg-gradient-to-b from-gray-50 to-gray-100/60 border border-gray-200/80 p-8 text-center flex flex-col items-center justify-center min-h-[220px]">
-                    <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-gray-400 mb-3">
-                        <FiImage size={24} />
+                <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <div className="flex items-center justify-between gap-3 mb-4">
+                        <div>
+                            <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#002B5B] flex items-center justify-center shadow-xs">
+                                    <MdOutlinePhotoLibrary size={18} />
+                                </div>
+                                <h2 className="section-heading tracking-tight">
+                                    {displayTitle}
+                                </h2>
+                            </div>
+                        </div>
                     </div>
-                    <h3 className="text-sm font-semibold text-gray-700 mb-1">
-                        No photos uploaded yet
-                    </h3>
-                    <p className="text-xs text-gray-500 max-w-sm">
-                        Photos and neighborhood snapshots for {data?.name || "this location"} will be available soon.
-                    </p>
+                    <div className="w-full rounded-lg bg-gradient-to-b from-gray-50 to-gray-100/60 border border-gray-200/80 p-8 text-center flex flex-col items-center justify-center min-h-[220px]">
+                        <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center text-gray-400 mb-3">
+                            <FiImage size={24} />
+                        </div>
+                        <h3 className="text-sm font-semibold text-gray-700 mb-1">
+                            No photos uploaded yet
+                        </h3>
+                        <p className="text-xs text-gray-500 max-w-sm">
+                            Photos and neighborhood snapshots for {data?.name || "this location"} will be available soon.
+                        </p>
+                    </div>
                 </div>
             ) : (
-                <div className="bg-white rounded-lg p-2 sm:p-3 md:p-4 border border-gray-100 shadow-[0_4px_25px_rgb(0,0,0,0.04)]">
+                <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    {/* Header Section */}
+                    <div className="flex items-center justify-between gap-3 mb-4">
+                        <div>
+                            <div className="flex items-center gap-2">
+                                <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#002B5B] flex items-center justify-center shadow-xs">
+                                    <MdOutlinePhotoLibrary size={18} />
+                                </div>
+                                <h2 className="section-heading tracking-tight">
+                                    {displayTitle}
+                                </h2>
+                            </div>
+                        </div>
+
+                        {totalImages > 0 && (
+                            <div className="flex items-center shrink-0">
+                                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-semibold">
+                                    <FiCamera className="text-[#002B5B]" size={13} />
+                                    {totalImages} {totalImages === 1 ? "Photo" : "Photos"}
+                                </span>
+                            </div>
+                        )}
+                    </div>
+
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-4 items-stretch">
                         
                         {/* Main Image Stage (8 Cols on Desktop) */}
