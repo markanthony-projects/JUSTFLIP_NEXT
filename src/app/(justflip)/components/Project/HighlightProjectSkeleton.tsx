@@ -34,7 +34,7 @@ export default function HighlightProjectSkeleton() {
           <SkeletonBlock className="h-4 w-[180px]" />
           <div className="absolute bottom-0 left-0 w-full h-2 bg-white rounded-t-xl" />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 py-6 px-2 md:px-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 py-6 px-4">
           {Array.from({ length: 5 }).map((_, i) => (
             <HighlightItemSkeleton key={i} />
           ))}

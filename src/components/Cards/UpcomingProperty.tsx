@@ -76,7 +76,7 @@ const UpcomingProperty = ({ project, priority }: UpcomingPropertyProps) => {
 
   return (
     <>
-      <article className='group relative flex sm:w-87.5 w-[calc(100vw-100px)] flex-col overflow-hidden rounded-lg border border-gray-100 bg-white transition-all duration-300  hover:shadow-[0_5px_20px_rgb(0,0,0,0.05)] hover:border-gray-300'>
+      <article className='group relative flex sm:w-87.5 w-[calc(100vw-100px)] flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-[0_2px_8px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_8px_24px_rgb(0,0,0,0.08)] hover:border-gray-300'>
         <Link href={projectUrl}>
           {/* IMAGE */}
           <div className='relative sm:h-54 h-48 w-full overflow-hidden bg-gray-100'>

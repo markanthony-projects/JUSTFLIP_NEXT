@@ -118,7 +118,7 @@ const NewLaunhesProperty = ({ project, priority }: NewLaunchPropertyProps) => {
 
   return (
     <>
-      <article className="group relative flex w-87.5 flex-col overflow-hidden rounded-lg border border-gray-100 bg-white transition-all duration-300  hover:shadow-[0_5px_20px_rgb(0,0,0,0.05)] hover:border-gray-300">
+      <article className="group relative flex w-87.5 flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-[0_2px_8px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_8px_24px_rgb(0,0,0,0.08)] hover:border-gray-300">
         
         {/* IMAGE SECTION */}
         <Link href={projectUrl} className="block relative">

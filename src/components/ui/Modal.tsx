@@ -79,7 +79,7 @@ export default function Modal({
             className={`
                 fixed inset-0 ${zIndexClass}
                 flex items-center justify-center
-                px-2 md:px-4
+                px-4
                 app-overlay
                 transition-opacity duration-200
             `}

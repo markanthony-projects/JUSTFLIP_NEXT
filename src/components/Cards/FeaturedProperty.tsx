@@ -144,7 +144,7 @@
 
     return (
       <>
-      <article className='group relative sm:w-87.5 w-[calc(100vw-100px)] overflow-hidden rounded-lg bg-white border border-gray-200 transition-all duration-300 hover:shadow-[0_5px_20px_rgb(0,0,0,0.05)] hover:border-gray-300'>
+      <article className='group relative sm:w-87.5 w-[calc(100vw-100px)] overflow-hidden rounded-lg bg-white border border-gray-100 shadow-[0_2px_8px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_8px_24px_rgb(0,0,0,0.08)] hover:border-gray-300'>
 
         {/* for image */}
         <Link href={projectUrl} className="block">

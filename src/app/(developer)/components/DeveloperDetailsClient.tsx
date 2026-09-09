@@ -46,7 +46,7 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
         </div>
 
         {/* Info Card */}
-        <div className="relative z-10 w-full max-w-[1300px] px-2 md:px-4 mx-auto -mt-14 sm:-mt-16 md:-mt-20">
+        <div className="relative z-10 w-full max-w-[1300px] px-4 mx-auto -mt-14 sm:-mt-16 md:-mt-20">
           <div className="bg-white border border-gray-200/80 rounded-2xl md:rounded-3xl shadow-lg p-5 sm:p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-5 md:gap-8">
             {/* Logo Container */}
             <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 shrink-0 bg-white rounded-2xl p-2.5 border border-gray-200 shadow-md overflow-hidden flex items-center justify-center">
@@ -122,7 +122,7 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
       </Modal>
 
       {/* Content Sections */}
-      <div className="w-full max-w-[1300px] mx-auto px-2 md:px-4 pt-8 md:pt-12 space-y-8 md:space-y-12">
+      <div className="w-full max-w-[1300px] mx-auto px-4 pt-8 md:pt-12 space-y-8 md:space-y-12">
         {(builder?.employees?.length ?? 0) > 0 && (
           <section>
             <KeyEmployees employees={builder?.employees} />

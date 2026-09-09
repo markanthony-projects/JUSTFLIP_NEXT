@@ -8,7 +8,7 @@ export default function HomeReviewPromptCard() {
   const otherTags = ["Gated Community", "Quiet Streets"];
 
   return (
-    <div className="w-full bg-white rounded-lg md:rounded-lg px-6 sm:px-12 py-2 sm:py-8 border border-slate-200 shadow-sm overflow-hidden">
+    <div className="w-full bg-white rounded-lg px-6 sm:px-12 py-4 sm:py-8 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)] overflow-hidden">
       <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
         
         {/* Image */}
