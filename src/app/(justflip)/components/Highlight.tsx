@@ -77,10 +77,10 @@ const HighlightLocation = ({ data = {}, name = "" }: { data?: any; name?: string
   const [isDisOpen, setIsDisOpen] = useState(false);
 
   return (
-    <section className="w-full">
+    <section>
       <div className='mb-5 shadow shadow-gray-100 p-1 '> 
         {/* City Title */}
-        <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-2 tracking-tight">
+        <h2 className="section-heading mb-1 tracking-tight">
           {`${name ? `${name} - ` : ""}${locationName} Unfiltered : The Highs, the Lows, and the Hidden Truths`}
         </h2>
         <p className="text-justify text-[10px] sm:text-[12px] text-gray-600 mt-0.5 leading-relaxed font-light">

@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import FavouriteButton from '../atoms/FavouriteButton'
-import { Project } from '@/src/types'
-import { createProjectUrl } from '@/src/utils/url'
-import * as ProjectService from '@/src/services/ProjectService'
+import FavouriteButton from '../atoms/FavouriteButton';
+import LoginModal from '../organisms/LoginModal';
+import { Project } from '@/src/types';
+import { createProjectUrl } from '@/src/utils/url';
+import * as ProjectService from "@/src/services/ProjectService";
 
 import {
   MdApartment,
@@ -16,7 +17,6 @@ import {
   MdVerified
 } from 'react-icons/md'
 import { ImLocation2 } from 'react-icons/im'
-import LoginModal from '../organisms/LoginModal'
 import { convertToCurrency } from '@/src/utils/RenderFunction';
 interface UpcomingPropertyProps {
   project: Project

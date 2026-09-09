@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { ConverterCategory, DEFAULT_AREA_FROM, DEFAULT_AREA_TO, DEFAULT_LENGTH_FROM, DEFAULT_LENGTH_TO } from './data/standardUnit';
-import { convertUnit, formatREsult, getUnitsCategory, isValidNumericInput, resolveSafeUnitKey } from './converter';
+import { convertUnit, formatREsult, getUnitsCategory, isValidNumericInput, resolveSafeUnitKey } from './utils/converter';
 //icons import
 import {
     FiArrowRight,

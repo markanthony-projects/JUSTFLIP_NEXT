@@ -100,7 +100,7 @@ async function LocationPageContent({ params }: LocationPageProps) {
   const bannerImage = locationData?.medias?.find((o: any) => o.title === 'logo');
 
   return (
-    <div className="w-full px-2 md:px-4">
+    <div className="w-full">
       <ScrollToTop />
       <Breadcrumb items={breadcrumbItems} />
 

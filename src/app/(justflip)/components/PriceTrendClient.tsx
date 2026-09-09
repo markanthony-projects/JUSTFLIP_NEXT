@@ -211,11 +211,11 @@ const RatingCardClient = ({ data: initialData = {}, trendData = [], type, typeId
 
   return (
     <LazyHydrate placeholder={<RatingCardSkeleton />}>
-      <div className="lg:px-5 lg:rounded-2xl lg:shadow-xs bg-white w-full p-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden">
+      <div className="lg:px-5 lg:rounded-lg lg:shadow-xs bg-white w-full p-3 rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.03)] border border-gray-100 overflow-hidden">
         
         {/* Global Average Rating Display */}
         <div className="flex items-center space-x-2 border-gray-100 border-b pb-2 mb-2">
-          <div className="bg-amber-50 p-2 rounded-xl">
+          <div className="bg-amber-50 p-2 rounded-lg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#c7a51c" className="w-5 h-5">
               <path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" />
             </svg>
@@ -252,7 +252,7 @@ const RatingCardClient = ({ data: initialData = {}, trendData = [], type, typeId
           </div>
           <div className="flex items-center justify-center h-[108px] mx-auto w-full lg:w-[260px]">
             {!hasTrendData ? (
-              <div className="flex items-center justify-center w-full h-[106px] bg-gray-50 rounded-xl border border-gray-100">
+              <div className="flex items-center justify-center w-full h-[106px] bg-gray-50 rounded-lg border border-gray-100">
                 <p className="text-gray-400 text-sm font-medium">No matching data found.</p>
               </div>
             ) : (
@@ -266,7 +266,7 @@ const RatingCardClient = ({ data: initialData = {}, trendData = [], type, typeId
                     <div
                       key={item?.unitType}
                       onClick={() => handleUnitTypeClick(item)}
-                      className="w-full bg-linear-to-r from-blue-50 from-10% via-transparent-500 via-30% to-blue-50 to-90% lg:w-[260px] flex justify-between items-center p-3 border border-gray-300 rounded-2xl cursor-pointer"
+                      className="w-full bg-linear-to-r from-blue-50 from-10% via-transparent-500 via-30% to-blue-50 to-90% lg:w-[260px] flex justify-between items-center p-3 border border-gray-300 rounded-lg cursor-pointer"
                     >
                       <div>
                         <p className="text-xs font-bold text-[#3752A6]">{item?.unitType}</p>

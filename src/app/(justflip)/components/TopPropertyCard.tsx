@@ -29,7 +29,7 @@
             <>
                 <Link href={projectUrl} className="w-full">
                     <div 
-                        className="group relative bg-white shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 hover:scale-105 hover:border-gray-300 rounded-lg overflow-hidden flex flex-col my-2 w-60 md:w-60 max-w-60 animate-slide-up"
+                        className="group relative bg-white transition-all duration-300 hover:scale-105 hover:border-gray-300 rounded-lg overflow-hidden flex flex-col my-2 w-60 md:w-60 max-w-60 animate-slide-up"
                     >
                         <div className= "h-35 md:h-35 xl:h-35 relative overflow-hidden bg-gray-100 border-b border-gray-100 w-60 md:w-60 max-w-60">
                             <Image
@@ -79,7 +79,7 @@
                                     {project?.priceRange || 'Price on Request'}
                                 </p>
                                 {project.status && (
-                                    <span className={`text-[8px] px-2 py-1 rounded-md font-bold uppercase tracking-widest ${project.status === 'active' ? 'bg-green-100 text-green-700' : project.status === 'pending' || project.approval === 'pending' ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-gray-600'}`}>
+                                    <span className={`text-[8px] px-2 py-1 rounded-lg font-bold uppercase tracking-widest ${project.status === 'active' ? 'bg-green-100 text-green-700' : project.status === 'pending' || project.approval === 'pending' ? 'bg-amber-100 text-amber-700' : 'bg-gray-100 text-gray-600'}`}>
                                         {project.approval === 'pending' ? 'Pending' : project.status}
                                     </span>
                                 )}

@@ -35,7 +35,7 @@ export default function ReviewCard({ review }: ReviewCardProps) {
   const initial = reviewerName.charAt(0).toUpperCase() || "A";
 
   return (
-    <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-xs w-full h-full flex flex-col justify-between hover:border-gray-200 hover:shadow-xs transition-all">
+    <div className="bg-white p-4 rounded-lg border border-gray-100 shadow-xs w-full h-full flex flex-col justify-between hover:border-gray-200 hover:shadow-xs transition-all">
       <div>
         {/* User Info Header */}
         <div className="flex items-center gap-3">

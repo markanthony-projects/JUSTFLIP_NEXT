@@ -61,13 +61,13 @@ export default function UnitTable({ project }: { project: Project }) {
     }, []);
 
     return (
-        <div className="w-full">
+        <div>
             
-            <h2 className="text-sm font-semibold pb-2 pl-2 md:text-lg">
+            <h2 className="section-heading">
                 Floor Plans & Pricing
             </h2>
 
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {products?.map((product, index) => (
                     <UnitRow 
                         key={index} 

@@ -24,14 +24,14 @@ export default function DeveloperDetail({ project, data }: { project: Project; d
     const displayText = expanded ? description : isLong ? `${description.slice(0, 1000)}...` : description;
 
     return (
-        <section className="">
-            <h2 className="pb-4 text-sm font-semibold p-2 md:text-lg">
+        <section>
+            <h2 className="section-heading mb-1">
                 Developer's Legacy
             </h2>
 
             <div className="grid md:grid-cols-[200px_1fr] gap-4  items-start">
-                <div className="bg-[#F3F8FA] rounded-2xl p-4 flex flex-col items-center gap-4 shadow-sm">
-                    <div className="relative w-[150px] h-[150px] rounded-xl overflow-hidden shadow-md">
+                <div className="bg-[#F3F8FA] rounded-lg p-4 flex flex-col items-center gap-4 shadow-sm">
+                    <div className="relative w-[150px] h-[150px] rounded-lg overflow-hidden shadow-md">
                         <Image
                             src={project?.builder?.logo?.url}
                             alt={project?.builder?.name || 'builder'}

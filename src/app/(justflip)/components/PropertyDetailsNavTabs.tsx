@@ -134,7 +134,7 @@ export default function PropertyDetailNavTabs({navItems, scrollThreshold = 500, 
           : "top-[60px] -translate-y-full opacity-0 pointer-events-none"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative flex items-center">
+      <div className="w-full max-w-[1300px] mx-auto px-2 md:px-4 relative flex items-center">
         {/* Left Arrow Indicator */}
         {showLeftArrow && (
           <button

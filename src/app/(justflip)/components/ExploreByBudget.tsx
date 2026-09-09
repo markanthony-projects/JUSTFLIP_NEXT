@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import { MdReadMore } from "react-icons/md";
+import { CgChevronRightO } from "react-icons/cg";
 import { FiArrowUpRight, FiArrowRight, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const BUDGET_BUCKETS = [
@@ -66,8 +66,8 @@ export default function ExploreByBudget() {
   const checkScroll = () => {
     if (!scrollRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    setCanScrollLeft(scrollLeft > 2);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 2);
   };
 
   useEffect(() => {
@@ -83,52 +83,23 @@ export default function ExploreByBudget() {
   };
 
   return (
-    <section className="w-full flex flex-col">
+    <section className="w-full bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)] flex flex-col">
       {/* Section Header */}
-      <div className="mb-2 md:mb-3">
+      <div className="mb-3 md:mb-4">
         <div className="flex items-center justify-between">
-          <h2 className="section-heading">
+          <h2 className="section-heading tracking-tight">
             Explore Properties by Budget
           </h2>
 
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              aria-label="View All Budget Brackets"
-              href="/search"
-              className="text-primary flex items-center gap-1 py-0.5 px-1 rounded-xs hover:bg-primary/5 hover:underline transition-all duration-300 ease-in-out text-xs md:text-sm font-semibold"
-            >
-              <span className="hidden sm:block">View All Brackets</span>
-              <MdReadMore className="text-xl" />
-            </Link>
+          <Link
+            aria-label="View All Budget Brackets"
+            href="/search"
+            className="text-primary flex items-center gap-1 py-0.5 px-1 transition-all duration-300 hover:underline"
+          >
+            <span className="hidden sm:block text-lg font-semibold">View All Brackets</span>
+            <CgChevronRightO className="text-2xl" />
 
-            {/* Desktop Carousel Navigation Arrows */}
-            <div className="hidden sm:flex items-center gap-1.5 pl-2 border-l border-slate-200">
-              <button
-                type="button"
-                onClick={() => scroll("left")}
-                disabled={!canScrollLeft}
-                aria-label="Scroll left"
-                className={`w-7 h-7 rounded-full border border-slate-200 flex items-center justify-center transition-all ${canScrollLeft
-                    ? "text-slate-700 hover:bg-primary hover:text-white hover:border-primary cursor-pointer"
-                    : "text-slate-300 border-slate-100 cursor-not-allowed opacity-40"
-                  }`}
-              >
-                <FiChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => scroll("right")}
-                disabled={!canScrollRight}
-                aria-label="Scroll right"
-                className={`w-7 h-7 rounded-full border border-slate-200 flex items-center justify-center transition-all ${canScrollRight
-                    ? "text-slate-700 hover:bg-primary hover:text-white hover:border-primary cursor-pointer"
-                    : "text-slate-300 border-slate-100 cursor-not-allowed opacity-40"
-                  }`}
-              >
-                <FiChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
+          </Link>
         </div>
 
         <p className="hidden md:block text-xs md:text-sm text-gray-600 mt-0.5">
@@ -137,66 +108,92 @@ export default function ExploreByBudget() {
       </div>
 
       {/* Horizontally Scrollable Cards Container */}
-      <div
-        ref={scrollRef}
-        onScroll={checkScroll}
-        className="flex overflow-x-auto gap-3.5 sm:gap-4 pb-2 pt-1 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {BUDGET_BUCKETS.map((bucket, index) => (
-          <Link
-            key={index}
-            href={`/search?minPrice=${bucket.minPrice}&maxPrice=${bucket.maxPrice}`}
-            className="group relative flex flex-col justify-between w-[260px] sm:w-[285px] md:w-[305px] h-64 sm:h-72 shrink-0 snap-start rounded-lg overflow-hidden border border-slate-200/90 bg-slate-900 transition-all duration-200 p-4 text-white"
+      <div className="relative w-full">
+        {/* Left Arrow */}
+        {canScrollLeft && (
+          <button
+            aria-label="Previous"
+            type="button"
+            onClick={() => scroll("left")}
+            className="hidden md:flex absolute -left-3 lg:-left-4 top-1/2 -translate-y-1/2 z-20 h-8 w-8 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer hover:bg-gray-50 transition-colors"
           >
-            {/* Background Image */}
-            <img
-              src={bucket.image}
-              alt={`${bucket.label} - ${bucket.subtext}`}
-              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-              loading="lazy"
-            />
-            {/* Dark Dramatic Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/50 to-black/20" />
+            <FiChevronLeft size={22} />
+          </button>
+        )}
 
-            {/* Top Floating Badges */}
-            <div className="relative z-10 flex items-center justify-between w-full">
-              <span className="bg-white/95 backdrop-blur-md text-[10px] sm:text-[11px] font-semibold text-slate-800 px-2.5 py-1 rounded-full border border-white/80 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                {bucket.tag}
-              </span>
-              <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/95 backdrop-blur text-slate-700 flex items-center justify-center transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
-                <FiArrowUpRight className="w-4 h-4" />
-              </span>
-            </div>
+        <div
+          ref={scrollRef}
+          onScroll={checkScroll}
+          className="flex overflow-x-auto gap-3.5 sm:gap-4 pb-2 pt-1 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {BUDGET_BUCKETS.map((bucket, index) => (
+            <Link
+              key={index}
+              href={`/search?minPrice=${bucket.minPrice}&maxPrice=${bucket.maxPrice}`}
+              className="group relative flex flex-col justify-between w-[260px] sm:w-[285px] md:w-[305px] h-64 sm:h-72 shrink-0 snap-start rounded-lg overflow-hidden border border-slate-200/90 bg-slate-900 transition-all duration-200 p-4 text-white"
+            >
+              {/* Background Image */}
+              <img
+                src={bucket.image}
+                alt={`${bucket.label} - ${bucket.subtext}`}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                loading="lazy"
+              />
+              {/* Dark Dramatic Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/50 to-black/20" />
 
-            {/* Bottom Overlay Content */}
-            <div className="relative z-10 flex flex-col gap-1.5 mt-auto">
-              <div className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-200">
-                <svg className="w-3.5 h-3.5 fill-current shrink-0 text-slate-300" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                </svg>
-                <span>{bucket.count}</span>
-              </div>
-
-              <div>
-                <h3 className="text-base sm:text-lg font-bold text-white tracking-tight leading-snug">
-                  {bucket.label}
-                </h3>
-                <p className="text-[11px] sm:text-xs text-slate-300 font-normal leading-tight mt-0.5 line-clamp-1">
-                  {bucket.subtext}
-                </p>
-              </div>
-
-              <div className="mt-1 pt-2 border-t border-white/15 flex items-center justify-between text-[11px] sm:text-xs font-medium text-slate-300">
-                <span className="truncate">{bucket.specs}</span>
-                <span className="text-white font-medium inline-flex items-center gap-0.5 group-hover:text-sky-300 transition-colors shrink-0">
-                  Explore
-                  <FiArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+              {/* Top Floating Badges */}
+              <div className="relative z-10 flex items-center justify-between w-full">
+                <span className="bg-white/95 backdrop-blur-md text-[10px] sm:text-[11px] font-semibold text-slate-800 px-2.5 py-1 rounded-full border border-white/80 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  {bucket.tag}
+                </span>
+                <span className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/95 backdrop-blur text-slate-700 flex items-center justify-center transition-colors duration-200 group-hover:bg-primary group-hover:text-white">
+                  <FiArrowUpRight className="w-4 h-4" />
                 </span>
               </div>
-            </div>
-          </Link>
-        ))}
+
+              {/* Bottom Overlay Content */}
+              <div className="relative z-10 flex flex-col gap-1.5 mt-auto">
+                <div className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-200">
+                  <svg className="w-3.5 h-3.5 fill-current shrink-0 text-slate-300" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                  </svg>
+                  <span>{bucket.count}</span>
+                </div>
+
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold text-white tracking-tight leading-snug">
+                    {bucket.label}
+                  </h3>
+                  <p className="text-[11px] sm:text-xs text-slate-300 font-normal leading-tight mt-0.5 line-clamp-1">
+                    {bucket.subtext}
+                  </p>
+                </div>
+
+                <div className="mt-1 pt-2 border-t border-white/15 flex items-center justify-between text-[11px] sm:text-xs font-medium text-slate-300">
+                  <span className="truncate">{bucket.specs}</span>
+                  <span className="text-white font-medium inline-flex items-center gap-0.5 group-hover:text-sky-300 transition-colors shrink-0">
+                    Explore
+                    <FiArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Right Arrow */}
+        {canScrollRight && (
+          <button
+            aria-label="Next"
+            type="button"
+            onClick={() => scroll("right")}
+            className="hidden md:flex absolute -right-3 lg:-right-4 top-1/2 -translate-y-1/2 z-20 h-8 w-8 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer hover:bg-gray-50 transition-colors"
+          >
+            <FiChevronRight size={22} />
+          </button>
+        )}
       </div>
     </section>
   );

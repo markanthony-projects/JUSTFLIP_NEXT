@@ -8,7 +8,7 @@ import { useCityStore } from "@/src/stores/city.store";
 import { formatUrl } from "@/src/utils/URLFormatter";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { MdKeyboardDoubleArrowRight, MdReadMore } from "react-icons/md";
+import { CgChevronRightO } from "react-icons/cg";
 import { City, Builder } from "@/src/types";
 
 
@@ -35,12 +35,13 @@ function BuilderSkeleton() {
 
 export default function TopBuildersClient({
     city,
-    initialBuilders
-}: { city?: City; initialBuilders?: Builder[] }) {
+    initialBuilders,
+    isFixedCity = false
+}: { city?: City; initialBuilders?: Builder[]; isFixedCity?: boolean }) {
 
     const { activeCity } = useCityStore();
 
-    const resolvedCity = activeCity || city;
+    const resolvedCity = isFixedCity ? (city || activeCity) : (activeCity || city);
     const resolvedCityId = resolvedCity?.id;
 
 
@@ -52,6 +53,11 @@ export default function TopBuildersClient({
     }, [resolvedCity?.name]);
 
     useEffect(() => {
+        if (isFixedCity) {
+            setBuilders(initialBuilders || []);
+            return;
+        }
+
         if (!activeCity?.id) return;
 
         if (activeCity?.id === city?.id) {
@@ -88,7 +94,7 @@ export default function TopBuildersClient({
         return () => {
             mounted = false;
         };
-    }, [activeCity?.id, city?.id, initialBuilders]);
+    }, [isFixedCity, activeCity?.id, city?.id, initialBuilders]);
 
 
 
@@ -103,9 +109,9 @@ export default function TopBuildersClient({
                         {`Top Real Estate Builders in ${cityText}`}
                     </h2>
 
-                    <Link aria-label="View More" href="/developers" className="text-primary flex items-center gap-1 items-center py-0.5 px-1 rounded-xs hover:bg-primary/5 hover:underline transition-all duration-300 ease-in-out">
-                        <span className="hidden sm:block text-xs md:text-sm font-semibold">View More</span>
-                        <MdReadMore className="text-xl" />
+                    <Link aria-label="View More" href="/developers" className="text-primary flex items-center gap-1 items-center py-0.5 px-1 transition-all duration-300 hover:underline">
+                        <span className="hidden sm:block text-lg font-semibold">View More</span>
+                        <CgChevronRightO className="text-2xl"/>
                     </Link>
 
                 </div>
@@ -138,7 +144,7 @@ export default function TopBuildersClient({
                             return (
                                 <Link href={`/developers/${formatUrl(builder?.name)}-${builder?.id}`}>
 
-                                    <div className="md:w-[280px] w-[250px] rounded-lg flex items-center p-2 border border-gray-200 hover:shadow-md transition gap-4">
+                                    <div className="bg-white md:w-[280px] w-[250px] rounded-lg flex items-center p-2 border border-gray-200 hover:shadow-md transition gap-4">
 
                                         <div className="shadow h-16 w-16 md:h-20 md:w-20 overflow-hidden rounded-md relative flex-shrink-0">
                                             <Image

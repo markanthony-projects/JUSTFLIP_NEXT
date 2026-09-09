@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { FiArrowRight, FiX, FiHome } from 'react-icons/fi';
-import { CiCalculator1 } from 'react-icons/ci';
-import { HiOutlineReceiptPercent } from 'react-icons/hi2';
 
 import StampDutyCalculator from '@/src/app/(justflip)/(tools)/stamp-duty/components/StampDutyCalculator';
 import { convertToIndianWords } from '@/src/app/(justflip)/(tools)/stamp-duty/components/useStampDutyCalculator';
@@ -17,7 +15,7 @@ interface SummaryCardProps {
 
 function SummaryCard({ label, value, dotClass, borderClass = "border-gray-200" }: SummaryCardProps) {
     return (
-        <div className={`flex items-center justify-between rounded-xl border ${borderClass} bg-white p-3 sm:p-4 shadow-xs`}>
+        <div className={`flex items-center justify-between rounded-lg border ${borderClass} bg-white p-3 sm:p-4 shadow-xs`}>
             <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                 <span className={`h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full shrink-0 ${dotClass}`} />
                 <span className="truncate text-xs sm:text-sm font-medium text-gray-600">
@@ -117,11 +115,11 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
 
   return (
     <>
-      <div className="w-full rounded-2xl border border-gray-100 bg-white p-5 sm:p-6 shadow-xl shadow-slate-100 transition-all duration-300">
+      <div className="w-full rounded-lg border border-gray-100 bg-white p-5 sm:p-6 transition-all duration-300">
         {/* Header Section */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div>
-            <h3 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
+            <h3 className="section-heading">
               Financial & Tax Estimator
             </h3>
             <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
@@ -135,45 +133,54 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
           </span>
         </div>
 
-        {/* Action Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+        {/* Borderless Layout with a Single Separator in Between */}
+        <div className="grid grid-cols-2 sm:grid-cols-2 relative items-center gap-6 sm:gap-0">
+          
+          {/* Mortgage / EMI Option */}
           <button
             type="button"
             onClick={() => setActiveModal('emi')}
-            className="group relative flex items-center justify-between p-4 rounded-xl border border-gray-200 bg-white hover:border-[#002B5B] hover:bg-[#002B5B]/[0.02] hover:shadow-md transition-all text-left w-full cursor-pointer"
+            className="group flex flex-col items-center text-center p-4 transition-all cursor-pointer w-full bg-transparent border-0 outline-none"
           >
-            <div className="flex items-center gap-3.5">
-              <div className="p-3 rounded-xl bg-blue-50 text-[#002B5B] group-hover:bg-[#002B5B] group-hover:text-white transition-colors">
-                <CiCalculator1 className="text-2xl" />
-              </div>
-              <div>
-                <h4 className="text-sm sm:text-base font-semibold text-slate-900 group-hover:text-[#002B5B]">Calculate EMI</h4>
-                <p className="text-xs text-slate-500">Monthly loan installments</p>
-              </div>
+            <div className="w-28 h-28 flex items-center justify-center p-1 group-hover:scale-105 transition-transform duration-300">
+              <img 
+                src="/assets/images/tools/icon_mortgage.jpg" 
+                alt="Mortgage / EMI" 
+                className="w-full h-full object-contain" 
+              />
             </div>
-            <div className="h-8 w-8 rounded-full flex items-center justify-center bg-slate-100 text-slate-400 group-hover:translate-x-1 group-hover:bg-[#002B5B]/10 group-hover:text-[#002B5B] transition-all">
-              <FiArrowRight className="text-sm" />
-            </div>
+            <h4 className="text-base md:text-xl font-bold text-slate-900 group-hover:text-[#002B5B] transition-colors">
+              Calculate EMI
+            </h4>
+            <p className="text-xs text-slate-500 mt-1">
+              Monthly Loan Payments
+            </p>
           </button>
 
+          {/* Single Vertical Separator in Between Both Tools */}
+          <div className="hidden sm:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-32 w-[1px] bg-gray-200" />
+
+          {/* Stamp Duty Option */}
           <button
             type="button"
             onClick={() => setActiveModal('stamp-duty')}
-            className="group relative flex items-center justify-between p-4 rounded-xl border border-gray-200 bg-white hover:border-[#002B5B] hover:bg-[#002B5B]/[0.02] hover:shadow-md transition-all text-left w-full cursor-pointer"
+            className="group flex flex-col items-center text-center p-4 transition-all cursor-pointer w-full bg-transparent border-0 outline-none border-t sm:border-t-0 border-gray-100 pt-6 sm:pt-4"
           >
-            <div className="flex items-center gap-3.5">
-              <div className="p-3 rounded-xl bg-blue-50 text-[#002B5B] group-hover:bg-[#002B5B] group-hover:text-white transition-colors">
-                <HiOutlineReceiptPercent className="text-2xl" />
-              </div>
-              <div>
-                <h4 className="text-sm sm:text-base font-semibold text-slate-900 group-hover:text-[#002B5B]">Stamp Duty</h4>
-                <p className="text-xs text-slate-500">Registration & taxes</p>
-              </div>
+            <div className="w-28 h-28 flex items-center justify-center p-1 group-hover:scale-105 transition-transform duration-300">
+              <img 
+                src="/assets/images/tools/icon_stamp_duty.jpg" 
+                alt="Stamp Duty" 
+                className="w-full h-full object-contain" 
+              />
             </div>
-            <div className="h-8 w-8 rounded-full flex items-center justify-center bg-slate-100 text-slate-400 group-hover:translate-x-1 group-hover:bg-[#002B5B]/10 group-hover:text-[#002B5B] transition-all">
-              <FiArrowRight className="text-sm" />
-            </div>
+            <h4 className="text-base md:text-xl font-bold text-slate-900 group-hover:text-[#002B5B] transition-colors">
+              Stamp Duty
+            </h4>
+            <p className="text-xs text-slate-500 mt-1">
+              Registration & taxes
+            </p>
           </button>
+
         </div>
       </div>
 
