@@ -108,7 +108,7 @@ const Contact = () => {
   return (
     <div className="w-full max-w-7xl mx-auto my-2 sm:my-6 sm:px-6 lg:px-8 font-sans antialiased px-0">
       {/* Container - borderless and padding-free on mobile, card style on desktop */}
-      <div className="bg-transparent sm:bg-white text-slate-800 sm:rounded-3xl sm:shadow-lg sm:border sm:border-slate-100 overflow-hidden">
+      <div className="bg-transparent sm:bg-white text-slate-800 sm:rounded-lg sm:shadow-lg sm:border sm:border-slate-100 overflow-hidden">
         
         {/* Header Section */}
         <section className="px-0 sm:px-10 md:px-12 pt-2 sm:pt-10 pb-4">
@@ -126,7 +126,7 @@ const Contact = () => {
         <section className="p-0 sm:p-10 md:p-12 pb-6 flex flex-col-reverse lg:grid lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
           
           {/* Left Side Info Card */}
-          <div className="lg:col-span-5 bg-slate-50/80 border border-slate-200/60 p-5 sm:p-8 rounded-2xl flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-slate-50/80 border border-slate-200/60 p-5 sm:p-8 rounded-lg flex flex-col justify-between">
             <div className="space-y-6">
               <div>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-[#002B5B] mb-2">
@@ -136,7 +136,7 @@ const Contact = () => {
 
               <div className="space-y-5 sm:space-y-6 pt-2 sm:pt-5">
                 <div className="flex items-center space-x-4">
-                  <div className="p-3.5 bg-white text-[#002B5B] rounded-2xl border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
+                  <div className="p-3.5 bg-white text-[#002B5B] rounded-lg border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
                     <FiMail aria-hidden="true" className="w-5 h-5" />
                   </div>
                   <div className="min-w-0">
@@ -155,7 +155,7 @@ const Contact = () => {
 
                 {/* Phone Support */}
                 <div className="flex items-center space-x-4">
-                  <div className="p-3.5 bg-white text-[#002B5B] rounded-2xl border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
+                  <div className="p-3.5 bg-white text-[#002B5B] rounded-lg border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
                     <FiPhone aria-hidden="true" className="w-5 h-5" />
                   </div>
                   <div>
@@ -169,7 +169,7 @@ const Contact = () => {
                 </div>
 
                 <div className="flex items-center space-x-4">
-                  <div className="p-3.5 bg-white text-[#002B5B] rounded-2xl border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
+                  <div className="p-3.5 bg-white text-[#002B5B] rounded-lg border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
                     <FiMapPin aria-hidden="true" className="w-5 h-5" />
                   </div>
                   <div>
@@ -193,7 +193,7 @@ const Contact = () => {
           </div>
 
           {/* Right Side Form Container */}
-          <div className="lg:col-span-7 bg-transparent sm:bg-white border-0 sm:border sm:border-slate-200/60 p-0 sm:p-8 rounded-2xl sm:shadow-xs flex flex-col justify-between">
+          <div className="lg:col-span-7 bg-transparent sm:bg-white border-0 sm:border sm:border-slate-200/60 p-0 sm:p-8 rounded-lg sm:shadow-xs flex flex-col justify-between">
             {isSubmitted ? (
               <div className="text-center py-12 space-y-4 my-auto">
                 <FiCheckCircle aria-hidden="true" className="w-16 h-16 text-emerald-500 mx-auto" />
@@ -203,7 +203,7 @@ const Contact = () => {
                 </p>
                 <button
                   onClick={() => setIsSubmitted(false)}
-                  className="mt-4 px-6 py-3 bg-[#002B5B] hover:bg-[#002046] text-white text-sm rounded-xl font-bold transition cursor-pointer shadow-md shadow-[#002B5C]/20"
+                  className="mt-4 px-6 py-3 bg-[#002B5B] hover:bg-[#002046] text-white text-sm rounded-lg font-bold transition cursor-pointer shadow-md shadow-[#002B5C]/20"
                 >
                   Send Another Message
                 </button>
@@ -211,7 +211,7 @@ const Contact = () => {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6 my-auto" noValidate>
                 {apiError && (
-                  <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs font-semibold">
+                  <div className="p-3.5 rounded-lg bg-red-50 border border-red-200 text-red-600 text-xs font-semibold">
                     {apiError}
                   </div>
                 )}
@@ -229,7 +229,7 @@ const Contact = () => {
                           type="button"
                           key={option.value}
                           onClick={() => handleTransactionSelect(option.value)}
-                          className={`w-full py-2.5 px-2 rounded-xl text-xs font-bold border transition-all duration-200 flex items-center justify-center space-x-1.5 cursor-pointer min-w-0 ${
+                          className={`w-full py-2.5 px-2 rounded-lg text-xs font-bold border transition-all duration-200 flex items-center justify-center space-x-1.5 cursor-pointer min-w-0 ${
                             isSelected
                               ? "bg-[#002B5B] text-white border-[#002B5B] shadow-md shadow-[#002B5B]/20"
                               : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:text-[#002B5B]"
@@ -261,7 +261,7 @@ const Contact = () => {
                       placeholder="Enter your name"
                       className={`w-full bg-slate-50/50 border ${
                         errors.name ? "border-red-500" : "border-slate-200"
-                      } focus:bg-white focus:border-[#002B5C] focus:ring-2 focus:ring-[#002B5C]/10 rounded-xl px-4 py-3 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition`}
+                      } focus:bg-white focus:border-[#002B5C] focus:ring-2 focus:ring-[#002B5C]/10 rounded-lg px-4 py-3 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition`}
                     />
                     {errors.name && (
                       <p className="text-red-500 text-xs font-medium mt-1.5">{errors.name}</p>
@@ -281,7 +281,7 @@ const Contact = () => {
                       placeholder="name@example.com"
                       className={`w-full bg-slate-50/50 border ${
                         errors.email ? "border-red-500" : "border-slate-200"
-                      } focus:bg-white focus:border-[#002B5C] focus:ring-2 focus:ring-[#002B5C]/10 rounded-xl px-4 py-3 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition`}
+                      } focus:bg-white focus:border-[#002B5C] focus:ring-2 focus:ring-[#002B5C]/10 rounded-lg px-4 py-3 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition`}
                     />
                     {errors.email && (
                       <p className="text-red-500 text-xs font-medium mt-1.5">{errors.email}</p>
@@ -301,7 +301,7 @@ const Contact = () => {
                       placeholder="10-digit number"
                       className={`w-full bg-slate-50/50 border ${
                         errors.phone ? "border-red-500" : "border-slate-200"
-                      } focus:bg-white focus:border-[#002B5C] focus:ring-2 focus:ring-[#002B5C]/10 rounded-xl px-4 py-3 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition`}
+                      } focus:bg-white focus:border-[#002B5C] focus:ring-2 focus:ring-[#002B5C]/10 rounded-lg px-4 py-3 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition`}
                     />
                     {errors.phone && (
                       <p className="text-red-500 text-xs font-medium mt-1.5">{errors.phone}</p>
@@ -323,7 +323,7 @@ const Contact = () => {
                     placeholder="Enter your message here..."
                     className={`w-full bg-slate-50/50 border ${
                       errors.message ? "border-red-500" : "border-slate-200"
-                    } focus:bg-white focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10 rounded-xl p-4 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition resize-none`}
+                    } focus:bg-white focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10 rounded-lg p-4 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition resize-none`}
                   />
                   {errors.message && (
                     <p className="text-red-500 text-xs font-medium mt-1.5">{errors.message}</p>
@@ -335,7 +335,7 @@ const Contact = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 bg-[#002B5B] hover:bg-[#002046] active:scale-[0.99] text-white font-bold text-sm rounded-xl shadow-md shadow-[#002B5C]/20 transition-all flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full py-3.5 bg-[#002B5B] hover:bg-[#002046] active:scale-[0.99] text-white font-bold text-sm rounded-lg shadow-md shadow-[#002B5C]/20 transition-all flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <span>{isSubmitting ? "Submitting..." : "Submit Inquiry"}</span>
                     <FiSend aria-hidden="true" className="w-4 h-4" />
