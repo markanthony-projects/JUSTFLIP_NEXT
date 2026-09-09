@@ -316,9 +316,9 @@ export default function PropertySupplyClient({
   }, [fetchProjects]);
 
   return (
-    <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+    <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
-        <h2 className="text-base sm:text-lg font-bold text-gray-900 tracking-tight">
+        <h2 className="section-heading tracking-tight">
           {titleText}
         </h2>
 
@@ -331,7 +331,7 @@ export default function PropertySupplyClient({
         </Link>
       </div>
 
-      <div className="flex h-[74px] justify-start gap-3 overflow-x-auto rounded-xl pb-2">
+      <div className="flex h-[74px] justify-start gap-3 overflow-x-auto rounded-lg pb-2">
         {tabs.map((tab) => {
           const isSelected = activeTab === tab.value;
 
@@ -346,7 +346,7 @@ export default function PropertySupplyClient({
                 setPage(1);
                 setSelectedPriceRange(null);
               }}
-              className={`group flex min-w-44 flex-1 items-center justify-start gap-2 rounded-xl border px-4 py-2 font-medium transition-all duration-300 hover:shadow-md md:gap-4 ${
+              className={`group flex min-w-44 flex-1 items-center justify-start gap-2 rounded-lg border px-4 py-2 font-medium transition-all duration-300 hover:shadow-md md:gap-4 ${
                 isSelected
                   ? "border-[#002B5B] bg-[#002B5B] text-white shadow-md"
                   : "border-slate-200 bg-white text-[#002B5B] hover:bg-slate-50"
@@ -404,7 +404,7 @@ export default function PropertySupplyClient({
 
       <div className="relative mt-2 w-full custom-scrollbar">
         {!projects.length && !loading && !isFetching ? (
-          <div className="flex h-40 items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white/70">
+          <div className="flex h-40 items-center justify-center rounded-lg border border-dashed border-slate-300 bg-white/70">
             <p className="text-gray-500">No properties available for this selection.</p>
           </div>
         ) : (
@@ -426,9 +426,9 @@ export default function PropertySupplyClient({
                       className="block w-full"
                     >
                       <div
-                        className="flex w-full h-[76px] items-center gap-3 rounded-xl bg-white p-2.5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md border border-slate-100"
+                        className="flex w-full h-[76px] items-center gap-3 rounded-lg bg-white p-2.5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md border border-slate-100"
                       >
-                        <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl border border-slate-200 shadow-sm bg-gray-50 flex items-center justify-center">
+                        <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-lg border border-slate-200 shadow-sm bg-gray-50 flex items-center justify-center">
                           {property?.logo || property?.banner ? (
                             <Image
                               src={property?.logo || property?.banner}

@@ -128,7 +128,7 @@ async function CityPageContent({ params }: CityPageProps) {
           </Suspense>
 
           {/* 3. City Highlights Tile (What Stands Out & What Goes Unnoticed) */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<HighlightSkeleton />}>
               <div id="highlights">
                 <Highlight data={cityData} />
@@ -137,7 +137,7 @@ async function CityPageContent({ params }: CityPageProps) {
           </div>
 
           {/* 4. Top Builders & Developers Tile */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<TopBuildersSkeleton />}>
               <div id="builders">
                 <BuildersSection builders={builders} city={cityData} />
@@ -146,7 +146,7 @@ async function CityPageContent({ params }: CityPageProps) {
           </div>
 
           {/* 5. Ratings & Reviews Tile */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<ReviewsSkeleton />}>
               <div id="reviews">
                 <ReviewsSectionClient typeName={name} typeId={id} type="city" reviews={reviewList} />
