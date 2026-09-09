@@ -100,7 +100,7 @@ export default function AffordabilityCalculator() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left Side: Inputs */}
-        <div className="p-6 bg-white rounded-xl shadow-md space-y-5 border border-gray-100 order-2 lg:order-1">
+        <div className="p-6 bg-white rounded-lg shadow-md space-y-5 border border-gray-100 order-2 lg:order-1">
           <h2 className="text-lg font-bold text-gray-800">Check Your Home Purchasing Power</h2>
 
           <div>
@@ -181,7 +181,7 @@ export default function AffordabilityCalculator() {
         </div>
 
         {/* Right Side: Result Card */}
-        <div className="p-6 bg-blue-50 rounded-xl border border-blue-100 flex flex-col justify-between order-1 lg:order-2">
+        <div className="p-6 bg-blue-50 rounded-lg border border-blue-100 flex flex-col justify-between order-1 lg:order-2">
           <div>
             <h2 className="text-sm font-semibold text-[#002B5B] uppercase tracking-wide">Maximum Affordable Home Loan</h2>
             <p className="text-3xl sm:text-4xl font-extrabold text-[#002B5B] mt-2">
@@ -204,7 +204,7 @@ export default function AffordabilityCalculator() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-cyan-200 bg-white p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm mt-8">
+          <div className="rounded-lg border border-cyan-200 bg-white p-4 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm mt-8">
             <div className="flex items-center gap-3 text-left">
               <div className="rounded-full bg-cyan-600 p-2.5 text-white shrink-0">
                 <FaHome className="text-lg" />
@@ -235,7 +235,7 @@ export default function AffordabilityCalculator() {
       </div>
 
       {/* Repayment Table */}
-      <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100">
+      <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
         <h2 className="text-lg font-bold text-gray-800 mb-4">Yearly Loan Repayment Breakdown</h2>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm text-gray-600">

@@ -30,7 +30,7 @@ export default function DeveloperDetail({ project, data }: { project: Project; d
             </h2>
 
             <div className="grid md:grid-cols-[200px_1fr] gap-4  items-start">
-                <div className="bg-[#F3F8FA] rounded-lg p-4 flex flex-col items-center gap-4 shadow-sm">
+                <div className="rounded-lg p-4 flex flex-col items-center gap-4">
                     <div className="relative w-[150px] h-[150px] rounded-lg overflow-hidden shadow-md">
                         <Image
                             src={project?.builder?.logo?.url}
@@ -45,7 +45,7 @@ export default function DeveloperDetail({ project, data }: { project: Project; d
                     </Link>
                 </div>
 
-                <div className="text-xs leading-relaxed text-gray-700">
+                <div className="text-xs leading-relaxed text-gray-700 sm:mt-3">
                     <p className="text-justify whitespace-pre-line">
                         {displayText}
                     </p>
