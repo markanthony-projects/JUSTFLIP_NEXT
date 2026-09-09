@@ -149,14 +149,14 @@ export default function RentVsBuyCalculator() {
       : calculationData.chartData[calculationData.chartData.length - 1];
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-3 md:p-8 bg-white rounded-2xl shadow-sm border border-slate-100">
+    <div className="w-full max-w-6xl mx-auto p-3 md:p-8 bg-white rounded-lg shadow-sm border border-slate-100">
       <h1 className="text-xl md:text-3xl font-bold text-slate-900 mb-8">
         Rent vs Buy Financial Decision Tool
       </h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Inputs Panel */}
-        <div className="lg:col-span-5 space-y-4 bg-slate-50/70 p-5 rounded-2xl border border-slate-100 order-2 lg:order-1">
+        <div className="lg:col-span-5 space-y-4 bg-slate-50/70 p-5 rounded-lg border border-slate-100 order-2 lg:order-1">
           {/* Property Price */}
           <div>
             <div className="flex justify-between items-center text-sm font-semibold mb-1">
@@ -321,7 +321,7 @@ export default function RentVsBuyCalculator() {
         {/* Right Output & Visualization Panel */}
         <div className="lg:col-span-7 flex flex-col gap-6 order-1 lg:order-2">
           <div
-            className="p-5 rounded-2xl text-center border shadow-sm transition-all"
+            className="p-5 rounded-lg text-center border shadow-sm transition-all"
             style={{
               backgroundColor: calculationData.buyingIsBetter
                 ? "#002B5B10"
@@ -351,7 +351,7 @@ export default function RentVsBuyCalculator() {
             </p>
           </div>
 
-          <div className="rounded-xl border border-cyan-200 bg-white p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
+          <div className="rounded-lg border border-cyan-200 bg-white p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
             <div className="flex items-center gap-3 text-left">
               <div className="rounded-full bg-cyan-600 p-2.5 text-white shrink-0">
                 <FaHome className="text-base" />
@@ -371,7 +371,7 @@ export default function RentVsBuyCalculator() {
           </div>
 
           {/* Zero-Overhead Pure Vector SVG Comparison Chart */}
-          <div className="w-full bg-slate-50/50 rounded-2xl p-4 border border-slate-100">
+          <div className="w-full bg-slate-50/50 rounded-lg p-4 border border-slate-100">
             {/* Live Hover Metrics Bar */}
             <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-200 text-xs sm:text-sm">
               <span className="font-bold text-slate-800">

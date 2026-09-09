@@ -75,7 +75,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
   if (!currentConfig) return <div className="p-4 text-slate-700">State configuration not found.</div>;
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6 md:p-8 bg-white rounded-2xl shadow-sm border border-slate-100">
+    <div className="w-full max-w-6xl mx-auto p-6 md:p-8 bg-white rounded-lg shadow-sm border border-slate-100">
       <div className="grid grid-cols-1 md:grid-cols-12 min-h-[480px]">
         
         {/* Left Form Controls Panel */}
@@ -84,7 +84,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
             
             {/* Header Section */}
             <div className="flex items-center gap-3">
-              <div className="p-2.5 bg-[#002B49]/10 text-[#002B49] rounded-xl border border-[#002B49]/15">
+              <div className="p-2.5 bg-[#002B49]/10 text-[#002B49] rounded-lg border border-[#002B49]/15">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
@@ -104,7 +104,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
                 <button
                   type="button"
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                  className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-xl text-[#002B49] font-bold flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-[#002B49]/20 focus:border-[#002B49] transition cursor-pointer"
+                  className="w-full p-3.5 bg-slate-50 border border-slate-200 rounded-lg text-[#002B49] font-bold flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-[#002B49]/20 focus:border-[#002B49] transition cursor-pointer"
                 >
                   <span>{selectedState}</span>
                   <svg
@@ -120,7 +120,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
                 </button>
 
                 {isDropdownOpen && (
-                  <div className="absolute left-0 right-0 top-[105%] z-50 bg-white border border-slate-200 rounded-xl shadow-xl max-h-56 overflow-y-auto py-1">
+                  <div className="absolute left-0 right-0 top-[105%] z-50 bg-white border border-slate-200 rounded-lg shadow-xl max-h-56 overflow-y-auto py-1">
                     {availableStates.map((st) => (
                       <button
                         key={st}
@@ -156,7 +156,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
                   <button
                     type="button"
                     onClick={() => setGender('male')}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-bold transition ${
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-bold transition ${
                       gender === 'male'
                         ? 'bg-[#002B49] text-white border-[#002B49] shadow-sm'
                         : 'bg-white text-[#002B49] border-slate-200 hover:bg-slate-50'
@@ -169,7 +169,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
                   <button
                     type="button"
                     onClick={() => setGender('female')}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-bold transition ${
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-bold transition ${
                       gender === 'female'
                         ? 'bg-[#002B49] text-white border-[#002B49] shadow-sm'
                         : 'bg-white text-[#002B49] border-slate-200 hover:bg-slate-50'
@@ -182,7 +182,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
                   <button
                     type="button"
                     onClick={() => setGender('joint_mf')}
-                    className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-bold transition ${
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-bold transition ${
                       gender.startsWith('joint')
                         ? 'bg-[#002B49] text-white border-[#002B49] shadow-sm'
                         : 'bg-white text-[#002B49] border-slate-200 hover:bg-slate-50'
@@ -206,7 +206,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
                 </span>
               </div>
 
-              <div className="flex items-center border border-slate-200 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#002B49]/20 focus-within:border-[#002B49] bg-slate-50">
+              <div className="flex items-center border border-slate-200 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-[#002B49]/20 focus-within:border-[#002B49] bg-slate-50">
                 <span className="px-4 py-3 bg-slate-100 text-[#002B49] font-bold border-r border-slate-200">₹</span>
                 <input
                   id="property-value-input"
@@ -262,7 +262,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
             </div>
           </div>
 
-          <div className="rounded-xl border border-cyan-200 bg-white p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm my-4">
+          <div className="rounded-lg border border-cyan-200 bg-white p-3.5 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm my-4">
             <div className="flex items-center gap-2.5 text-left">
               <div className="rounded-full bg-cyan-600 p-2 text-white shrink-0">
                 <FaHome className="text-sm" />
@@ -284,7 +284,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
           </div>
 
           {/* Bottom Info Banner */}
-          <div className="p-3.5 bg-blue-50/60 border border-blue-100 rounded-xl text-[#002B49] flex items-start gap-3 mt-3">
+          <div className="p-3.5 bg-blue-50/60 border border-blue-100 rounded-lg text-[#002B49] flex items-start gap-3 mt-3">
             <span className="text-base mt-0.5">ℹ️</span>
             <p className="text-xs font-medium leading-relaxed text-[#002B49]/80">
               Registration charges (typically <strong className="text-[#002B49]">1%</strong> of property value) are extra and applicable at property registration.
@@ -301,7 +301,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
             </h2>
 
             {/* Total Duty Banner */}
-            <div className="bg-[#002B49] text-white p-6 rounded-2xl shadow-md space-y-1.5">
+            <div className="bg-[#002B49] text-white p-6 rounded-lg shadow-md space-y-1.5">
               <span className="text-[10px] font-bold uppercase tracking-widest text-slate-300">
                 Total Stamp Duty
               </span>
@@ -311,7 +311,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
             </div>
 
             {/* Applied Rate Card */}
-            <div className="flex justify-between items-center p-3.5 bg-white rounded-xl border border-slate-200/80 shadow-sm text-sm">
+            <div className="flex justify-between items-center p-3.5 bg-white rounded-lg border border-slate-200/80 shadow-sm text-sm">
               <span className="text-[#002B49] font-medium">Applied Rate</span>
               <span className="font-extrabold text-[#002B49]">{activeRate}%</span>
             </div>
@@ -323,7 +323,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
                   State Rates Comparison
                 </span>
                 {!currentConfig.has_gender_discount && (
-                  <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                  <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-200">
                     Uniform Rate
                   </span>
                 )}
@@ -333,7 +333,7 @@ export default function StampDutyCalculator({initialPrice, defaultState, cityNam
                 {genderBreakdown.map((item) => (
                   <div
                     key={item.key}
-                    className={`flex items-center justify-between p-2.5 rounded-xl text-xs transition border ${
+                    className={`flex items-center justify-between p-2.5 rounded-lg text-xs transition border ${
                       item.isActive
                         ? 'bg-blue-50/70 border-blue-200 font-bold text-[#002B49]'
                         : 'bg-white border-slate-200/70 text-[#002B49]'

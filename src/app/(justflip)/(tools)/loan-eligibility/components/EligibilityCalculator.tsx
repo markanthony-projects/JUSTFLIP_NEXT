@@ -86,7 +86,7 @@ export default function EligibilityCalculator() {
   const maxLoanNum = results.maxLoanAmount;
 
   return (
-    <div id="eligibility-calculator" className="w-full rounded-md border border-gray-200 bg-white p-3 sm:p-4 md:p-6">
+    <div id="eligibility-calculator" className="w-full rounded-lg border border-gray-200 bg-white p-3 sm:p-4 md:p-6">
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 md:gap-6 lg:gap-8">
         
         <div className="space-y-4 sm:space-y-5">
@@ -100,14 +100,14 @@ export default function EligibilityCalculator() {
             </div>
           </div>
 
-          <div className="rounded-2xl bg-[#002B5B] p-4 sm:p-5 md:p-6 text-center text-white">
+          <div className="rounded-lg bg-[#002B5B] p-4 sm:p-5 md:p-6 text-center text-white">
             <p className="text-xs sm:text-sm uppercase tracking-wide opacity-80">Maximum Loan Limit</p>
             <h2 className="mt-2 text-xl md:text-4xl font-bold break-words leading-tight">
               ₹ {maxLoanNum.toLocaleString("en-IN")}
             </h2>
           </div>
 
-          <div className="rounded-2xl border border-cyan-100 bg-cyan-50/50 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="rounded-lg border border-cyan-100 bg-cyan-50/50 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3 text-left">
               <div className="rounded-full bg-cyan-600 p-3 text-white">
                 <FaHome className="text-xl" />
@@ -127,7 +127,7 @@ export default function EligibilityCalculator() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
               <label htmlFor="net-monthly-salary" className="mb-2 block text-center text-xs font-medium text-gray-600">Net Monthly Salary</label>
               <input
                 id="net-monthly-salary"
@@ -140,7 +140,7 @@ export default function EligibilityCalculator() {
               />
             </div>
 
-            <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+            <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
               <label htmlFor="existing-monthly-emis-input" className="mb-2 block text-center text-xs font-medium text-gray-600">Existing Monthly EMIs</label>
               <input
                 id="existing-monthly-emis-input"

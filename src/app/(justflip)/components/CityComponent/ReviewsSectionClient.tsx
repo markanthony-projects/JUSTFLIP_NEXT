@@ -96,6 +96,8 @@ export default function ReviewsSectionClient({ typeId, typeName, type, reviews: 
                         toast.warn(`Brokers are not eligible to leave ${entityLabel.toLowerCase()} reviews.`);
                     }
                 }}
+                title="Save Your Feedback"
+                subtitle="Please Login to Continue"
             />
         </section>
     );

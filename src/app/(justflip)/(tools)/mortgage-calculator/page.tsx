@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import MortgageCalculator from './components/MortgageCalculator';
 import { constructMetadata } from '@/src/utils/seo';
+import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
 export const metadata: Metadata = constructMetadata({
   title: "Mortgage & Home Loan EMI Calculator | JustFlip",
@@ -18,6 +19,7 @@ const MortgageCalculatorPage = () => {
   return (
     <Suspense>
       <div className="w-full">
+        <ScrollToTop />
         <Breadcrumb items={breadcrumbItems} />
         <MortgageCalculator />
       </div>

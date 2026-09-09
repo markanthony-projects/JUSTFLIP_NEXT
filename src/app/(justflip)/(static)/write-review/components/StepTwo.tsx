@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HiStar, HiOutlineStar } from "react-icons/hi2";
 import { useReviewStore } from "@/src/stores/review.store";
 import { StepOneData, AspectRatings } from "@/src/types";
@@ -8,9 +8,16 @@ import { StepOneData, AspectRatings } from "@/src/types";
 interface StepTwoProps {
   stepOneData: StepOneData;
   onSuccess?: () => void;
+  isLoggedIn: boolean;             
+  onOpenLoginModal: () => void;    
 }
 
-export default function StepTwo({ stepOneData, onSuccess }: StepTwoProps) {
+export default function StepTwo({ 
+  stepOneData, 
+  onSuccess, 
+  isLoggedIn, 
+  onOpenLoginModal 
+}: StepTwoProps) {
   const submitReview = useReviewStore((state) => state.submitReview);
   const isSubmitting = useReviewStore((state) => state.isSubmitting);
 
@@ -37,12 +44,26 @@ export default function StepTwo({ stepOneData, onSuccess }: StepTwoProps) {
     }
   };
 
-  const handleSubmit = async () => {
-    if (!overallRating) return;
-
+  const executeSubmission = async (reviewPayload: {
+    rating: number;
+    review: string;
+    aspects: AspectRatings & { userRole: string; userName: string };
+  }) => {
     const res = await submitReview({
       type: stepOneData.type,
       typeId: stepOneData.typeId,
+      ...reviewPayload,
+    });
+
+    if (res.success && onSuccess) {
+      onSuccess();
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (!overallRating) return;
+
+    const reviewData = {
       rating: overallRating,
       review: comment,
       aspects: {
@@ -52,15 +73,43 @@ export default function StepTwo({ stepOneData, onSuccess }: StepTwoProps) {
         userRole: stepOneData.userRole,
         userName: stepOneData.userName,
       },
-    });
+    };
 
-    if (res.success && onSuccess) {
-      onSuccess();
+    if (!isLoggedIn) {
+      localStorage.setItem("pending_review_draft", JSON.stringify(reviewData));
+      
+      onOpenLoginModal();
+      return;
     }
+
+    await executeSubmission(reviewData);
   };
 
+  useEffect(() => {
+    const savedDraft = localStorage.getItem("pending_review_draft");
+
+    if (isLoggedIn && savedDraft) {
+      try {
+        const parsedDraft = JSON.parse(savedDraft);
+
+        setOverallRating(parsedDraft.rating);
+        setComment(parsedDraft.review);
+        if (parsedDraft.aspects) {
+          setAspects(parsedDraft.aspects);
+        }
+
+        localStorage.removeItem("pending_review_draft");
+
+        executeSubmission(parsedDraft);
+      } catch (error) {
+        console.error("Failed to parse review draft", error);
+        localStorage.removeItem("pending_review_draft");
+      }
+    }
+  }, [isLoggedIn]);
+
   return (
-    <div className="bg-white p-7 md:p-10 rounded-2xl border border-gray-100 shadow-md">
+    <div className="bg-white p-7 md:p-10 rounded-lg border border-gray-100 shadow-md">
       {/* Title Header matching StepOne */}
       <div className="mb-8">
         <h2 className="text-3xl font-extrabold text-[#002B5B] tracking-tight">

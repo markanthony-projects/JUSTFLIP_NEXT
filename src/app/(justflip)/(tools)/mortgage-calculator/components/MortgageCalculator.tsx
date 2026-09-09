@@ -14,7 +14,7 @@ interface SummaryCardProps {
 
 function SummaryCard({ label, value, dotClass, borderClass = "border-gray-200" }: SummaryCardProps) {
     return (
-        <div className={`flex items-center justify-between rounded-xl border ${borderClass} bg-white p-3 sm:p-4 shadow-xs`}>
+        <div className={`flex items-center justify-between rounded-lg border ${borderClass} bg-white p-3 sm:p-4 shadow-xs`}>
             <div className="flex items-center gap-2 sm:gap-3 min-w-0">
                 <span className={`h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full shrink-0 ${dotClass}`} />
 
@@ -104,7 +104,7 @@ export default function MortgageCalculator() {
     };
 
     return (
-        <div id="mortgage-calculator" className="w-full rounded-2xl border border-gray-200 bg-white p-4 sm:p-5 md:p-6 shadow-xs">
+        <div id="mortgage-calculator" className="w-full rounded-lg border border-gray-200 bg-white p-4 sm:p-5 md:p-6 shadow-xs">
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 md:gap-6 lg:gap-8">
                 {/* LEFT */}
                 <div className="space-y-4 sm:space-y-5">
@@ -126,7 +126,7 @@ export default function MortgageCalculator() {
                     </div>
 
                     {/* EMI HERO */}
-                    <div className="rounded-2xl bg-[#002B5B] p-4 sm:p-5 md:p-6 text-center text-white">
+                    <div className="rounded-lg bg-[#002B5B] p-4 sm:p-5 md:p-6 text-center text-white">
                         <p className="text-xs sm:text-sm uppercase tracking-wide opacity-80">
                             Monthly EMI
                         </p>
@@ -137,7 +137,7 @@ export default function MortgageCalculator() {
                     </div>
 
                     {/* LOAN INPUT */}
-                    <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4 sm:p-5">
+                    <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 sm:p-5">
                         <label className="mb-3 block text-center text-xs sm:text-sm font-medium text-gray-600">
                             Loan Amount
                         </label>
@@ -341,7 +341,7 @@ export default function MortgageCalculator() {
                                 }
                             />
 
-                            <div className="flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50 p-3 sm:p-4">
+                            <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-3 sm:p-4">
                                 <span className="text-xs sm:text-sm font-medium text-gray-700">
                                     Total Payment
                                 </span>

@@ -54,7 +54,7 @@ export default function Modal({ isOpen, onClose, children, maxWidth = "max-w-md"
 
             <div
                 ref={modalRef}
-                className={`relative z-30 w-[95%] ${maxWidth} ${height} ${className} rounded-2xl bshadow-xl  animate-modal max-h-[90vh] overflow-y-auto scrollbar-modern`}
+                className={`relative z-30 w-[95%] ${maxWidth} ${height} ${className} rounded-lg bshadow-xl  animate-modal max-h-[90vh] overflow-y-auto scrollbar-modern`}
             >
                 {showCloseButton && (
                     <div className="absolute right-0 top-0 z-30">

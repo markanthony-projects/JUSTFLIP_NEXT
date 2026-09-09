@@ -56,7 +56,7 @@ function MapContainer({ builder }: MapContainerProps) {
             <div ref={sentinelRef} />
 
             {/* Segmented Control Tabs */}
-            <div className="mt-8 mb-6 overflow-x-auto scrollbar-hide px-4">
+            <div className="mt-8 mb-6 overflow-x-auto scrollbar-hide px-0">
                 <TabsSection
                     value={activeTab}
                     onChange={setActiveTab}
