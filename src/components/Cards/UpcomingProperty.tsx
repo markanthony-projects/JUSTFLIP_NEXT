@@ -94,8 +94,8 @@ const UpcomingProperty = ({ project, priority }: UpcomingPropertyProps) => {
             {/* BADGES + FAVOURITE */}
             {details?.rera !== null ? (
               <span className="absolute left-0 top-4 flex gap-0.5 rounded-r-lg bg-primary/40 pl-3 pr-4 py-1.5 text-xs font-medium text-white uppercase backdrop-blur-sm shadow-sm shadow-gray-800">
-                RERA 
-                <MdVerified className="size={15} ml-1" fill='currentColor'/>
+                RERA
+                <MdVerified className="size={15} ml-1" fill='currentColor' />
               </span>
             ) : (
               <span />
@@ -215,10 +215,10 @@ const UpcomingProperty = ({ project, priority }: UpcomingPropertyProps) => {
                   Starting from
                 </p>
                 <p className="mt-0.5 truncate text-md font-extrabold leading-none text-primary " >
-                  { minPrice || '₹ 1.25 CR'}
+                  {minPrice || '₹ 1.25 CR'}
                 </p>
 
-                
+
                 <p className="mt-0.5 text-[10px] text-slate-400">
                   {project?.pricePerSqft || "₹10,400 / sq.ft"}
                 </p>
@@ -226,7 +226,7 @@ const UpcomingProperty = ({ project, priority }: UpcomingPropertyProps) => {
 
               <Link href={projectUrl}
                 className="flex shrink-0 items-end gap-1 rounded-lg bg-primary px-4 py-2 text-xs font-bold text-white transition-all duration-200 hover:bg-[#003D7A] hover:shadow-lg ">
-                    View Details<MdOutlineArrowForward size={18} className="font-bold text-xs"/>
+                View Details<MdOutlineArrowForward size={18} className="font-bold text-xs" />
               </Link>
 
             </div>

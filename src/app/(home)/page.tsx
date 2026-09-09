@@ -107,11 +107,13 @@ export default async function JustFlipHomePage() {
 
 
 
-                <LazyHydrate rootMargin="350px" placeholder={<HomeBlogsSkeleton />}>
-                    <Suspense fallback={<HomeBlogsSkeleton />}>
-                        <Blogs tag={"Latest Blogs"} />
-                    </Suspense>
-                </LazyHydrate>
+                <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <LazyHydrate rootMargin="350px" placeholder={<HomeBlogsSkeleton />}>
+                        <Suspense fallback={<HomeBlogsSkeleton />}>
+                            <Blogs tag={"Latest Blogs"} />
+                        </Suspense>
+                    </LazyHydrate>
+                </div>
             </div>
         </main>
     );

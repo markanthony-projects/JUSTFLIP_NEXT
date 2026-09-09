@@ -109,9 +109,9 @@ const NewLaunhesProperty = ({ project, priority }: NewLaunchPropertyProps) => {
   useEffect(() => {
     setDaysToBooking(calculateDaysUntil(details?.possessionDate));
   }, [details?.possessionDate]);
-  
 
-  const builderName =typeof details?.builder === 'string' ? details?.builder : details?.builder?.name || (details as any)?.builder?.name || ''
+
+  const builderName = typeof details?.builder === 'string' ? details?.builder : details?.builder?.name || (details as any)?.builder?.name || ''
   const configurations = details?.configurations || project?.summary || ''
   const bookingLabel = daysToBooking === null ? 'Booking details soon' : daysToBooking === 0 ? 'Booking opens today' : daysToBooking < 0 ? `opened ${Math.abs(daysToBooking)}d ago` : `Booking opens in ${daysToBooking}d`;
   const minPrice = convertToCurrency(details?.units?.[0].minPrice) || "requested"
@@ -119,7 +119,7 @@ const NewLaunhesProperty = ({ project, priority }: NewLaunchPropertyProps) => {
   return (
     <>
       <article className="group relative flex w-87.5 flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-[0_2px_8px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_8px_24px_rgb(0,0,0,0.08)] hover:border-gray-300">
-        
+
         {/* IMAGE SECTION */}
         <Link href={projectUrl} className="block relative">
           <div className="relative h-44 sm:h-48 md:h-54 w-full overflow-hidden bg-gray-100">
@@ -133,13 +133,13 @@ const NewLaunhesProperty = ({ project, priority }: NewLaunchPropertyProps) => {
             />
 
             {/* Overlay Gradient */}
-            <div className='absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-primary/50 via-transparent to-primary/10 pointer-events-none'/>
+            <div className='absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-primary/50 via-transparent to-primary/10 pointer-events-none' />
 
             {/* BADGES + FAVOURITE */}
             {details?.rera !== null ? (
               <span className="absolute left-0 top-4 flex gap-0.5 rounded-r-lg bg-primary/40 pl-3 pr-4 py-1.5 text-xs font-medium text-white uppercase backdrop-blur-sm shadow-sm shadow-gray-800">
-                RERA 
-                <MdVerified className="size={15} ml-1" fill='currentColor'/>
+                RERA
+                <MdVerified className="size={15} ml-1" fill='currentColor' />
               </span>
             ) : (
               <span />
@@ -147,19 +147,19 @@ const NewLaunhesProperty = ({ project, priority }: NewLaunchPropertyProps) => {
 
             {/* LOCATION */}
             <div className="absolute bottom-3 left-0 bg-white/95 backdrop-blur-sm shadow-md text-primary flex items-center rounded-r-lg shadow-gray-800 h-7 px-2.5" >
-              <MdOutlineLocationOn size={17} className="shrink-0 text-[#d51717e8]"/>
+              <MdOutlineLocationOn size={17} className="shrink-0 text-[#d51717e8]" />
               <span className="truncate text-xs font-semibold text-primary" >
-                  {locationName}
+                {locationName}
               </span>
             </div>
 
             {/* FAVOURITE */}
             <div className=" absolute right-4 top-4 z-20 "
-              onClick={(e) => e.stopPropagation() }
+              onClick={(e) => e.stopPropagation()}
             >
               <FavouriteButton
                 project={project}
-                onAuthRequired={ () => setShowLoginPrompt(true) }
+                onAuthRequired={() => setShowLoginPrompt(true)}
                 className={`p-2 rounded-full flex items-center justify-center bg-white/95 backdrop-blur-sm shadow-sm shadow-gray-800 hover:bg-red-50 transition-colors`}
               />
             </div>
@@ -219,13 +219,13 @@ const NewLaunhesProperty = ({ project, priority }: NewLaunchPropertyProps) => {
               {/* PRICE */}
               <div className="min-w-0">
                 <p className="text-[11px] font-medium text-gray-500 ">
-                Launch Price From
+                  Launch Price From
                 </p>
                 <p className="mt-0.5 truncate text-md font-extrabold leading-none text-primary " >
-                  { minPrice || '₹ 1.25 CR'}
+                  {minPrice || '₹ 1.25 CR'}
                 </p>
 
-                
+
                 <p className="mt-0.5 text-[10px] text-slate-400">
                   {project?.pricePerSqft || "₹10,400 / sq.ft"}
                 </p>
@@ -233,11 +233,11 @@ const NewLaunhesProperty = ({ project, priority }: NewLaunchPropertyProps) => {
 
               <Link href={projectUrl}
                 className="flex shrink-0 items-end gap-1 rounded-lg bg-primary px-4 py-2 text-xs font-bold text-white transition-all duration-200 hover:bg-[#003D7A] hover:shadow-lg ">
-                    View Details<MdOutlineArrowForward size={18} className="font-bold text-xs"/>
+                View Details<MdOutlineArrowForward size={18} className="font-bold text-xs" />
               </Link>
 
             </div>
-          </div>        
+          </div>
 
         </div>
       </article>

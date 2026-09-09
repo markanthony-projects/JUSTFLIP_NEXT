@@ -1,7 +1,7 @@
 function BlogSkeletonCard() {
     return (
-        <div className="w-[300px] md:w-[320px] flex-shrink-0 h-[380px] flex flex-col">
-            <div className="w-full h-[190px] flex-shrink-0 rounded-xl bg-gray-100 animate-pulse" />
+        <div className="w-[245px] sm:w-[275px] md:w-[320px] flex-shrink-0 flex flex-col">
+            <div className="w-full h-[155px] sm:h-[175px] md:h-[190px] flex-shrink-0 rounded-lg bg-gray-100 animate-pulse" />
             <div className="pt-3 flex flex-col gap-2">
                 <div className="h-3 w-24 bg-gray-100 rounded animate-pulse" />
                 <div className="h-[15px] w-[95%] bg-gray-100 rounded animate-pulse" />

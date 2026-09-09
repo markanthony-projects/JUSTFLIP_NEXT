@@ -20,9 +20,9 @@ export default function BlogCard({ blog }: BlogCardProps) {
     return (
         <Link
             href={`/blogs/${formatUrl(blog.heading)}-${blog?.id}`}
-            className="group w-[300px] md:w-[320px] flex-shrink-0 h-[380px] flex flex-col"
+            className="group w-[245px] sm:w-[275px] md:w-[320px] flex-shrink-0 flex flex-col"
         >
-            <div className="relative w-full h-[190px] flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
+            <div className="relative w-full h-[155px] sm:h-[175px] md:h-[190px] flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
                 {blog?.image?.url ? (
                     <Image
                         src={blog.image.url}
@@ -35,7 +35,7 @@ export default function BlogCard({ blog }: BlogCardProps) {
                 )}
             </div>
 
-            <div className="pt-3 flex flex-col flex-1 overflow-hidden">
+            <div className="pt-2.5 flex flex-col overflow-hidden">
                 <time className="text-[12px] text-gray-400 mb-1.5 block">
                     {published}
                 </time>
