@@ -67,17 +67,17 @@ export default function PropertyTools({
 
   return (
     <section className="w-full flex flex-col">
-      {/* Section Header */}
-      {title && (
-        <div className="mb-2 md:mb-3">
-          <h2 className="section-heading">
-            {title}
-          </h2>
-        </div>
-      )}
+      {/* Clean 3D Tools Bar Tile */}
+      <div className="w-full bg-white rounded-lg border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)] p-4 sm:p-5 md:py-6 md:px-6">
+        {/* Section Header */}
+        {title && (
+          <div className="mb-3 md:mb-5">
+            <h2 className="section-heading">
+              {title}
+            </h2>
+          </div>
+        )}
 
-      {/* Clean 3D Tools Bar */}
-      <div className="w-full bg-white rounded-lg border border-slate-200/80 shadow-[0_2px_14px_-2px_rgba(0,43,91,0.06)] p-3 sm:p-5 md:py-8 md:px-6">
         <div className="grid grid-cols-3 gap-y-4 sm:gap-y-6 gap-x-2 sm:gap-x-4 md:flex md:items-center md:justify-between md:gap-0">
           {tools.map((tool, index) => (
             <React.Fragment key={tool.id}>

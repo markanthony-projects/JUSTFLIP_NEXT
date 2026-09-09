@@ -83,21 +83,25 @@ export default async function JustFlipHomePage() {
 
                 <PropertyRecommend />
 
-                <LazyHydrate rootMargin="350px" placeholder={<TopBuildersSkeleton />}>
-                    <Suspense fallback={<TopBuildersSkeleton />}>
-                        <TopBuilders city={city} />
-                    </Suspense>
-                </LazyHydrate>
+                <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <LazyHydrate rootMargin="350px" placeholder={<TopBuildersSkeleton />}>
+                        <Suspense fallback={<TopBuildersSkeleton />}>
+                            <TopBuilders city={city} />
+                        </Suspense>
+                    </LazyHydrate>
+                </div>
 
                 <PostPropertyCTA />
 
                 <PropertyTools title="Financial & Planning Tools" />
 
-                <LazyHydrate rootMargin="350px" placeholder={<PopularCitiesSkeleton />}>
-                    <Suspense fallback={<PopularCitiesSkeleton />}>
-                        <PopularCities />
-                    </Suspense>
-                </LazyHydrate>
+                <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <LazyHydrate rootMargin="350px" placeholder={<PopularCitiesSkeleton />}>
+                        <Suspense fallback={<PopularCitiesSkeleton />}>
+                            <PopularCities />
+                        </Suspense>
+                    </LazyHydrate>
+                </div>
 
                 <HomeReviewCard />
 
