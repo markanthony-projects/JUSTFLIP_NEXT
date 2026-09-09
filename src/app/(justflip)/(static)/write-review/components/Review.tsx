@@ -4,12 +4,18 @@ import React, { useState } from "react";
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import ReviewTipsSidebar from "./ReviewTipsSidebar";
+import LoginModal from "@/src/components/organisms/LoginModal"; 
 import { StepOneData } from "@/src/types";
+import { useAuthStore } from "@/src/stores/auth.store"; 
 
 export default function Review() {
   const [step, setStep] = useState<1 | 2>(1);
   const [stepOneData, setStepOneData] = useState<StepOneData | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
+  const isLoggedIn = useAuthStore((state) => !!state.user); 
 
   const handleStepOneNext = (data: StepOneData) => {
     setStepOneData(data);
@@ -28,10 +34,9 @@ export default function Review() {
 
   return (
     <div className="min-h-screen max-w-7xl mx-auto px-0 py-6 grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
-      {/* Form Area */}
       <div className="lg:col-span-2 w-full">
         {isSubmitted ? (
-          <div className="bg-white p-8 md:p-12 rounded-2xl border border-gray-100 shadow-sm text-center">
+          <div className="bg-white p-8 md:p-12 rounded-lg border border-gray-100 shadow-sm text-center">
             <div className="w-16 h-16 bg-[#002B5B] text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
               ✓
             </div>
@@ -57,6 +62,8 @@ export default function Review() {
             <StepTwo
               stepOneData={stepOneData}
               onSuccess={handleSuccess}
+              isLoggedIn={isLoggedIn}
+              onOpenLoginModal={() => setIsLoginModalOpen(true)}
             />
           )
         )}
@@ -65,6 +72,16 @@ export default function Review() {
       <div className="lg:col-span-1">
         <ReviewTipsSidebar />
       </div>
+
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        closeModal={() => setIsLoginModalOpen(false)}
+        title="Save Your Review"
+        subtitle="Enter Your Mobile Number to continue"
+        onSuccess={() => {
+          setIsLoginModalOpen(false);
+        }}
+      />
     </div>
   );
 }

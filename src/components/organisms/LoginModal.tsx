@@ -15,7 +15,7 @@ export interface LoginModalProps {
     subtitle?: string;
 }
 
-export default function LoginModal({ isOpen, closeModal, onSuccess, title, subtitle }: LoginModalProps) {
+export default function LoginModal({ isOpen, closeModal, onSuccess, title="Find Your Dream Home", subtitle="Access saved searches and favourites" }: LoginModalProps) {
     const visitorLogin = useAuthStore((s) => s.visitorLogin);
     const [email, setEmail] = useState("");
     const [showOtp, setShowOtp] = useState(false);
