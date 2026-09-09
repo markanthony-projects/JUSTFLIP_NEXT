@@ -6,6 +6,7 @@ import { JUSTFLIP } from "@/src/lib/axios/api";
 import Step1GoalHousehold, { Step1Data } from "./Step1GoalHousehold";
 import Step2LocationBudget, { Step2Data } from "./Step2LocationBudget";
 import ResultGrid, { PropertyMatch } from "./ResultGrid";
+import ScrollToTop from "@/src/components/atoms/ScrollToTop";
 
 export type MasterFormData = Step1Data & Step2Data;
 

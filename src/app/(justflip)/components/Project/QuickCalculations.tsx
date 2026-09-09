@@ -187,7 +187,7 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
       {/* Modal Layout */}
       {activeModal && (
         <div className="fixed inset-0 h-screen w-screen z-50 flex items-center justify-center bg-black/50 p-3 sm:p-6 backdrop-blur-xs">
-          <div className="relative w-full max-w-5xl max-h-[92vh] overflow-y-auto rounded-3xl bg-white p-6 sm:p-8 shadow-2xl transition-all duration-300 border border-gray-100">
+          <div className="relative w-full max-w-5xl max-h-[92vh] overflow-y-auto rounded-lg bg-white p-6 sm:p-8 shadow-2xl transition-all duration-300 border border-gray-100">
             
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-6">
@@ -210,14 +210,14 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
                   
                   {/* Left Column: Inputs & Sliders */}
                   <div className="md:col-span-7 space-y-5">
-                    <div className="rounded-2xl bg-[#002B5B] p-5 text-center text-white shadow-sm">
+                    <div className="rounded-lg bg-[#002B5B] p-5 text-center text-white shadow-sm">
                       <p className="text-xs sm:text-sm uppercase tracking-wide opacity-80 font-medium">Monthly EMI</p>
                       <h2 className="mt-1 text-2xl md:text-4xl font-bold">
                         ₹ {Number(results?.monthlyPayment || 0).toLocaleString("en-IN")}
                       </h2>
                     </div>
 
-                    <div className="rounded-2xl border border-gray-200 bg-gray-50/50 p-4">
+                    <div className="rounded-lg border border-gray-200 bg-gray-50/50 p-4">
                       <label className="mb-1 block text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         Loan Amount
                       </label>
@@ -287,7 +287,7 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
                   <div className="md:col-span-5 space-y-4 flex flex-col justify-between pt-1">
                     <SummaryCard label="Principal" value={results?.totalPrincipal} dotClass="bg-cyan-500" />
                     <SummaryCard label="Interest" value={results?.totalInterest} dotClass="bg-green-500" />
-                    <div className="flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50/50 p-4">
+                    <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50/50 p-4">
                       <span className="text-xs font-semibold text-gray-700">Total Payment</span>
                       <span className="text-sm md:text-base font-bold text-[#002B5B]">
                         ₹ {Number(results?.totalPayment || 0).toLocaleString("en-IN")}
@@ -295,7 +295,7 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
                     </div>
 
                     {/* View Properties Call-to-Action Box */}
-                    <div className="rounded-2xl border border-cyan-200 bg-white p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm mt-2">
+                    <div className="rounded-lg border border-cyan-200 bg-white p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm mt-2">
                         <div className="flex items-center gap-3 text-left">
                             <div className="rounded-full bg-cyan-600 p-2.5 text-white shrink-0">
                                 <FiHome className="text-base" />
@@ -314,7 +314,7 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
                                 window.open(`/search?cityId=${cityId}&maxPrice=${loanAmount}`, '_blank', 'noopener,noreferrer');
                               }
                             }}
-                            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#002B5B] hover:bg-[#002142] px-4 py-2.5 text-xs font-semibold text-white transition hover:scale-[1.02] active:scale-95 shrink-0 cursor-pointer shadow-sm"
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#002B5B] hover:bg-[#002142] px-4 py-2.5 text-xs font-semibold text-white transition hover:scale-[1.02] active:scale-95 shrink-0 cursor-pointer shadow-sm"
                         >
                             <span>View Properties</span>
                             <FiArrowRight className="text-[10px]" />
