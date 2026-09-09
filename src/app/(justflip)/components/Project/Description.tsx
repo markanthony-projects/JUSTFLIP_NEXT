@@ -58,7 +58,7 @@ function derivePropertyData(properties: Project) {
     );
 
     const allImages = medias.filter((m: any) => m.type === "image" && m.url);
-    
+
     // Choose hero image: priority banner -> first other image -> first available image
     const heroImage = banner?.url || others_images[0]?.url || allImages[0]?.url || "";
 
@@ -76,7 +76,7 @@ function derivePropertyData(properties: Project) {
     const location: any = properties?.location ?? {};
     const zone: any = properties?.zone ?? {};
     const city: any = properties?.city ?? {};
-    
+
     const locationParts = [
         location.name,
         zone.name ? `${zone.name}-${city.name || ""}` : city.name
@@ -97,12 +97,12 @@ function derivePropertyData(properties: Project) {
         rawType.toLowerCase() === "plot"
             ? "Plots"
             : rawType.charAt(0).toUpperCase() + rawType.slice(1).toLowerCase() + "s";
-    
+
     const unitSummaryLabel = unitNumbers.length
         ? `${unitNumbers.join(", ")} BHK ${propertyLabel}`
         : rawType
-        ? `${rawType}s`
-        : "";
+            ? `${rawType}s`
+            : "";
 
     const isPriceOnRequest =
         !minPrice && !maxPrice && units?.some((u) => u.priceStatus === "ON_REQUEST");
@@ -247,7 +247,7 @@ function Description({ project: properties }: { project: Project }) {
                 label: "Facebook",
                 icon: <FaFacebook />,
                 color: "blue",
-                onClick: () => {},
+                onClick: () => { },
             },
             {
                 id: "copy",
@@ -304,9 +304,9 @@ function Description({ project: properties }: { project: Project }) {
         minPrice === maxPrice
             ? formatDisplayPrice(minPrice, defaultCurrency)
             : `${formatDisplayPrice(minPrice, defaultCurrency)} – ${formatDisplayPrice(
-                  maxPrice,
-                  defaultCurrency
-              )}`;
+                maxPrice,
+                defaultCurrency
+            )}`;
 
     const hasSideMedia = Boolean(photoThumbnailUrl || floorPlanFirst || videos?.length > 0);
     const totalPhotosCount = allImages.length || others_images.length;
@@ -403,154 +403,153 @@ function Description({ project: properties }: { project: Project }) {
 
             {/* ── 2. Media Gallery Grid ─────────────────────────────────── */}
             <div className="flex flex-col md:flex-row gap-2.5 md:gap-3 w-full h-auto md:h-[500px] lg:h-[540px]">
-                    {/* Primary Hero Image */}
-                    <div
-                        className={`group relative rounded-lg overflow-hidden cursor-pointer select-none aspect-[4/3] sm:aspect-[16/10] md:aspect-auto ${
-                            hasSideMedia ? "w-full md:flex-[3.2] md:h-full" : "w-full md:h-full"
+                {/* Primary Hero Image */}
+                <div
+                    className={`group relative rounded-lg overflow-hidden cursor-pointer select-none aspect-[4/3] sm:aspect-[16/10] md:aspect-auto ${hasSideMedia ? "w-full md:flex-[3.2] md:h-full" : "w-full md:h-full"
                         }`}
-                        onClick={() => handleGalleryOpen("images")}
-                    >
-                        <div className="w-full h-full transition-transform duration-700 ease-out group-hover:scale-105">
-                            <Image
-                                src={heroImage}
-                                alt={properties?.name || "Property Image"}
-                                fill
-                                priority
-                                className="object-cover"
-                            />
-                        </div>
-
-                        {/* Subtle Vignette Gradient for Contrast */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/25 pointer-events-none" />
-
-                        {/* Floating Actions: Share & Favorite */}
-                        <div
-                            className="absolute top-3 right-3 md:top-4 md:right-4 flex items-center gap-2 z-10"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <FilterPopover
-                                buttonPrefixIcon={<PiShareFat className="text-sm" />}
-                                label="Share"
-                                showDropdownArrow={false}
-                                buttonClass="backdrop-blur-md bg-white/90 hover:bg-white text-gray-800 text-xs px-3.5 py-1.5 rounded-full shadow-md border border-white/60 font-semibold transition-all duration-200 hover:scale-105 active:scale-95 flex items-center gap-1.5 cursor-pointer"
-                            >
-                                <div className="bg-white flex flex-col min-w-[210px] md:min-w-[240px] p-1.5 rounded-lg shadow-xl border border-gray-100">
-                                    <div className="text-center py-1">
-                                        <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                                            Share Property
-                                        </span>
-                                    </div>
-                                    <span className="border-t border-gray-100 my-1" />
-
-                                    <div className="flex flex-col gap-1">
-                                        {shareOptions.map((option) => {
-                                            const colors = SHARE_COLOR_MAP[option.color];
-                                            return (
-                                                <React.Fragment key={option.id}>
-                                                    {option.id === "copy" && (
-                                                        <div className="my-1 border-t border-gray-100" />
-                                                    )}
-                                                    <button
-                                                        type="button"
-                                                        onClick={option.onClick}
-                                                        className={`group/btn flex items-center justify-between w-full p-2 rounded-lg transition-all text-left ${colors.btn}`}
-                                                    >
-                                                        <div className="flex items-center gap-2.5">
-                                                            <div
-                                                                className={`p-1.5 rounded-full transition-colors ${colors.icon}`}
-                                                            >
-                                                                {React.cloneElement(option.icon, {
-                                                                    className: "w-4 h-4",
-                                                                })}
-                                                            </div>
-                                                            <div className="flex flex-col">
-                                                                <p className="text-xs font-semibold leading-tight">
-                                                                    {option.label}
-                                                                </p>
-                                                                {option.subLabel && (
-                                                                    <p className="text-[10px] text-gray-400 leading-tight mt-0.5">
-                                                                        {option.subLabel}
-                                                                    </p>
-                                                                )}
-                                                            </div>
-                                                        </div>
-                                                        {option.id !== "copy" && (
-                                                            <span className="text-gray-300 group-hover/btn:translate-x-0.5 transition-transform text-xs">
-                                                                ➜
-                                                            </span>
-                                                        )}
-                                                    </button>
-                                                </React.Fragment>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-                            </FilterPopover>
-
-                            <FavouriteButton
-                                project={properties}
-                                onAuthRequired={() => setShowLoginPrompt(true)}
-                                className="backdrop-blur-md bg-white/90 hover:bg-white text-gray-800 text-xs px-3 py-1.5 rounded-full shadow-md border border-white/60 font-semibold transition-all duration-200 hover:scale-105 active:scale-95 flex items-center gap-1 cursor-pointer"
-                            />
-                        </div>
-
-                        {/* Floating "View All Photos" Pill */}
-                        {totalPhotosCount > 0 && (
-                            <button
-                                type="button"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleGalleryOpen("images");
-                                }}
-                                className="absolute bottom-3 left-3 md:bottom-4 md:left-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/55 hover:bg-black/75 backdrop-blur-md text-white text-xs font-medium border border-white/20 transition-all duration-200 shadow-md hover:scale-105 active:scale-95 cursor-pointer"
-                            >
-                                <TbPhotoSpark className="text-sm text-amber-300" />
-                                <span>View Photos ({totalPhotosCount})</span>
-                            </button>
-                        )}
+                    onClick={() => handleGalleryOpen("images")}
+                >
+                    <div className="w-full h-full transition-transform duration-700 ease-out group-hover:scale-105">
+                        <Image
+                            src={heroImage}
+                            alt={properties?.name || "Property Image"}
+                            fill
+                            priority
+                            className="object-cover"
+                        />
                     </div>
 
-                    {/* Side Thumbnails Column */}
-                    {hasSideMedia && (
-                        <div className="flex flex-row md:flex-col gap-2 md:gap-2.5 w-full md:flex-1 h-[125px] sm:h-[145px] md:h-full">
-                            {/* All Photos Thumbnail */}
-                            {photoThumbnailUrl && (
-                                <MediaThumbnail
-                                    imageUrl={photoThumbnailUrl}
-                                    alt="All Photos"
-                                    label="Photos"
-                                    count={totalPhotosCount}
-                                    Icon={TbPhotoSpark}
-                                    onClick={() => handleGalleryOpen("images")}
-                                />
-                            )}
+                    {/* Subtle Vignette Gradient for Contrast */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/25 pointer-events-none" />
 
-                            {/* Videos Thumbnail */}
-                            {videos?.length > 0 && (
-                                <MediaThumbnail
-                                    imageUrl={videos[0]?.thumbnailUrl || heroImage}
-                                    alt="Videos"
-                                    label="Videos"
-                                    count={videos.length}
-                                    Icon={MdVideoLibrary}
-                                    showPlay={true}
-                                    onClick={() => handleGalleryOpen("video")}
-                                />
-                            )}
+                    {/* Floating Actions: Share & Favorite */}
+                    <div
+                        className="absolute top-3 right-3 md:top-4 md:right-4 flex items-center gap-2 z-10"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <FilterPopover
+                            buttonPrefixIcon={<PiShareFat className="text-sm" />}
+                            label="Share"
+                            showDropdownArrow={false}
+                            buttonClass="backdrop-blur-md bg-white/90 hover:bg-white text-gray-800 text-xs px-3.5 py-1.5 rounded-full shadow-md border border-white/60 font-semibold transition-all duration-200 hover:scale-105 active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                        >
+                            <div className="bg-white flex flex-col min-w-[210px] md:min-w-[240px] p-1.5 rounded-lg shadow-xl border border-gray-100">
+                                <div className="text-center py-1">
+                                    <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                                        Share Property
+                                    </span>
+                                </div>
+                                <span className="border-t border-gray-100 my-1" />
 
-                            {/* Floor Plans Thumbnail */}
-                            {floorPlanFirst && (
-                                <MediaThumbnail
-                                    imageUrl={floorPlanFirst}
-                                    alt="Floor Plans"
-                                    label="Floor Plans"
-                                    count={floorPlan?.length ?? 0}
-                                    Icon={PiBlueprint}
-                                    onClick={() => handleGalleryOpen("floor")}
-                                />
-                            )}
-                        </div>
+                                <div className="flex flex-col gap-1">
+                                    {shareOptions.map((option) => {
+                                        const colors = SHARE_COLOR_MAP[option.color];
+                                        return (
+                                            <React.Fragment key={option.id}>
+                                                {option.id === "copy" && (
+                                                    <div className="my-1 border-t border-gray-100" />
+                                                )}
+                                                <button
+                                                    type="button"
+                                                    onClick={option.onClick}
+                                                    className={`group/btn flex items-center justify-between w-full p-2 rounded-lg transition-all text-left ${colors.btn}`}
+                                                >
+                                                    <div className="flex items-center gap-2.5">
+                                                        <div
+                                                            className={`p-1.5 rounded-full transition-colors ${colors.icon}`}
+                                                        >
+                                                            {React.cloneElement(option.icon, {
+                                                                className: "w-4 h-4",
+                                                            })}
+                                                        </div>
+                                                        <div className="flex flex-col">
+                                                            <p className="text-xs font-semibold leading-tight">
+                                                                {option.label}
+                                                            </p>
+                                                            {option.subLabel && (
+                                                                <p className="text-[10px] text-gray-400 leading-tight mt-0.5">
+                                                                    {option.subLabel}
+                                                                </p>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    {option.id !== "copy" && (
+                                                        <span className="text-gray-300 group-hover/btn:translate-x-0.5 transition-transform text-xs">
+                                                            ➜
+                                                        </span>
+                                                    )}
+                                                </button>
+                                            </React.Fragment>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        </FilterPopover>
+
+                        <FavouriteButton
+                            project={properties}
+                            onAuthRequired={() => setShowLoginPrompt(true)}
+                            className="backdrop-blur-md bg-white/90 hover:bg-white text-gray-800 text-xs px-3 py-1.5 rounded-full shadow-md border border-white/60 font-semibold transition-all duration-200 hover:scale-105 active:scale-95 flex items-center gap-1 cursor-pointer"
+                        />
+                    </div>
+
+                    {/* Floating "View All Photos" Pill */}
+                    {totalPhotosCount > 0 && (
+                        <button
+                            type="button"
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleGalleryOpen("images");
+                            }}
+                            className="absolute bottom-3 left-3 md:bottom-4 md:left-4 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/55 hover:bg-black/75 backdrop-blur-md text-white text-xs font-medium border border-white/20 transition-all duration-200 shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+                        >
+                            <TbPhotoSpark className="text-sm text-amber-300" />
+                            <span>View Photos ({totalPhotosCount})</span>
+                        </button>
                     )}
+                </div>
+
+                {/* Side Thumbnails Column */}
+                {hasSideMedia && (
+                    <div className="flex flex-row md:flex-col gap-2 md:gap-2.5 w-full md:flex-1 h-[125px] sm:h-[145px] md:h-full">
+                        {/* All Photos Thumbnail */}
+                        {photoThumbnailUrl && (
+                            <MediaThumbnail
+                                imageUrl={photoThumbnailUrl}
+                                alt="All Photos"
+                                label="Photos"
+                                count={totalPhotosCount}
+                                Icon={TbPhotoSpark}
+                                onClick={() => handleGalleryOpen("images")}
+                            />
+                        )}
+
+                        {/* Videos Thumbnail */}
+                        {videos?.length > 0 && (
+                            <MediaThumbnail
+                                imageUrl={videos[0]?.thumbnailUrl || heroImage}
+                                alt="Videos"
+                                label="Videos"
+                                count={videos.length}
+                                Icon={MdVideoLibrary}
+                                showPlay={true}
+                                onClick={() => handleGalleryOpen("video")}
+                            />
+                        )}
+
+                        {/* Floor Plans Thumbnail */}
+                        {floorPlanFirst && (
+                            <MediaThumbnail
+                                imageUrl={floorPlanFirst}
+                                alt="Floor Plans"
+                                label="Floor Plans"
+                                count={floorPlan?.length ?? 0}
+                                Icon={PiBlueprint}
+                                onClick={() => handleGalleryOpen("floor")}
+                            />
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* ── 3. Modals ─────────────────────────────────────────────── */}
