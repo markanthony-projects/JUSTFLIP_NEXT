@@ -83,18 +83,18 @@ export default function ExploreByBudget() {
   };
 
   return (
-    <section className="w-full flex flex-col">
+    <section className="w-full bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)] flex flex-col">
       {/* Section Header */}
-      <div className="mb-2 md:mb-3">
+      <div className="mb-3 md:mb-4">
         <div className="flex items-center justify-between">
-          <h2 className="section-heading">
+          <h2 className="section-heading tracking-tight">
             Explore Properties by Budget
           </h2>
 
           <Link
             aria-label="View All Budget Brackets"
             href="/search"
-            className="text-primary flex items-center gap-1 items-center py-0.5 px-1 transition-all duration-300 hover:underline"
+            className="text-primary flex items-center gap-1 py-0.5 px-1 transition-all duration-300 hover:underline"
           >
             <span className="hidden sm:block text-lg font-semibold">View All Brackets</span>
             <CgChevronRightO className="text-2xl" />
@@ -115,7 +115,7 @@ export default function ExploreByBudget() {
             aria-label="Previous"
             type="button"
             onClick={() => scroll("left")}
-            className="hidden md:flex absolute -left-6 top-1/2 -translate-y-1/2 z-20 h-8 w-8 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
+            className="hidden md:flex absolute -left-3 lg:-left-4 top-1/2 -translate-y-1/2 z-20 h-8 w-8 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer hover:bg-gray-50 transition-colors"
           >
             <FiChevronLeft size={22} />
           </button>
@@ -189,7 +189,7 @@ export default function ExploreByBudget() {
             aria-label="Next"
             type="button"
             onClick={() => scroll("right")}
-            className="hidden md:flex absolute -right-6 top-1/2 -translate-y-1/2 z-20 h-8 w-8 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer"
+            className="hidden md:flex absolute -right-3 lg:-right-4 top-1/2 -translate-y-1/2 z-20 h-8 w-8 items-center justify-center rounded-full bg-white border border-gray-200 shadow-lg cursor-pointer hover:bg-gray-50 transition-colors"
           >
             <FiChevronRight size={22} />
           </button>

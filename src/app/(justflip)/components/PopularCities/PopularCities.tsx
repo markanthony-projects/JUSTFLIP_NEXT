@@ -15,8 +15,8 @@ export default async function PopularCities() {
     return (
         <section className="w-full flex flex-col">
 
-            <div className="mb-0 md:mb-2 max-w-3xl">
-                <h2 className="section-heading">
+            <div className="mb-3 md:mb-4 max-w-3xl">
+                <h2 className="section-heading tracking-tight">
                     Explore Properties in Popular Cities
                 </h2>
             </div>
