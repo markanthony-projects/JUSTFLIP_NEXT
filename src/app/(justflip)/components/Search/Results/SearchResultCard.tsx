@@ -148,7 +148,7 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
   };
 
   return (
-    <article className="w-full bg-white border border-slate-200/90 rounded-2xl overflow-hidden hover:border-slate-300 hover:shadow-md transition-all duration-200 mb-3.5 sm:mb-4 flex flex-col md:flex-row group">
+    <article className="w-full bg-white border border-slate-200/90 rounded-lg overflow-hidden hover:border-slate-300 hover:shadow-md transition-all duration-200 mb-3.5 sm:mb-4 flex flex-col md:flex-row group">
       {/* Left Image Carousel */}
       <div className="relative w-full md:w-[35%] lg:w-[32%] h-[190px] sm:h-[220px] md:h-auto min-h-[190px] md:min-h-[220px] shrink-0 bg-slate-100 overflow-hidden">
         <Link href={projectUrl} className="block w-full h-full relative overflow-hidden" aria-label={`View details for ${projectName}`}>
@@ -182,7 +182,7 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
               {showReraPopup ? (
                 <div
                   onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
-                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#002B5B]/95 backdrop-blur-md shadow-md text-white text-[10px] sm:text-[11px] font-mono font-medium animate-in fade-in zoom-in-95 duration-150 border border-white/20"
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/95 backdrop-blur-md shadow-md text-white text-[10px] sm:text-[11px] font-mono font-medium animate-in fade-in zoom-in-95 duration-150 border border-white/20"
                 >
                   <FiCheckCircle className="text-emerald-400 w-3.5 h-3.5 shrink-0" />
                   <span className="truncate max-w-[130px] xs:max-w-[170px] sm:max-w-[220px] select-all font-sans font-semibold">
@@ -260,7 +260,7 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
         <div>
           <div className="flex justify-between items-start gap-2 sm:gap-3">
             <div className="min-w-0 flex-1">
-              <Link href={projectUrl} className="group-hover:text-[#002B5B] transition-colors block">
+              <Link href={projectUrl} className="group-hover:text-primary transition-colors block">
                 <h2 className="text-base sm:text-lg font-bold text-slate-900 leading-snug truncate">
                   {projectName}
                 </h2>
@@ -300,7 +300,7 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
                 </div>
 
                 {/* Underlined See on Map Label */}
-                <span className="text-xs sm:text-sm font-semibold text-slate-800 group-hover/map:text-[#002B5B] underline underline-offset-3 decoration-slate-400 group-hover/map:decoration-[#002B5B] transition-colors">
+                <span className="text-xs sm:text-sm font-semibold text-slate-800 group-hover/map:text-primary underline underline-offset-3 decoration-slate-400 group-hover/map:decoration-primary transition-colors">
                   See on Map
                 </span>
               </button>
@@ -308,10 +308,10 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
           </div>
 
           {/* Stats Bar */}
-          <div className="grid grid-cols-3 gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-xl bg-slate-50 border border-slate-100 my-2.5 sm:my-3.5">
+          <div className="grid grid-cols-3 gap-1.5 sm:gap-2 p-2 sm:p-3 rounded-lg bg-slate-50 border border-slate-100 my-2.5 sm:my-3.5">
             <div className="flex flex-col border-r border-slate-200/80 pr-1.5 sm:pr-2">
               <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-wider text-slate-400">Price</span>
-              <span className="font-extrabold text-xs sm:text-sm text-[#002B5B] truncate mt-0.5">
+              <span className="font-extrabold text-xs sm:text-sm text-primary truncate mt-0.5">
                 {priceDisplay}
               </span>
             </div>
@@ -355,7 +355,7 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
               onClick={handleCall}
               title="Call for inquiry"
               aria-label="Call for inquiry"
-              className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg border border-slate-200 text-[#002B5B] hover:bg-blue-50 hover:border-blue-200 transition-colors cursor-pointer"
+              className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-lg border border-slate-200 text-primary hover:bg-blue-50 hover:border-blue-200 transition-colors cursor-pointer"
             >
               <FaPhoneAlt className="text-[11px] sm:text-xs" />
             </button>
@@ -363,7 +363,7 @@ const SearchResultCard = ({ project, priority }: SearchResultCardProps) => {
 
           <Link
             href={projectUrl}
-            className="px-3.5 sm:px-5 py-1.5 sm:py-2 bg-[#002B5B] text-white text-xs sm:text-sm font-semibold rounded-xl hover:bg-[#001f42] transition-colors cursor-pointer text-center inline-flex items-center justify-center shrink-0"
+            className="px-3.5 sm:px-5 py-1.5 sm:py-2 bg-primary text-white text-xs sm:text-sm font-semibold rounded-lg hover:bg-primary-hover transition-colors cursor-pointer text-center inline-flex items-center justify-center shrink-0"
           >
             View Details
           </Link>

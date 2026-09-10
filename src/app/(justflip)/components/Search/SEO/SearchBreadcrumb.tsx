@@ -18,7 +18,7 @@ export default function SearchBreadcrumb({ query }: { query?: string }) {
       <nav aria-label="Breadcrumb" className="px-1 text-xs sm:text-sm">
         <ol className="flex items-center space-x-1.5 text-gray-500 flex-wrap">
           <li>
-            <Link href="/" className="hover:text-[#002B5B] transition-colors">Home</Link>
+            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
           </li>
           <li>
             <span className="mx-2 text-gray-400">/</span>

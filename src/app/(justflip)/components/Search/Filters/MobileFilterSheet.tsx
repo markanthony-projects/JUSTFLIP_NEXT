@@ -31,7 +31,7 @@ export default function MobileFilterSheet() {
       />
 
       {/* Bottom Sheet */}
-      <div className="fixed inset-x-0 bottom-0 z-[120] bg-white rounded-t-2xl lg:hidden flex flex-col max-h-[90vh] shadow-2xl animate-slide-up">
+      <div className="fixed inset-x-0 bottom-0 z-[120] bg-white rounded-t-lg lg:hidden flex flex-col max-h-[90vh] shadow-2xl animate-slide-up">
         
         {/* Drag handle */}
         <div className="w-full flex justify-center py-3" onClick={toggleFilterSheet}>
@@ -66,9 +66,9 @@ export default function MobileFilterSheet() {
           <button 
             onClick={clearFilters}
             disabled={!hasFilters}
-            className={`flex-1 py-3 px-4 rounded-xl font-bold border transition-colors ${
+            className={`flex-1 py-3 px-4 rounded-lg font-bold border transition-colors ${
               hasFilters 
-                ? 'border-[#002B5B] text-[#002B5B] hover:bg-blue-50' 
+                ? 'border-primary text-primary hover:bg-blue-50' 
                 : 'border-gray-200 text-gray-400 bg-gray-50'
             }`}
           >
@@ -77,7 +77,7 @@ export default function MobileFilterSheet() {
           
           <button 
             onClick={toggleFilterSheet}
-            className="flex-1 py-3 px-4 rounded-xl font-bold bg-[#002B5B] text-white hover:bg-[#001f42] shadow-lg shadow-blue-900/20"
+            className="flex-1 py-3 px-4 rounded-lg font-bold bg-primary text-white hover:bg-primary-hover shadow-lg shadow-blue-900/20"
           >
             Show {total} Results
           </button>

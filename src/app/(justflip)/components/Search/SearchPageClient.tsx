@@ -96,8 +96,8 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
     <div className="min-h-screen flex flex-col">
       <div className={
         isMapMode 
-          ? "w-full max-w-[1920px] mx-auto px-0 py-0 flex-1 flex flex-col lg:flex-row relative" 
-          : "container mx-auto px-3 sm:px-4 lg:px-8 max-w-7xl pt-2 pb-6 flex-1 flex gap-6"
+          ? "w-full mx-auto flex-1 flex flex-col lg:flex-row relative" 
+          : "w-full pt-2 pb-6 flex-1 flex gap-6"
       }>
         
         {/* Left Sidebar (Desktop Filters & Breadcrumb) - Only in List Mode */}
@@ -113,7 +113,7 @@ export default function SearchPageClient({ initialSearchParams, initialSeoFilter
         {/* Right Content Area (Results) */}
         <main className={
           isMapMode 
-            ? "flex-1 min-w-0 flex flex-col lg:w-1/2 lg:max-w-[700px] xl:max-w-[850px] px-4 lg:px-6 py-6" 
+            ? "flex-1 min-w-0 flex flex-col lg:w-1/2 lg:max-w-[700px] xl:max-w-[850px] py-4" 
             : "flex-1 min-w-0 flex flex-col"
         }>
           {/* Mobile-only breadcrumb above results */}

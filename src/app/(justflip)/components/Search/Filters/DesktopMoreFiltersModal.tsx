@@ -65,11 +65,11 @@ export default function DesktopMoreFiltersModal({ isOpen, onClose }: DesktopMore
   if (!isOpen) return null;
 
   return (
-    <div className="absolute top-[calc(100%+12px)] right-0 bg-white rounded-xl shadow-[0_4px_25px_rgba(0,0,0,0.15)] border border-gray-200 w-[750px] z-[60] flex flex-col text-left">
+    <div className="absolute top-[calc(100%+12px)] right-0 bg-white rounded-lg shadow-[0_4px_25px_rgba(0,0,0,0.15)] border border-gray-200 w-[750px] z-[60] flex flex-col text-left">
       {/* Tooltip Arrow */}
       <div className="absolute -top-2 right-12 w-4 h-4 bg-white border-l border-t border-gray-200 transform rotate-45"></div>
 
-      <div className="flex h-[450px] overflow-hidden rounded-t-xl relative z-10">
+      <div className="flex h-[450px] overflow-hidden rounded-t-lg relative z-10">
         {/* Left Sidebar */}
         <div className="w-1/3 border-r border-gray-100 bg-gray-50 overflow-y-auto">
           <ul className="py-2">
@@ -79,7 +79,7 @@ export default function DesktopMoreFiltersModal({ isOpen, onClose }: DesktopMore
                   onClick={() => scrollToSection(filter.key)}
                   className={`w-full text-left px-5 py-3 text-sm transition-colors border-l-4 ${
                     activeSection === filter.key
-                      ? 'border-[#002B5B] bg-white font-semibold text-[#002B5B]'
+                      ? 'border-primary bg-white font-semibold text-primary'
                       : 'border-transparent font-medium text-gray-600 hover:bg-gray-100'
                   }`}
                 >
@@ -113,16 +113,16 @@ export default function DesktopMoreFiltersModal({ isOpen, onClose }: DesktopMore
       </div>
 
       {/* Footer */}
-      <div className="border-t border-gray-100 p-4 flex justify-between items-center bg-white rounded-b-xl relative z-10 shadow-[0_-4px_10px_rgba(0,0,0,0.02)]">
+      <div className="border-t border-gray-100 p-4 flex justify-between items-center bg-white rounded-b-lg relative z-10 shadow-[0_-4px_10px_rgba(0,0,0,0.02)]">
         <button
           onClick={clearFilters}
-          className="text-[#002B5B] font-medium text-sm hover:underline px-2 py-1"
+          className="text-primary font-medium text-sm hover:underline px-2 py-1"
         >
           Clear All
         </button>
         <button
           onClick={onClose}
-          className="bg-[#002B5B] text-white px-6 py-2 rounded-full font-semibold text-sm hover:bg-blue-900 transition-colors shadow-md"
+          className="bg-primary text-white px-6 py-2 rounded-full font-semibold text-sm hover:bg-primary-hover transition-colors shadow-md"
         >
           View Properties
         </button>

@@ -47,7 +47,7 @@ export default function SearchBarEnhanced() {
       <form 
         onSubmit={handleSubmit}
         className={`relative flex items-center w-full h-12 lg:h-14 bg-white rounded-lg border-2 transition-colors duration-200 ${
-          isFocused ? 'border-[#002B5B] shadow-lg' : 'border-gray-300 hover:border-gray-400 shadow-sm'
+          isFocused ? 'border-primary shadow-lg' : 'border-gray-300 hover:border-gray-400 shadow-sm'
         }`}
       >
         <div className="flex items-center justify-center w-12 text-gray-400">
@@ -75,7 +75,7 @@ export default function SearchBarEnhanced() {
 
         <button
           type="submit"
-          className="h-full px-6 md:px-8 bg-[#002B5B] hover:bg-[#001f42] text-white font-medium rounded-r-[6px] transition-colors whitespace-nowrap"
+          className="h-full px-6 md:px-8 bg-primary hover:bg-primary-hover text-white font-medium rounded-r-[6px] transition-colors whitespace-nowrap"
         >
           Search
         </button>

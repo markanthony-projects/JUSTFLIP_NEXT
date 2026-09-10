@@ -67,9 +67,9 @@ export default function LocationSelectorModal({ onClose, selectedLocalities, tog
                 <div className="flex-1 flex items-center ml-3 overflow-hidden">
                     {/* Selected City Pill inside input area */}
                     {activeCity && (
-                        <div className="flex items-center gap-1 px-3 py-1 bg-blue-50 text-[#002B5B] border border-blue-200 rounded-full text-xs font-semibold whitespace-nowrap mr-2">
+                        <div className="flex items-center gap-1 px-3 py-1 bg-blue-50 text-primary border border-blue-200 rounded-full text-xs font-semibold whitespace-nowrap mr-2">
                             {activeCity.name}
-                            <button onClick={() => setActiveCity(null)} className="ml-0.5 hover:text-[#001f42]">
+                            <button onClick={() => setActiveCity(null)} className="ml-0.5 hover:text-primary-hover">
                                 <HiOutlineX className="w-3 h-3" />
                             </button>
                         </div>
@@ -88,14 +88,14 @@ export default function LocationSelectorModal({ onClose, selectedLocalities, tog
 
                 <button 
                     onClick={onClose}
-                    className="ml-2 bg-[#002B5B] hover:bg-[#001f42] text-white px-4 py-1.5 rounded text-[15px] font-semibold transition-colors shadow-sm"
+                    className="ml-2 bg-primary hover:bg-primary-hover text-white px-4 py-1.5 rounded text-[15px] font-semibold transition-colors shadow-sm"
                 >
                     Done
                 </button>
             </div>
 
             {/* Current Location Bar */}
-            <button className="flex items-center justify-between w-full px-4 py-3 bg-blue-50/50 text-[#002B5B] font-semibold text-sm hover:bg-blue-50 transition-colors border-b border-blue-100/50">
+            <button className="flex items-center justify-between w-full px-4 py-3 bg-blue-50/50 text-primary font-semibold text-sm hover:bg-blue-50 transition-colors border-b border-blue-100/50">
                 <div className="flex items-center gap-3">
                     <BiTargetLock className="w-5 h-5" />
                     Use my Current Location
@@ -118,7 +118,7 @@ export default function LocationSelectorModal({ onClose, selectedLocalities, tog
                                     onClick={() => handleSelectPopularCity(city.name)}
                                     className="flex flex-col items-center gap-2 group"
                                 >
-                                    <div className="w-16 h-16 rounded-full border border-gray-200 flex items-center justify-center bg-white group-hover:border-[#002B5B] transition-colors overflow-hidden relative shrink-0">
+                                    <div className="w-16 h-16 rounded-full border border-gray-200 flex items-center justify-center bg-white group-hover:border-primary transition-colors overflow-hidden relative shrink-0">
                                         {city?.banner ? (
                                             <Image
                                                 src={city.banner}
@@ -142,7 +142,7 @@ export default function LocationSelectorModal({ onClose, selectedLocalities, tog
                     <>
                         {/* Recently Searched */}
                         {/* <div className="p-4 border-b border-gray-100">
-                            <h3 className="text-sm font-bold text-[#002B5B] mb-3">Recently Searched</h3>
+                            <h3 className="text-sm font-bold text-primary mb-3">Recently Searched</h3>
                             <div className="flex flex-wrap gap-2">
                                 {RECENTLY_SEARCHED.map((item) => (
                                     <button 
@@ -157,7 +157,7 @@ export default function LocationSelectorModal({ onClose, selectedLocalities, tog
 
                         {/* Top Localities */}
                         <div className="p-4 border-b border-gray-100 mt-4">
-                            <h3 className="text-sm font-bold text-[#002B5B] mb-3">Top Localities in {activeCity.name}</h3>
+                            <h3 className="text-sm font-bold text-primary mb-3">Top Localities in {activeCity.name}</h3>
                             <div className="flex flex-wrap gap-2 items-center">
                                 {visibleLocalities.map((loc) => {
                                     const isSelected = selectedLocalities.some((sl: any) => sl.id === loc.id);
@@ -167,7 +167,7 @@ export default function LocationSelectorModal({ onClose, selectedLocalities, tog
                                             onClick={() => toggleLocality(loc)}
                                             className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors border ${
                                                 isSelected 
-                                                ? 'bg-blue-50 text-[#002B5B] border-[#002B5B]' 
+                                                ? 'bg-blue-50 text-primary border-primary' 
                                                 : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
                                             }`}
                                         >
@@ -178,7 +178,7 @@ export default function LocationSelectorModal({ onClose, selectedLocalities, tog
                                 {cityLocalities.length > 5 && (
                                     <button 
                                         onClick={() => setShowAllLocalities(!showAllLocalities)}
-                                        className="text-[#002B5B] text-xs font-semibold ml-1 hover:underline"
+                                        className="text-primary text-xs font-semibold ml-1 hover:underline"
                                     >
                                         {showAllLocalities ? '- less' : '+ more'}
                                     </button>
@@ -188,7 +188,7 @@ export default function LocationSelectorModal({ onClose, selectedLocalities, tog
 
                         {/* Top Projects */}
                         <div className="p-4">
-                            <h3 className="text-sm font-bold text-[#002B5B] mb-3">Top Projects in {activeCity.name}</h3>
+                            <h3 className="text-sm font-bold text-primary mb-3">Top Projects in {activeCity.name}</h3>
                             <div className="flex overflow-x-auto gap-3 pb-2 scrollbar-hide">
                                 {cityProjects.map((proj) => (
                                     <div 

@@ -72,7 +72,7 @@ export default function PriceRangeFilter({ config }: PriceRangeFilterProps) {
             placeholder="Min"
             value={localMin}
             onChange={(e) => setLocalMin(e.target.value)}
-            className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:border-[#002B5B] focus:ring-0 outline-none"
+            className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:border-primary focus:ring-0 outline-none"
           />
         </div>
         <span className="text-gray-400">-</span>
@@ -82,7 +82,7 @@ export default function PriceRangeFilter({ config }: PriceRangeFilterProps) {
             placeholder="Max"
             value={localMax}
             onChange={(e) => setLocalMax(e.target.value)}
-            className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:border-[#002B5B] focus:ring-0 outline-none"
+            className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:border-primary focus:ring-0 outline-none"
           />
         </div>
         <button 
@@ -102,7 +102,7 @@ export default function PriceRangeFilter({ config }: PriceRangeFilterProps) {
               onClick={() => handlePreset(preset)}
               className={`px-3.5 py-1.5 text-[14px] rounded-full border transition-colors ${
                 isActive 
-                  ? 'bg-blue-50 border-[#002B5B] text-[#002B5B]' 
+                  ? 'bg-blue-50 border-primary text-primary' 
                   : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300'
               }`}
             >

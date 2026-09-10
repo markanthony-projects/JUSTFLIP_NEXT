@@ -15,17 +15,17 @@ const PROMPT_CONTENT = {
   propertyType: {
     title: "Looking for a specific property type?",
     description: "Filter by apartments, villas, plots, or penthouses.",
-    icon: <FiHome className="w-5 h-5 text-[#002B5B]" />,
+    icon: <FiHome className="w-5 h-5 text-primary" />,
   },
   unitType: {
     title: "How many bedrooms do you need?",
     description: "Select your preferred BHK configuration.",
-    icon: <FiGrid className="w-5 h-5 text-[#002B5B]" />,
+    icon: <FiGrid className="w-5 h-5 text-primary" />,
   },
   priceRange: {
     title: "Set a budget range",
     description: "View properties tailored to your price preference.",
-    icon: <FiDollarSign className="w-5 h-5 text-[#002B5B]" />,
+    icon: <FiDollarSign className="w-5 h-5 text-primary" />,
   },
 };
 
@@ -51,9 +51,9 @@ export default function InlineFilterPrompt({ type }: InlineFilterPromptProps) {
       : (config.options || []).slice(0, 4);
 
   return (
-    <div className="w-full bg-slate-50 border border-slate-200/80 rounded-2xl p-4 sm:p-5 mb-4">
+    <div className="w-full bg-slate-50 border border-slate-200/80 rounded-lg p-4 sm:p-5 mb-4">
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        <div className="w-10 h-10 bg-white rounded-xl shadow-2xs flex items-center justify-center shrink-0 border border-slate-200">
+        <div className="w-10 h-10 bg-white rounded-lg shadow-2xs flex items-center justify-center shrink-0 border border-slate-200">
           {content.icon}
         </div>
 
@@ -68,7 +68,7 @@ export default function InlineFilterPrompt({ type }: InlineFilterPromptProps) {
                 <button
                   key={idx}
                   onClick={() => handleOptionClick(value)}
-                  className="px-3 py-1.5 bg-white text-xs font-semibold text-slate-700 rounded-lg border border-slate-200 hover:border-[#002B5B] hover:text-[#002B5B] hover:bg-blue-50/50 transition-colors cursor-pointer shadow-2xs"
+                  className="px-3 py-1.5 bg-white text-xs font-semibold text-slate-700 rounded-lg border border-slate-200 hover:border-primary hover:text-primary hover:bg-blue-50/50 transition-colors cursor-pointer shadow-2xs"
                 >
                   {opt.label}
                 </button>
