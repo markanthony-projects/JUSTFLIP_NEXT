@@ -55,7 +55,7 @@
 //   const [cities, setCities] = useState<any[]>([]);
 //   const [locations, setLocations] = useState<any[]>([]);
 //   const router = useRouter();
-  
+
 //   const steps = ["Personal", "Professional & Firm", "Additional"];
 
 //   const [showSuggestionsIndex, setShowSuggestionsIndex] = useState<number | null>(null);
@@ -226,7 +226,7 @@
 //     setSubmitError("");
 //     try {
 //       const response = await AUTH.post("/portal/broker-register", formData);
-      
+
 //       // Save session in Zustand
 //       if (response.data?.token && response.data?.user) {
 //         setSession(response.data.user, response.data.token, "broker");
@@ -287,7 +287,7 @@
 //     <div className="py-12 px-4 md:px-12 bg-white flex flex-col items-center">
 //       <div className="w-full max-w-4xl">
 //         <div className="md:hidden mb-8 text-center animate-in fade-in slide-in-from-bottom-2 duration-500">
-//           <h1 className="text-3xl font-bold text-[#002B5B] mb-2">Sign Up as Broker</h1>
+//           <h1 className="text-3xl font-bold text-[primary] mb-2">Sign Up as Broker</h1>
 //           <p className="text-sm font-medium text-gray-500">
 //             Already registered? Please{" "}
 //             <Link href="/login" className="text-[#0B8019] underline font-semibold hover:text-green-700">
@@ -297,7 +297,7 @@
 //           </p>            
 //         </div>
 //         <div className="w-full flex justify-between relative px-4 md:px-12 scroll-mt-10" ref={formTopRef}>
-          
+
 //           {/* Background thin line for stepper */}
 //           <div className="absolute top-[17px] left-[10%] right-[10%] h-[2px] bg-[#D9D9D9] z-0" />
 //           <div className="absolute top-[17px] left-[10%] right-[10%] h-[2px] z-0 flex">
@@ -307,7 +307,7 @@
 //           {steps.map((label, index) => {
 //             const isCompleted = index < currentStep;
 //             const isActive = index === currentStep;
-            
+
 //             return (
 //               <div key={index} className="flex flex-col items-center text-center bg-white z-10 px-2 relative">
 //                 <div 
@@ -315,13 +315,13 @@
 //                   ${isCompleted 
 //                     ? "bg-[#0B8019] text-white" 
 //                     : isActive 
-//                       ? "bg-[#D9D9D9] border-2 border-[#0B8019] text-[#002B5B]"
-//                       : "bg-[#D9D9D9] text-[#002B5B]"
+//                       ? "bg-[#D9D9D9] border-2 border-[#0B8019] text-[primary]"
+//                       : "bg-[#D9D9D9] text-[primary]"
 //                   }`}
 //                 >
 //                   {isCompleted ? <FaCheck className="w-4 h-4" /> : index + 1}
 //                 </div>
-//                 <span className={`text-xs lg:text-lg mt-3 font-medium transition-colors duration-300 text-[#002B5B]`}>
+//                 <span className={`text-xs lg:text-lg mt-3 font-medium transition-colors duration-300 text-[primary]`}>
 //                   {label}
 //                 </span>
 //               </div>
@@ -337,7 +337,7 @@
 //               errors={errors} 
 //             />
 //           )}
-          
+
 //           {currentStep === 1 && (
 //             <Step2Professional 
 //               formData={formData}
@@ -377,7 +377,7 @@
 //                 Previous
 //               </button>
 //             )}
-            
+
 //             {currentStep < steps.length - 1 && (
 //               <button
 //                 type="button"
@@ -476,7 +476,7 @@ export default function RegistrationForm() {
   const [cities, setCities] = useState<any[]>([]);
   const [locations, setLocations] = useState<any[]>([]);
   const router = useRouter();
-  
+
   const steps = ["Personal", "Professional & Firm", "Additional"];
 
   const [showSuggestionsIndex, setShowSuggestionsIndex] = useState<number | null>(null);
@@ -532,7 +532,7 @@ export default function RegistrationForm() {
     const target = e.target as HTMLInputElement;
     const { name, value, type, checked } = target;
     if (name === 'missionAndVision') {
-      if (value.length > 500) return; 
+      if (value.length > 500) return;
     }
     if (name === "operation_Areas" && index !== null) {
       const values = [...(formData as any).operation_Areas];
@@ -572,7 +572,7 @@ export default function RegistrationForm() {
         const response = await JUSTFLIP.get("/city");
         setCities(response.data.cities);
         setCityId(response.data?.cities?.[0]?.id);
-      } catch (error) {}
+      } catch (error) { }
     };
     fetchCities();
   }, []);
@@ -592,7 +592,7 @@ export default function RegistrationForm() {
           },
         ],
       }));
-    } catch (error: any) {}
+    } catch (error: any) { }
   };
 
   const handleSubmit = (e: React.FormEvent | React.MouseEvent) => {
@@ -637,11 +637,11 @@ export default function RegistrationForm() {
   };
 
   const handleModalSubmit = async (e?: React.FormEvent | React.MouseEvent) => {
-    if(e) e.preventDefault();
+    if (e) e.preventDefault();
     setSubmitError("");
     try {
       const response = await AUTH.post("/portal/broker-register", formData);
-      
+
       if (response.data?.token && response.data?.user) {
         setSession(response.data.user, response.data.token, "broker");
       }
@@ -704,29 +704,28 @@ export default function RegistrationForm() {
               login
             </Link>{" "}
             here.
-          </p>            
+          </p>
         </div>
 
         {/* Stepper Header */}
         <div className="w-full flex justify-between relative px-4 md:px-12 scroll-mt-2" ref={formTopRef}>
           <div className="absolute top-[10px] left-[5%] right-[10%] h-[2px] bg-slate-200 z-0" />
           <div className="absolute top-[10px] left-[5%] right-[10%] h-[2px] z-0 flex">
-            <div 
-              className={`h-full bg-primary transition-all duration-500`} 
-              style={{ 
-                width: currentStep === 0 ? '0%' : currentStep === 1 ? '50%' : '100%' 
-              }} 
+            <div
+              className={`h-full bg-primary transition-all duration-500`}
+              style={{
+                width: currentStep === 0 ? '0%' : currentStep === 1 ? '50%' : '100%'
+              }}
             />
           </div>
 
           {steps.map((label, index) => {
             const isCompleted = index < currentStep;
             const isActive = index === currentStep;
-            
+
             return (
               <div key={index} className="flex flex-col items-center text-center bg-white z-10 relative">
-                <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
-                     isCompleted ? 'bg-primary text-white' : isActive ? 'bg-primary text-white' : 'bg-slate-200 text-slate-500'}`}
+                <div className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${isCompleted ? 'bg-primary text-white' : isActive ? 'bg-primary text-white' : 'bg-slate-200 text-slate-500'}`}
                 >
                   {isCompleted ? <FaCheck className="w-4 h-4 text-white" /> : index + 1}
                 </div>
@@ -741,15 +740,15 @@ export default function RegistrationForm() {
         {/* Form Content - Seamless Layout */}
         <div className="mt-10 w-full">
           {currentStep === 0 && (
-            <Step1Personal 
-              formData={formData} 
-              handleChange={handleChange} 
-              errors={errors} 
+            <Step1Personal
+              formData={formData}
+              handleChange={handleChange}
+              errors={errors}
             />
           )}
-          
+
           {currentStep === 1 && (
-            <Step2Professional 
+            <Step2Professional
               formData={formData}
               errors={errors}
               handleChange={handleChange}
@@ -768,7 +767,7 @@ export default function RegistrationForm() {
           )}
 
           {currentStep === 2 && (
-            <Step3Additional 
+            <Step3Additional
               formData={formData}
               errors={errors}
               handleChange={handleChange}
@@ -788,7 +787,7 @@ export default function RegistrationForm() {
                 Previous
               </button>
             )}
-            
+
             {currentStep < steps.length - 1 && (
               <button
                 type="button"
@@ -815,10 +814,10 @@ export default function RegistrationForm() {
         </div>
 
         {isModalOpen && (
-          <ReviewModal 
-            isOpen={isModalOpen} 
-            onClose={() => { setIsModalOpen(false); setSubmitError(""); }} 
-            formData={formData} 
+          <ReviewModal
+            isOpen={isModalOpen}
+            onClose={() => { setIsModalOpen(false); setSubmitError(""); }}
+            formData={formData}
             onSubmit={handleModalSubmit}
             error={submitError}
           />

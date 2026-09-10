@@ -100,11 +100,10 @@ export default function Step1GoalHousehold({ data, onChange, onNext }: Step1Prop
                 key={item.id}
                 type="button"
                 onClick={() => onChange({ goal: item.id })}
-                className={`text-left p-6 rounded-lg border-2 transition-all duration-300 relative flex flex-col justify-between group ${
-                  isSelected
-                    ? "border-[#002B5B] bg-gradient-to-br from-slate-50 to-sky-50/30 shadow-md ring-4 ring-[#002B5B]/10 scale-[1.01]"
+                className={`text-left p-6 rounded-lg border-2 transition-all duration-300 relative flex flex-col justify-between group ${isSelected
+                    ? "border-[primary] bg-gradient-to-br from-slate-50 to-sky-50/30 shadow-md ring-4 ring-[primary]/10 scale-[1.01]"
                     : "border-gray-200 hover:border-gray-300 hover:bg-gray-50/50 bg-white shadow-sm"
-                }`}
+                  }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
@@ -138,11 +137,10 @@ export default function Step1GoalHousehold({ data, onChange, onNext }: Step1Prop
                 key={type.id}
                 type="button"
                 onClick={() => onChange({ household: type.id })}
-                className={`w-full text-left p-5 sm:p-6 rounded-lg border-2 transition-all duration-300 relative flex items-center justify-between group ${
-                  isSelected
-                    ? "border-[#002B5B] bg-gradient-to-r from-slate-50 to-sky-50/30 shadow-md ring-4 ring-[#002B5B]/10"
+                className={`w-full text-left p-5 sm:p-6 rounded-lg border-2 transition-all duration-300 relative flex items-center justify-between group ${isSelected
+                    ? "border-[primary] bg-gradient-to-r from-slate-50 to-sky-50/30 shadow-md ring-4 ring-[primary]/10"
                     : "border-gray-200 hover:border-gray-300 hover:bg-gray-50/50 bg-white shadow-sm"
-                }`}
+                  }`}
               >
                 <div className="flex items-start sm:items-center gap-4 w-full">
                   <span className="text-3xl p-3 bg-white rounded-lg shadow-sm border border-gray-100 shrink-0 hidden sm:block">
@@ -178,7 +176,7 @@ export default function Step1GoalHousehold({ data, onChange, onNext }: Step1Prop
         type="button"
         disabled={!isFormValid}
         onClick={onNext}
-        className="w-full py-4 bg-[#002B5B] hover:bg-[#001f42] disabled:bg-gray-100 disabled:text-gray-400 text-white text-base sm:text-lg font-bold rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-3 cursor-pointer disabled:cursor-not-allowed group"
+        className="w-full py-4 bg-[primary] hover:bg-[#001f42] disabled:bg-gray-100 disabled:text-gray-400 text-white text-base sm:text-lg font-bold rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-3 cursor-pointer disabled:cursor-not-allowed group"
       >
         <span>Continue to Step 2</span>
         <span className="text-xl group-hover:translate-x-1 transition-transform">&rarr;</span>
