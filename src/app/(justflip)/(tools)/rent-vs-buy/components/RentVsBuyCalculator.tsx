@@ -107,11 +107,11 @@ export default function RentVsBuyCalculator() {
 
   // SVG Line Chart Dimensions & Coordinate Mapping
   const chartWidth = 520;
-  const chartHeight = 220;
-  const paddingLeft = 65;
+  const chartHeight = 260;
+  const paddingLeft = 72;
   const paddingRight = 20;
-  const paddingTop = 20;
-  const paddingBottom = 30;
+  const paddingTop = 15;
+  const paddingBottom = 25;
 
   const plotWidth = chartWidth - paddingLeft - paddingRight;
   const plotHeight = chartHeight - paddingTop - paddingBottom;
@@ -385,7 +385,7 @@ export default function RentVsBuyCalculator() {
             </div>
 
             {/* Vector Chart */}
-            <div className="w-full aspect-[2/1] min-h-[220px] max-h-[300px]">
+            <div className="w-full aspect-[3/2] min-h-[220px]">
               <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} className="w-full h-full">
                 {/* Horizontal Grid Lines & Y-Axis Labels */}
                 {yTicks.map((ratio) => {

@@ -9,45 +9,51 @@ export default function RegistrationSidebar() {
   ];
 
   return (
-    <div className="hidden md:flex flex-col bg-gradient-to-br from-primary to-[#001B3D] relative overflow-hidden h-full">
-      {/* Soft radial gradient at top right */}
-      <div className="absolute top-[-20%] right-[-20%] w-[300px] h-[300px] rounded-full bg-white/10 blur-3xl mix-blend-screen pointer-events-none" />
-      
+    <div className="hidden md:flex flex-col bg-primary relative overflow-hidden min-h-screen shadow-2xl">
       <div className="pt-10 px-10 relative z-10 flex flex-col flex-grow">
         <div>
+          {/* Back to Home Button */}
           <div className="mb-8">
-            <Link href='/' className="inline-flex items-center py-2 px-4 font-semibold text-white border border-white/20 rounded-md hover:bg-white/10 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3.5 h-3.5 mr-2">
+            <Link 
+              href='/' 
+              className="inline-flex items-center py-2 px-4 text-xs font-semibold text-white bg-blue-900/60 border border-blue-700/50 rounded-xl hover:bg-blue-900 transition-all duration-300 shadow-sm group"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3.5 h-3.5 mr-2 transition-transform duration-300 group-hover:-translate-x-1">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
               </svg>
               Back to Home
             </Link>
           </div>
-          <h1 className="text-3xl font-bold text-white mb-4 leading-tight">Sign Up as<br />Broker</h1>
-          <p className="text-sm font-medium text-gray-300">
+
+          {/* Header Texts */}
+          <h1 className="text-3xl lg:text-4xl font-extrabold text-white mb-3 tracking-tight leading-tight">
+            Sign Up as <br />
+            <span className="text-secondary">Broker</span>
+          </h1>
+          <p className="text-sm font-medium text-slate-200">
             Already registered? Please{" "}
-            <Link href="/login" className="font-semibold text-white underline underline-offset-4 hover:text-gray-200">
+            <Link href="/login" className="font-semibold text-white underline underline-offset-4 hover:text-secondary transition-colors">
               login
-            </Link>{" "}
-          </p>            
+            </Link>
+          </p>
         </div>
 
-        <div className="mt-16 flex flex-col gap-8">
+        {/* Feature List Banner Items */}
+        <div className="mt-12 flex flex-col gap-6">
           {bannerData?.map(item => (
-            <div key={item.id} className="flex gap-4 items-start transition-all duration-300 hover:translate-x-1">
-              <div className="bg-white/15 border border-white/20 rounded-full w-8 h-8 flex items-center justify-center font-semibold text-white text-sm shrink-0">
+            <div 
+              key={item.id} 
+              className="flex gap-4 items-start p-4 rounded-2xl bg-[#002044] border border-blue-800/60 transition-all duration-300 hover:bg-[#001c3b] hover:translate-x-1"
+            >
+              <div className="bg-secondary shadow-md rounded-xl w-9 h-9 flex items-center justify-center font-bold text-slate-950 text-sm shrink-0 mt-3">
                 {item.id}
               </div>
               <div>
-                <p className="text-2xl font-bold text-white mb-1">{item.title}</p>
-                <p className="text-md font-medium text-gray-300 leading-relaxed max-w-[260px]">{item.description}</p>
+                <p className="text-lg font-bold text-white mb-0.5 tracking-wide">{item.title}</p>
+                <p className="text-xs font-normal text-slate-300 leading-relaxed max-w-[260px]">{item.description}</p>
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="mt-auto pt-16">
-          <Logo className="w-28 h-10.5 md:w-32 md:h-12" />
         </div>
       </div>
     </div>

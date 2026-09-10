@@ -188,7 +188,6 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
       {activeModal && (
         <div className="fixed inset-0 h-screen w-screen z-50 flex items-center justify-center bg-black/50 p-3 sm:p-6 backdrop-blur-xs">
           <div className="relative w-full max-w-5xl max-h-[92vh] overflow-y-auto rounded-lg bg-white p-6 sm:p-8 shadow-2xl transition-all duration-300 border border-gray-100">
-
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-6">
               <h3 className="text-xl sm:text-2xl font-bold text-primary">
@@ -210,7 +209,7 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
 
                   {/* Left Column: Inputs & Sliders */}
                   <div className="md:col-span-7 space-y-5">
-                    <div className="rounded-lg bg-primary p-5 text-center text-white shadow-sm">
+                    <div className="rounded-lg bg-[#002B5B] p-5 text-center text-white shadow-sm">
                       <p className="text-xs sm:text-sm uppercase tracking-wide opacity-80 font-medium">Monthly EMI</p>
                       <h2 className="mt-1 text-2xl md:text-4xl font-bold">
                         ₹ {Number(results?.monthlyPayment || 0).toLocaleString("en-IN")}
@@ -296,29 +295,29 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
 
                     {/* View Properties Call-to-Action Box */}
                     <div className="rounded-lg border border-cyan-200 bg-white p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm mt-2">
-                      <div className="flex items-center gap-3 text-left">
-                        <div className="rounded-full bg-cyan-600 p-2.5 text-white shrink-0">
-                          <FiHome className="text-base" />
+                        <div className="flex items-center gap-3 text-left">
+                            <div className="rounded-full bg-cyan-600 p-2.5 text-white shrink-0">
+                                <FiHome className="text-base" />
+                            </div>
+                            <div>
+                                <p className="text-xs font-bold text-gray-900">Found your property value?</p>
+                                <p className="text-xs text-gray-600 font-medium">Browse listings up to ₹{Number(loanAmount || 0).toLocaleString('en-IN')}</p>
+                            </div>
                         </div>
-                        <div>
-                          <p className="text-xs font-bold text-gray-900">Found your property value?</p>
-                          <p className="text-xs text-gray-600 font-medium">Browse listings up to ₹{Number(loanAmount || 0).toLocaleString('en-IN')}</p>
-                        </div>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (onViewProperties) {
-                            onViewProperties(Number(loanAmount));
-                          } else {
-                            window.open(`/search?cityId=${cityId}&maxPrice=${loanAmount}`, '_blank', 'noopener,noreferrer');
-                          }
-                        }}
-                        className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary hover:bg-[#002142] px-4 py-2.5 text-xs font-semibold text-white transition hover:scale-[1.02] active:scale-95 shrink-0 cursor-pointer shadow-sm"
-                      >
-                        <span>View Properties</span>
-                        <FiArrowRight className="text-[10px]" />
-                      </button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                              if (onViewProperties) {
+                                onViewProperties(Number(loanAmount));
+                              } else {
+                                window.open(`/search?cityId=${cityId}&maxPrice=${loanAmount}`, '_blank', 'noopener,noreferrer');
+                              }
+                            }}
+                            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-lg bg-[#002B5B] hover:bg-[#002142] px-4 py-2.5 text-xs font-semibold text-white transition hover:scale-[1.02] active:scale-95 shrink-0 cursor-pointer shadow-sm"
+                        >
+                            <span>View Properties</span>
+                            <FiArrowRight className="text-[10px]" />
+                        </button>
                     </div>
                   </div>
 

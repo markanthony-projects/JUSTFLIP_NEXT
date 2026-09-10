@@ -56,7 +56,7 @@ export default function PriceTrend({ data = [] }: PriceTrendProps) {
 
                             <XAxis dataKey="year" />
 
-                            <YAxis width={50} tick={{ fontSize: 14, fill: "#585858" }} tickFormatter={formatYAxis} axisLine={false} tickMargin={10} />
+                            <YAxis width={55} tick={{ fontSize: 14, fill: "#585858" }} tickFormatter={formatYAxis} axisLine={false} tickMargin={10} />
 
                             <CartesianGrid strokeDasharray="3 3" vertical={false} />
                             <Tooltip content={<CustomTooltip />} />
