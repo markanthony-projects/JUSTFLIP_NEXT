@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { ConverterCategory, DEFAULT_AREA_FROM, DEFAULT_AREA_TO, DEFAULT_LENGTH_FROM, DEFAULT_LENGTH_TO } from '../data/standardUnit';
 import { convertUnit, formatREsult, getUnitsCategory, isValidNumericInput, resolveSafeUnitKey } from '../utils/converter';
 import Image from 'next/image'
@@ -13,11 +13,14 @@ import {
     FiInfo,
     FiRefreshCw,
 } from 'react-icons/fi'
+import { TbArrowsExchange2 } from "react-icons/tb";
+
 import { PiCalculator } from "react-icons/pi";
 import Breadcrumb from '@/src/components/organisms/breadCrumb';
 import CustomDropDown from './CustomDropDown';
-import ConversionLinks from './ConversionLinks';
 import { INDIAN_STATES_AND_UTS } from '../data/states';
+import ConversionLists from './ConversionLists';
+import DecorationImage from './DecorationImage';
 
 type UnitConverterProps = {
   initialCategory?: ConverterCategory;
@@ -128,29 +131,19 @@ const UnitConverter = ({
     }
 
   return (
-    <section className='mb-20 sm:mb-30 mt-2'>
+    <section className='mt-2'>
 
       <Breadcrumb items={breadcrumbItems} /> 
       
-      <div className='w-screen overflow-hidden px-4 py-6 sm:pt-0 sm:px-6 md:px-10 lg:px-12 sm:mt-2'>
-
-        <div className='pointer-events-none absolute inset-x-0 top-40 sm:top-35 h-110 overflow-hidden bg-linear-to-r from-[#f1f6fc] via-white to-[#f1f6fc]'>
-
-          <Image src='/banners/calculator.svg'   
-            alt=""
-            aria-hidden="true"
-            width={500}
-            height={240}
-            className='absolute right-25 top-1/2 hidden w-[520px] -translate-y-1/2 opacity-90 lg:block xl:w-[650px]'
-          />
-        </div>
+      <div className='overflow-hidden pt-6 sm:pt-0 sm:mt-2'>
         
+        <DecorationImage/>        
 
         {/* main content */}
-        <div className='sm:ml-20 relative  w-full max-w-md'>
+        <div className='relative w-[calc(100vw-33px)] ml-30 sm:w-full max-w-md'>
 
           {/* -------------------------------------------- */}
-          <div className='overflow-hidden rounded-lg border-2 border-[#e1e8f2] bg-white shadow-[0_20px_60px_rgba(0,43,91,0.10)]'>
+          <div className='overflow-hidden rounded-lg border-t-2 border-b-2 border-[#e1e8f2] bg-white shadow-[0_2px_10px_rgba(0,3,91,0.10)]'>
             
             {/* -----------------header----------------------- */}
             <div className='flex items-center justify-between border-b border-[#e8edf4] px-5 py-4 md:px-7'>
@@ -188,20 +181,22 @@ const UnitConverter = ({
             {/* --------form---------------- */}
             <div className='space-y-6 px-5 py-4 md:px-7 md:space-y-4'>
 
-              <div>
-                <label htmlFor="" className='mb-0.5 block text-[13px] font-bold text-[#27364b] uppercase'>select state</label>
-                <CustomDropDown value={state}
-                    onChange={(state) =>{
-                      setState(state)
-                    }} 
-                    options={states}
+              <div className='rounded-lg border border-gray-200 bg-white text-left shadow-sm'>
+                <label htmlFor="" className='ml-1 block text-[9px] font-bold text-primary uppercase'>select state</label>
+                <CustomDropDown 
+                  searchIcon={true}
+                  value={state}
+                  onChange={(state) =>{
+                    setState(state)
+                  }} 
+                  options={states}
                 />
               </div>
               
-              <div>
-                <label htmlFor="" className='mb-0.5 block text-[13px] font-bold text-[#27364b] uppercase'>
+              <div className='rounded-lg border border-gray-200 bg-white text-left shadow-sm'>
+                {/* <label htmlFor="" className='ml-1 block text-[9px] font-bold text-primary uppercase'>
                   conversion type
-                </label>
+                </label> */}
 
                 <div className='grid grid-cols-2 gap-1 rounded-lg border border-[#e0e7f0] bg-[#f8fafd] p-0.5'>
                   { [ { value: 'area', label: 'Area',}, { value: 'length', label: 'Length',} ].map((item) => (
@@ -228,8 +223,8 @@ const UnitConverter = ({
               </div>
 
               {/* -----------input--------------------- */}
-              <div>
-                <label htmlFor="" className='mb-0.5 block text-[13px] font-bold text-[#27364b] uppercase'>enter value</label>
+              <div className='rounded-lg border border-gray-200 bg-white text-left shadow-sm'>
+                {/* <label htmlFor="" className='ml-0.5 block text-[10px] font-bold text-primary uppercase'>enter value</label> */}
                 
                 <div className='flex items-center overflow-hidden rounded-lg border border-[#d9e2ef] bg-white transition-all 
                   duration-200 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10'>
@@ -266,14 +261,16 @@ const UnitConverter = ({
                 </div>
               </div>
 
-              <div>
-
-                <div className='flex gap-3 flex-row items-end justify-center'>
-                  <div className='min-w-0 flex-1'>
-                    <p className='ml-2 text-[11px] font-bold uppercase tracking-[0.08em] text-slate-700'>
+              <div className='w-full max-w-xl mx-auto'>
+                <div className='flex flex-row items-center justify-center'>
+ 
+                  <div className='min-w-0 flex-1 rounded-lg border border-gray-200 bg-white text-left shadow-sm'>
+                    <p className='ml-2 text-[9px] font-bold uppercase tracking-[0.08em] text-primary'>
                       from
                     </p>
-                    <CustomDropDown value={safeFrom} 
+                    <CustomDropDown 
+                      searchIcon={false}
+                      value={safeFrom} 
                       onChange={(nextFrom) =>{
                         setFromKey(nextFrom)
 
@@ -288,16 +285,18 @@ const UnitConverter = ({
                       onClick={swapUnits}
                       aria-label="Swap from and to units"
                       title="Swap units"
-                      className='flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-3 border-white bg-[#f4f8fd] text-primary transition-all duration-200 hover:border-[#9db5d3] hover:bg-[#eaf1fa] active:scale-90 md:self-end shadow-md shadow-[#cbd9eb]
-                      '>
-                        <span className="text-lg font-bold"> ⇄ </span>
+                      className='flex h-7 w-11 shrink-0 items-center justify-center rounded-lg border-3 border-white bg-primary text-primary transition-all duration-200 hover:border-primary hover:bg-primary/20 active:scale-90 md:self-end shadow-md shadow-[#cbd9eb]
+                      relative z-120 -mx-2 mb-1.5'
+                  >
+                        <span className="text-lg font-extrabold text-white hover:text-primary"> <TbArrowsExchange2 size={18}/> </span>
                   </button>
 
-                  <div className='min-w-0 flex-1'>
-                      <p className='mb-0.5 text-[11px] font-bold uppercase tracking-[0.08em] text-slate-700'>
+                  <div className='min-w-0 flex-1 rounded-lg border border-gray-200 bg-white text-left shadow-sm'>
+                      <p className='ml-2 text-[9px] font-bold uppercase tracking-[0.08em] text-slate-700'>
                         To
                       </p>
                       <CustomDropDown
+                        searchIcon={false}
                         value={safeTo}
                         onChange={(nextTo)=>{
                           setToKey(nextTo)
@@ -310,6 +309,7 @@ const UnitConverter = ({
                       />
                   </div>
                 </div>
+
               </div>
             </div>
 
@@ -360,9 +360,9 @@ const UnitConverter = ({
                 </div>
                   
                   ) :
-                  (<div className='flex items-center gap-2 text-sm text-slate-700 font-medium' >
+                  (<div className='flex items-center justify-between gap-2 text-sm text-slate-700 font-medium' >
+                    <p> Enter a value</p>
                     <FiInfo size={15}/>
-                    Enter a value and click Convert
                   </div>)
                 }
             </div>
@@ -373,9 +373,13 @@ const UnitConverter = ({
         </div>
       </div>
 
-      <ConversionLinks/>
+      <div className='mt-3'>
+        <ConversionLists/>
+      </div>
+
     </section>
   )
 }
+
 
 export default UnitConverter
