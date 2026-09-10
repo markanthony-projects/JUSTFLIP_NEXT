@@ -102,14 +102,14 @@ const ProfileClient = () => {
 
       <div className='grid grid-flow-col grid-cols-2 lg:grid-cols-3 justify-stretch'>
         <div
-          className='grid col-span-2 bg-white rounded-xl justify-stretch p-4'
+          className='grid col-span-2 bg-white rounded-lg justify-stretch p-4'
           style={{ boxShadow: '2px 1px 13px 0px #a8a7a787' }}
         >
           {/* container for the first box containing the user name and email address and the edit button */}
           <div className='grid grid-cols-1 sm:grid-cols-[auto, 1fr] items-center justify-between w-full border-b-2 gap-4'>
             {/* the hero icon with naming initials */}
             <div className='hidden md:block'>
-              <div className='flex items-center justify-center w-[64px] h-[64px] sm:w-[84px] sm:h-[84px] rounded-full bg-blue-100 text-[#002B5B] text-shadow-xs text-shadow-[#002B5B] text-2xl sm:text-3xl font-bold border border-[#002B5B] shadow-sm shadow-[#002B5B]'>
+              <div className='flex items-center justify-center w-[64px] h-[64px] sm:w-[84px] sm:h-[84px] rounded-full bg-blue-100 text-primary text-shadow-xs text-shadow-primary text-2xl sm:text-3xl font-bold border border-primary shadow-sm shadow-primary'>
                 {user?.name ? initials : 'N.A.'}
               </div>
             </div>
@@ -137,13 +137,13 @@ const ProfileClient = () => {
                 }
                 className='flex gap-1 mr-0 sm:mr-4
                           mt-2 sm:mt-0 sm:ml-4 
-                          text-[#002B5B] 
+                          text-primary 
                           font-normal sm:font-bold 
                           text-sm sm:text-base 
                           cursor-pointer 
                           border rounded-lg border-[#v002B5B] 
                           px-3 py-1 
-                          hover:bg-[#002B5B] hover:text-white 
+                          hover:bg-primary hover:text-white 
                           transition
                           '
               >
@@ -159,7 +159,7 @@ const ProfileClient = () => {
           <div className='my-4'>
             <label
               htmlFor='E-mail'
-              className='block text-base font-medium text-[#002B5B]'
+              className='block text-base font-medium text-primary'
             >
               E-mail ID
             </label>
@@ -178,13 +178,13 @@ const ProfileClient = () => {
                 }
                 className='flex gap-1 mr-0 sm:mr-4
                           mt-2 sm:mt-0 sm:ml-4 
-                          text-[#002B5B] 
+                          text-primary 
                           font-normal sm:font-bold 
                           text-sm sm:text-base 
                           cursor-pointer 
-                          border rounded-lg border-[#002B5B] 
+                          border rounded-lg border-primary 
                           px-2 py-1 
-                          hover:bg-[#002B5B] hover:text-white 
+                          hover:bg-primary hover:text-white 
                           transition
                           '
               >
@@ -200,7 +200,7 @@ const ProfileClient = () => {
           <div className='my-4'>
             <label
               htmlFor='Phone'
-              className='block text-base font-medium text-[#002B5B]'
+              className='block text-base font-medium text-primary'
             >
               Phone Number
             </label>
@@ -220,13 +220,13 @@ const ProfileClient = () => {
                 }
                 className='flex gap-1 mr-0 sm:mr-4
                           mt-2 sm:mt-0 sm:ml-4 
-                          text-[#002B5B] 
+                          text-primary 
                           font-normal sm:font-bold 
                           text-sm sm:text-base 
                           cursor-pointer 
-                          border rounded-lg border-[#002B5B] 
+                          border rounded-lg border-primary 
                           px-2 py-1 
-                          hover:bg-[#002B5B] hover:text-white 
+                          hover:bg-primary hover:text-white 
                           transition
                           '
               >

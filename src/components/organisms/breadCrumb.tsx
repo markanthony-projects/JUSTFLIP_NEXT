@@ -13,7 +13,7 @@ export interface BreadcrumbProps {
     zTop?: boolean;
 }
 
-export default function Breadcrumb({ items = [], color = "#002B5B", zTop = false }: BreadcrumbProps) {
+export default function Breadcrumb({ items = [], color = "primary", zTop = false }: BreadcrumbProps) {
     const schemaItems = [{ label: "Home", href: "/" }, ...items];
     const breadcrumbSchema = buildBreadcrumbSchema(schemaItems);
 

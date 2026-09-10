@@ -287,7 +287,7 @@ export default function RegistrationForm() {
     <div className="py-12 px-4 md:px-12 bg-white flex flex-col items-center">
       <div className="w-full max-w-4xl">
         <div className="md:hidden mb-8 text-center animate-in fade-in slide-in-from-bottom-2 duration-500">
-          <h1 className="text-3xl font-bold text-[#002B5B] mb-2">Sign Up as Broker</h1>
+          <h1 className="text-3xl font-bold text-primary mb-2">Sign Up as Broker</h1>
           <p className="text-sm font-medium text-gray-500">
             Already registered? Please{" "}
             <Link href="/login" className="text-[#0B8019] underline font-semibold hover:text-green-700">
@@ -315,13 +315,13 @@ export default function RegistrationForm() {
                   ${isCompleted 
                     ? "bg-[#0B8019] text-white" 
                     : isActive 
-                      ? "bg-[#D9D9D9] border-2 border-[#0B8019] text-[#002B5B]"
-                      : "bg-[#D9D9D9] text-[#002B5B]"
+                      ? "bg-[#D9D9D9] border-2 border-[#0B8019] text-primary"
+                      : "bg-[#D9D9D9] text-primary"
                   }`}
                 >
                   {isCompleted ? <FaCheck className="w-4 h-4" /> : index + 1}
                 </div>
-                <span className={`text-xs lg:text-lg mt-3 font-medium transition-colors duration-300 text-[#002B5B]`}>
+                <span className={`text-xs lg:text-lg mt-3 font-medium transition-colors duration-300 text-primary`}>
                   {label}
                 </span>
               </div>
@@ -329,7 +329,7 @@ export default function RegistrationForm() {
           })}
         </div>
 
-        <form className="mt-12 rounded-xl p-6 md:p-8 border border-gray-100 bg-white shadow-[0_4px_24px_rgb(0,0,0,0.03)] w-full">
+        <form className="mt-12 rounded-lg p-6 md:p-8 border border-gray-100 bg-white shadow-[0_4px_24px_rgb(0,0,0,0.03)] w-full">
           {currentStep === 0 && (
             <Step1Personal 
               formData={formData} 

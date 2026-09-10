@@ -5,7 +5,7 @@ import { SkeletonBlock } from "./SkeletonSection";
 export default function CallbackFormSkeleton() {
   return (
     <div
-      className="bg-white rounded-xl p-4 md:p-6 lg:p-8 animate-pulse"
+      className="bg-white rounded-lg p-4 md:p-6 lg:p-8 animate-pulse"
       style={{ boxShadow: "0px 0px 10px 1px #dad6d6" }}
     >
 

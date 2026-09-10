@@ -37,7 +37,7 @@ export default function Review() {
       <div className="lg:col-span-2 w-full">
         {isSubmitted ? (
           <div className="bg-white p-8 md:p-12 rounded-lg border border-gray-100 shadow-sm text-center">
-            <div className="w-16 h-16 bg-[#002B5B] text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+            <div className="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
               ✓
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">Review Submitted!</h3>
@@ -47,7 +47,7 @@ export default function Review() {
             <button
               type="button"
               onClick={handleReset}
-              className="px-6 py-3 bg-[#002B5B] hover:bg-[#002B5B] text-white font-semibold text-sm rounded-xl transition-all shadow-sm"
+              className="px-6 py-3 bg-primary hover:bg-primary text-white font-semibold text-sm rounded-lg transition-all shadow-sm"
             >
               Write Another Review
             </button>

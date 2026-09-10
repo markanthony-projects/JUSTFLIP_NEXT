@@ -43,12 +43,12 @@ const PrivacyPolicy = () => {
             <Breadcrumb items={breadcrumbItems} />
 
             {/* Hero Header */}
-            <header className='mt-6 flex min-h-[170px] flex-col items-center justify-center rounded-2xl bg-[#EAF3FA] px-6 py-5 text-center'>
-                <div className='mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-sm'>
-                    <SiGnuprivacyguard aria-hidden="true" size={28} className='text-[#002B5B]' />
+            <header className='mt-6 flex min-h-[170px] flex-col items-center justify-center rounded-lg bg-[#EAF3FA] px-6 py-5 text-center'>
+                <div className='mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-white shadow-sm'>
+                    <SiGnuprivacyguard aria-hidden="true" size={28} className='text-primary' />
                 </div>
 
-                <h1 className='text-2xl font-bold tracking-tight text-[#002B5B] sm:text-3xl'>
+                <h1 className='text-2xl font-bold tracking-tight text-primary sm:text-3xl'>
                     {privacyPolicy.title}
                 </h1>
 
@@ -65,10 +65,10 @@ const PrivacyPolicy = () => {
             </header>
 
             {/* Introduction */}
-            <section className='mt-10 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
+            <section className='mt-10 rounded-lg border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
                 <div className='flex items-start gap-4'>
                     <div className='mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#EAF3FA]'>
-                        <FiShield aria-hidden="true" className='text-[#002B5B]' size={19} />
+                        <FiShield aria-hidden="true" className='text-primary' size={19} />
                     </div>
 
                     <div className='text-[10px] leading-6 text-gray-700 sm:text-[12px]'>
@@ -93,12 +93,12 @@ const PrivacyPolicy = () => {
                 >
                     {/* Section Header */}
                     <div className='flex items-start gap-4'>
-                        <span className='flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#EAF3FA] text-sm font-bold text-[#002B5B]'>
+                        <span className='flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#EAF3FA] text-sm font-bold text-primary'>
                         {section.number}
                         </span>
 
                         <div className='min-w-0 flex-1'>
-                        <h2 className='text-lg font-semibold text-[#002B5B] sm:text-xl'>
+                        <h2 className='text-lg font-semibold text-primary sm:text-xl'>
                             {section.title}
                         </h2>
 
@@ -123,7 +123,7 @@ const PrivacyPolicy = () => {
                                 <FiArrowRight
                                     aria-hidden="true"
                                     size={15}
-                                    className='mt-1.5 shrink-0 text-[#002B5B]'
+                                    className='mt-1.5 shrink-0 text-primary'
                                 />
 
                                 <span>{item}</span>
@@ -138,7 +138,7 @@ const PrivacyPolicy = () => {
                             {section.subsections!.map(
                                 (subsection, subsectionIndex) => (
                                 <div key={subsectionIndex}>
-                                    <h3 className='text-lg font-semibold text-[#002B5B]'>
+                                    <h3 className='text-lg font-semibold text-primary'>
                                         {subsection.title}
                                     </h3>
 
@@ -163,7 +163,7 @@ const PrivacyPolicy = () => {
                                             <FiArrowRight
                                                 aria-hidden="true"
                                                 size={17}
-                                                className='mt-1.5 shrink-0 text-[#002B5B]'
+                                                className='mt-1.5 shrink-0 text-primary'
                                             />
                                             <span>{item}</span>
                                         </li>
@@ -189,8 +189,8 @@ const PrivacyPolicy = () => {
             </div>
 
             {/* Contact Card */}
-            <section className='mt-8 rounded-2xl border border-[#D8E4EE] bg-[#EAF3FA] p-6 text-center sm:p-8'>
-                <h3 className='text-lg font-semibold text-[#002B5B]'>
+            <section className='mt-8 rounded-lg border border-[#D8E4EE] bg-[#EAF3FA] p-6 text-center sm:p-8'>
+                <h3 className='text-lg font-semibold text-primary'>
                     Questions about your privacy?
                 </h3>
 
@@ -201,7 +201,7 @@ const PrivacyPolicy = () => {
 
                 <a
                     href='mailto:support@justflip.in'
-                    className='mt-4 inline-flex items-center gap-2 font-medium text-[#002B5B] transition-colors hover:text-[#001F42] hover:underline'
+                    className='mt-4 inline-flex items-center gap-2 font-medium text-primary transition-colors hover:text-[#001F42] hover:underline'
                 >
                     <FiMail aria-hidden="true" size={16} />
                     support@justflip.in

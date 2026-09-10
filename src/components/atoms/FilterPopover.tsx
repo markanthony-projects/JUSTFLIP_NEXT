@@ -136,7 +136,7 @@ const FilterPopover = ({
             <button
                 onClick={() => setOpen((prev) => !prev)}
                 className={`flex items-center justify-between gap-1 border transition
-                    ${active ? "border-[#002a5b67] text-[#002B5B] bg-[#74b5ff3f]" : "border-gray-300"}
+                    ${active ? "border-[#002a5b67] text-primary bg-[#74b5ff3f]" : "border-gray-300"}
                     ${buttonClass}`}
             >
                 {buttonPrefixIcon}
@@ -146,7 +146,7 @@ const FilterPopover = ({
                 </span> */}
 
                 {showDropdownArrow && <svg
-                    className={`w-3 h-3 transition-transform ${open ? "rotate-180 text-[#002B5B]" : ""
+                    className={`w-3 h-3 transition-transform ${open ? "rotate-180 text-primary" : ""
                         }`}
                     fill="none"
                     stroke="currentColor"

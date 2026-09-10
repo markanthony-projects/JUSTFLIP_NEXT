@@ -3,7 +3,7 @@ import { memo } from "react";
 
 const TabSkeleton = () => {
   return (
-    <div className="flex-1 px-2 py-2 border border-gray-300 rounded-xl min-w-40 flex gap-3 items-center">
+    <div className="flex-1 px-2 py-2 border border-gray-300 rounded-lg min-w-40 flex gap-3 items-center">
       <SkeletonBlock className="w-10 h-10 rounded-md" />
 
       <div className="space-y-2">

@@ -272,7 +272,7 @@ const RatingCardClient = ({ data: initialData = {}, trendData = [], type, typeId
                         <p className="text-xs font-bold text-[#3752A6]">{item?.unitType}</p>
                         <span className="text-lg font-bold text-gray-900">{price}</span>
                         <button
-                          className="text-xs font-medium text-[#002B5B] flex items-center gap-1.5 pt-1 hover:scale-101"
+                          className="text-xs font-medium text-primary flex items-center gap-1.5 pt-1 hover:scale-101"
                           aria-label={`View ${item?.count} properties`}
                         >
                           Total {item?.count} Properties
@@ -281,7 +281,7 @@ const RatingCardClient = ({ data: initialData = {}, trendData = [], type, typeId
                       </div>
 
                       <div className="bg-white border border-gray-200 rounded-full p-2.5 shadow-sm hover:scale-101">
-                        <TbBuildingBank className="text-[#002B5B] text-2xl" />
+                        <TbBuildingBank className="text-primary text-2xl" />
                       </div>
                     </div>
                   );

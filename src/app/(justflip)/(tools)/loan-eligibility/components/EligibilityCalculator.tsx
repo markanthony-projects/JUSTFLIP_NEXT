@@ -92,7 +92,7 @@ export default function EligibilityCalculator() {
         <div className="space-y-4 sm:space-y-5">
           <div className="flex items-center gap-3 sm:gap-4">
             <div className="shrink-0 rounded-full bg-gray-100 p-2.5 sm:p-3">
-              <CiWallet className="text-2xl sm:text-3xl md:text-4xl text-[#002B5B]" />
+              <CiWallet className="text-2xl sm:text-3xl md:text-4xl text-primary" />
             </div>
             <div>
               <h1 className="text-base sm:text-lg font-semibold leading-tight">Home Loan Eligibility Calculator</h1>
@@ -100,7 +100,7 @@ export default function EligibilityCalculator() {
             </div>
           </div>
 
-          <div className="rounded-lg bg-[#002B5B] p-4 sm:p-5 md:p-6 text-center text-white">
+          <div className="rounded-lg bg-primary p-4 sm:p-5 md:p-6 text-center text-white">
             <p className="text-xs sm:text-sm uppercase tracking-wide opacity-80">Maximum Loan Limit</p>
             <h2 className="mt-2 text-xl md:text-4xl font-bold break-words leading-tight">
               ₹ {maxLoanNum.toLocaleString("en-IN")}
@@ -119,7 +119,7 @@ export default function EligibilityCalculator() {
             </div>
             <Link
               href={`/search?maxPrice=${maxLoanNum}`}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#002B5B] px-5 py-2.5 text-xs sm:text-sm font-semibold text-white transition hover:bg-opacity-90 shrink-0"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-xs sm:text-sm font-semibold text-white transition hover:bg-opacity-90 shrink-0"
             >
               <span>View Properties</span>
               <FaArrowRight className="text-xs" />
@@ -136,7 +136,7 @@ export default function EligibilityCalculator() {
                 type="text"
                 value={"₹ " + (monthlyIncome ? Number(monthlyIncome).toLocaleString("en-IN") : "0")}
                 onChange={handleIncomeChange}
-                className="w-full bg-transparent text-center text-lg md:text-2xl font-bold text-[#002B5B] focus:outline-none"
+                className="w-full bg-transparent text-center text-lg md:text-2xl font-bold text-primary focus:outline-none"
               />
             </div>
 
@@ -149,7 +149,7 @@ export default function EligibilityCalculator() {
                 type="text"
                 value={"₹ " + (existingEmi ? Number(existingEmi).toLocaleString("en-IN") : "0")}
                 onChange={handleEmiChange}
-                className="w-full bg-transparent text-center text-lg md:text-2xl font-bold text-[#002B5B] focus:outline-none"
+                className="w-full bg-transparent text-center text-lg md:text-2xl font-bold text-primary focus:outline-none"
               />
             </div>
           </div>

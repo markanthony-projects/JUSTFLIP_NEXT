@@ -87,10 +87,10 @@ export default function UnitRow({ product, getCurrencySymbol, onView }: { produc
       <button
         type="button"
         onClick={onView}
-        className="w-full border-t border-slate-100 px-5 py-3 flex items-center justify-between text-[#002B5B] transition-colors text-left group/btn relative z-10 cursor-pointer"
+        className="w-full border-t border-slate-100 px-5 py-3 flex items-center justify-between text-primary transition-colors text-left group/btn relative z-10 cursor-pointer"
       >
         <div className="flex items-center gap-2 font-semibold text-xs sm:text-sm">
-          <div className="w-6 h-6 rounded-full bg-[#002B5B]/10 flex items-center justify-center text-[#002B5B] group-hover/btn:bg-[#002B5B] group-hover/btn:text-white transition-colors">
+          <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover/btn:bg-primary group-hover/btn:text-white transition-colors">
             <svg
               className="w-3.5 h-3.5"
               fill="none"
@@ -109,7 +109,7 @@ export default function UnitRow({ product, getCurrencySymbol, onView }: { produc
         </div>
 
         <svg
-          className="w-4 h-4 text-[#002B5B] transform group-hover/btn:translate-x-1 transition-transform"
+          className="w-4 h-4 text-primary transform group-hover/btn:translate-x-1 transition-transform"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

@@ -19,7 +19,7 @@ export default function HeaderTop({ data, bannerImage , zone=false }: { data?: a
   return (
     <div>
       <div className="grid grid-flow-col justify-between items-end relative space-y-2">
-        <div className="p-1 lg:text-[36px] text-2xl text-[#002B5B] font-bold tracking-tight">
+        <div className="p-1 lg:text-[36px] text-2xl text-primary font-bold tracking-tight">
           {entityTitle || <SkeletonBlock className="h-[36px] w-40" />}
         </div>
         <div className="relative w-[180px] h-[60px] md:w-[300px] md:h-[100px] flex-shrink-0">

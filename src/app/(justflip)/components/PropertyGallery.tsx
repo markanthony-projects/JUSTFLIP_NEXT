@@ -164,7 +164,7 @@ export default function PropertyGallery({
                     <div className="flex items-center justify-between gap-3 mb-4">
                         <div>
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#002B5B] flex items-center justify-center shadow-xs">
+                                <div className="w-8 h-8 rounded-lg bg-blue-50 text-primary flex items-center justify-center shadow-xs">
                                     <MdOutlinePhotoLibrary size={18} />
                                 </div>
                                 <h2 className="section-heading tracking-tight">
@@ -191,7 +191,7 @@ export default function PropertyGallery({
                     <div className="flex items-center justify-between gap-3 mb-4">
                         <div>
                             <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-lg bg-blue-50 text-[#002B5B] flex items-center justify-center shadow-xs">
+                                <div className="w-8 h-8 rounded-lg bg-blue-50 text-primary flex items-center justify-center shadow-xs">
                                     <MdOutlinePhotoLibrary size={18} />
                                 </div>
                                 <h2 className="section-heading tracking-tight">
@@ -203,7 +203,7 @@ export default function PropertyGallery({
                         {totalImages > 0 && (
                             <div className="flex items-center shrink-0">
                                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-semibold">
-                                    <FiCamera className="text-[#002B5B]" size={13} />
+                                    <FiCamera className="text-primary" size={13} />
                                     {totalImages} {totalImages === 1 ? "Photo" : "Photos"}
                                 </span>
                             </div>
@@ -314,7 +314,7 @@ export default function PropertyGallery({
                                                 aria-label={isLastAndMore ? `View all ${totalImages} photos` : `View image ${index + 1}`}
                                                 className={`relative shrink-0 cursor-pointer rounded-lg overflow-hidden transition-all duration-300 w-24 sm:w-28 md:w-32 lg:w-full h-18 sm:h-20 lg:h-[98px] group/thumb ${
                                                     isActive
-                                                        ? "ring-2 ring-[#002B5B] ring-offset-2 shadow-md opacity-100 scale-[0.99]"
+                                                        ? "ring-2 ring-primary ring-offset-2 shadow-md opacity-100 scale-[0.99]"
                                                         : "opacity-75 hover:opacity-100 hover:scale-[1.02] border border-gray-200"
                                                 }`}
                                             >
@@ -327,7 +327,7 @@ export default function PropertyGallery({
                                                 
                                                 {/* Active Tag Indicator */}
                                                 {isActive && !isLastAndMore && (
-                                                    <div className="absolute inset-0 bg-[#002B5B]/15 border border-[#002B5B]/30 rounded-lg pointer-events-none" />
+                                                    <div className="absolute inset-0 bg-primary/15 border border-primary/30 rounded-lg pointer-events-none" />
                                                 )}
 
                                                 {/* +N More Overlay if more than 6 photos exist */}
@@ -352,7 +352,7 @@ export default function PropertyGallery({
                                 <button
                                     type="button"
                                     onClick={() => setIsLightboxOpen(true)}
-                                    className="hidden lg:flex mt-2.5 w-full items-center justify-center gap-2 py-2 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 text-[#002B5B] border border-gray-200 text-xs font-semibold transition-colors duration-200 cursor-pointer shadow-xs hover:shadow-sm"
+                                    className="hidden lg:flex mt-2.5 w-full items-center justify-center gap-2 py-2 px-4 rounded-lg bg-gray-50 hover:bg-gray-100 text-primary border border-gray-200 text-xs font-semibold transition-colors duration-200 cursor-pointer shadow-xs hover:shadow-sm"
                                 >
                                     <FiMaximize2 size={13} />
                                     <span>View All {totalImages} Photos in Fullscreen</span>

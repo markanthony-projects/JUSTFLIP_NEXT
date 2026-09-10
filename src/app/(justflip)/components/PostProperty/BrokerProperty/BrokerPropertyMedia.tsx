@@ -33,15 +33,15 @@ const UploadZone: React.FC<UploadZoneProps> = ({ category, onUpload }) => (
             onChange={(e) => onUpload(category.name, category.multiple, e.target.files)}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
         />
-        <div className="w-full py-7 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50 flex flex-col items-center justify-center gap-2 group-hover:border-[#002B5B] group-hover:bg-blue-50/30 transition-all duration-300">
+        <div className="w-full py-7 border-2 border-dashed border-slate-200 rounded-lg bg-slate-50 flex flex-col items-center justify-center gap-2 group-hover:border-primary group-hover:bg-blue-50/30 transition-all duration-300">
             {category.isUploading ? (
                 <div className="flex justify-center items-center h-20">
-                    <span className="text-sm font-semibold text-[#002B5B] animate-pulse">Uploading…</span>
+                    <span className="text-sm font-semibold text-primary animate-pulse">Uploading…</span>
                 </div>
             ) : (
                 <>
-                    <IoCloudUploadOutline className="text-3xl text-slate-400 group-hover:text-[#002B5B] transition-colors" />
-                    <span className="text-sm font-semibold text-slate-500 group-hover:text-[#002B5B]">Click to browse files</span>
+                    <IoCloudUploadOutline className="text-3xl text-slate-400 group-hover:text-primary transition-colors" />
+                    <span className="text-sm font-semibold text-slate-500 group-hover:text-primary">Click to browse files</span>
                     <span className="text-[11px] text-slate-400">
                         {category.type === 'image' ? 'JPG, PNG, WEBP' : 'MP4, MOV, AVI'}
                         {category.multiple ? ' • Multiple allowed' : ' • Single file'}
@@ -66,8 +66,8 @@ interface MediaCardProps {
 }
 
 const MediaCard: React.FC<MediaCardProps> = ({ file, onRemove, onAltChange }) => (
-    <div className="bg-white flex gap-2 border border-slate-200 w-full rounded-xl shadow-sm">
-        <div className="relative h-36 bg-slate-100 rounded-xl overflow-hidden m-2 w-36 shrink-0">
+    <div className="bg-white flex gap-2 border border-slate-200 w-full rounded-lg shadow-sm">
+        <div className="relative h-36 bg-slate-100 rounded-lg overflow-hidden m-2 w-36 shrink-0">
             {file.type === "video" ? (
                 <video src={file.url} controls className="w-full h-full object-cover" />
             ) : (
@@ -83,7 +83,7 @@ const MediaCard: React.FC<MediaCardProps> = ({ file, onRemove, onAltChange }) =>
                     placeholder="e.g. Living Room, Main Entrance"
                     value={file.alt}
                     onChange={(e) => onAltChange(e.target.value)}
-                    className="w-full p-2 border border-slate-100 rounded-lg text-xs focus:outline-none focus:border-[#002B5B] bg-slate-50 transition-colors"
+                    className="w-full p-2 border border-slate-100 rounded-lg text-xs focus:outline-none focus:border-primary bg-slate-50 transition-colors"
                 />
             </div>
         </div>
@@ -119,9 +119,9 @@ const BrokerPropertyMedia: React.FC<BrokerPropertyMediaProps> = ({
         <div className="space-y-8">
             {/* Standard media categories */}
             {MEDIA_CATEGORIES.map((cat) => (
-                <div key={cat.name} className="p-5 rounded-2xl border border-slate-100 bg-slate-50/50 space-y-4">
+                <div key={cat.name} className="p-5 rounded-lg border border-slate-100 bg-slate-50/50 space-y-4">
                    <div className="flex items-start gap-2">
-                <BiGridAlt className="text-[#002B5B] text-xl mt-0.5 shrink-0" />
+                <BiGridAlt className="text-primary text-xl mt-0.5 shrink-0" />
                
                     <div className="flex flex-col gap-1">
                         <label className="text-sm font-bold text-slate-800 tracking-tight">{cat.label}</label>

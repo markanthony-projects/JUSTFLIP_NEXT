@@ -66,7 +66,7 @@ export default function MediaGallery({ isOpen, onClose, project, modalType = "im
     if (!isOpen) return null;
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose} maxWidth='max-w-[310px] sm:max-w-[420px] md:max-w-2xl lg:max-w-4xl xl:max-w-5xl' className="bg-white/10 backdrop-blur-xl border border-white/20 shadow-xl rounded-2xl p-2 md:p-4">
+        <Modal isOpen={isOpen} onClose={onClose} maxWidth='max-w-[310px] sm:max-w-[420px] md:max-w-2xl lg:max-w-4xl xl:max-w-5xl' className="bg-white/10 backdrop-blur-xl border border-white/20 shadow-xl rounded-lg p-2 md:p-4">
             <div className="w-full md:h-[500px] lg:h-[600px] flex flex-col relative">
                 <div className="border-b border-gray-800 pb-3 text-center">
                     <h2 className="font-semibold text-lg">Media Gallery</h2>
@@ -80,11 +80,11 @@ export default function MediaGallery({ isOpen, onClose, project, modalType = "im
                         const isActive = tab === t.key;
                         return (
                             <button key={t.key} onClick={() => handleTabChange(t.key)}
-                                className={`relative px-4 py-2 text-sm font-medium transition-all ${isActive ? "text-[#002B5B]" : "text-gray-800 hover:text-black"}`}
+                                className={`relative px-4 py-2 text-sm font-medium transition-all ${isActive ? "text-primary" : "text-gray-800 hover:text-black"}`}
                             >
                                 {t.label}
                                 {isActive && (
-                                    <span className="absolute left-1/2 -bottom-[2px] -translate-x-1/2 w-10 h-[3px] rounded-full bg-[#002B5B]" />
+                                    <span className="absolute left-1/2 -bottom-[2px] -translate-x-1/2 w-10 h-[3px] rounded-full bg-primary" />
                                 )}
                             </button>
                         );

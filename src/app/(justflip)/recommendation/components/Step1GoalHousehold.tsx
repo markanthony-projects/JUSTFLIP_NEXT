@@ -63,16 +63,16 @@ export default function Step1GoalHousehold({ data, onChange, onNext }: Step1Prop
   const isFormValid = Boolean(data.goal) && Boolean(data.household);
 
   return (
-    <div className="bg-white p-6 sm:p-10 md:p-12 rounded-3xl border border-gray-100 shadow-xl w-full">
+    <div className="bg-white p-6 sm:p-10 md:p-12 rounded-lg border border-gray-100 shadow-xl w-full">
       <div className="mb-8 pb-6 border-b border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="px-2.5 py-1 bg-sky-50 text-[#002B5B] text-xs font-extrabold tracking-wider uppercase rounded-md border border-sky-100">
+            <span className="px-2.5 py-1 bg-sky-50 text-primary text-xs font-extrabold tracking-wider uppercase rounded-md border border-sky-100">
               Step 1 of 2
             </span>
             <span className="text-xs font-semibold text-gray-400">50% Completed</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#002B5B] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary tracking-tight">
             Let&apos;s understand your requirements
           </h2>
           <p className="text-sm sm:text-base text-gray-500 font-medium mt-1">
@@ -81,7 +81,7 @@ export default function Step1GoalHousehold({ data, onChange, onNext }: Step1Prop
         </div>
 
         <div className="w-full md:w-48 bg-gray-100 h-2.5 rounded-full overflow-hidden self-center">
-          <div className="bg-[#002B5B] h-full w-1/2 rounded-full transition-all duration-500"></div>
+          <div className="bg-primary h-full w-1/2 rounded-full transition-all duration-500"></div>
         </div>
       </div>
 
@@ -97,21 +97,19 @@ export default function Step1GoalHousehold({ data, onChange, onNext }: Step1Prop
                 key={item.id}
                 type="button"
                 onClick={() => onChange({ goal: item.id })}
-                className={`text-left p-6 rounded-2xl border-2 transition-all duration-300 relative flex flex-col justify-between group ${
-                  isSelected
-                    ? "border-[#002B5B] bg-gradient-to-br from-slate-50 to-sky-50/30 shadow-md ring-4 ring-[#002B5B]/10 scale-[1.01]"
-                    : "border-gray-200 hover:border-gray-300 hover:bg-gray-50/50 bg-white shadow-sm"
-                }`}
+                className={`text-left p-6 rounded-lg border-2 transition-all duration-300 relative flex flex-col justify-between group ${isSelected
+                  ? "border-primary bg-gradient-to-br from-slate-50 to-sky-50/30 shadow-md ring-4 ring-primary/10 scale-[1.01]"
+                  : "border-gray-200 hover:border-gray-300 hover:bg-gray-50/50 bg-white shadow-sm"
+                  }`}
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-3xl p-2.5 bg-white rounded-xl shadow-sm border border-gray-100 inline-block">
+                    <span className="text-3xl p-2.5 bg-white rounded-lg shadow-sm border border-gray-100 inline-block">
                       {item.icon}
                     </span>
                     {/* Check indicator */}
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
-                      isSelected ? "bg-[#002B5B] text-white" : "border-2 border-gray-300 group-hover:border-gray-400"
-                    }`}>
+                    <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${isSelected ? "bg-primary text-white" : "border-2 border-gray-300 group-hover:border-gray-400"
+                      }`}>
                       {isSelected && <span className="text-xs font-bold">&#10003;</span>}
                     </div>
                   </div>
@@ -136,14 +134,13 @@ export default function Step1GoalHousehold({ data, onChange, onNext }: Step1Prop
                 key={type.id}
                 type="button"
                 onClick={() => onChange({ household: type.id })}
-                className={`w-full text-left p-5 sm:p-6 rounded-2xl border-2 transition-all duration-300 relative flex items-center justify-between group ${
-                  isSelected
-                    ? "border-[#002B5B] bg-gradient-to-r from-slate-50 to-sky-50/30 shadow-md ring-4 ring-[#002B5B]/10"
-                    : "border-gray-200 hover:border-gray-300 hover:bg-gray-50/50 bg-white shadow-sm"
-                }`}
+                className={`w-full text-left p-5 sm:p-6 rounded-lg border-2 transition-all duration-300 relative flex items-center justify-between group ${isSelected
+                  ? "border-primary bg-gradient-to-r from-slate-50 to-sky-50/30 shadow-md ring-4 ring-primary/10"
+                  : "border-gray-200 hover:border-gray-300 hover:bg-gray-50/50 bg-white shadow-sm"
+                  }`}
               >
                 <div className="flex items-start sm:items-center gap-4 w-full">
-                  <span className="text-3xl p-3 bg-white rounded-xl shadow-sm border border-gray-100 shrink-0 hidden sm:block">
+                  <span className="text-3xl p-3 bg-white rounded-lg shadow-sm border border-gray-100 shrink-0 hidden sm:block">
                     {type.icon}
                   </span>
                   <div className="flex-grow">
@@ -162,9 +159,8 @@ export default function Step1GoalHousehold({ data, onChange, onNext }: Step1Prop
                   </div>
                 </div>
 
-                <div className={`ml-4 w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all ${
-                  isSelected ? "bg-[#002B5B] text-white" : "border-2 border-gray-300 group-hover:border-gray-400"
-                }`}>
+                <div className={`ml-4 w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all ${isSelected ? "bg-primary text-white" : "border-2 border-gray-300 group-hover:border-gray-400"
+                  }`}>
                   {isSelected && <span className="text-xs font-bold">&#10003;</span>}
                 </div>
               </button>
@@ -177,7 +173,7 @@ export default function Step1GoalHousehold({ data, onChange, onNext }: Step1Prop
         type="button"
         disabled={!isFormValid}
         onClick={onNext}
-        className="w-full py-4 bg-[#002B5B] hover:bg-[#001f42] disabled:bg-gray-100 disabled:text-gray-400 text-white text-base sm:text-lg font-bold rounded-2xl transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-3 cursor-pointer disabled:cursor-not-allowed group"
+        className="w-full py-4 bg-primary hover:bg-[#001f42] disabled:bg-gray-100 disabled:text-gray-400 text-white text-base sm:text-lg font-bold rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-3 cursor-pointer disabled:cursor-not-allowed group"
       >
         <span>Continue to Step 2</span>
         <span className="text-xl group-hover:translate-x-1 transition-transform">&rarr;</span>

@@ -175,16 +175,16 @@ export default function Step2LocationBudget({
     Boolean(data.maxBudget);
 
   return (
-    <div className="bg-white p-6 sm:p-10 md:p-12 rounded-3xl border border-gray-100 shadow-xl w-full">
+    <div className="bg-white p-6 sm:p-10 md:p-12 rounded-lg border border-gray-100 shadow-xl w-full">
       <div className="mb-8 pb-6 border-b border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
-            <span className="px-2.5 py-1 bg-sky-50 text-[#002B5B] text-xs font-extrabold tracking-wider uppercase rounded-md border border-sky-100">
+            <span className="px-2.5 py-1 bg-sky-50 text-primary text-xs font-extrabold tracking-wider uppercase rounded-md border border-sky-100">
               Step 2 of 2
             </span>
             <span className="text-xs font-semibold text-gray-400">100% Almost Done</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#002B5B] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary tracking-tight">
             Where should we look for your home?
           </h2>
           <p className="text-sm sm:text-base text-gray-500 font-medium mt-1">
@@ -193,7 +193,7 @@ export default function Step2LocationBudget({
         </div>
 
         <div className="w-full md:w-48 bg-gray-100 h-2.5 rounded-full overflow-hidden self-center">
-          <div className="bg-[#002B5B] h-full w-full rounded-full transition-all duration-500"></div>
+          <div className="bg-primary h-full w-full rounded-full transition-all duration-500"></div>
         </div>
       </div>
 
@@ -210,7 +210,7 @@ export default function Step2LocationBudget({
         {loadingCities ? (
           <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2.5">
             {[1, 2, 3, 4, 5].map((n) => (
-              <div key={n} className="py-3 px-4 rounded-xl border border-gray-100 bg-gray-50/50 animate-pulse h-11"></div>
+              <div key={n} className="py-3 px-4 rounded-lg border border-gray-100 bg-gray-50/50 animate-pulse h-11"></div>
             ))}
           </div>
         ) : (
@@ -222,13 +222,12 @@ export default function Step2LocationBudget({
                   key={city.id}
                   type="button"
                   onClick={() => handleCitySelect(city)}
-                  className={`py-2.5 px-3.5 rounded-xl border transition-all duration-200 flex items-center justify-center text-center group cursor-pointer ${
-                    isSelected
-                      ? "border-[#002B5B] bg-[#002B5B] text-white shadow-sm ring-2 ring-[#002B5B]/20"
-                      : "border-gray-200/90 hover:border-gray-300 hover:bg-gray-50 bg-white text-gray-800 shadow-2xs"
-                  }`}
+                  className={`py-2.5 px-3.5 rounded-lg border transition-all duration-200 flex items-center justify-center text-center group cursor-pointer ${isSelected
+                    ? "border-primary bg-primary text-white shadow-sm ring-2 ring-primary/20"
+                    : "border-gray-200/90 hover:border-gray-300 hover:bg-gray-50 bg-white text-gray-800 shadow-2xs"
+                    }`}
                 >
-                  <span className={`text-sm font-bold truncate ${isSelected ? "text-white" : "text-gray-800 group-hover:text-[#002B5B]"}`}>
+                  <span className={`text-sm font-bold truncate ${isSelected ? "text-white" : "text-gray-800 group-hover:text-primary"}`}>
                     {city.name}
                   </span>
                 </button>
@@ -254,11 +253,10 @@ export default function Step2LocationBudget({
             onChange={(e) =>
               onChange({ locationQuery: e.target.value, locationId: "" })
             }
-            className={`w-full pl-12 pr-5 py-4 rounded-2xl border-2 text-base transition-all focus:outline-none ${
-              data.locationId
-                ? "border-emerald-500 bg-emerald-50/20 focus:ring-4 focus:ring-emerald-500/10 font-semibold text-gray-900 shadow-xs"
-                : "border-gray-200 focus:ring-4 focus:ring-[#002B5B]/10 focus:border-[#002B5B] text-gray-800 bg-white"
-            }`}
+            className={`w-full pl-12 pr-5 py-4 rounded-lg border-2 text-base transition-all focus:outline-none ${data.locationId
+              ? "border-emerald-500 bg-emerald-50/20 focus:ring-4 focus:ring-emerald-500/10 font-semibold text-gray-900 shadow-xs"
+              : "border-gray-200 focus:ring-4 focus:ring-primary/10 focus:border-primary text-gray-800 bg-white"
+              }`}
           />
         </div>
 
@@ -269,7 +267,7 @@ export default function Step2LocationBudget({
         )}
 
         {isOpen && locationSuggestions.length > 0 && (
-          <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-2xl shadow-2xl z-50 max-h-64 overflow-y-auto divide-y divide-gray-100">
+          <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-2xl z-50 max-h-64 overflow-y-auto divide-y divide-gray-100">
             {locationSuggestions.map((loc) => (
               <button
                 key={loc.id}
@@ -277,7 +275,7 @@ export default function Step2LocationBudget({
                 onClick={() => handleLocationSelect(loc)}
                 className="w-full flex items-center justify-between px-6 py-4 text-base hover:bg-slate-50 transition-colors text-left group cursor-pointer"
               >
-                <span className="font-semibold text-gray-800 group-hover:text-[#002B5B]">{loc.name}</span>
+                <span className="font-semibold text-gray-800 group-hover:text-primary">{loc.name}</span>
                 <span className="flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-3 py-1 rounded-lg text-xs font-semibold">
                   <SlLocationPin className="text-emerald-600 text-sm" /> Locality
                 </span>
@@ -300,11 +298,10 @@ export default function Step2LocationBudget({
                   key={opt.value}
                   type="button"
                   onClick={() => onChange({ bhk: opt.value })}
-                  className={`p-4 rounded-xl border-2 transition-all text-left flex flex-col justify-between cursor-pointer ${
-                    isSelected
-                      ? "border-[#002B5B] bg-slate-50/80 ring-2 ring-[#002B5B]/20 shadow-xs"
-                      : "border-gray-200 hover:border-gray-300 bg-white"
-                  }`}
+                  className={`p-4 rounded-lg border-2 transition-all text-left flex flex-col justify-between cursor-pointer ${isSelected
+                    ? "border-primary bg-slate-50/80 ring-2 ring-primary/20 shadow-xs"
+                    : "border-gray-200 hover:border-gray-300 bg-white"
+                    }`}
                 >
                   <span className="text-base font-bold text-gray-900">{opt.label}</span>
                   <span className="text-xs text-gray-500 mt-1">{opt.desc}</span>
@@ -321,7 +318,7 @@ export default function Step2LocationBudget({
           <select
             value={data.maxBudget}
             onChange={(e) => onChange({ maxBudget: e.target.value })}
-            className="w-full px-5 py-4 rounded-2xl border-2 border-gray-200 focus:outline-none focus:ring-4 focus:ring-[#002B5B]/10 focus:border-[#002B5B] text-base font-semibold text-gray-900 bg-white transition-all shadow-xs cursor-pointer"
+            className="w-full px-5 py-4 rounded-lg border-2 border-gray-200 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary text-base font-semibold text-gray-900 bg-white transition-all shadow-xs cursor-pointer"
           >
             {BUDGET_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>
@@ -338,7 +335,7 @@ export default function Step2LocationBudget({
         <button
           type="button"
           onClick={onBack}
-          className="px-6 py-4 border-2 border-gray-200 text-gray-600 hover:text-gray-900 font-bold rounded-2xl transition-all cursor-pointer hover:border-gray-300"
+          className="px-6 py-4 border-2 border-gray-200 text-gray-600 hover:text-gray-900 font-bold rounded-lg transition-all cursor-pointer hover:border-gray-300"
         >
           &larr; Back
         </button>
@@ -346,7 +343,7 @@ export default function Step2LocationBudget({
           type="button"
           disabled={!isFormValid}
           onClick={onSubmit}
-          className="flex-1 max-w-xs py-4 bg-[#002B5B] hover:bg-[#001f42] disabled:bg-gray-100 disabled:text-gray-400 text-white text-base sm:text-lg font-bold rounded-2xl transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-3 cursor-pointer disabled:cursor-not-allowed group"
+          className="flex-1 max-w-xs py-4 bg-primary hover:bg-[#001f42] disabled:bg-gray-100 disabled:text-gray-400 text-white text-base sm:text-lg font-bold rounded-lg transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-3 cursor-pointer disabled:cursor-not-allowed group"
         >
           <span>Find Matches</span>
           <span className="text-xl group-hover:translate-x-1 transition-transform">&rarr;</span>

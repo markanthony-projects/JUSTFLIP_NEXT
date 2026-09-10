@@ -85,7 +85,7 @@ export const yesNoOptions: Option[] = [
     { label: 'No', value: 'false' },
 ];
 
-export const inputClass: string ="w-full h-[48px] px-4 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium   text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-[#002B5B]/10 focus:border-[#002B5B] hover:border-slate-300 transition-all shadow-sm";
+export const inputClass: string ="w-full h-[48px] px-4 bg-slate-50 border border-slate-200 rounded-lg text-sm font-medium   text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary hover:border-slate-300 transition-all shadow-sm";
 
 /** Fields that live inside formData.units[0] */
 export const UNIT_FIELDS: string[] = [

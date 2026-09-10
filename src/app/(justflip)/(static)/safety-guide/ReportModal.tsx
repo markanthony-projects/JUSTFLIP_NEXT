@@ -57,7 +57,7 @@ const ReportModal = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby="report-modal-title"
-        className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white shadow-xl"
+        className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-lg bg-white shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -74,7 +74,7 @@ const ReportModal = ({
             <div>
               <h2
                 id="report-modal-title"
-                className="text-lg font-bold text-[#002B5B]"
+                className="text-lg font-bold text-primary"
               >
                 Report Suspicious Activity
               </h2>
@@ -104,7 +104,7 @@ const ReportModal = ({
           <div>
             <label
               htmlFor="report-category"
-              className="block text-sm font-semibold text-[#002B5B]"
+              className="block text-sm font-semibold text-primary"
             >
               What are you reporting?
             </label>
@@ -114,7 +114,7 @@ const ReportModal = ({
               value={category}
               onChange={ (e) => setCategory(e.target.value as ReportCategory) }
               required
-              className="mt-2 w-full rounded-lg border border-[#D8E4EE] bg-white px-4 py-3 text-sm text-gray-800 outline-none focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
+              className="mt-2 w-full rounded-lg border border-[#D8E4EE] bg-white px-4 py-3 text-sm text-gray-800 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10"
             >
               <option value="" disabled>
                 Select a category
@@ -150,7 +150,7 @@ const ReportModal = ({
           <div>
             <label
               htmlFor="listing"
-              className="block text-sm font-semibold text-[#002B5B]"
+              className="block text-sm font-semibold text-primary"
             >
               Property / Listing URL
               <span className="ml-1 text-xs font-normal text-gray-600">
@@ -164,7 +164,7 @@ const ReportModal = ({
               value={listing}
               onChange={(e) => setListing(e.target.value)}
               placeholder="Paste listing URL or property ID"
-              className="mt-2 w-full rounded-xl border border-[#D8E4EE] px-4 py-3 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
+              className="mt-2 w-full rounded-lg border border-[#D8E4EE] px-4 py-3 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-primary focus:ring-2 focus:ring-primary/10"
             />
           </div>
 
@@ -172,7 +172,7 @@ const ReportModal = ({
           <div>
             <label
               htmlFor="report-description"
-              className="block text-sm font-semibold text-[#002B5B]"
+              className="block text-sm font-semibold text-primary"
             >
               What happened?
               <span className="ml-1 text-red-600">
@@ -188,7 +188,7 @@ const ReportModal = ({
               rows={5}
               maxLength={1500}
               placeholder="Please describe what you noticed..."
-              className="mt-2 w-full resize-none rounded-xl border border-[#D8E4EE] px-4 py-3 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
+              className="mt-2 w-full resize-none rounded-lg border border-[#D8E4EE] px-4 py-3 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-primary focus:ring-2 focus:ring-primary/10"
             />
 
             <div className="mt-1 text-right text-xs text-gray-600">
@@ -200,7 +200,7 @@ const ReportModal = ({
           <div>
             <label
               htmlFor="evidence"
-              className="block text-sm font-semibold text-[#002B5B]"
+              className="block text-sm font-semibold text-primary"
             >
               Evidence
               <span className="ml-1 text-xs font-normal text-gray-600">
@@ -213,7 +213,7 @@ const ReportModal = ({
               type="file"
               accept="image/*,.pdf"
               onChange={(e) => { setFile(e.target.files?.[0] || null) }}
-              className="mt-2 w-full rounded-lg border border-[#D8E4EE] px-4 py-1 text-sm text-gray-700 file:mr-4 file:rounded-lg file:border-0 file:bg-[#EAF3FA] file:px-3 file:py-2 file:text-sm file:font-medium file:text-[#002B5B]"
+              className="mt-2 w-full rounded-lg border border-[#D8E4EE] px-4 py-1 text-sm text-gray-700 file:mr-4 file:rounded-lg file:border-0 file:bg-[#EAF3FA] file:px-3 file:py-2 file:text-sm file:font-medium file:text-primary"
             />
 
             <p className="mt-1 text-xs text-gray-600">
@@ -225,7 +225,7 @@ const ReportModal = ({
           <div>
             <label
               htmlFor="report-email"
-              className="block text-sm font-semibold text-[#002B5B]"
+              className="block text-sm font-semibold text-primary"
             >
               Your email
               <span className="ml-1 text-red-600">
@@ -240,7 +240,7 @@ const ReportModal = ({
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="you@example.com"
-              className="mt-2 w-full rounded-lg border border-[#D8E4EE] px-4 py-3 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
+              className="mt-2 w-full rounded-lg border border-[#D8E4EE] px-4 py-3 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-primary focus:ring-2 focus:ring-primary/10"
             />
 
             <p className="mt-1 text-xs text-gray-600">
@@ -253,14 +253,14 @@ const ReportModal = ({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg border border-[#D8E4EE] px-5 py-2 text-sm font-semibold text-[#002B5B] transition hover:bg-[#EAF3FA]"
+              className="rounded-lg border border-[#D8E4EE] px-5 py-2 text-sm font-semibold text-primary transition hover:bg-[#EAF3FA]"
             >
               Cancel
             </button>
 
             <button
               type="submit"
-              className="rounded-lg bg-[#002B5B] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#001F42]"
+              className="rounded-lg bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#001F42]"
             >
               Report Activity
             </button>

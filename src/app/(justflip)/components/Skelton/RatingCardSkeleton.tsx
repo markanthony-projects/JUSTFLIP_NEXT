@@ -16,7 +16,7 @@ CircularRatingSkeleton.displayName = "CircularRatingSkeleton";
 
 const PriceCardSkeleton = memo(() => {
   return (
-    <div className="w-full lg:w-[260px] p-3 border border-gray-300 rounded-2xl flex justify-between items-center h-[106px]">
+    <div className="w-full lg:w-[260px] p-3 border border-gray-300 rounded-lg flex justify-between items-center h-[106px]">
       <div>
         <SkeletonBlock className="h-[16px] w-10 mb-1" />
         <SkeletonBlock className="h-[28px] w-24 mb-1" />
@@ -31,11 +31,11 @@ PriceCardSkeleton.displayName = "PriceCardSkeleton";
 
 export const RatingCardSkeleton = memo(() => {
   return (
-    <div className="lg:px-5 lg:rounded-2xl lg:shadow-sm bg-white w-full p-2 md:p-3 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.03)]">
-      
+    <div className="lg:px-5 lg:rounded-lg lg:shadow-sm bg-white w-full p-2 md:p-3 rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.03)]">
+
       {/* Global Average Rating Display */}
       <div className="flex items-center space-x-2 border-gray-100 border-b pb-1 mb-1">
-        <SkeletonBlock className="w-10 h-10 !rounded-xl" />
+        <SkeletonBlock className="w-10 h-10 !rounded-lg" />
         <div className="flex flex-col justify-center">
           <div className="flex items-baseline space-x-1.5">
             <SkeletonBlock className="h-[28px] w-12" />

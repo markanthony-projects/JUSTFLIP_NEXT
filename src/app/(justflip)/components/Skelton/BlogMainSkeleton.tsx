@@ -18,7 +18,7 @@ function BlogMainSkeleton({ count = 6 }: BlogMainSkeletonProps) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 pb-10">
                 {[...Array(count)].map((_, i) => (
-                    <div key={i} className="w-full flex flex-col h-full bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
+                    <div key={i} className="w-full flex flex-col h-full bg-white border border-gray-100 rounded-lg overflow-hidden shadow-sm">
                         <div className="relative w-full aspect-[16/10] overflow-hidden bg-gray-50">
                             <SkeletonBlock className="w-full h-full" />
                         </div>

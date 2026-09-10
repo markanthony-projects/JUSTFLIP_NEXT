@@ -6,13 +6,13 @@ import { SkeletonBlock } from "./SkeletonSection";
 function CompareCardSkeleton() {
   return (
     <div className="flex justify-center w-full">
-      <div className="w-full rounded-2xl border border-gray-300 overflow-hidden">
+      <div className="w-full rounded-lg border border-gray-300 overflow-hidden">
 
         {/* IMAGE AREA */}
         <div className="h-[260px] w-full relative">
 
           {/* Image */}
-          <SkeletonBlock className="w-full h-full rounded-2xl" />
+          <SkeletonBlock className="w-full h-full rounded-lg" />
 
           {/* Overlay Content */}
           <div className="absolute bottom-0 inset-0 flex flex-col justify-end p-4">
@@ -27,7 +27,7 @@ function CompareCardSkeleton() {
             <SkeletonBlock className="h-4 w-32 mb-3" />
 
             {/* Button */}
-            <SkeletonBlock className="h-10 w-full rounded-xl" />
+            <SkeletonBlock className="h-10 w-full rounded-lg" />
           </div>
         </div>
       </div>

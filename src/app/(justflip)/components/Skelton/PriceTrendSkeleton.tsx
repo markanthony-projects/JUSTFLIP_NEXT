@@ -19,7 +19,7 @@ const ChartSkeleton = () => {
 
 const PriceTrendSkeleton = () => {
   return (
-    <div className="w-full bg-white rounded-xl">
+    <div className="w-full bg-white rounded-lg">
       
       <SkeletonBlock className="h-5 w-48 mb-3" />
 

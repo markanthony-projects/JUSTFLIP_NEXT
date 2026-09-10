@@ -22,7 +22,7 @@ export default function ReviewsList({ reviews = {}, onWriteReview }: ReviewsList
       
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 auto-rows-max max-h-96 overflow-y-auto [scrollbar-width:thin] [scrollbar-color:#cbd5e1_transparent] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-300 pr-1">
         {reviewList.length === 0 ? (
-          <div className="flex flex-col items-center justify-center min-h-60 col-span-full rounded-xl border border-dashed border-slate-200 bg-slate-50/50 p-6 text-center">
+          <div className="flex flex-col items-center justify-center min-h-60 col-span-full rounded-lg border border-dashed border-slate-200 bg-slate-50/50 p-6 text-center">
             <p className="text-sm font-semibold text-slate-800 mb-1">No reviews yet</p>
             <p className="text-xs text-slate-500 mb-4 max-w-sm">Be the first one to review!</p>
             {onWriteReview && (
@@ -38,7 +38,7 @@ export default function ReviewsList({ reviews = {}, onWriteReview }: ReviewsList
             )}
           </div>
         ) : hasOnlyRatingsWithoutMessages ? (
-          <div className="flex flex-col items-center justify-center min-h-60 col-span-full rounded-xl border border-dashed border-slate-200 bg-slate-50/50 p-6 text-center">
+          <div className="flex flex-col items-center justify-center min-h-60 col-span-full rounded-lg border border-dashed border-slate-200 bg-slate-50/50 p-6 text-center">
             <p className="text-sm font-semibold text-slate-800 mb-1">Review submitted without comments.</p>
             <p className="text-xs text-slate-500 mb-4 max-w-sm">Be the first one to comment!</p>
             {onWriteReview && (

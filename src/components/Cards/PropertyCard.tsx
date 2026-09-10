@@ -34,7 +34,7 @@ const PropertyCard = ({ project, priority }: PropertyCardProps) => {
     return (
         <>
             <Link href={projectUrl} className="w-full max-w-[390px]">
-                <div className="group relative bg-white shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 border border-gray-200 hover:border-gray-300 rounded-xl overflow-hidden w-full max-w-sm mx-auto flex flex-col h-full">
+                <div className="group relative bg-white shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] duration-300 border border-gray-200 hover:border-gray-300 rounded-lg overflow-hidden w-full max-w-sm mx-auto flex flex-col h-full">
                     <div className= "w-full h-40 md:h-48 lg:h-52 relative overflow-hidden bg-gray-100 border-b border-gray-100">
                         <Image
                             src={bannerImage?.url || '/assets/project-banner.webp'}
@@ -47,7 +47,7 @@ const PropertyCard = ({ project, priority }: PropertyCardProps) => {
                         <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent pointer-events-none z-0"></div>
 
                         <div className="absolute top-0 right-0 m-3 flex justify-between w-full z-10">
-                            <div className="absolute left-2 top-3 bg-white/95 backdrop-blur-sm shadow-md text-[#002B5B] flex items-center rounded-r-lg shadow-gray-800 h-7 px-2.5">
+                            <div className="absolute left-2 top-3 bg-white/95 backdrop-blur-sm shadow-md text-primary flex items-center rounded-r-lg shadow-gray-800 h-7 px-2.5">
                                 <MdOutlineLocationOn className="text-red-500" size={14} />
                                 <span className="text-[10px] font-bold md:font-bold pl-1 truncate max-w-30">
                                     {locationName}
@@ -79,7 +79,7 @@ const PropertyCard = ({ project, priority }: PropertyCardProps) => {
                         )}
 
                         <div className="my-1 flex items-center justify-between">
-                            <p className="text-[15px] text-start font-extrabold text-[#002B5B] md:font-bold">
+                            <p className="text-[15px] text-start font-extrabold text-primary md:font-bold">
                                 {project?.priceRange || 'Price on Request'}
                             </p>
                             {project.status && (

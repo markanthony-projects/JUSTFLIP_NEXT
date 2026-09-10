@@ -3,7 +3,7 @@ import { Amenity } from "@/src/types";
 
 export default function FeatureItem({ item }: { item: Amenity }) {
     return (
-        <div className="flex items-center gap-3 p-3 w-full bg-white hover:bg-gray-50/80 border border-gray-100 rounded-xl transition-all duration-200">
+        <div className="flex items-center gap-3 p-3 w-full bg-white hover:bg-gray-50/80 border border-gray-100 rounded-lg transition-all duration-200">
             {item?.image && (
                 <div className="relative w-8 h-8 flex-shrink-0 flex items-center justify-center bg-blue-50 text-blue-600 rounded-lg p-1.5">
                     <Image 

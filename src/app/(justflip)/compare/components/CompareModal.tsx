@@ -36,17 +36,17 @@ function CompareModal({ isOpen, onClose }: CompareModalProps) {
     const filteredSavedData = useMemo(() => {
         if (!savedData) return [];
         if (!searchQuery.trim()) return savedData;
-        
+
         const lowerQuery = searchQuery.toLowerCase();
-        return savedData.filter((item) => 
+        return savedData.filter((item) =>
             item.name?.toLowerCase().includes(lowerQuery) ||
             item.location?.name?.toLowerCase().includes(lowerQuery) ||
             item.builder?.name?.toLowerCase().includes(lowerQuery)
         );
     }, [savedData, searchQuery]);
 
-    const displayData = activeTab === "Saved" 
-        ? filteredSavedData 
+    const displayData = activeTab === "Saved"
+        ? filteredSavedData
         : (isShowingSearchResults ? searchResults : data);
 
     useEffect(() => {
@@ -90,7 +90,7 @@ function CompareModal({ isOpen, onClose }: CompareModalProps) {
                     cityId: cityId || undefined,
                     limit: 25,
                 });
-                
+
                 setData(res || []);
             } catch (err: unknown) {
                 if (err instanceof Error && err.name !== "AbortError") {
@@ -110,19 +110,19 @@ function CompareModal({ isOpen, onClose }: CompareModalProps) {
     }, [cityId, isOpen, activeTab, data, fetchFavouriteData]);
 
     return (
-        <Modal isOpen={isOpen} onClose={() => onClose()} maxWidth=" md:max-w-4xl lg:max-w-[1000px]" className="bg-white/20 backdrop-blur-2xl border border-white/30 shadow-2xl rounded-3xl p-5 md:p-6">
-            
+        <Modal isOpen={isOpen} onClose={() => onClose()} maxWidth=" md:max-w-4xl lg:max-w-[1000px]" className="bg-white/20 backdrop-blur-2xl border border-white/30 shadow-2xl rounded-lg p-5 md:p-6">
+
             {/* Search Bar */}
             <div className="relative mb-4 mt-6">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <FiSearch className="text-gray-400 text-lg" />
                 </div>
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search any property" 
-                    className="w-full pl-12 pr-4 py-2.5 bg-[#f2f2f2] border-transparent focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-xl text-sm font-semibold text-gray-700 transition-all outline-none"
+                    placeholder="Search any property"
+                    className="w-full pl-12 pr-4 py-2.5 bg-[#f2f2f2] border-transparent focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-lg text-sm font-semibold text-gray-700 transition-all outline-none"
                 />
             </div>
 
@@ -138,15 +138,15 @@ function CompareModal({ isOpen, onClose }: CompareModalProps) {
 
             {/* Tabs */}
             <div className="flex gap-4 mb-4">
-                <button 
+                <button
                     onClick={() => setActiveTab("Top Properties")}
-                    className={`px-6 py-2.5 rounded-full text-sm font-bold border-2 transition-all shadow-sm ${activeTab === "Top Properties" ? "bg-[#002B5B] text-white border-[#002B5B]" : "text-[#002B5B] border-[#002B5B] hover:bg-gray-500"}`}
+                    className={`px-6 py-2.5 rounded-full text-sm font-bold border-2 transition-all shadow-sm ${activeTab === "Top Properties" ? "bg-primary text-white border-primary" : "text-primary border-primary hover:bg-gray-500"}`}
                 >
                     Top Properties
                 </button>
-                <button 
+                <button
                     onClick={() => setActiveTab("Saved")}
-                    className={`px-6 py-2.5 rounded-full text-sm font-bold border-2 transition-all shadow-sm ${activeTab === "Saved" ? "bg-[#002B5B] text-white border-[#002B5B]" : "text-[#002B5B] border-[#002B5B] hover:bg-gray-500"}`}
+                    className={`px-6 py-2.5 rounded-full text-sm font-bold border-2 transition-all shadow-sm ${activeTab === "Saved" ? "bg-primary text-white border-primary" : "text-primary border-primary hover:bg-gray-500"}`}
                 >
                     Saved
                 </button>
@@ -166,7 +166,7 @@ function CompareModal({ isOpen, onClose }: CompareModalProps) {
                             <div className="flex flex-col items-center justify-center h-full min-h-[250px] text-white">
                                 <FiSearch size={32} className="mb-3 opacity-20" />
                                 <p className="font-semibold text-sm">
-                                    {isShowingSearchResults 
+                                    {isShowingSearchResults
                                         ? `No properties found for "${searchQuery}"`
                                         : "No properties available"}
                                 </p>
@@ -178,10 +178,10 @@ function CompareModal({ isOpen, onClose }: CompareModalProps) {
 
             {/* Footer Buttons */}
             <div className="flex justify-end gap-4 mt-4 pt-2 border-t border-white/10">
-                <Button onClick={() => onClose()} className="px-8 py-2.5 rounded-xl font-bold text-[#002B5B] bg-white border-2 border-[#002B5B] hover:bg-blue-50 transition-all" >
+                <Button onClick={() => onClose()} className="px-8 py-2.5 rounded-lg font-bold text-primary bg-white border-2 border-primary hover:bg-blue-50 transition-all" >
                     Cancel
                 </Button>
-                <Button onClick={() => onClose()} className="px-8 py-2.5 rounded-xl font-bold text-white bg-[#002B5B] border-2 border-[#002B5B] shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all" >
+                <Button onClick={() => onClose()} className="px-8 py-2.5 rounded-lg font-bold text-white bg-primary border-2 border-primary shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all" >
                     Compare
                 </Button>
             </div>

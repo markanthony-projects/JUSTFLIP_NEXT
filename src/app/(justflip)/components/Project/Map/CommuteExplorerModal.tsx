@@ -303,7 +303,7 @@ export default function CommuteExplorerModal({
                     {/* Middle Accent Blue Ring */}
                     <div className="w-14 h-14 rounded-full bg-blue-600/25 flex items-center justify-center">
                         {/* Vibrant Brand Blue Center Pin */}
-                        <div className="w-10 h-10 rounded-full bg-[#002B5B] border-2 border-white shadow-[0_4px_16px_rgba(0,43,91,0.5)] flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-full bg-primary border-2 border-white shadow-[0_4px_16px_rgba(0,43,91,0.5)] flex items-center justify-center">
                             {/* White Map Pin Icon */}
                             <svg
                                 viewBox="0 0 24 24"
@@ -333,7 +333,7 @@ export default function CommuteExplorerModal({
             <div
                 className={`w-7 h-7 rounded-full ${
                     isSelected
-                        ? "bg-[#002B5B] text-white scale-125 ring-4 ring-[#002B5B]/30 shadow-xl"
+                        ? "bg-primary text-white scale-125 ring-4 ring-primary/30 shadow-xl"
                         : "bg-[#1E293B] text-white"
                 } border-2 border-white shadow-md flex items-center justify-center transition-all`}
             >
@@ -470,12 +470,12 @@ export default function CommuteExplorerModal({
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Commute Search..."
-                        className="w-full pl-9 pr-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#002B5B] focus:ring-1 focus:ring-[#002B5B] transition"
+                        className="w-full pl-9 pr-4 py-2 text-sm bg-white border border-gray-300 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition"
                     />
 
                     {/* Desktop Search Suggestions Dropdown */}
                     {searchFilteredPlaces && searchFilteredPlaces.length > 0 && (
-                        <div className="absolute right-0 mt-1 w-96 bg-white rounded-xl shadow-2xl border border-gray-200 py-2 max-h-64 overflow-y-auto z-50">
+                        <div className="absolute right-0 mt-1 w-96 bg-white rounded-lg shadow-2xl border border-gray-200 py-2 max-h-64 overflow-y-auto z-50">
                             {searchFilteredPlaces.map(({ place, categoryKey, categoryLabel }, idx) => (
                                 <button
                                     key={idx}
@@ -547,7 +547,7 @@ export default function CommuteExplorerModal({
                                     <Polyline
                                         positions={routeCoordinates}
                                         pathOptions={{
-                                            color: "#002B5B",
+                                            color: "primary",
                                             weight: 5,
                                             opacity: 1,
                                             lineCap: "round",
@@ -606,7 +606,7 @@ export default function CommuteExplorerModal({
                                                     href={`https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${pLat},${pLng}`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="mt-2 inline-block text-[11px] text-[#002B5B] font-semibold underline"
+                                                    className="mt-2 inline-block text-[11px] text-primary font-semibold underline"
                                                 >
                                                     Get Directions ↗
                                                 </a>
@@ -623,7 +623,7 @@ export default function CommuteExplorerModal({
                 {/* 3. DESKTOP / LAPTOP FLOATING SIDEBAR (>= md)                              */}
                 {/* ========================================================================= */}
                 <div
-                    className={`hidden md:flex absolute top-4 left-4 z-[1000] w-[320px] lg:w-[360px] max-h-[calc(100%-32px)] bg-white rounded-2xl shadow-2xl border border-gray-200/90 flex-col transition-all duration-300 overflow-hidden ${
+                    className={`hidden md:flex absolute top-4 left-4 z-[1000] w-[320px] lg:w-[360px] max-h-[calc(100%-32px)] bg-white rounded-lg shadow-2xl border border-gray-200/90 flex-col transition-all duration-300 overflow-hidden ${
                         isSidebarOpen ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0 pointer-events-none"
                     }`}
                 >
@@ -639,7 +639,7 @@ export default function CommuteExplorerModal({
                             type="button"
                             onClick={handleResetCenter}
                             title="Reset to Property Center"
-                            className="p-1.5 text-gray-500 hover:text-[#002B5B] hover:bg-gray-100 rounded-lg transition cursor-pointer"
+                            className="p-1.5 text-gray-500 hover:text-primary hover:bg-gray-100 rounded-lg transition cursor-pointer"
                         >
                             <FiMapPin size={16} />
                         </button>
@@ -661,19 +661,19 @@ export default function CommuteExplorerModal({
                                         }`}
                                     >
                                         <div className="flex items-center gap-3">
-                                            <Icon size={18} className={isOpen ? "text-[#002B5B] shrink-0" : "text-gray-600 shrink-0"} />
-                                            <span className={`text-sm font-semibold ${isOpen ? "text-[#002B5B] font-bold" : "text-gray-900"}`}>
+                                            <Icon size={18} className={isOpen ? "text-primary shrink-0" : "text-gray-600 shrink-0"} />
+                                            <span className={`text-sm font-semibold ${isOpen ? "text-primary font-bold" : "text-gray-900"}`}>
                                                 {label}
                                             </span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             {places.length > 0 && (
-                                                <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${isOpen ? "bg-[#002B5B]/10 text-[#002B5B]" : "bg-gray-100 text-gray-500"}`}>
+                                                <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${isOpen ? "bg-primary/10 text-primary" : "bg-gray-100 text-gray-500"}`}>
                                                     {places.length}
                                                 </span>
                                             )}
                                             {isOpen ? (
-                                                <IoChevronUp size={16} className="text-[#002B5B]" />
+                                                <IoChevronUp size={16} className="text-primary" />
                                             ) : (
                                                 <IoChevronDown size={16} className="text-gray-500" />
                                             )}
@@ -698,9 +698,9 @@ export default function CommuteExplorerModal({
                                                             key={place.id || idx}
                                                             type="button"
                                                             onClick={() => handleSelectPlace(place, key)}
-                                                            className={`w-full py-2.5 px-3 rounded-xl flex items-center justify-between gap-3 text-left transition cursor-pointer ${
+                                                            className={`w-full py-2.5 px-3 rounded-lg flex items-center justify-between gap-3 text-left transition cursor-pointer ${
                                                                 isSelected
-                                                                    ? "bg-white shadow-xs border border-[#002B5B] text-[#002B5B] ring-1 ring-[#002B5B]/20 font-medium"
+                                                                    ? "bg-white shadow-xs border border-primary text-primary ring-1 ring-primary/20 font-medium"
                                                                     : "hover:bg-white/80 text-gray-800"
                                                             }`}
                                                         >
@@ -708,8 +708,8 @@ export default function CommuteExplorerModal({
                                                                 <div
                                                                     className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 mt-0.5 transition-all ${
                                                                         isSelected
-                                                                            ? "border-[#002B5B] bg-[#002B5B]"
-                                                                            : "border-gray-400 bg-white hover:border-[#002B5B]"
+                                                                            ? "border-primary bg-primary"
+                                                                            : "border-gray-400 bg-white hover:border-primary"
                                                                     }`}
                                                                 >
                                                                     {isSelected && (
@@ -745,11 +745,11 @@ export default function CommuteExplorerModal({
                 {selectedPlace && (
                     <div className="hidden md:flex absolute top-4 left-1/2 -translate-x-1/2 z-[1000] bg-white/95 backdrop-blur-md px-4 py-2 rounded-full shadow-lg border border-gray-200 items-center gap-3 text-xs pointer-events-auto">
                         <div className="flex items-center gap-1.5 font-bold text-gray-900 truncate max-w-[280px]">
-                            <TbRoute size={16} className="text-[#002B5B] shrink-0" />
+                            <TbRoute size={16} className="text-primary shrink-0" />
                             <span className="truncate">{selectedPlace.tags?.name || selectedPlace.name}</span>
                         </div>
                         <span className="text-gray-300">|</span>
-                        <span className="font-bold text-white bg-[#002B5B] px-2.5 py-0.5 rounded-full shrink-0">
+                        <span className="font-bold text-white bg-primary px-2.5 py-0.5 rounded-full shrink-0">
                             {(selectedPlace as any).formattedDistance || "Nearby"}
                         </span>
                         <span className="text-gray-300">|</span>
@@ -757,7 +757,7 @@ export default function CommuteExplorerModal({
                             href={`https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${selectedLat},${selectedLng}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-gray-700 hover:text-[#002B5B] underline font-semibold shrink-0"
+                            className="text-gray-700 hover:text-primary underline font-semibold shrink-0"
                         >
                             Directions ↗
                         </a>
@@ -781,7 +781,7 @@ export default function CommuteExplorerModal({
 
                     {/* Expandable Mobile Search Box */}
                     {isSearchOpen && (
-                        <div className="mt-2 w-72 bg-white rounded-xl shadow-2xl border border-gray-200 p-2 z-50">
+                        <div className="mt-2 w-72 bg-white rounded-lg shadow-2xl border border-gray-200 p-2 z-50">
                             <div className="relative w-full">
                                 <div className="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-gray-400">
                                     <IoSearchOutline size={15} />
@@ -828,12 +828,12 @@ export default function CommuteExplorerModal({
 
                 {/* Mobile Floating Selected Route Banner */}
                 {selectedPlace && (
-                    <div className="flex md:hidden absolute top-3 left-3 z-[1000] bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-lg border border-gray-200/90 items-center gap-2 text-xs pointer-events-auto max-w-[calc(100%-160px)]">
-                        <TbRoute size={15} className="text-[#002B5B] shrink-0" />
+                    <div className="flex md:hidden absolute top-3 left-3 z-[1000] bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-lg border border-gray-200/90 items-center gap-2 text-xs pointer-events-auto max-w-[calc(100%-160px)]">
+                        <TbRoute size={15} className="text-primary shrink-0" />
                         <span className="font-bold text-gray-900 truncate text-[11px]">
                             {selectedPlace.tags?.name || selectedPlace.name}
                         </span>
-                        <span className="bg-[#002B5B] text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0">
+                        <span className="bg-primary text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0">
                             {(selectedPlace as any).formattedDistance}
                         </span>
                     </div>
@@ -855,7 +855,7 @@ export default function CommuteExplorerModal({
                                     onClick={() => handleCategoryClick(key)}
                                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 whitespace-nowrap transition-all cursor-pointer border ${
                                         isActive
-                                            ? "border-[#002B5B] bg-[#002B5B] text-white shadow-xs"
+                                            ? "border-primary bg-primary text-white shadow-xs"
                                             : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-2xs"
                                     }`}
                                 >

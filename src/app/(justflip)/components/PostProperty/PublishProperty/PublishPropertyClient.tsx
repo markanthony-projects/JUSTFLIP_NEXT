@@ -544,16 +544,16 @@ function PublishPropertyClient ({ initialCities }: { initialCities?: any[] }) {
     <div className='py-4 md:py-8 min-h-screen w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden'>
         {showDraftModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center app-overlay p-4">
-                    <div className="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl space-y-6 border border-slate-100 relative overflow-hidden animate-modal">
+                    <div className="bg-white rounded-lg p-6 md:p-8 max-w-md w-full shadow-2xl space-y-6 border border-slate-100 relative overflow-hidden animate-modal">
                         {/* Accent Bar matching form header */}
                         <div className="absolute top-0 left-0 w-full h-1.5" />
                         
                         <div className="space-y-2 pt-2">
-                            <h3 className="text-xl md:text-2xl font-extrabold text-[#002B5B] tracking-tight">
+                            <h3 className="text-xl md:text-2xl font-extrabold text-primary tracking-tight">
                                 Continue Previous Draft?
                             </h3>
                             <p className="text-sm font-medium text-slate-500 leading-relaxed">
-                                You left off at <strong className="text-[#002B5B]">Step {currentStep}: {STEP_TITLES[currentStep as keyof typeof STEP_TITLES]?.title}</strong>. 
+                                You left off at <strong className="text-primary">Step {currentStep}: {STEP_TITLES[currentStep as keyof typeof STEP_TITLES]?.title}</strong>. 
                                 Would you like to resume your saved progress or start fresh?
                             </p>
                         </div>
@@ -562,14 +562,14 @@ function PublishPropertyClient ({ initialCities }: { initialCities?: any[] }) {
                             <button
                                 type="button"
                                 onClick={handleStartFresh}
-                                className="w-full sm:w-auto px-5 py-2.5 text-sm font-bold border border-[#002B5B] text-[#002B5B] rounded-xl hover:bg-slate-50 transition-all duration-200"
+                                className="w-full sm:w-auto px-5 py-2.5 text-sm font-bold border border-primary text-primary rounded-lg hover:bg-slate-50 transition-all duration-200"
                             >
                                 Start Fresh
                             </button>
                             <button
                                 type="button"
                                 onClick={handleContinueDraft}
-                                className="w-full sm:w-auto px-5 py-2.5 text-sm font-bold bg-[#002B5B] text-white rounded-xl hover:bg-[#001D3D] transition-all duration-200 shadow-lg shadow-blue-900/20"
+                                className="w-full sm:w-auto px-5 py-2.5 text-sm font-bold bg-primary text-white rounded-lg hover:bg-[#001D3D] transition-all duration-200 shadow-lg shadow-blue-900/20"
                             >
                                 Continue Draft
                             </button>
@@ -595,13 +595,13 @@ function PublishPropertyClient ({ initialCities }: { initialCities?: any[] }) {
         </div>
 
         {/* main form container */}
-        <div className='w-full lg:w-auto flex-1 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex flex-col p-4 md:p-6 lg:p-8 gap-4 md:gap-6 lg:gap-8 relative overflow-hidden border'>
+        <div className='w-full lg:w-auto flex-1 bg-white rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.08)] flex flex-col p-4 md:p-6 lg:p-8 gap-4 md:gap-6 lg:gap-8 relative overflow-hidden border'>
           {/* decorative top accent */}
-          <div className='absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-[#002B5B] via-[#057748] to-[#002B5B]' />
+          <div className='absolute top-0 left-0 w-full h-1.5 bg-linear-to-r from-primary via-[#057748] to-primary' />
 
           <div className='border-b border-slate-100/60 pb-3 space-y-3 mt-0'>
             <div>
-              <h2 className='text-[22px] md:text-[28px] font-extrabold text-[#002B5B] tracking-tight'>
+              <h2 className='text-[22px] md:text-[28px] font-extrabold text-primary tracking-tight'>
                 {STEP_TITLES[currentStep as keyof typeof STEP_TITLES]?.title}
               </h2>
               <p className='text-[14px] md:text-[15px] font-medium text-slate-500 mt-1'>
@@ -659,7 +659,7 @@ function PublishPropertyClient ({ initialCities }: { initialCities?: any[] }) {
                 <button
                   type='button'
                   onClick={handlePrevious}
-                  className='h-11 px-6 flex items-center gap-2 text-sm font-bold border border-[#002B5B] text-[#002B5B] rounded-xl hover:bg-[#002B5B] hover:text-white transition-all duration-300'
+                  className='h-11 px-6 flex items-center gap-2 text-sm font-bold border border-primary text-primary rounded-lg hover:bg-primary hover:text-white transition-all duration-300'
                 >
                   <IoIosArrowBack /> Previous
                 </button>
@@ -671,7 +671,7 @@ function PublishPropertyClient ({ initialCities }: { initialCities?: any[] }) {
                   type='button'
                   onClick={handleNext}
                   disabled={!isStepValid()}
-                  className='h-11 px-6 flex items-center gap-2 text-sm font-bold bg-[#002B5B] text-white rounded-xl hover:bg-[#001D3D] transition-all duration-300 shadow-lg shadow-blue-900/20 disabled:opacity-50 disabled:cursor-not-allowed'
+                  className='h-11 px-6 flex items-center gap-2 text-sm font-bold bg-primary text-white rounded-lg hover:bg-[#001D3D] transition-all duration-300 shadow-lg shadow-blue-900/20 disabled:opacity-50 disabled:cursor-not-allowed'
                 >
                   Next <IoIosArrowForward />
                 </button>
@@ -681,7 +681,7 @@ function PublishPropertyClient ({ initialCities }: { initialCities?: any[] }) {
                   type='button'
                   onClick={handleSubmit}
                   disabled={isUploading}
-                  className='h-11 px-6 flex items-center gap-2 text-sm font-bold bg-[#057748] text-white rounded-xl hover:bg-[#04633c] transition-all duration-300 shadow-lg shadow-green-900/20 disabled:opacity-60'
+                  className='h-11 px-6 flex items-center gap-2 text-sm font-bold bg-[#057748] text-white rounded-lg hover:bg-[#04633c] transition-all duration-300 shadow-lg shadow-green-900/20 disabled:opacity-60'
                 >
                   {isUploading ? (
                     'Uploading…'

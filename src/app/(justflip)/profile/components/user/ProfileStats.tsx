@@ -64,7 +64,7 @@ const ProfileStats = () => {
           key={key}
           whileHover={{ y: -6 }}
           transition={{ type: 'spring', stiffness: 280, damping: 20 }}
-          className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
+          className="group relative overflow-hidden rounded-lg border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:shadow-xl"
         >
           {/* Top Accent */}
           <div className={`absolute left-0 top-0 h-1 w-full ${accent}`} />
@@ -75,7 +75,7 @@ const ProfileStats = () => {
           <div className="relative z-10 flex h-full flex-col">
             {/* Icon */}
             <div
-              className={`flex h-14 w-14 items-center justify-center rounded-2xl text-2xl transition-transform duration-300 group-hover:scale-110 ${iconBg} ${iconColor}`}
+              className={`flex h-14 w-14 items-center justify-center rounded-lg text-2xl transition-transform duration-300 group-hover:scale-110 ${iconBg} ${iconColor}`}
             >
               {icon}
             </div>

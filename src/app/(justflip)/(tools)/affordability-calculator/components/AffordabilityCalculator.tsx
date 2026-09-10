@@ -169,7 +169,7 @@ export default function AffordabilityCalculator() {
                   onClick={() => setTenureYears(yr)}
                   className={`py-2 px-3 rounded-lg font-semibold text-sm transition-all border ${
                     tenureYears === yr
-                      ? 'bg-[#002B5B] text-white border-[#002B5B] shadow-sm'
+                      ? 'bg-primary text-white border-primary shadow-sm'
                       : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100'
                   }`}
                 >
@@ -183,8 +183,8 @@ export default function AffordabilityCalculator() {
         {/* Right Side: Result Card */}
         <div className="p-6 bg-blue-50 rounded-lg border border-blue-100 flex flex-col justify-between order-1 lg:order-2">
           <div>
-            <h2 className="text-sm font-semibold text-[#002B5B] uppercase tracking-wide">Maximum Affordable Home Loan</h2>
-            <p className="text-3xl sm:text-4xl font-extrabold text-[#002B5B] mt-2">
+            <h2 className="text-sm font-semibold text-primary uppercase tracking-wide">Maximum Affordable Home Loan</h2>
+            <p className="text-3xl sm:text-4xl font-extrabold text-primary mt-2">
               {formatINR(calculationResults.maxLoan)}
             </p>
 
@@ -216,7 +216,7 @@ export default function AffordabilityCalculator() {
             </div>
             <Link
               href={`/search?maxPrice=${calculationResults.totalBudget}`}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-[#002B5B] px-4 py-2 text-xs font-semibold text-white transition hover:bg-opacity-90 shrink-0"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white transition hover:bg-opacity-90 shrink-0"
             >
               <span>View Properties</span>
               <FaArrowRight className="text-[10px]" />
@@ -226,7 +226,7 @@ export default function AffordabilityCalculator() {
           <div className="mt-3">
             <a
               href={`/stamp-duty?amount=${calculationResults.totalBudget}`}
-              className="block w-full text-center bg-[#002B5B] hover:bg-[#002B5B] text-white font-semibold py-3 rounded-lg transition"
+              className="block w-full text-center bg-primary hover:bg-primary text-white font-semibold py-3 rounded-lg transition"
             >
               Calculate Stamp Duty For This Budget
             </a>

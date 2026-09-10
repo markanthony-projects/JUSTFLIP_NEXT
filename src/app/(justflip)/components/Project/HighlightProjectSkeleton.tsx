@@ -29,7 +29,7 @@ export default function HighlightProjectSkeleton() {
         <SkeletonBlock className="h-5 w-[220px]" />
       </div>
 
-      <div className="border border-gray-300 rounded-xl overflow-hidden bg-white">
+      <div className="border border-gray-300 rounded-lg overflow-hidden bg-white">
         <div className="bg-gray-200 px-5 py-6 relative">
           <SkeletonBlock className="h-4 w-[180px]" />
           <div className="absolute bottom-0 left-0 w-full h-2 bg-white rounded-t-xl" />

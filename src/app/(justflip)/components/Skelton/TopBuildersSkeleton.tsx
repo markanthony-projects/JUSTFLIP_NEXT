@@ -5,7 +5,7 @@ const BuilderCardSkeleton = () => {
   return (
     <div className="rounded-lg flex items-center p-2 border border-gray-200 gap-4 w-[280px] animate-pulse">
       {/* Logo */}
-      <SkeletonBlock className="h-20 w-20 rounded-xl" />
+      <SkeletonBlock className="h-20 w-20 rounded-lg" />
 
       {/* Text */}
       <div className="flex-1 space-y-2">

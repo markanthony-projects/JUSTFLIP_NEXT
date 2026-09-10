@@ -76,7 +76,7 @@ export default function Pagination({ currentPage = 1, totalPages = 1, totalItems
                             onClick={() => handlePageChange(page as number)}
                             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all
               ${currentPage === page
-                                    ? "bg-gradient-to-r from-[#002B5B] to-blue-600 text-white shadow-md scale-105"
+                                    ? "bg-gradient-to-r from-primary to-blue-600 text-white shadow-md scale-105"
                                     : "bg-white border border-gray-300 hover:bg-gray-100"
                                 }`}
                         >

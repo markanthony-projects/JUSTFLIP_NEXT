@@ -68,7 +68,7 @@ export default function RatingModal({ typeId, typeName, type, isOpen, onClose }:
       <div className="relative p-2">
         {/* Header */}
         <div className="mb-4">
-          <h2 className="text-[#002B5B] text-lg font-bold">
+          <h2 className="text-primary text-lg font-bold">
             {isAreaType ? `Rate on ${typeName} ${formattedType}` : `Rate ${formattedType?.charAt(0).toUpperCase() + formattedType?.slice(1)} ${typeName}`}
           </h2>
           <div className="mt-2 flex justify-start">
@@ -80,7 +80,7 @@ export default function RatingModal({ typeId, typeName, type, isOpen, onClose }:
         {isAreaType && (
           <div className="space-y-4 my-4">
             <div>
-              <p className="text-[#002B5B] text-sm font-semibold mb-1">Lifestyle</p>
+              <p className="text-primary text-sm font-semibold mb-1">Lifestyle</p>
               <StarRating
                 value={aspects.Lifestyle}
                 onChange={(val: number) => handleAspectChange("Lifestyle", val)}
@@ -91,7 +91,7 @@ export default function RatingModal({ typeId, typeName, type, isOpen, onClose }:
             </div>
 
             <div>
-              <p className="text-[#002B5B] text-sm font-semibold mb-1">Environment</p>
+              <p className="text-primary text-sm font-semibold mb-1">Environment</p>
               <StarRating
                 value={aspects.Environment}
                 onChange={(val: number) => handleAspectChange("Environment", val)}
@@ -102,7 +102,7 @@ export default function RatingModal({ typeId, typeName, type, isOpen, onClose }:
             </div>
 
             <div>
-              <p className="text-[#002B5B] text-sm font-semibold mb-1">Transport</p>
+              <p className="text-primary text-sm font-semibold mb-1">Transport</p>
               <StarRating
                 value={aspects.Transport}
                 onChange={(val: number) => handleAspectChange("Transport", val)}
@@ -116,7 +116,7 @@ export default function RatingModal({ typeId, typeName, type, isOpen, onClose }:
 
         {/* Comment Box Section */}
         <div className="space-y-2 mt-4">
-          <p className="text-[#002B5B] text-sm font-semibold">
+          <p className="text-primary text-sm font-semibold">
             {isAreaType ? `Comment about ${typeName}` : "Review Comments"}
           </p>
           
@@ -129,7 +129,7 @@ export default function RatingModal({ typeId, typeName, type, isOpen, onClose }:
             rows={4}
             value={comment}
             onChange={handleCommentChange}
-            className="w-full border border-gray-300 rounded-lg p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-[#002B5B] bg-gray-50"
+            className="w-full border border-gray-300 rounded-lg p-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary bg-gray-50"
           />
 
           <div className="flex justify-between text-xs text-gray-400">
@@ -142,7 +142,7 @@ export default function RatingModal({ typeId, typeName, type, isOpen, onClose }:
         <div className="flex gap-3 mt-6">
           <button
             onClick={onClose}
-            className="w-1/2 py-2.5 text-sm font-medium border border-[#002B5B] text-[#002B5B] rounded-full hover:bg-gray-50 transition"
+            className="w-1/2 py-2.5 text-sm font-medium border border-primary text-primary rounded-full hover:bg-gray-50 transition"
           >
             Cancel
           </button>
@@ -153,7 +153,7 @@ export default function RatingModal({ typeId, typeName, type, isOpen, onClose }:
             className={`w-1/2 py-2.5 text-sm font-medium rounded-full text-white transition ${
               disabled
                 ? "bg-gray-300 cursor-not-allowed"
-                : "bg-[#002B5B] hover:bg-[#001f44]"
+                : "bg-primary hover:bg-[#001f44]"
             }`}
           >
             {isSubmitting ? "Submitting..." : "Submit"}

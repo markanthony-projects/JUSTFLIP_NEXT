@@ -9,7 +9,7 @@ export default function RegistrationSidebar() {
   ];
 
   return (
-    <div className="hidden md:flex flex-col bg-gradient-to-br from-[#002B5B] to-[#001B3D] relative overflow-hidden h-full">
+    <div className="hidden md:flex flex-col bg-gradient-to-br from-primary to-[#001B3D] relative overflow-hidden h-full">
       {/* Soft radial gradient at top right */}
       <div className="absolute top-[-20%] right-[-20%] w-[300px] h-[300px] rounded-full bg-white/10 blur-3xl mix-blend-screen pointer-events-none" />
       

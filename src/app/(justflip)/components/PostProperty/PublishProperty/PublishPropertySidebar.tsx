@@ -27,11 +27,11 @@ const PublishPropertySidebar = ({ compact }: { compact?: boolean }) => {
         onClick={HandleCall}
         className="group flex items-center justify-end"
       >
-        <span className="mr-2 bg-[#002B5B] text-white px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+        <span className="mr-2 bg-primary text-white px-3 py-2 rounded-full text-sm font-medium whitespace-nowrap opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
           Call Us
         </span>
 
-        <div className="w-12 h-12 rounded-full bg-[#002B5B] text-white flex items-center justify-center shadow-lg">
+        <div className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg">
           <IoCallOutline size={22} />
         </div>
       </button>

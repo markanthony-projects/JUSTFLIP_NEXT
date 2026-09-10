@@ -67,7 +67,7 @@ export default function PropertyHeader({ project }: { project: Project }) {
                         </h2>
 
                         {lat && lng && (
-                            <a href={`https://maps.google.com/maps?q=${lat},${lng}`} target="_blank" rel="noopener noreferrer" className="text-sm underline text-[#002B5B] ml-2 font-medium whitespace-nowrap" > Open Map </a>
+                            <a href={`https://maps.google.com/maps?q=${lat},${lng}`} target="_blank" rel="noopener noreferrer" className="text-sm underline text-primary ml-2 font-medium whitespace-nowrap" > Open Map </a>
                         )}
                     </div>
 
@@ -79,7 +79,7 @@ export default function PropertyHeader({ project }: { project: Project }) {
                 </div>
             </div>
             <div ref={containerRef} className="hidden md:block">
-                {items?.length > 0 && (<button onClick={handleToggle} className="fixed cursor-pointer bottom-6 right-12 md:right-16 z-20 bg-[#002B5B] text-white px-4 h-10 text-xs rounded-lg shadow-lg">
+                {items?.length > 0 && (<button onClick={handleToggle} className="fixed cursor-pointer bottom-6 right-12 md:right-16 z-20 bg-primary text-white px-4 h-10 text-xs rounded-lg shadow-lg">
                     Compare ({items.length})
                 </button>)}
 
@@ -101,7 +101,7 @@ export default function PropertyHeader({ project }: { project: Project }) {
 
                         <div className="flex justify-end gap-3 mt-2">
                             <button onClick={handleClear} className="px-4 py-2 text-xs bg-gray-200 border border-gray-300 rounded transition-all duration-200 ease-in-out  transform hover:scale-[1.03] active:scale-95" > Clear </button>
-                            <button onClick={handleNavigate} className="px-4 py-2 text-xs bg-[#002B5B] text-white rounded transition-all duration-200 ease-in-out  transform hover:scale-[1.03] active:scale-95">
+                            <button onClick={handleNavigate} className="px-4 py-2 text-xs bg-primary text-white rounded transition-all duration-200 ease-in-out  transform hover:scale-[1.03] active:scale-95">
                                 Compare
                             </button>
                         </div>

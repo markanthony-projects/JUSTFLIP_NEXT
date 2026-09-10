@@ -75,7 +75,7 @@ export default function Footer() {
     )}&body=${encodeURIComponent("Hello JustFlip Team,")}`;
 
     return (
-        <footer className="bg-[#002B5B] text-gray-300 ">
+        <footer className="bg-primary text-gray-300 ">
             <div className="py-10 md:py-15 px-4  lg:px-6  max-w-[1240px] mx-auto overflow-hidden">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[20%_20%_20%_40%] gap-6">
 

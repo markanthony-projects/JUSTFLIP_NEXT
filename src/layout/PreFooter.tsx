@@ -190,8 +190,8 @@ const PreFooter = () => {
                                     key={city}
                                     onClick={() => setActiveCity(city)}
                                     className={`pb-3 text-[15px] font-medium transition-colors whitespace-nowrap ${activeCity === city
-                                        ? 'text-[#002B5B] border-b-[3px] border-[#002B5B]'
-                                        : 'text-gray-500 hover:text-[#002B5B] border-b-[3px] border-transparent'
+                                        ? 'text-primary border-b-[3px] border-primary'
+                                        : 'text-gray-500 hover:text-primary border-b-[3px] border-transparent'
                                         }`}
                                 >
                                     {city}
@@ -205,7 +205,7 @@ const PreFooter = () => {
                         <button
                             onClick={scrollTabs}
                             aria-label="Scroll city tabs right"
-                            className="pointer-events-auto flex items-center justify-center text-gray-500 hover:text-[#002B5B] bg-gray-100/80 backdrop-blur-sm rounded-l-md px-2 shadow-sm"
+                            className="pointer-events-auto flex items-center justify-center text-gray-500 hover:text-primary bg-gray-100/80 backdrop-blur-sm rounded-l-md px-2 shadow-sm"
                         >
                             <FiArrowRight size={20} />
                         </button>
@@ -239,7 +239,7 @@ const PreFooter = () => {
                                         <li key={linkIdx}>
                                             <Link
                                                 href={link.href}
-                                                className="text-[14px] text-gray-500 hover:text-[#002B5B] transition-colors duration-200 block truncate"
+                                                className="text-[14px] text-gray-500 hover:text-primary transition-colors duration-200 block truncate"
                                             >
                                                 {link.label}
                                             </Link>

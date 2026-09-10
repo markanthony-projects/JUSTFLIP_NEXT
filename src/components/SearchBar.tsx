@@ -94,7 +94,7 @@ const SearchBar = () => {
                 />
 
                 <button
-                    className="cursor-pointer h-full w-fit sm:w-[100px] px-2 rounded-md bg-[#002B5B] text-white text-xs lg:text-sm font-medium hover:bg-[#003a7a] transition"
+                    className="cursor-pointer h-full w-fit sm:w-[100px] px-2 rounded-md bg-primary text-white text-xs lg:text-sm font-medium hover:bg-[#003a7a] transition"
                 >
                     <span className="hidden sm:block">Search</span>
                     <span className="block sm:hidden"><CiSearch /></span>

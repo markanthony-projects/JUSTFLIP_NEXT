@@ -37,7 +37,7 @@ function TimerBar(){
           {`let's continue exploring in...`}
         </span>
 
-        <span className="font-semibold text-[#002B5B]">
+        <span className="font-semibold text-primary">
           {secondsLeft}s
         </span>
       </div>
@@ -45,7 +45,7 @@ function TimerBar(){
       
       <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-slate-100">
         <div
-          className="h-full rounded-full bg-[#002B5B] transition-all duration-1000 ease-linear"
+          className="h-full rounded-full bg-primary transition-all duration-1000 ease-linear"
           style={{
             width: `${progress}%`,
           }}
@@ -64,7 +64,7 @@ export default function NotFound() {
 
   return (
     <main className="min-h-[80vh] bg-slate-50 px-5 py-10 flex items-center justify-center">
-      <div className="w-full max-w-6xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_60px_rgba(0,43,91,0.08)]">
+      <div className="w-full max-w-6xl overflow-hidden rounded-lg border border-slate-200 bg-white shadow-[0_20px_60px_rgba(0,43,91,0.08)]">
         <div className="grid min-h-[560px] md:grid-cols-2">
 
           {/* LEFT CONTENT */}
@@ -72,7 +72,7 @@ export default function NotFound() {
 
             {/* 404 */}
             <div className="mb-5">
-              <span className="text-7xl font-extrabold tracking-tight text-[#002B5B] sm:text-8xl">
+              <span className="text-7xl font-extrabold tracking-tight text-primary sm:text-8xl">
                 404
               </span>
             </div>
@@ -80,7 +80,7 @@ export default function NotFound() {
             {/* Heading */}
             <h1 className="max-w-lg text-3xl font-bold leading-tight text-slate-900 sm:text-4xl">
               Looks like this property
-              <span className="text-[#002B5B]"> doesn&apos;t exist.</span>
+              <span className="text-primary"> doesn&apos;t exist.</span>
             </h1>
 
             <p className="mt-5 max-w-md text-base leading-7 text-slate-500 sm:text-lg">
@@ -90,7 +90,7 @@ export default function NotFound() {
 
             <button
               onClick={goHome}
-              className="mt-8 flex w-fit items-center gap-3 rounded-xl bg-[#002B5B] px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#003b7a] hover:shadow-lg"
+              className="mt-8 flex w-fit items-center gap-3 rounded-lg bg-primary px-6 py-3.5 font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#003b7a] hover:shadow-lg"
             >
               <FiHome size={19} />
               Return back
@@ -102,14 +102,14 @@ export default function NotFound() {
           </section>
 
           {/* RIGHT ILLUSTRATION */}
-          <section className="hidden relative sm:flex items-center justify-center overflow-hidden bg-[#002B5B] px-6 py-12">
+          <section className="hidden relative sm:flex items-center justify-center overflow-hidden bg-primary px-6 py-12">
 
             <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full border border-white/10" />
             <div className="absolute -bottom-32 -left-20 h-80 w-80 rounded-full border border-white/10" />
 
             <div className="relative w-full max-w-120">
 
-              <div className="absolute right-4 top-2 z-10 rounded-2xl border border-white/20 bg-white/10 px-5 py-3 backdrop-blur-md">
+              <div className="absolute right-4 top-2 z-10 rounded-lg border border-white/20 bg-white/10 px-5 py-3 backdrop-blur-md">
                 <p className="text-xs font-medium text-white/60">
                   PROPERTY STATUS
                 </p>

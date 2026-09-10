@@ -82,7 +82,7 @@ export default function StepOne({ onNext, initialData }: StepOneProps) {
       type: "project" as const,
       id: p.id,
       name: p.name,
-      icon: <PiBuildingApartment className="text-[#002B5B] text-lg" />,
+      icon: <PiBuildingApartment className="text-primary text-lg" />,
     })),
     ...(suggestions.locations || []).map((l) => ({
       type: "location" as const,
@@ -117,7 +117,7 @@ export default function StepOne({ onNext, initialData }: StepOneProps) {
   return (
     <div className="bg-white p-7 md:p-10 rounded-lg border border-gray-100 shadow-md w-full">
       <div className="mb-8">
-        <h2 className="text-3xl font-extrabold text-[#002B5B] tracking-tight">
+        <h2 className="text-3xl font-extrabold text-primary tracking-tight">
           Write a Review
         </h2>
         <p className="text-base text-gray-500 font-medium mt-1.5">
@@ -139,10 +139,10 @@ export default function StepOne({ onNext, initialData }: StepOneProps) {
             setSearchQuery(e.target.value);
             setSelectedTarget(null);
           }}
-          className={`w-full px-5 py-3.5 rounded-xl border text-base transition-all focus:outline-none ${
+          className={`w-full px-5 py-3.5 rounded-lg border text-base transition-all focus:outline-none ${
             selectedTarget
               ? "border-emerald-500 bg-emerald-50/30 focus:ring-2 focus:ring-emerald-500 font-medium text-gray-900"
-              : "border-gray-200 focus:ring-2 focus:ring-[#002B5B] focus:border-[#002B5B] text-gray-800"
+              : "border-gray-200 focus:ring-2 focus:ring-primary focus:border-primary text-gray-800"
           }`}
         />
 
@@ -154,7 +154,7 @@ export default function StepOne({ onNext, initialData }: StepOneProps) {
 
         {/* Dropdown Menu */}
         {isOpen && flatSuggestions.length > 0 && (
-          <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-xl shadow-2xl z-50 max-h-64 overflow-y-auto divide-y divide-gray-100">
+          <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-2xl z-50 max-h-64 overflow-y-auto divide-y divide-gray-100">
             {flatSuggestions.map((item) => (
               <button
                 key={`${item.type}-${item.id}`}
@@ -185,9 +185,9 @@ export default function StepOne({ onNext, initialData }: StepOneProps) {
                 key={role}
                 type="button"
                 onClick={() => setUserRole(role)}
-                className={`px-6 py-3 rounded-xl text-base font-bold transition-all border flex items-center justify-center ${
+                className={`px-6 py-3 rounded-lg text-base font-bold transition-all border flex items-center justify-center ${
                   isSelected
-                    ? "bg-[#002B5B] text-white border-[#002B5B] shadow-md"
+                    ? "bg-primary text-white border-primary shadow-md"
                     : "bg-white text-gray-500 border-gray-200 hover:border-gray-300 hover:text-gray-700"
                 }`}
               >
@@ -208,7 +208,7 @@ export default function StepOne({ onNext, initialData }: StepOneProps) {
           placeholder="Enter your full name"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
-          className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#002B5B] focus:border-[#002B5B] text-base font-semibold text-gray-900 transition-all"
+          className="w-full px-5 py-3.5 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base font-semibold text-gray-900 transition-all"
         />
       </div>
 
@@ -216,7 +216,7 @@ export default function StepOne({ onNext, initialData }: StepOneProps) {
         type="button"
         disabled={!selectedTarget || !userRole || !userName.trim()}
         onClick={handleProceed}
-        className="w-full py-4 bg-[#002B5B] hover:bg-[#001f42] disabled:bg-gray-200 disabled:text-gray-400 text-white text-lg font-bold rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+        className="w-full py-4 bg-primary hover:bg-[#001f42] disabled:bg-gray-200 disabled:text-gray-400 text-white text-lg font-bold rounded-lg transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
       >
         <span>Proceed to write review</span>
         <span className="text-xl">→</span>

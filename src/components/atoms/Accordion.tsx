@@ -36,9 +36,9 @@ export default function Accordion({ items = [], defaultOpenIndex = 0 }: Accordio
                     <div key={index} className="py-2 border-b border-gray-100">
                         <div 
                             onClick={() => toggle(index)} 
-                            className="grid grid-cols-[auto_1fr_auto] items-center cursor-pointer text-sm font-bold text-gray-1000 hover:text-[#002B5B] transition-colors"
+                            className="grid grid-cols-[auto_1fr_auto] items-center cursor-pointer text-sm font-bold text-gray-1000 hover:text-primary transition-colors"
                         >
-                            {Icon && <Icon className="mr-2 text-base text-[#002B5B]" />}
+                            {Icon && <Icon className="mr-2 text-base text-primary" />}
                             <span>{item.title}</span>
                             {isOpen ? (<BsChevronUp className="ml-2 text-xs" />) : (<BsChevronDown className="ml-2 text-xs" />)}
                         </div>

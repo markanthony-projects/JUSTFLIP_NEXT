@@ -69,7 +69,7 @@ const SearchDropdown = ({
                                     onSelect(item);
                                     setShowSuggestions(false);
                                 }}
-                                className="px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-[#002B5B] cursor-pointer border-b border-slate-100 last:border-0 transition-colors flex justify-between"
+                                className="px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary cursor-pointer border-b border-slate-100 last:border-0 transition-colors flex justify-between"
                             >
                                 <span className="font-bold">{item[displayKey]}</span>
                                 <span className="text-[10px] text-slate-400">

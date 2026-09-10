@@ -9,7 +9,7 @@ export default function MediaViewer({ item }: { item: Media | any }) {
 
     if (item.type === "video") {
         return (
-            <video controls className="max-h-full max-w-full rounded-xl" >
+            <video controls className="max-h-full max-w-full rounded-lg" >
                 <source src={item.url} />
             </video>
         );

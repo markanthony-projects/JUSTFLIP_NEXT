@@ -79,7 +79,7 @@ const getBannerContent = (data: Record<string, any> | null | undefined) => {
     ];
     return {
       text: getRandom(launchMessages),
-      containerClass: "bg-[#FFFDF0] border-[#FDE047] text-[#002b5b]"
+      containerClass: "bg-[#FFFDF0] border-[#FDE047] text-primary"
     };
   }
 
@@ -212,7 +212,7 @@ const LeadForm = ({ data }: LeadFormProps) => {
       </div>
 
       <form className="mt-3 space-y-3" onSubmit={handleSubmit}>
-        <div className="relative rounded focus-within:ring focus-within:ring-[#002B5B]">
+        <div className="relative rounded focus-within:ring focus-within:ring-primary">
           <TbUser className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
           <input
             value={formData.name}
@@ -222,7 +222,7 @@ const LeadForm = ({ data }: LeadFormProps) => {
           />
         </div>
 
-        <div className="relative rounded focus-within:ring focus-within:ring-[#002B5B]">
+        <div className="relative rounded focus-within:ring focus-within:ring-primary">
           <TbMail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
           <input
             type="email"
@@ -238,13 +238,13 @@ const LeadForm = ({ data }: LeadFormProps) => {
           onChange={(val) => handleChange("phone", val)}
           defaultCountry="IN"
           placeholder="Enter Phone Number"
-          className="w-full flex items-center border border-gray-300 rounded px-3 py-3 focus-within:ring focus-within:ring-[#002B5B] text-sm"
+          className="w-full flex items-center border border-gray-300 rounded px-3 py-3 focus-within:ring focus-within:ring-primary text-sm"
           numberInputProps={{ className: "outline-none w-full bg-transparent" }}
         />
 
         <p className="text-[8px] font-medium text-[#333333] text-center">
           By Submitting you agree to all{" "}
-          <Link href="" className="text-[#002B5B] text-[9px] font-bold">
+          <Link href="" className="text-primary text-[9px] font-bold">
             Terms & Conditions
           </Link>{" "}
           of JustFlip
@@ -255,7 +255,7 @@ const LeadForm = ({ data }: LeadFormProps) => {
           disabled={isPending}
           aria-busy={isPending}
           aria-disabled={isPending}
-          className={`w-full h-10 flex items-center cursor-pointer justify-center gap-2 rounded-lg text-sm font-medium text-white transition-all duration-200 ease-in-out transform hover:scale-[1.03] active:scale-95 bg-[#002B5B] ${
+          className={`w-full h-10 flex items-center cursor-pointer justify-center gap-2 rounded-lg text-sm font-medium text-white transition-all duration-200 ease-in-out transform hover:scale-[1.03] active:scale-95 bg-primary ${
             isPending && "opacity-50 cursor-not-allowed"
           }`}
         >
@@ -275,7 +275,7 @@ const LeadForm = ({ data }: LeadFormProps) => {
       <div className="grid grid-cols-2 gap-3">
         <button
           onClick={handleCall}
-          className="flex items-center cursor-pointer justify-center gap-2 bg-[#002B5B] text-white p-2 rounded-lg text-sm transition-all duration-200 ease-in-out transform hover:scale-[1.03] active:scale-95"
+          className="flex items-center cursor-pointer justify-center gap-2 bg-primary text-white p-2 rounded-lg text-sm transition-all duration-200 ease-in-out transform hover:scale-[1.03] active:scale-95"
         >
           Call <MdOutlineLocalPhone />
         </button>

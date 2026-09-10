@@ -104,7 +104,7 @@ const HighlightLocation = ({ data = {}, name = "" }: { data?: any; name?: string
 
           {/* Green Box Container */}
           <div
-            className={`p-2 sm:p-2.5 rounded-xl flex-1 space-y-1 transition-all duration-300 ${
+            className={`p-2 sm:p-2.5 rounded-lg flex-1 space-y-1 transition-all duration-300 ${
               isAdvOpen ? "block" : "hidden md:block"
             }`}
           >
@@ -136,7 +136,7 @@ const HighlightLocation = ({ data = {}, name = "" }: { data?: any; name?: string
 
           {/* Yellow Box Container */}
           <div
-            className={`p-2 sm:p-2.5 rounded-xl flex-1 space-y-1 transition-all duration-300 ${
+            className={`p-2 sm:p-2.5 rounded-lg flex-1 space-y-1 transition-all duration-300 ${
               isDisOpen ? "block" : "hidden md:block"
             }`}
           >

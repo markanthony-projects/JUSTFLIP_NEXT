@@ -20,12 +20,12 @@ export default function ExploreMapSkeleton() {
       </div>
 
       {/* Map Banner Preview */}
-      <SkeletonBlock className="w-full h-[180px] sm:h-[210px] rounded-2xl" />
+      <SkeletonBlock className="w-full h-[180px] sm:h-[210px] rounded-lg" />
 
       {/* Pill Filter Tabs */}
       <div className="flex items-center gap-2 overflow-x-hidden py-1">
         {["w-24", "w-28", "w-20", "w-24", "w-20", "w-32"].map((w, i) => (
-          <SkeletonBlock key={i} className={`h-9 ${w} rounded-xl shrink-0`} />
+          <SkeletonBlock key={i} className={`h-9 ${w} rounded-lg shrink-0`} />
         ))}
       </div>
 
@@ -40,4 +40,4 @@ export default function ExploreMapSkeleton() {
       </div>
     </section>
   );
-}
+}

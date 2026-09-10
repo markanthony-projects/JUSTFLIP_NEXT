@@ -4,7 +4,7 @@ import { memo } from "react";
 // eslint-disable-next-line react/display-name
 export const PropertyCardSkeleton = memo(() => {
   return (
-    <div className="relative border border-gray-300 rounded-2xl overflow-hidden bg-white my-4 w-[280px]">
+    <div className="relative border border-gray-300 rounded-lg overflow-hidden bg-white my-4 w-[280px]">
 
       {/* Image */}
       <div className="w-full h-[10rem] md:h-[10rem] lg:h-[12rem] xl:h-[10rem] relative">

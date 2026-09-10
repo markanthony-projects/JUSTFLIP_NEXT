@@ -29,7 +29,7 @@ const FeatureRow = ({ feature }: { feature: FeatureType }) => {
     return (
         <div className={`${feature.height} flex items-center`}>
             <div className="flex items-center gap-3 w-full group">
-                <div className={`w-8 h-8 rounded-xl ${feature.bg} flex items-center justify-center border ${feature.border} shadow-sm transition-transform group-hover:scale-110`}>
+                <div className={`w-8 h-8 rounded-lg ${feature.bg} flex items-center justify-center border ${feature.border} shadow-sm transition-transform group-hover:scale-110`}>
                     <Icon className={`${feature.iconColor} ${feature.iconSize}`} />
                 </div>
                 <span className={`text-gray-700 font-bold tracking-wide ${feature.labelSize || ''}`}>

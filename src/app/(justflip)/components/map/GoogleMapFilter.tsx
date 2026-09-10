@@ -90,11 +90,11 @@ export default function GoogleMapFilter({ locationData }: { locationData?: any }
                         aria-label="Load map"
                         className="absolute inset-0 m-auto flex items-center justify-center gap-2 
              w-44 h-11 rounded-full 
-             bg-[#002B5B] text-white text-sm font-semibold
+             bg-primary text-white text-sm font-semibold
              shadow-lg transition-all duration-300
              hover:bg-[#001f40] hover:scale-105
              active:scale-95
-             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#002B5B] z-[1000]"
+             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary z-[1000]"
                     >
                         Load Map
                     </button>
@@ -111,8 +111,8 @@ export default function GoogleMapFilter({ locationData }: { locationData?: any }
                                 key={cat.type}
                                 onClick={() => setSelectedCategory(cat.type)}
                                 className={`px-3 py-2 min-w-[160px] text-xs rounded-full border flex items-center gap-2 justify-center ${selectedCategory === cat.type
-                                    ? "bg-[#002B5B] text-white"
-                                    : "bg-white text-[#002B5B]"
+                                    ? "bg-primary text-white"
+                                    : "bg-white text-primary"
                                     }`}
                             >
                                 <Icon className="w-4 h-4" />

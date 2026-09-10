@@ -34,7 +34,7 @@ export interface HeaderVariantConfig {
 export const HEADER_VARIANTS: Record<string, HeaderVariantConfig> = {
     normal: {
         sticky: true,
-        bg: "bg-[#002B5B]",
+        bg: "bg-primary",
         showSearch: true,
         showProfile: true,
         // No mobile CTA: below `lg` this header is the search bar edge to edge.

@@ -26,7 +26,7 @@ const BrokerPropertyStepper: React.FC<BrokerPropertyStepperProps> = ({ currentSt
                     <React.Fragment key={step.id}>
                         <div className={`flex items-center ${index < STEPS.length - 1 ? "w-full" : ""}`}>
                             <div className={`w-8 h-8 flex items-center justify-center rounded-full text-white transition-all duration-500 ease-in-out z-10 ${
-                                currentStep >= step.id ? "bg-[#002B5B] shadow-lg shadow-blue-900/20" : "bg-slate-200"
+                                currentStep >= step.id ? "bg-primary shadow-lg shadow-blue-900/20" : "bg-slate-200"
                             }`}>
                                 {currentStep > step.id ? (
                                     <FaCheck className="w-3 h-3" />
@@ -38,7 +38,7 @@ const BrokerPropertyStepper: React.FC<BrokerPropertyStepperProps> = ({ currentSt
                             </div>
                             {index < STEPS.length - 1 && (
                                 <div className={`flex-1 h-[2px] transition-all duration-500 ease-in-out ${
-                                    currentStep > step.id ? "bg-[#002B5B]" : "bg-slate-200"
+                                    currentStep > step.id ? "bg-primary" : "bg-slate-200"
                                 }`} />
                             )}
                         </div>
@@ -46,7 +46,7 @@ const BrokerPropertyStepper: React.FC<BrokerPropertyStepperProps> = ({ currentSt
                 ))}
             </div>
             {/* Step labels */}
-            <div className="flex items-center justify-between text-[11px] font-bold text-[#002B5B] w-full px-1">
+            <div className="flex items-center justify-between text-[11px] font-bold text-primary w-full px-1">
                 {STEPS.map((step) => (
                     <span
                         key={step.id}

@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Image from "next/image";
-import { 
-  FiCheckCircle, 
-  FiTrendingUp, 
-  FiLayers 
+import {
+  FiCheckCircle,
+  FiTrendingUp,
+  FiLayers
 } from "react-icons/fi";
 
 // Image Imports (Optimized WebP)
@@ -35,9 +35,9 @@ const About = () => {
 
   return (
     <div className="w-full max-w-[1540px] mx-auto space-y-8 sm:space-y-16 py-2 sm:py-4 font-sans text-slate-800">
-      
+
       {/* 1. HERO / OUR MISSION SECTION */}
-      <section className="relative w-full min-h-[380px] sm:min-h-[420px] lg:min-h-[520px] rounded-none sm:rounded-3xl overflow-hidden shadow-none sm:shadow-2xl flex items-center justify-center p-4 sm:p-12 bg-slate-900">
+      <section className="relative w-full min-h-[380px] sm:min-h-[420px] lg:min-h-[520px] rounded-none sm:rounded-lg overflow-hidden shadow-none sm:shadow-2xl flex items-center justify-center p-4 sm:p-12 bg-slate-900">
         {/* LCP Optimized Background Image */}
         <Image
           src={bgimage}
@@ -48,7 +48,7 @@ const About = () => {
           sizes="(max-width: 768px) 100vw, (max-width: 1540px) 100vw, 1540px"
           className="object-cover"
         />
-        
+
         <div className="relative z-10 max-w-4xl mx-auto text-center space-y-5 sm:space-y-6">
           {/* Tag */}
           <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/90 text-xs sm:text-sm font-semibold tracking-wide uppercase">
@@ -61,7 +61,7 @@ const About = () => {
           </h1>
 
           {/* Frosted Glass Quote Card */}
-          <div className="p-4 sm:p-8 rounded-xl sm:rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl text-white">
+          <div className="p-4 sm:p-8 rounded-lg sm:rounded-lg bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl text-white">
             <p className="text-base sm:text-2xl font-bold leading-relaxed italic tracking-wide">
               &ldquo;To change the way people buy and experience real estate, making the process simple, transparent, and trustworthy.&rdquo;
             </p>
@@ -74,15 +74,15 @@ const About = () => {
       </section>
 
       {/* 2. WHY JUSTFLIP SECTION */}
-      <section className="py-8 sm:py-12 px-3 sm:px-6 lg:px-12 bg-slate-50/80 rounded-none sm:rounded-3xl border-y sm:border border-slate-200/80 shadow-none sm:shadow-sm space-y-8 sm:space-y-10">
+      <section className="py-8 sm:py-12 px-3 sm:px-6 lg:px-12 bg-slate-50/80 rounded-none sm:rounded-lg border-y sm:border border-slate-200/80 shadow-none sm:shadow-sm space-y-8 sm:space-y-10">
         <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 items-center">
-          
+
           {/* Left Column: Original Frame Image with Creative Framing */}
           <div className="lg:col-span-5 relative flex justify-center">
             {/* Ambient Glow behind image */}
-            <div className="absolute -inset-4 bg-gradient-to-tr from-[#002B5B] to-sky-500 rounded-3xl blur-2xl opacity-20" />
-            
-            <div className="relative w-full max-w-[340px] h-[300px] sm:h-[380px] rounded-xl sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl border-4 border-white">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-primary to-sky-500 rounded-lg blur-2xl opacity-20" />
+
+            <div className="relative w-full max-w-[340px] h-[300px] sm:h-[380px] rounded-lg sm:rounded-lg overflow-hidden shadow-xl sm:shadow-2xl border-4 border-white">
               <Image
                 src={Frame}
                 alt="Why JustFlip Illustration"
@@ -97,7 +97,7 @@ const About = () => {
           <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-sky-800">The JustFlip Advantage</span>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-[#002B5B] mt-1">
+              <h2 className="text-2xl sm:text-4xl font-extrabold text-primary mt-1">
                 Why JustFlip?
               </h2>
             </div>
@@ -105,7 +105,7 @@ const About = () => {
             <p className="text-xs sm:text-base font-normal text-slate-700 leading-relaxed text-left">
               At JustFlip, we’re transforming real estate by pouring clarity into a cluttered market. Our platform empowers you with verified information at every step—whether you&apos;re searching, financing, or customizing your home. With AI-driven recommendations, detailed property insights, market trend graphs, and an easy mortgage calculator, we help you make well-informed homeownership decisions. For brokers and developers, our robust CRM infrastructure connects them with the right audience, driving meaningful and lasting real estate transactions. From the first thought to the final key, JustFlip redefines homeownership with transparency, trust, and the right tools for informed choices.
             </p>
-         
+
             {/* 4 Feature Mini-Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               {highlights.map((item, index) => {
@@ -115,15 +115,14 @@ const About = () => {
                 return (
                   <div
                     key={index}
-                    className={`p-3.5 sm:p-4 bg-slate-50 rounded-xl border border-slate-200 hover:border-[#002B5B] hover:bg-white hover:shadow-md transition-all duration-200 flex items-start space-x-3.5 group ${
-                        isThird ? "sm:col-span-2 sm:max-w-md sm:mx-auto w-full" : ""
-                    }`}
+                    className={`p-3.5 sm:p-4 bg-slate-50 rounded-lg border border-slate-200 hover:border-primary hover:bg-white hover:shadow-md transition-all duration-200 flex items-start space-x-3.5 group ${isThird ? "sm:col-span-2 sm:max-w-md sm:mx-auto w-full" : ""
+                      }`}
                   >
-                    <div className="p-2 sm:p-2.5 rounded-lg bg-sky-50 text-[#002B5B] shrink-0">
+                    <div className="p-2 sm:p-2.5 rounded-lg bg-sky-50 text-primary shrink-0">
                       <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
                     <div>
-                      <h3 className="text-xs sm:text-sm font-bold text-[#002B5B]">{item.title}</h3>
+                      <h3 className="text-xs sm:text-sm font-bold text-primary">{item.title}</h3>
                       <p className="text-[11px] sm:text-xs text-slate-600 font-normal leading-snug mt-0.5">
                         {item.description}
                       </p>
@@ -138,7 +137,7 @@ const About = () => {
       </section>
 
       {/* 3. ABOUT US SECTION */}
-      <section className="relative w-full min-h-[360px] sm:min-h-[380px] lg:min-h-[460px] rounded-none sm:rounded-3xl overflow-hidden shadow-none sm:shadow-2xl flex items-center justify-center p-4 sm:p-12 bg-slate-900">
+      <section className="relative w-full min-h-[360px] sm:min-h-[380px] lg:min-h-[460px] rounded-none sm:rounded-lg overflow-hidden shadow-none sm:shadow-2xl flex items-center justify-center p-4 sm:p-12 bg-slate-900">
         {/* Original About Background Image */}
         <Image
           src={about}
@@ -147,7 +146,7 @@ const About = () => {
           sizes="(max-width: 768px) 100vw, (max-width: 1540px) 100vw, 1540px"
           className="object-cover"
         />
-        
+
         <div className="relative z-10 max-w-4xl mx-auto text-center space-y-5 sm:space-y-6">
           <span className="px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 text-xs font-bold uppercase tracking-widest border border-sky-400/30">
             Next-Gen Real Estate Tech
@@ -163,10 +162,10 @@ const About = () => {
 
           {/* Interactive Feature Tags */}
           <div className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 text-[11px] sm:text-xs font-semibold text-sky-200">
-            <span className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/10">Predictive Trends</span>
-            <span className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/10">Virtual Tours</span>
-            <span className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/10">Intelligent Financing</span>
-            <span className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl bg-white/10 backdrop-blur-md border border-white/10">Streamlined Sales</span>
+            <span className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-lg bg-white/10 backdrop-blur-md border border-white/10">Predictive Trends</span>
+            <span className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-lg bg-white/10 backdrop-blur-md border border-white/10">Virtual Tours</span>
+            <span className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-lg bg-white/10 backdrop-blur-md border border-white/10">Intelligent Financing</span>
+            <span className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-lg bg-white/10 backdrop-blur-md border border-white/10">Streamlined Sales</span>
           </div>
         </div>
       </section>

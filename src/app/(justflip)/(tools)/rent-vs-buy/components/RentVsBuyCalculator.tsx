@@ -103,7 +103,7 @@ export default function RentVsBuyCalculator() {
     tenureYears,
   ]);
 
-  const THEME_COLOR = "#002B5B";
+  const THEME_COLOR = "var(--color-primary)";
 
   // SVG Line Chart Dimensions & Coordinate Mapping
   const chartWidth = 520;
@@ -311,7 +311,7 @@ export default function RentVsBuyCalculator() {
             </div>
             <div className="flex justify-between items-center text-slate-900 pt-1 font-bold">
               <span>Estimated EMI:</span>
-              <span className="text-base font-bold text-[#002B5B]">
+              <span className="text-base font-bold text-primary">
                 ₹{calculationData.emi.toLocaleString("en-IN")}/mo
               </span>
             </div>
@@ -321,21 +321,16 @@ export default function RentVsBuyCalculator() {
         {/* Right Output & Visualization Panel */}
         <div className="lg:col-span-7 flex flex-col gap-6 order-1 lg:order-2">
           <div
-            className="p-5 rounded-lg text-center border shadow-sm transition-all"
-            style={{
-              backgroundColor: calculationData.buyingIsBetter
-                ? "#002B5B10"
-                : "#2563EB10",
-              borderColor: calculationData.buyingIsBetter
-                ? THEME_COLOR
-                : "#2563EB",
-            }}
+            className={`p-5 rounded-lg text-center border shadow-sm transition-all ${
+              calculationData.buyingIsBetter
+                ? "bg-primary/10 border-primary"
+                : "bg-blue-600/10 border-blue-600"
+            }`}
           >
             <h2
-              className="text-xl md:text-2xl font-extrabold"
-              style={{
-                color: calculationData.buyingIsBetter ? THEME_COLOR : "#2563EB",
-              }}
+              className={`text-xl md:text-2xl font-extrabold ${
+                calculationData.buyingIsBetter ? "text-primary" : "text-blue-600"
+              }`}
             >
               {calculationData.buyingIsBetter
                 ? "Buying is Financially Better"
@@ -363,7 +358,7 @@ export default function RentVsBuyCalculator() {
             </div>
             <Link
               href={`/search?maxPrice=${propertyPrice}`}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-[#002B5B] px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-opacity-90 shrink-0"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-opacity-90 shrink-0"
             >
               <span>View Properties</span>
               <FaArrowRight className="text-[10px]" />
@@ -378,8 +373,8 @@ export default function RentVsBuyCalculator() {
                 Year {activePoint.year} Projection:
               </span>
               <div className="flex items-center gap-4">
-                <div className="flex items-center gap-1.5 font-bold text-[#002B5B]">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#002B5B]" />
+                <div className="flex items-center gap-1.5 font-bold text-primary">
+                  <span className="h-2.5 w-2.5 rounded-full bg-primary" />
                   <span>Buy: {formatIndianCurrency(activePoint.buyerNetWorthNum)}</span>
                 </div>
                 <div className="flex items-center gap-1.5 font-bold text-emerald-700">
@@ -459,14 +454,15 @@ export default function RentVsBuyCalculator() {
                   strokeLinejoin="round"
                 />
 
-                {/* Buyer Polyline (Navy) */}
+                {/* Buyer Polyline (Navy/Primary) */}
                 <polyline
                   points={buyerPoints}
                   fill="none"
-                  stroke="#002B5B"
+                  stroke="var(--color-primary)"
                   strokeWidth="3.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="stroke-primary"
                 />
 
                 {/* Interactive Hover Columns */}
@@ -495,7 +491,7 @@ export default function RentVsBuyCalculator() {
             {/* Legend */}
             <div className="flex justify-center items-center gap-6 pt-3 text-xs font-semibold">
               <div className="flex items-center gap-2 text-slate-800">
-                <span className="h-3 w-3 rounded-full bg-[#002B5B]" />
+                <span className="h-3 w-3 rounded-full bg-primary" />
                 <span>Buying Net Worth</span>
               </div>
               <div className="flex items-center gap-2 text-slate-800">

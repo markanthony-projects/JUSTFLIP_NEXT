@@ -40,7 +40,7 @@ export default function DeveloperDetail({ project, data }: { project: Project; d
                         />
                     </div>
 
-                    <Link href={developerUrl} target={isExternalUrl ? "_blank" : undefined} rel={isExternalUrl ? "noopener noreferrer" : undefined} className="w-full text-center text-xs h-9 flex items-center justify-center rounded-full bg-[#002B5B] text-white hover:bg-[#001f42] transition"    >
+                    <Link href={developerUrl} target={isExternalUrl ? "_blank" : undefined} rel={isExternalUrl ? "noopener noreferrer" : undefined} className="w-full text-center text-xs h-9 flex items-center justify-center rounded-full bg-primary text-white hover:bg-[#001f42] transition"    >
                         Explore more
                     </Link>
                 </div>
@@ -51,7 +51,7 @@ export default function DeveloperDetail({ project, data }: { project: Project; d
                     </p>
 
                     {isLong && (
-                        <button onClick={() => setExpanded((prev) => !prev)} className="mt-2 text-[#002B5B] font-medium hover:underline" >
+                        <button onClick={() => setExpanded((prev) => !prev)} className="mt-2 text-primary font-medium hover:underline" >
                             {expanded ? 'Show Less' : 'Read More'}
                         </button>
                     )}

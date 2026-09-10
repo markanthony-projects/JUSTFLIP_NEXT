@@ -9,7 +9,7 @@ export default function ReviewTipsSidebar() {
       {/* Header Section */}
       <div className="flex items-center gap-2.5 mb-2">
         <span className="text-lg p-1.5 bg-amber-100/80 rounded-lg text-amber-700">💡</span>
-        <h4 className="font-extrabold text-[#002B5B] text-base sm:text-lg">
+        <h4 className="font-extrabold text-primary text-base sm:text-lg">
           Tips for a Great Review
         </h4>
       </div>
@@ -19,10 +19,10 @@ export default function ReviewTipsSidebar() {
 
       <div className="space-y-5">
         {/* Project Section */}
-        <div className="bg-white p-3.5 rounded-xl border border-slate-100 shadow-2xs">
+        <div className="bg-white p-3.5 rounded-lg border border-slate-100 shadow-2xs">
           <div className="flex items-center gap-2 mb-1.5">
             <FaStar className="text-amber-500 text-xs shrink-0" />
-            <h5 className="font-bold text-[#002B5B] text-xs uppercase tracking-wide">
+            <h5 className="font-bold text-primary text-xs uppercase tracking-wide">
               For Projects
             </h5>
           </div>
@@ -33,7 +33,7 @@ export default function ReviewTipsSidebar() {
 
         {/* Location Section Header */}
         <div className="pt-1">
-          <h5 className="font-bold text-[#002B5B] text-xs uppercase tracking-wider mb-3 px-1">
+          <h5 className="font-bold text-primary text-xs uppercase tracking-wider mb-3 px-1">
             For Locations
           </h5>
 

@@ -111,7 +111,7 @@ export default function MortgageCalculator() {
                     {/* HEADER */}
                     <div className="flex items-center gap-3 sm:gap-4">
                         <div className="shrink-0 rounded-full bg-gray-100 p-2.5 sm:p-3">
-                            <CiCalculator1 className="text-2xl sm:text-3xl md:text-4xl text-[#002B5B]" />
+                            <CiCalculator1 className="text-2xl sm:text-3xl md:text-4xl text-primary" />
                         </div>
 
                         <div>
@@ -126,7 +126,7 @@ export default function MortgageCalculator() {
                     </div>
 
                     {/* EMI HERO */}
-                    <div className="rounded-lg bg-[#002B5B] p-4 sm:p-5 md:p-6 text-center text-white">
+                    <div className="rounded-lg bg-primary p-4 sm:p-5 md:p-6 text-center text-white">
                         <p className="text-xs sm:text-sm uppercase tracking-wide opacity-80">
                             Monthly EMI
                         </p>
@@ -157,7 +157,7 @@ export default function MortgageCalculator() {
                             onChange={handleAmountChange}
                             placeholder="0"
                             aria-label="Loan amount"
-                            className="w-full bg-transparent text-center text-xl md:text-4xl font-bold text-[#002B5B] focus:outline-none"
+                            className="w-full bg-transparent text-center text-xl md:text-4xl font-bold text-primary focus:outline-none"
                         />
                     </div>
 
@@ -346,7 +346,7 @@ export default function MortgageCalculator() {
                                     Total Payment
                                 </span>
 
-                                <span className="text-xs sm:text-sm md:text-base font-bold text-[#002B5B] break-all text-right">
+                                <span className="text-xs sm:text-sm md:text-base font-bold text-primary break-all text-right">
                                     ₹ {Number(results?.totalPayment || 0).toLocaleString("en-IN")}
                                 </span>
                             </div>
