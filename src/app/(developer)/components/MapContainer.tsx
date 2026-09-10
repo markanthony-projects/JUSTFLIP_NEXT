@@ -49,7 +49,7 @@ function MapContainer({ builder }: MapContainerProps) {
     return (
         <section className="w-full">
             {/* Map Wrapper */}
-            <div className="rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100">
+            <div className="rounded-lg overflow-hidden">
                 <MapView projects={projects} />
             </div>
 
@@ -60,9 +60,9 @@ function MapContainer({ builder }: MapContainerProps) {
                 <TabsSection
                     value={activeTab}
                     onChange={setActiveTab}
-                    containerClass="w-full rounded-full bg-white border border-gray-200/60 p-1.5 shadow-[0_4px_20px_rgb(0,0,0,0.05)] max-w-2xl mx-auto"
-                    indicatorClass="h-[calc(100%-12px)] top-[6px] bg-gradient-to-r from-[#002B5B] to-blue-800 rounded-full shadow-[0_4px_15px_rgba(0,43,91,0.2)]"
-                    tabClass="text-gray-500 hover:text-[#002B5B] text-[13px] md:text-[15px] font-semibold transition-all duration-300 rounded-full"
+                    containerClass="w-full rounded-lg bg-white border border-gray-200/60 p-1.5 max-w-2xl mx-auto"
+                    indicatorClass="h-[calc(100%-12px)] top-[6px] bg-primary rounded-lg"
+                    tabClass="text-gray-500 hover:text-primary text-base md:text-lg font-semibold transition-all duration-300 rounded-lg"
                     activeTabClass="text-white hover:text-white"
                     height="h-10 md:h-12"
                 />

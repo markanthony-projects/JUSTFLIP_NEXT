@@ -88,7 +88,7 @@ export default function DevelopersClientPage({ initialData }: { initialData?: an
     return (
         <div className="flex flex-col min-h-screen pb-10">
             {/* Hero Section */}
-            <div className="relative w-full rounded-2xl overflow-hidden mb-8 bg-gradient-to-br from-[#002B5B] to-[#00509E] text-white shadow-xl mt-4">
+            <div className="relative w-full rounded-lg overflow-hidden mb-8 bg-gradient-to-br from-[#002B5B] to-[#00509E] text-white shadow-xl mt-4">
                 {/* Decorative background pattern (optional) */}
                 <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
                 
@@ -101,10 +101,10 @@ export default function DevelopersClientPage({ initialData }: { initialData?: an
                     </p>
 
                     {/* Filter & Search Bar */}
-                    <div className="w-full max-w-3xl flex flex-col md:flex-row items-center gap-2.5 bg-white p-2 rounded-2xl shadow-lg border border-gray-100">
+                    <div className="w-full max-w-3xl flex flex-col md:flex-row items-center gap-2.5 bg-white p-2 rounded-lg shadow-lg border border-gray-100">
                         {/* City Filter */}
                         <div 
-                            className="relative w-full md:w-1/3 flex items-center bg-gray-50 hover:bg-gray-100 rounded-xl px-3 py-1 cursor-pointer transition-colors border border-gray-200"
+                            className="relative w-full md:w-1/3 flex items-center bg-gray-50 hover:bg-gray-100 rounded-lg px-3 py-1 cursor-pointer transition-colors border border-gray-200"
                             onClick={() => setIsCityModalOpen(true)}
                         >
                             <FiMapPin className="text-gray-400 mr-2 shrink-0" />
@@ -116,7 +116,7 @@ export default function DevelopersClientPage({ initialData }: { initialData?: an
                         </div>
 
                         {/* Search Input */}
-                        <div className="relative w-full md:w-2/3 flex items-center bg-gray-50 rounded-xl px-3 py-1 border border-gray-200 focus-within:border-[#002B5B] focus-within:bg-white transition-colors">
+                        <div className="relative w-full md:w-2/3 flex items-center bg-gray-50 rounded-lg px-3 py-1 border border-gray-200 focus-within:border-[#002B5B] focus-within:bg-white transition-colors">
                             <FiSearch className="text-gray-400 mr-2 shrink-0" />
                             <input
                                 type="text"

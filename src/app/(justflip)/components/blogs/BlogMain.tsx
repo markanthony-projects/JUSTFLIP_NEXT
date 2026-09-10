@@ -62,8 +62,8 @@ function BlogMain({
                     <button
                         type="button"
                         key={cat}
-                        className={`px-5 py-2.5 text-sm font-medium rounded-full whitespace-nowrap transition-all duration-300 ${category === cat
-                                ? "bg-black text-white shadow-md"
+                        className={`px-5 py-2.5 text-sm md:text-lg font-bold rounded-lg whitespace-nowrap transition-all duration-300 ${category === cat
+                                ? "bg-primary text-white shadow-md"
                                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                             }`}
                         onClick={() => {

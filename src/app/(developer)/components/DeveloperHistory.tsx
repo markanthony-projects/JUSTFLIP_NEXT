@@ -31,7 +31,7 @@ const DeveloperHistory = ({ history = [] }: DeveloperHistoryProps) => {
   return (
     <div className='w-full'>
       <div className="md:mb-4 mb-3 flex items-center justify-between">
-        <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#002B5B] tracking-tight">
+        <h2 className="section-heading">
             Our Journey
         </h2>
       </div>
@@ -47,7 +47,7 @@ const DeveloperHistory = ({ history = [] }: DeveloperHistoryProps) => {
                 <motion.button
                     onClick={prevYear}
                     whileTap={{ scale: 0.9 }}
-                    className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg text-[#002B5B] hover:text-blue-600 transition-all z-10"
+                    className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg text-primary hover:text-blue-600 transition-all z-10"
                 >
                     <FaChevronUp />
                 </motion.button>
@@ -71,13 +71,13 @@ const DeveloperHistory = ({ history = [] }: DeveloperHistoryProps) => {
                             >
                                 <div
                                     className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                                        isActive ? "bg-[#002B5B] shadow-[0_0_15px_rgba(0,43,91,0.5)]" : "bg-gray-300 group-hover:bg-blue-400"
+                                        isActive ? "bg-primary shadow-[0_0_15px_rgba(0,43,91,0.5)]" : "bg-gray-300 group-hover:bg-blue-400"
                                     }`}
                                 />
                                 <span
                                     className={`mt-2 transition-all duration-300 ${
                                         isActive
-                                            ? "text-[#002B5B] text-2xl font-bold"
+                                            ? "text-primary text-2xl font-bold"
                                             : "text-gray-400 text-lg font-medium group-hover:text-blue-500"
                                     }`}
                                 >
@@ -91,7 +91,7 @@ const DeveloperHistory = ({ history = [] }: DeveloperHistoryProps) => {
                 <motion.button
                     onClick={nextYear}
                     whileTap={{ scale: 0.9 }}
-                    className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg text-[#002B5B] hover:text-blue-600 transition-all z-10"
+                    className="p-3 rounded-full bg-white border border-gray-200 shadow-md hover:shadow-lg text-primary hover:text-blue-600 transition-all z-10"
                 >
                     <FaChevronDown />
                 </motion.button>
@@ -102,14 +102,14 @@ const DeveloperHistory = ({ history = [] }: DeveloperHistoryProps) => {
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={timelineData[activeIndex]?.year}
-                        className="rounded-3xl bg-white border border-gray-100 shadow-lg p-6 md:p-8"
+                        className="rounded-lg bg-white border border-gray-100 shadow-lg p-6 md:p-8"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 20 }}
                         transition={{ duration: 0.4 }}
                         onAnimationComplete={() => setAnimating(false)}
                     >
-                        <h3 className="text-xl font-bold text-[#002B5B] mb-3">{timelineData[activeIndex]?.title || "Milestone"}</h3>
+                        <h3 className="text-xl font-bold text-primary mb-3">{timelineData[activeIndex]?.title || "Milestone"}</h3>
                         <p className="text-[15px] text-gray-700 leading-relaxed text-justify max-h-60 overflow-y-auto scrollbar-modern pr-2">
                             {timelineData[activeIndex]?.description}
                         </p>
@@ -121,7 +121,7 @@ const DeveloperHistory = ({ history = [] }: DeveloperHistoryProps) => {
         {/* RIGHT SIDE (IMAGES) */}
         <div className='relative w-full md:w-[55%] flex items-stretch justify-end gap-2 h-[400px] md:h-[500px]'>
             {/* MAIN LARGE IMAGE */}
-            <div className="w-2/3 h-full relative overflow-hidden rounded-3xl shadow-xl">
+            <div className="w-2/3 h-full relative overflow-hidden rounded-lg">
                 <AnimatePresence mode="wait">
                 {timelineData[activeIndex] && (
                     <motion.img
@@ -138,7 +138,7 @@ const DeveloperHistory = ({ history = [] }: DeveloperHistoryProps) => {
                 </AnimatePresence>
 
                 {/* GRADIENT OVERLAY */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#001f42]/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent" />
 
                  {/* YEAR FLOATING */}
                 <motion.div
@@ -159,7 +159,7 @@ const DeveloperHistory = ({ history = [] }: DeveloperHistoryProps) => {
                 {[1, 2].map((i) => (
                     <div
                         key={i}
-                        className="relative flex-1 overflow-hidden rounded-2xl shadow-md group"
+                        className="relative flex-1 overflow-hidden rounded-lg group"
                     >
                         <AnimatePresence mode="wait">
                         {timelineData[activeIndex]?.images?.[i]?.url ? (

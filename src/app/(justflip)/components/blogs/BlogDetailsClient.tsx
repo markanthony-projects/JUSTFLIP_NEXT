@@ -55,7 +55,7 @@ function BlogDetailsClient({ initialBlog }: BlogDetailsClientProps) {
 
                     {/* COVER IMAGE */}
                     {blog?.image?.url && (
-                        <div className="w-full aspect-[16/8] md:aspect-[21/9] rounded-2xl overflow-hidden shadow-lg mb-12 bg-gray-100">
+                        <div className="w-full aspect-[16/8] md:aspect-[21/9] rounded-lg overflow-hidden shadow-lg mb-12 bg-gray-100">
                             <Image
                                 src={blog.image.url}
                                 alt={blog.image?.alt || blog?.heading || "Blog cover image"}
@@ -88,7 +88,7 @@ function BlogDetailsClient({ initialBlog }: BlogDetailsClientProps) {
 
                                 {section?.image?.url && (
                                     <figure className="my-8">
-                                        <div className="w-full max-w-6xl aspect-[16/9] rounded-xl overflow-hidden bg-gray-50 shadow-md">
+                                        <div className="w-full max-w-6xl aspect-[16/9] rounded-lg overflow-hidden bg-gray-50 shadow-md">
                                             <Image
                                                 src={section.image.url}
                                                 alt={section.image?.alt || section.title || "Section image"}
