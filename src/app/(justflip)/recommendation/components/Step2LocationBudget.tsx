@@ -186,7 +186,7 @@ export default function Step2LocationBudget({
             </span>
             <span className="text-xs font-semibold text-gray-400">100% Almost Done</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#002B5B] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary tracking-tight">
             Where should we look for your home?
           </h2>
           <p className="text-sm sm:text-base text-gray-500 font-medium mt-1">
@@ -195,7 +195,7 @@ export default function Step2LocationBudget({
         </div>
 
         <div className="w-full md:w-48 bg-gray-100 h-2.5 rounded-full overflow-hidden self-center">
-          <div className="bg-[#002B5B] h-full w-full rounded-full transition-all duration-500"></div>
+          <div className="bg-primary h-full w-full rounded-full transition-all duration-500"></div>
         </div>
       </div>
 
@@ -229,8 +229,9 @@ export default function Step2LocationBudget({
                       ? "border-[#002B5B] bg-[#002B5B] text-white shadow-sm ring-2 ring-[#002B5B]/20"
                       : "border-gray-200/90 hover:border-gray-300 hover:bg-gray-50 bg-white text-gray-800 shadow-2xs"
                   }`}
+
                 >
-                  <span className={`text-sm font-bold truncate ${isSelected ? "text-white" : "text-gray-800 group-hover:text-[#002B5B]"}`}>
+                  <span className={`text-sm font-bold truncate ${isSelected ? "text-white" : "text-gray-800 group-hover:text-primary"}`}>
                     {city.name}
                   </span>
                 </button>
@@ -279,7 +280,7 @@ export default function Step2LocationBudget({
                 onClick={() => handleLocationSelect(loc)}
                 className="w-full flex items-center justify-between px-6 py-4 text-base hover:bg-slate-50 transition-colors text-left group cursor-pointer"
               >
-                <span className="font-semibold text-gray-800 group-hover:text-[#002B5B]">{loc.name}</span>
+                <span className="font-semibold text-gray-800 group-hover:text-primary">{loc.name}</span>
                 <span className="flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-3 py-1 rounded-lg text-xs font-semibold">
                   <SlLocationPin className="text-emerald-600 text-sm" /> Locality
                 </span>

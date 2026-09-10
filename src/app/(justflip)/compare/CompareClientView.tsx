@@ -146,7 +146,7 @@ export default function CompareClientView({ initialProperties = [] }: CompareCli
     if (isSyncing || isFetching || !isAuthHydrated) {
         return (
             <div className="min-h-screen flex items-center justify-center">
-                <div className="animate-pulse w-8 h-8 rounded-full bg-[#002B5B]"></div>
+                <div className="animate-pulse w-8 h-8 rounded-full bg-primary"></div>
             </div>
         );
     }
@@ -162,7 +162,7 @@ export default function CompareClientView({ initialProperties = [] }: CompareCli
             <div className='py-4 px-4 md:px-8 max-w-7xl mx-auto'>
                 <header className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
                     <div>
-                        <h1 className="text-3xl md:text-4xl font-extrabold text-[#002B5B] tracking-tight mb-2">
+                        <h1 className="text-3xl md:text-4xl font-extrabold text-primary tracking-tight mb-2">
                             Compare Properties
                         </h1>
                         <p className="text-sm md:text-base text-gray-500">
@@ -172,7 +172,7 @@ export default function CompareClientView({ initialProperties = [] }: CompareCli
                     {currentProperties.length > 0 && (
                         <button
                             onClick={handleShare}
-                            className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-50 text-[#002B5B] hover:bg-blue-100 rounded-xl font-bold text-sm transition-all shadow-sm border border-blue-200 self-start md:self-auto"
+                            className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-50 text-primary hover:bg-blue-100 rounded-lg font-bold text-sm transition-all shadow-sm border border-blue-200 self-start md:self-auto"
                         >
                             <FiShare2 className="text-lg" />
                             Share Comparison

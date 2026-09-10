@@ -46,13 +46,13 @@ export default function PropertyTypeFilter({ config }: PropertyTypeFilterProps) 
                             key={option.value}
                             type="button"
                             onClick={() => handleToggle(option.value)}
-                            className={`flex flex-col items-center justify-center gap-1 p-2 px-3 rounded-xl border transition-all ${
+                            className={`flex flex-col items-center justify-center gap-1 p-2 px-3 rounded-lg border transition-all ${
                                 isSelected 
-                                ? 'bg-blue-50 border-[#002B5B] text-[#002B5B] shadow-sm' 
-                                : 'bg-white border-gray-200 text-gray-500 hover:border-[#002B5B] hover:bg-gray-50'
+                                ? 'bg-blue-50 border-primary text-primary shadow-sm' 
+                                : 'bg-white border-gray-200 text-gray-500 hover:border-primary hover:bg-gray-50'
                             }`}
                         >
-                            <div className={isSelected ? 'text-[#002B5B]' : 'text-gray-400'}>
+                            <div className={isSelected ? 'text-primary' : 'text-gray-400'}>
                                 {icon}
                             </div>
                             <span className={`text-xs text-center ${isSelected ? 'font-semibold' : 'font-medium'}`}>

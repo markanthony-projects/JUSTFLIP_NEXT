@@ -144,7 +144,7 @@ export default function TopBuildersClient({
                             return (
                                 <Link href={`/developers/${formatUrl(builder?.name)}-${builder?.id}`}>
 
-                                    <div className="bg-white md:w-[280px] w-[250px] rounded-lg flex items-center p-2 border border-gray-200 hover:shadow-md transition gap-4">
+                                    <div className="bg-white md:w-[280px] w-[250px] rounded-lg flex items-center p-2 border border-gray-100 shadow-[0_2px_8px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_24px_rgb(0,0,0,0.08)] hover:border-gray-300 transition-all duration-300 gap-4">
 
                                         <div className="shadow h-16 w-16 md:h-20 md:w-20 overflow-hidden rounded-md relative flex-shrink-0">
                                             <Image

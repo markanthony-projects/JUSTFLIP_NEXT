@@ -87,7 +87,7 @@ const UserPropertyFormRenderer = ({
                                         key={opt.value}
                                         type="button"
                                         onClick={() => handleChange?.({ target: { name: field.name, value: opt.value } })}
-                                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all border ${isSelected ? 'bg-[#002B5B] text-white border-[#002B5B] shadow-md shadow-blue-900/20' : 'bg-white text-slate-600 border-slate-200 hover:border-blue-200 hover:bg-blue-50'}`}
+                                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all border ${isSelected ? 'bg-primary text-white border-primary shadow-md shadow-blue-900/20' : 'bg-white text-slate-600 border-slate-200 hover:border-blue-200 hover:bg-blue-50'}`}
                                     >
                                         {opt.icon && <span>{opt.icon}</span>}
                                         {opt.label}
@@ -148,14 +148,14 @@ const UserPropertyFormRenderer = ({
                         <button
                             type="button"
                             onClick={openMap}
-                            className={`${inputClass} flex items-center justify-between cursor-pointer hover:border-[#002B5B] hover:bg-blue-50/30 transition-all ${errors?.[field.name] ? "border-rose-400" : ""}`}
+                            className={`${inputClass} flex items-center justify-between cursor-pointer hover:border-primary hover:bg-blue-50/30 transition-all ${errors?.[field.name] ? "border-rose-400" : ""}`}
                         >
                             <span className="text-slate-500 text-sm">
                                 {formData?.coordinates?.lat
                                     ? `📍 Latitude: ${Number(formData.coordinates.lat).toFixed(5)}, Longitude: ${Number(formData.coordinates.lng).toFixed(5)}`
                                     : "Click to pin location on map"}
                             </span>
-                            <FiMapPin className="text-[#002B5B] shrink-0" />
+                            <FiMapPin className="text-primary shrink-0" />
                         </button>
                     )}
 

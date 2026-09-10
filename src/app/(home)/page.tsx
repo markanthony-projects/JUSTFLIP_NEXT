@@ -74,7 +74,7 @@ export default async function JustFlipHomePage() {
 
             <span id="banner-end" className="block h-px w-full" />
 
-            <div className="w-full min-h-screen pt-12 md:pt-16 pb-10 px-2 md:px-4 max-w-[1300px] mx-auto flex flex-col gap-8 md:gap-12">
+            <div className="w-full min-h-screen pt-12 md:pt-16 pb-4 px-4 max-w-[1300px] mx-auto flex flex-col gap-8 md:gap-12">
                 <Suspense fallback={<TaggedPropertiesSkeleton />}>
                     <TaggedProperties city={city} />
                 </Suspense>
@@ -107,11 +107,13 @@ export default async function JustFlipHomePage() {
 
 
 
-                <LazyHydrate rootMargin="350px" placeholder={<HomeBlogsSkeleton />}>
-                    <Suspense fallback={<HomeBlogsSkeleton />}>
-                        <Blogs tag={"Latest Blogs"} />
-                    </Suspense>
-                </LazyHydrate>
+                <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <LazyHydrate rootMargin="350px" placeholder={<HomeBlogsSkeleton />}>
+                        <Suspense fallback={<HomeBlogsSkeleton />}>
+                            <Blogs tag={"Latest Blogs"} />
+                        </Suspense>
+                    </LazyHydrate>
+                </div>
             </div>
         </main>
     );

@@ -18,7 +18,7 @@ export default function BlogsClient({ tag, initialBlogs }: { tag?: string; initi
         <div className="w-full flex flex-col">
 
             <div className="flex justify-between items-center mb-0 md:mb-2">
-                <h2 className="section-heading">
+                <h2 className="section-heading mb-3">
                     Explore blogs to simplify your home buying
                 </h2>
 

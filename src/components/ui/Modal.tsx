@@ -79,7 +79,7 @@ export default function Modal({
             className={`
                 fixed inset-0 ${zIndexClass}
                 flex items-center justify-center
-                px-2 md:px-4
+                px-4
                 app-overlay
                 transition-opacity duration-200
             `}
@@ -87,7 +87,7 @@ export default function Modal({
             <div
                 ref={panelRef}
                 className={`
-                    relative bg-white rounded-2xl shadow-2xl outline-none
+                    relative bg-white rounded-lg shadow-2xl outline-none
                     flex flex-col overflow-hidden animate-modal
                     w-full ${maxWidth} ${height} ${className}
                 `}

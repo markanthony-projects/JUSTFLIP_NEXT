@@ -113,7 +113,7 @@ const Contact = () => {
         {/* Header Section */}
         <section className="px-0 sm:px-10 md:px-12 pt-2 sm:pt-10 pb-4">
           <div className="max-w-3xl">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#002B5B]">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-primary">
               Contact Us
             </h1>
             <p className="mt-2 sm:mt-3 text-sm sm:text-lg text-slate-700 font-medium leading-relaxed">
@@ -129,14 +129,14 @@ const Contact = () => {
           <div className="lg:col-span-5 bg-slate-50/80 border border-slate-200/60 p-5 sm:p-8 rounded-lg flex flex-col justify-between">
             <div className="space-y-6">
               <div>
-                <h2 className="text-xl sm:text-2xl font-extrabold text-[#002B5B] mb-2">
+                <h2 className="text-xl sm:text-2xl font-extrabold text-primary mb-2">
                   How can we help you?
                 </h2>
               </div>
 
               <div className="space-y-5 sm:space-y-6 pt-2 sm:pt-5">
                 <div className="flex items-center space-x-4">
-                  <div className="p-3.5 bg-white text-[#002B5B] rounded-lg border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
+                  <div className="p-3.5 bg-white text-primary rounded-lg border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
                     <FiMail aria-hidden="true" className="w-5 h-5" />
                   </div>
                   <div className="min-w-0">
@@ -146,7 +146,7 @@ const Contact = () => {
                     <a
                       href="mailto:Justflipcontact@gmail.co.in"
                       aria-label="Send direct email to Justflipcontact@gmail.co.in"
-                      className="text-sm sm:text-base font-bold text-[#002B5B] hover:text-[#001F42] hover:underline transition-colors break-all block mt-0.5"
+                      className="text-sm sm:text-base font-bold text-primary hover:text-[#001F42] hover:underline transition-colors break-all block mt-0.5"
                     >
                       Justflipcontact@gmail.co.in
                     </a>
@@ -155,28 +155,28 @@ const Contact = () => {
 
                 {/* Phone Support */}
                 <div className="flex items-center space-x-4">
-                  <div className="p-3.5 bg-white text-[#002B5B] rounded-lg border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
+                  <div className="p-3.5 bg-white text-primary rounded-lg border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
                     <FiPhone aria-hidden="true" className="w-5 h-5" />
                   </div>
                   <div>
                     <p className="text-[11px] font-bold tracking-wider text-slate-600 uppercase">
                       Phone Support
                     </p>
-                    <p className="text-sm sm:text-base font-bold text-[#002B5B] mt-0.5">
+                    <p className="text-sm sm:text-base font-bold text-primary mt-0.5">
                       +91 (800) 123-4567
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-center space-x-4">
-                  <div className="p-3.5 bg-white text-[#002B5B] rounded-lg border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
+                  <div className="p-3.5 bg-white text-primary rounded-lg border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
                     <FiMapPin aria-hidden="true" className="w-5 h-5" />
                   </div>
                   <div>
                     <p className="text-[11px] font-bold tracking-wider text-slate-600 uppercase">
                       Office Address
                     </p>
-                    <p className="text-sm sm:text-base font-bold text-[#002B5B] mt-0.5">
+                    <p className="text-sm sm:text-base font-bold text-primary mt-0.5">
                       Oxford House, Murugeshpalya
                     </p>
                   </div>
@@ -185,7 +185,7 @@ const Contact = () => {
             </div>
 
             <div className="mt-8 pt-6 border-t border-slate-200/80">
-              <p className="text-xs text-[#002B5B] font-semibold leading-relaxed flex items-center justify-center space-x-1">
+              <p className="text-xs text-primary font-semibold leading-relaxed flex items-center justify-center space-x-1">
                 <span aria-hidden="true">&#x1F6E1;</span>
                 <span>100% Secure & Private Listing</span>
               </p>
@@ -197,13 +197,13 @@ const Contact = () => {
             {isSubmitted ? (
               <div className="text-center py-12 space-y-4 my-auto">
                 <FiCheckCircle aria-hidden="true" className="w-16 h-16 text-emerald-500 mx-auto" />
-                <h3 className="text-2xl font-extrabold text-[#002B5B]">Message Sent!</h3>
+                <h3 className="text-2xl font-extrabold text-primary">Message Sent!</h3>
                 <p className="text-slate-700 max-w-md mx-auto text-sm font-medium leading-relaxed">
                   Thank you for reaching out. We have received your query and will get back to you shortly.
                 </p>
                 <button
                   onClick={() => setIsSubmitted(false)}
-                  className="mt-4 px-6 py-3 bg-[#002B5B] hover:bg-[#002046] text-white text-sm rounded-lg font-bold transition cursor-pointer shadow-md shadow-[#002B5C]/20"
+                  className="mt-4 px-6 py-3 bg-primary hover:bg-[#002046] text-white text-sm rounded-lg font-bold transition cursor-pointer shadow-md shadow-[#002B5C]/20"
                 >
                   Send Another Message
                 </button>
@@ -231,8 +231,8 @@ const Contact = () => {
                           onClick={() => handleTransactionSelect(option.value)}
                           className={`w-full py-2.5 px-2 rounded-lg text-xs font-bold border transition-all duration-200 flex items-center justify-center space-x-1.5 cursor-pointer min-w-0 ${
                             isSelected
-                              ? "bg-[#002B5B] text-white border-[#002B5B] shadow-md shadow-[#002B5B]/20"
-                              : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:text-[#002B5B]"
+                              ? "bg-primary text-white border-primary shadow-md shadow-primary/20"
+                              : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50 hover:text-primary"
                           }`}
                         >
                           <Icon aria-hidden="true" className="w-3.5 h-3.5 shrink-0" />
@@ -323,7 +323,7 @@ const Contact = () => {
                     placeholder="Enter your message here..."
                     className={`w-full bg-slate-50/50 border ${
                       errors.message ? "border-red-500" : "border-slate-200"
-                    } focus:bg-white focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10 rounded-lg p-4 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition resize-none`}
+                    } focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/10 rounded-lg p-4 text-sm font-semibold text-[#092242] placeholder:text-slate-500 outline-none transition resize-none`}
                   />
                   {errors.message && (
                     <p className="text-red-500 text-xs font-medium mt-1.5">{errors.message}</p>
@@ -335,7 +335,7 @@ const Contact = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 bg-[#002B5B] hover:bg-[#002046] active:scale-[0.99] text-white font-bold text-sm rounded-lg shadow-md shadow-[#002B5C]/20 transition-all flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full py-3.5 bg-primary hover:bg-[#002046] active:scale-[0.99] text-white font-bold text-sm rounded-lg shadow-md shadow-[#002B5C]/20 transition-all flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <span>{isSubmitting ? "Submitting..." : "Submit Inquiry"}</span>
                     <FiSend aria-hidden="true" className="w-4 h-4" />

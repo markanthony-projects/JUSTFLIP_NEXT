@@ -40,7 +40,7 @@ export const HighlightSkeleton = memo(() => {
       {/* Title */}
       <SkeletonBlock className="h-5 w-64 mb-4" />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-3 md:p-6 border border-gray-200 rounded-xl min-h-[200px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-3 md:p-6 border border-gray-200 rounded-lg min-h-[200px]">
         <SectionSkeleton />
         <SectionSkeleton />
       </div>

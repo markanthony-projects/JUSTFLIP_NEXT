@@ -63,4 +63,4 @@ export const UNIT_FIELDS: string[] = [
     "hasBoundaryWalls",
 ];
 
-export const inputClass: string = "w-full p-2 border border-[#BABABA] rounded-md focus:outline-none focus:border-[#002B5B] text-sm";
+export const inputClass: string = "w-full p-2 border border-[#BABABA] rounded-md focus:outline-none focus:border-primary text-sm";

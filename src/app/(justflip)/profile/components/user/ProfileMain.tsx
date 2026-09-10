@@ -58,12 +58,12 @@ const ProfileMain = () => {
   const [activeNav, setActiveNav] = useState('overview')
 
   useEffect(() => {
-    if(tabParam){
-        setActiveNav(tabParam)
-      }else{
-        setActiveNav("overview")
-      }
-  },[tabParam])
+    if (tabParam) {
+      setActiveNav(tabParam)
+    } else {
+      setActiveNav("overview")
+    }
+  }, [tabParam])
 
   // modalMode: null (closed) | "all" | "both"
   // null means modal is closed. The string tells the modal which fields to show.
@@ -83,7 +83,7 @@ const ProfileMain = () => {
   // Hydration guard — waits for Zustand persist to load from localStorage.without this the user namevalue will be null at the starting and might create a hydration error.
   if (!hydrated) {
     return (
-      <Loading/>
+      <Loading />
     )
   }
 
@@ -111,11 +111,11 @@ const ProfileMain = () => {
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
         return 'enter a valid email.'
     }
-    if (key === 'phone' && value ) {
+    if (key === 'phone' && value) {
       if (!/^\d{10}$/.test(value)) return 'phone number must be 10 digits'
       if (!/^[6-9]/.test(value)) {
         // return 'enter a valid Indian(starts with 6-9) phone number'
-        return(
+        return (
           <>
             <p>enter a valid Indian <span className='text-amber-500 text-[11px]'>(*starts with 6-9)</span> phone number</p>
           </>
@@ -186,7 +186,7 @@ const ProfileMain = () => {
 
   return (
     <div className='mb-10 min-h-screen'>
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -196,9 +196,9 @@ const ProfileMain = () => {
 
       {/* main layout container */}
       <div className='flex flex-col gap-8 mt-6 max-w-6xl mx-auto'>
-        
+
         {/* Main Content Area */}
-        <motion.div 
+        <motion.div
           className='flex flex-col gap-8'
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -222,7 +222,7 @@ const ProfileMain = () => {
               <div className="flex flex-col gap-8">
                 <motion.div
                   whileHover={{ y: -2 }}
-                  className="hidden sm:block relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+                  className="hidden sm:block relative overflow-hidden rounded-lg border border-slate-200 bg-white p-6 shadow-sm"
                 >
                   {/* Background Glow */}
                   <div className="absolute -top-16 -right-16 h-48 w-48 rounded-full bg-blue-50 blur-3xl opacity-70" />
@@ -241,7 +241,7 @@ const ProfileMain = () => {
 
                     <button
                       onClick={() => openModal('both')}
-                      className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-blue-600 transition-all hover:border-blue-200 hover:bg-blue-50"
+                      className="rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-blue-600 transition-all hover:border-blue-200 hover:bg-blue-50"
                     >
                       Edit
                     </button>
@@ -251,7 +251,7 @@ const ProfileMain = () => {
                   <div className="relative z-10 mt-8 space-y-6">
 
                     {/* Email */}
-                    <div className="rounded-2xl bg-slate-50 p-4 transition hover:bg-blue-50">
+                    <div className="rounded-lg bg-slate-50 p-4 transition hover:bg-blue-50">
 
                       <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                         Email Address
@@ -264,7 +264,7 @@ const ProfileMain = () => {
                     </div>
 
                     {/* Phone */}
-                    <div className="rounded-2xl bg-slate-50 p-4 transition hover:bg-blue-50">
+                    <div className="rounded-lg bg-slate-50 p-4 transition hover:bg-blue-50">
 
                       <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
                         Phone Number
@@ -280,7 +280,7 @@ const ProfileMain = () => {
                 </motion.div>
                 <motion.div
                   whileHover={{ y: -2 }}
-                  className="sm:block relative overflow-hidden rounded-3xl border border-slate-200 bg-white px-6 py-2 shadow-sm">
+                  className="sm:block relative overflow-hidden rounded-lg border border-slate-200 bg-white px-6 py-2 shadow-sm">
                   <NotificationsSection />
                 </motion.div>
               </div>
@@ -292,15 +292,15 @@ const ProfileMain = () => {
 
 
           {activeNav === 'my-properties' && (
-             <div className='bg-white/70 backdrop-blur-xl rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 relative overflow-hidden'>
-               <UserPropertyDashboard />
-             </div>
+            <div className='bg-white/70 backdrop-blur-xl rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 relative overflow-hidden'>
+              <UserPropertyDashboard />
+            </div>
           )}
 
           {activeNav === 'wishlist' && (
-             <div className='bg-white/70 backdrop-blur-xl rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 relative overflow-hidden'>
-               <WishlistClient isEmbedded={true} />
-             </div>
+            <div className='bg-white/70 backdrop-blur-xl rounded-lg shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 relative overflow-hidden'>
+              <WishlistClient isEmbedded={true} />
+            </div>
           )}
 
         </motion.div>
@@ -310,7 +310,7 @@ const ProfileMain = () => {
       <AnimatePresence>
         {modalMode && (
           <Modal isOpen={!!modalMode} onClose={closeModal}>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
@@ -336,14 +336,13 @@ const ProfileMain = () => {
                       onChange={e =>
                         setFormValues(prev => ({ ...prev, [key]: e.target.value }))
                       }
-                      className={`w-full bg-gray-50 border rounded-xl px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all duration-300 ${
-                        errors[key] ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20' : 'border-gray-200 focus:border-blue-500'
-                      }`}
+                      className={`w-full bg-gray-50 border rounded-lg px-4 py-3 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:bg-white transition-all duration-300 ${errors[key] ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20' : 'border-gray-200 focus:border-blue-500'
+                        }`}
                       placeholder={`Enter your ${label.toLowerCase()}`}
                     />
                     <AnimatePresence>
                       {errors[key] && (
-                        <motion.p 
+                        <motion.p
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: 'auto' }}
                           exit={{ opacity: 0, height: 0 }}
@@ -360,13 +359,13 @@ const ProfileMain = () => {
               <div className='flex justify-end gap-3 pt-4 border-t border-gray-100'>
                 <button
                   onClick={closeModal}
-                  className='px-5 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-all duration-300'
+                  className='px-5 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-300'
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleSave}
-                  className='px-6 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 active:scale-95'
+                  className='px-6 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-lg hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-300 active:scale-95'
                 >
                   Save Changes
                 </button>

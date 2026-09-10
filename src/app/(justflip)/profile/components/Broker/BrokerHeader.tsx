@@ -16,18 +16,18 @@ import { FiEdit } from "react-icons/fi";
 
 
 const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void, onUpdateClick: () => void }) => {
-  const {user, updateUser} = useAuthStore()
+  const { user, updateUser } = useAuthStore()
   const addToast = useToastStore((state) => state.addToast)
   const [isUploading, setIsUploading] = React.useState<Record<string, boolean>>({})
   const [isMissionModalOpen, setIsMissionModalOpen] = React.useState(false)
   console.log(user);
-  
+
   const isApproved = user?.approval === "approved"
   const isPending = user?.approval === "pending"
   const isRejected = user?.approval === "rejected"
 
-  const getInitials = (name?: string) =>{
-    if(!name) return "B"
+  const getInitials = (name?: string) => {
+    if (!name) return "B"
 
     return name.trim().split(' ').map((part) => part.charAt(0).toUpperCase()).join();
   }
@@ -66,32 +66,32 @@ const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void,
       setIsUploading(prev => ({ ...prev, [field]: false }));
     }
   };
-  
+
 
   return (
-    <div className='bg-white/70 backdrop-blur-xl rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 relative'>
+    <div className='bg-white/70 backdrop-blur-xl rounded-lg overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/50 relative'>
 
       {/* Cover — clean, professional slate background fallback */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
         className='h-40 md:h-56 relative w-full bg-[#1A2530] group'
       >
         {user?.officePhoto && (
-          <Image src={user.officePhoto} 
-            alt='office image' 
-            className='object-cover' 
+          <Image src={user.officePhoto}
+            alt='office image'
+            className='object-cover'
             fill={true} >
           </Image>
         )}
-        
+
         {/* Subtle overlay for better contrast if needed, but keeping it clean */}
         <div className="absolute inset-0 bg-black/10 pointer-events-none"></div>
-        
+
         {/* Cover Upload Button (Bottom-Right) */}
         <div className="absolute bottom-4 right-4 z-10">
-          <label className="cursor-pointer bg-white/90 backdrop-blur-sm border border-white/20 text-gray-800 text-xs font-semibold px-4 py-2 rounded-xl flex items-center gap-2 shadow-sm hover:bg-white hover:shadow-md transition-all">
+          <label className="cursor-pointer bg-white/90 backdrop-blur-sm border border-white/20 text-gray-800 text-xs font-semibold px-4 py-2 rounded-lg flex items-center gap-2 shadow-sm hover:bg-white hover:shadow-md transition-all">
             {isUploading.officePhoto ? (
               <div className="w-3.5 h-3.5 border-2 border-gray-400 border-t-gray-800 rounded-full animate-spin" />
             ) : (
@@ -110,7 +110,7 @@ const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void,
         <div className='flex flex-col items-center md:hidden'>
 
           {/* broker's photo */}
-          <motion.div 
+          <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
@@ -118,21 +118,21 @@ const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void,
           >
             <div className='w-28 h-28 rounded-full border-4 border-white shadow-lg overflow-hidden relative bg-white'>
               {user?.profilePhoto ? (
-                <Image alt="the broker's photo" 
-                  src={user?.profilePhoto} 
-                  fill={true} 
+                <Image alt="the broker's photo"
+                  src={user?.profilePhoto}
+                  fill={true}
                   className='object-cover'>
                 </Image>
               ) : (
-                <div className='w-full h-full flex items-center justify-center text-[#002B5B] text-4xl font-bold bg-slate-50'>
+                <div className='w-full h-full flex items-center justify-center text-primary text-4xl font-bold bg-slate-50'>
                   {getInitials(user?.name)}
                 </div>
               )}
             </div>
-            
+
             {/* Photo Upload Button (Bottom-Right) */}
             <div className="absolute -bottom-2 -right-2 z-20">
-              <label className="cursor-pointer bg-white text-gray-700 border border-gray-200 shadow-md text-xs font-semibold px-2 py-1.5 rounded-xl flex items-center justify-center hover:bg-gray-50 transition-colors w-8 h-8">
+              <label className="cursor-pointer bg-white text-gray-700 border border-gray-200 shadow-md text-xs font-semibold px-2 py-1.5 rounded-lg flex items-center justify-center hover:bg-gray-50 transition-colors w-8 h-8">
                 {isUploading.profilePhoto ? (
                   <div className="w-3.5 h-3.5 border-2 border-gray-300 border-t-gray-700 rounded-full animate-spin" />
                 ) : (
@@ -161,11 +161,11 @@ const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void,
               <h1 className='text-2xl font-bold text-gray-900'>
                 {user?.name}
               </h1>
-              {isApproved && <MdVerified className="text-blue-500" size={24}/>}
+              {isApproved && <MdVerified className="text-blue-500" size={24} />}
             </div>
             {user?.companyName && (
               <p className="text-sm font-semibold text-gray-600">
-                Associated with: <span className="font-bold text-[#002B5B]">{user.companyName}</span>
+                Associated with: <span className="font-bold text-primary">{user.companyName}</span>
               </p>
             )}
           </div>
@@ -185,7 +185,7 @@ const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void,
 
           {/* the company address */}
           {user?.companyAddress && (
-            <p className="text-sm text-gray-600 font-medium flex items-center gap-1.5 mt-1 mb-4 text-center bg-gray-50/50 px-4 py-2 rounded-xl">
+            <p className="text-sm text-gray-600 font-medium flex items-center gap-1.5 mt-1 mb-4 text-center bg-gray-50/50 px-4 py-2 rounded-lg">
               <MdOutlineLocationOn className="text-blue-500" size={16} /> {user.companyAddress}
             </p>
           )}
@@ -194,17 +194,17 @@ const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void,
           <motion.button
             whileTap={{ scale: 0.96 }}
             onClick={isRejected ? onUpdateClick : onEditClick}
-            className={`w-full flex items-center justify-center gap-2 text-sm font-semibold px-5 py-3 rounded-xl transition-all shadow-sm
-              ${isRejected 
-                ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100' 
+            className={`w-full flex items-center justify-center gap-2 text-sm font-semibold px-5 py-3 rounded-lg transition-all shadow-sm
+              ${isRejected
+                ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100'
                 : 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 hover:text-blue-600 hover:border-blue-200'}`}
           >
             {isRejected ? "Update Profile" : "Edit Profile"} <FiEdit size={16} />
           </motion.button>
 
-           {/* Rejected remarks — mobile */}
+          {/* Rejected remarks — mobile */}
           {isRejected && latestRemark && (
-            <div className='mt-4 w-full p-4 bg-red-50/50 border border-red-100 rounded-xl'>
+            <div className='mt-4 w-full p-4 bg-red-50/50 border border-red-100 rounded-lg'>
               <p className='text-xs font-bold uppercase tracking-wider text-red-600 mb-1.5'>Required Updates</p>
               <p className='text-xs text-red-400 font-medium mb-2'>{new Date(latestRemark[0]).toLocaleString()}</p>
               <p className='text-sm text-red-800 font-medium leading-relaxed'>{latestRemark[1] as React.ReactNode}</p>
@@ -221,7 +221,7 @@ const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void,
             {/* logo + company's details */}
             <div className='flex items-end gap-6 relative z-10'>
               {/* logo */}
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0.8, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
@@ -229,20 +229,20 @@ const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void,
               >
                 <div className='w-36 h-36 rounded-full border-4 border-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden relative bg-white'>
                   {user?.profilePhoto ? (
-                    <Image alt="the broker's photo" 
-                      src={user?.profilePhoto} 
-                      fill={true} 
+                    <Image alt="the broker's photo"
+                      src={user?.profilePhoto}
+                      fill={true}
                       className='object-cover'>
                     </Image>
                   ) : (
-                    <div className='w-full h-full flex items-center justify-center text-[#002B5B] text-5xl font-bold bg-slate-50'>
+                    <div className='w-full h-full flex items-center justify-center text-primary text-5xl font-bold bg-slate-50'>
                       {getInitials(user?.name)}
                     </div>)}
                 </div>
-                
+
                 {/* Photo Upload Button (Bottom-Right) */}
                 <div className="absolute -bottom-3 -right-3 z-20">
-                  <label className="cursor-pointer bg-white text-gray-700 border border-gray-200 shadow-lg text-xs font-semibold px-2 py-2 rounded-xl flex items-center justify-center hover:bg-gray-50 hover:shadow-xl transition-all w-10 h-10">
+                  <label className="cursor-pointer bg-white text-gray-700 border border-gray-200 shadow-lg text-xs font-semibold px-2 py-2 rounded-lg flex items-center justify-center hover:bg-gray-50 hover:shadow-xl transition-all w-10 h-10">
                     {isUploading.profilePhoto ? (
                       <div className="w-4 h-4 border-2 border-gray-300 border-t-gray-700 rounded-full animate-spin" />
                     ) : (
@@ -256,7 +256,7 @@ const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void,
               {/* company info */}
               <div className="pb-2">
                 <div className="flex gap-3 mb-2">
-                  {isPending && ( 
+                  {isPending && (
                     <div className='flex items-center gap-1.5 text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100'>
                       <MdOutlinePendingActions size={14} />
                       <span className='text-[10px] font-bold uppercase tracking-wider'>Under Review</span>
@@ -268,7 +268,7 @@ const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void,
                     </div>
                   )}
                 </div>
-                
+
                 {/* the broker name */}
                 <div className='flex flex-col mb-1'>
                   <div className='flex items-center gap-3'>
@@ -279,11 +279,11 @@ const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void,
                   </div>
                   {user?.companyName && (
                     <p className="text-lg font-medium text-gray-600 mt-1">
-                      Associated with: <span className="font-bold text-[#002B5B]">{user.companyName}</span>
+                      Associated with: <span className="font-bold text-primary">{user.companyName}</span>
                     </p>
                   )}
                 </div>
-                
+
 
 
                 {/* address and rera information*/}
@@ -311,24 +311,24 @@ const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void,
             </div>
 
             <motion.button
-                whileHover={{ scale: 1.02, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={isRejected ? onUpdateClick : onEditClick}
-                className={`flex items-center gap-2 text-sm font-semibold px-6 py-2.5 rounded-xl transition-all shadow-sm shrink-0
-                  ${isRejected 
-                    ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100' 
-                    : 'bg-[#002B5B] text-white border border-[#002B5B] hover:bg-[#001f42] shadow-md hover:shadow-lg'}`}
-              >
-                {isRejected ? "Update Profile" : "Edit Profile"} <FiEdit size={16} />
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={isRejected ? onUpdateClick : onEditClick}
+              className={`flex items-center gap-2 text-sm font-semibold px-6 py-2.5 rounded-lg transition-all shadow-sm shrink-0
+                  ${isRejected
+                  ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100'
+                  : 'bg-primary text-white border border-primary hover:bg-[#001f42] shadow-md hover:shadow-lg'}`}
+            >
+              {isRejected ? "Update Profile" : "Edit Profile"} <FiEdit size={16} />
             </motion.button>
 
           </div>
 
           {/* Rejected remarks — desktop */}
           {isRejected && latestRemark && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              className='mt-6 p-5 bg-red-50/50 border border-red-100 rounded-2xl relative overflow-hidden'
+              className='mt-6 p-5 bg-red-50/50 border border-red-100 rounded-lg relative overflow-hidden'
             >
               <div className="absolute top-0 left-0 w-1 h-full bg-red-500"></div>
               <p className='text-xs font-bold uppercase tracking-widest text-red-600 mb-1'>Required Updates</p>
@@ -348,9 +348,9 @@ const BrokerHeader = ({ onEditClick, onUpdateClick }: { onEditClick: () => void,
             initial={{ opacity: 0, scale: 0.96, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="bg-white rounded-2xl p-6 md:p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto shadow-2xl relative scrollbar-modern"
+            className="bg-white rounded-lg p-6 md:p-8 max-w-2xl w-full max-h-[80vh] overflow-y-auto shadow-2xl relative scrollbar-modern"
           >
-            <button 
+            <button
               onClick={() => setIsMissionModalOpen(false)}
               className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors"
             >

@@ -43,7 +43,7 @@
                             <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent pointer-events-none z-0"></div>
 
                             <div className="absolute top-0 right-0 m-3 flex justify-between w-full z-10">
-                                <div className="absolute left-2 top-3 bg-white/95 backdrop-blur-sm shadow-md text-[#002B5B] flex items-center rounded-r-lg shadow-gray-800 h-7 px-2.5">
+                                <div className="absolute left-2 top-3 bg-white/95 backdrop-blur-sm shadow-md text-primary flex items-center rounded-r-lg shadow-gray-800 h-7 px-2.5">
                                     <MdOutlineLocationOn className="text-red-500" size={14} />
                                     <span className="text-[10px] font-bold md:font-bold pl-1 truncate max-w-30">
                                         {locationName}
@@ -75,7 +75,7 @@
                             )}
 
                             <div className="my-1 flex items-center justify-between">
-                                <p className="text-[12px] text-start font-extrabold text-[#002B5B] md:font-bold">
+                                <p className="text-[12px] text-start font-extrabold text-primary md:font-bold">
                                     {project?.priceRange || 'Price on Request'}
                                 </p>
                                 {project.status && (

@@ -146,7 +146,7 @@ const User = () => {
                     <button
                         onClick={sendOtp}
                         disabled={loading || !identifier}
-                        className="h-11 rounded-lg bg-[#002b5b] text-white text-sm font-semibold transition-all hover:bg-[#003b7b] disabled:opacity-50 active:scale-[0.98]"
+                        className="h-11 rounded-lg bg-primary text-white text-sm font-semibold transition-all hover:bg-[#003b7b] disabled:opacity-50 active:scale-[0.98]"
                     >
                         {loading ? "Sending OTP..." : "Get Started"}
                     </button>
@@ -157,7 +157,7 @@ const User = () => {
             ) : (
                 <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <div className="text-center space-y-1">
-                        <h3 className="text-xl font-bold text-[#002b5b]">Verify Identity</h3>
+                        <h3 className="text-xl font-bold text-primary">Verify Identity</h3>
                         <p className="text-xs text-gray-600 flex items-center justify-center gap-2">
                             Code sent to <span className="font-semibold">{identifier}</span>
                             <button
@@ -181,7 +181,7 @@ const User = () => {
                                 inputMode="numeric"
                                 className="h-12 w-10 md:h-12 md:w-12 text-center text-lg font-bold
                                            rounded-lg border border-gray-200 outline-none
-                                           focus:border-[#002b5b] focus:ring-2 focus:ring-[#002b5b]/10 
+                                           focus:border-primary focus:ring-2 focus:ring-primary/10 
                                            transition-all bg-gray-50 focus:bg-white"
                             />
                         ))}
@@ -193,7 +193,7 @@ const User = () => {
                         <button
                             onClick={handleVerify}
                             disabled={loading || otp.join("").length !== OTP_LENGTH}
-                            className="w-full h-11 rounded-lg bg-[#002b5b] text-white text-sm font-semibold 
+                            className="w-full h-11 rounded-lg bg-primary text-white text-sm font-semibold 
                                        transition-all hover:bg-[#003b7b] disabled:opacity-50 active:scale-[0.98]"
                         >
                             {loading ? "Verifying..." : "Verify & Log In"}
@@ -202,12 +202,12 @@ const User = () => {
                         <div className="text-center text-sm">
                             {!canResend ? (
                                 <p className="text-gray-500 text-xs">
-                                    Resend code in <span className="font-bold text-[#002b5b]">{timer}s</span>
+                                    Resend code in <span className="font-bold text-primary">{timer}s</span>
                                 </p>
                             ) : (
                                 <button
                                     onClick={sendOtp}
-                                    className="text-[#002b5b] text-xs font-bold hover:underline transition"
+                                    className="text-primary text-xs font-bold hover:underline transition"
                                 >
                                     {`Didn't receive the code? Resend OTP`}
                                 </button>

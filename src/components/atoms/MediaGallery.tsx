@@ -395,7 +395,7 @@ function MediaGallery({
                   type="button"
                   onClick={() => handleTabChange(key)}
                   className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${isActive
-                      ? "bg-[#002B5B] text-white shadow-sm"
+                      ? "bg-primary text-white shadow-sm"
                       : "text-slate-300 hover:text-white hover:bg-white/10"
                     }`}
                 >
@@ -473,7 +473,7 @@ function MediaGallery({
                 type="button"
                 onClick={() => handleTabChange(key)}
                 className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-semibold transition-all ${isActive
-                    ? "bg-[#002B5B] text-white"
+                    ? "bg-primary text-white"
                     : "bg-slate-800 text-slate-300"
                   }`}
               >

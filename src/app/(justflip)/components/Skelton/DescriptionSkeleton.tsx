@@ -8,7 +8,7 @@ export default function DescriptionSkeleton() {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 py-2 border-b border-gray-100/90 pb-4">
                 {/* Logo + name + address + builder */}
                 <div className="flex items-start md:items-center gap-3.5">
-                    <div className="hidden md:block w-16 h-16 rounded-2xl bg-gray-200 shrink-0 border border-gray-100" />
+                    <div className="hidden md:block w-16 h-16 rounded-lg bg-gray-200 shrink-0 border border-gray-100" />
                     <div className="flex flex-col gap-2">
                         <div className="flex items-center gap-2.5">
                             <SkeletonBlock className="h-7 w-48 sm:w-64 md:w-80 rounded-lg" />
@@ -35,13 +35,13 @@ export default function DescriptionSkeleton() {
             {/* Image gallery grid */}
             <div className="flex flex-col md:flex-row gap-2.5 md:gap-3 w-full h-auto md:h-[540px] lg:h-[580px]">
                 {/* Hero placeholder */}
-                <div className="w-full md:flex-[3.2] aspect-[4/3] sm:aspect-[16/10] md:aspect-auto md:h-full bg-gray-200 rounded-xl" />
+                <div className="w-full md:flex-[3.2] aspect-[4/3] sm:aspect-[16/10] md:aspect-auto md:h-full bg-gray-200 rounded-lg" />
 
                 {/* Side strip */}
                 <div className="flex flex-row md:flex-col gap-2 md:gap-2.5 w-full md:flex-1 h-[125px] sm:h-[145px] md:h-full">
-                    <div className="flex-1 bg-gray-200 rounded-xl" />
-                    <div className="flex-1 bg-gray-200 rounded-xl" />
-                    <div className="flex-1 bg-gray-200 rounded-xl hidden md:block" />
+                    <div className="flex-1 bg-gray-200 rounded-lg" />
+                    <div className="flex-1 bg-gray-200 rounded-lg" />
+                    <div className="flex-1 bg-gray-200 rounded-lg hidden md:block" />
                 </div>
             </div>
         </div>

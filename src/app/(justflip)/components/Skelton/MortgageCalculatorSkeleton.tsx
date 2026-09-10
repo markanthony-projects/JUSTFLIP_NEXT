@@ -16,10 +16,10 @@ export function MortgageCalculatorSkeleton() {
                     </div>
 
                     {/* EMI HERO */}
-                    <SkeletonBlock className="h-[90px] sm:h-[104px] md:h-[112px] w-full rounded-2xl" />
+                    <SkeletonBlock className="h-[90px] sm:h-[104px] md:h-[112px] w-full rounded-lg" />
 
                     {/* LOAN INPUT */}
-                    <SkeletonBlock className="h-[90px] sm:h-[104px] w-full rounded-2xl" />
+                    <SkeletonBlock className="h-[90px] sm:h-[104px] w-full rounded-lg" />
 
                     {/* CONTROLS */}
                     <div className="space-y-4 sm:space-y-5">
@@ -43,9 +43,9 @@ export function MortgageCalculatorSkeleton() {
 
                         {/* SUMMARY */}
                         <div className="w-full space-y-3 sm:space-y-4">
-                            <SkeletonBlock className="h-[46px] sm:h-[52px] w-full rounded-xl" />
-                            <SkeletonBlock className="h-[46px] sm:h-[52px] w-full rounded-xl" />
-                            <SkeletonBlock className="h-[42px] sm:h-[52px] w-full rounded-xl" />
+                            <SkeletonBlock className="h-[46px] sm:h-[52px] w-full rounded-lg" />
+                            <SkeletonBlock className="h-[46px] sm:h-[52px] w-full rounded-lg" />
+                            <SkeletonBlock className="h-[42px] sm:h-[52px] w-full rounded-lg" />
                         </div>
                     </div>
                 </div>

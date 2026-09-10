@@ -3,7 +3,7 @@ import { SkeletonBlock } from './SkeletonSection'
 
 function BlogCarouselSkeleton() {
     return (
-        <div className="relative w-full overflow-hidden rounded-2xl my-6 shadow-2xl">
+        <div className="relative w-full overflow-hidden rounded-lg my-6 shadow-2xl">
             <div className="w-full h-[300px] md:h-[400px] lg:h-[500px] relative overflow-hidden bg-gray-100">
                 <SkeletonBlock className="absolute inset-0 w-full h-full bg-gray-200" />
                 

@@ -80,7 +80,7 @@ export default function AreasNearby({ locationData }: { locationData?: any }) {
                       })}
                     </div>
 
-                    <p className="text-xs text-[#002B5B]">
+                    <p className="text-xs text-primary">
                       ({loc?.totalReviews || 0} Reviews)
                     </p>
                   </div>

@@ -17,7 +17,7 @@ export default function BlogDetailsClientSkeleton() {
                     </header>
 
                     {/* COVER IMAGE SKELETON */}
-                    <div className="w-full aspect-[16/8] md:aspect-[21/9] rounded-2xl overflow-hidden shadow-lg mb-12 bg-gray-50">
+                    <div className="w-full aspect-[16/8] md:aspect-[21/9] rounded-lg overflow-hidden shadow-lg mb-12 bg-gray-50">
                          <SkeletonBlock className="w-full h-full" />
                     </div>
 
@@ -41,7 +41,7 @@ export default function BlogDetailsClientSkeleton() {
                                      <SkeletonBlock className="h-5 w-4/5 rounded" />
                                 </div>
                                 
-                                <div className="w-full aspect-[16/9] rounded-xl overflow-hidden bg-gray-50 my-8 shadow-sm">
+                                <div className="w-full aspect-[16/9] rounded-lg overflow-hidden bg-gray-50 my-8 shadow-sm">
                                      <SkeletonBlock className="w-full h-full" />
                                 </div>
                                 

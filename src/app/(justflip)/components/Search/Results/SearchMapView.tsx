@@ -37,7 +37,7 @@ export default function SearchMapView() {
   }, [results, activeCity]);
 
   return (
-    <div className="w-full h-[calc(100vh-80px)] sticky top-[80px] z-0 rounded-xl overflow-hidden border border-gray-200 shadow-inner">
+    <div className="w-full h-[calc(100vh-80px)] sticky top-[80px] z-0 rounded-lg overflow-hidden border border-gray-200 shadow-inner">
         <MapContainer
             center={[defaultCenter.lat, defaultCenter.lng]}
             zoom={12}

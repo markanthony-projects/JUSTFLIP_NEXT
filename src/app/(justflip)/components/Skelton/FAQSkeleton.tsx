@@ -12,7 +12,7 @@ const FAQItemSkeleton = () => {
 
 const FAQListSkeleton = ({ count = 5 }) => {
     return (
-        <div className="bg-white rounded-xl md:rounded-2xl border border-gray-200/90 shadow-sm divide-y divide-gray-100 overflow-hidden">
+        <div className="bg-white rounded-lg md:rounded-lg border border-gray-200/90 shadow-sm divide-y divide-gray-100 overflow-hidden">
             {Array.from({ length: count }).map((_, i) => (
                 <FAQItemSkeleton key={i} />
             ))}

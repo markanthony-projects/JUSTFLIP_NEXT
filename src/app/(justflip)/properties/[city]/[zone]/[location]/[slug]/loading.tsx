@@ -12,7 +12,7 @@ import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
 export default function Loading() {
     return (
-        <div className="w-full max-w-full overflow-x-hidden px-2 md:px-4 bg-gray-50/50">
+        <div className="w-full max-w-full overflow-x-hidden px-4 bg-gray-50/50">
             <ScrollToTop />
 
             {/* Breadcrumb Skeleton */}
@@ -24,7 +24,7 @@ export default function Loading() {
             <DescriptionSkeleton />
 
             {/* Nav Tabs Skeleton */}
-            <div className="w-full bg-white border border-gray-100 rounded-xl p-2 my-4 flex gap-3 overflow-x-auto">
+            <div className="w-full bg-white border border-gray-100 rounded-lg p-2 my-4 flex gap-3 overflow-x-auto">
                 <div className="h-8 w-24 bg-gray-200 animate-pulse rounded-lg shrink-0"></div>
                 <div className="h-8 w-28 bg-gray-200 animate-pulse rounded-lg shrink-0"></div>
                 <div className="h-8 w-24 bg-gray-200 animate-pulse rounded-lg shrink-0"></div>
@@ -37,45 +37,45 @@ export default function Loading() {
                 {/* Left Column */}
                 <div className="lg:col-span-4 xl:col-span-5 space-y-4 md:space-y-6">
                     {/* Project Overview Skeleton */}
-                    <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                         <ProjectOverviewSkeleton />
                     </div>
 
                     {/* Floor Plans / Unit Table Skeleton */}
-                    <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                         <UnitTableSkeleton />
                     </div>
 
                     {/* Features & Amenities Skeleton */}
-                    <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                         <FeaturesSkeleton />
                     </div>
 
                     {/* Explore Map Skeleton */}
-                    <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                         <ExploreMapSkeleton />
                     </div>
 
                     {/* Project Highlights Skeleton */}
-                    <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                         <HighlightProjectSkeleton />
                     </div>
 
                     {/* Reviews Skeleton */}
-                    <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                         <ReviewsSkeleton />
                     </div>
 
                     {/* Developer Legacy Skeleton */}
-                    <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                         <DeveloperLegacySkeleton />
                     </div>
                 </div>
 
                 {/* Right Column: Sticky Sidebar Skeleton */}
                 <div className="hidden lg:block lg:col-span-2 xl:col-span-2 space-y-4">
-                    <div className="w-full h-[180px] bg-gray-200 animate-pulse rounded-xl"></div>
-                    <div className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+                    <div className="w-full h-[180px] bg-gray-200 animate-pulse rounded-lg"></div>
+                    <div className="bg-white rounded-lg p-4 sm:p-5 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
                         <CallbackFormSkeleton />
                     </div>
                 </div>

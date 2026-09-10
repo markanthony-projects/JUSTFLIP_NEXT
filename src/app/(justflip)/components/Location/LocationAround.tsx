@@ -28,7 +28,7 @@ export default function LocationAround({ services = [] }: { services?: any[] }) 
                                 onClick={() => setActiveTab(tab.name)}
                            
                                 className={`px-4 py-2 w-full  gap-2 text-sm  border transition-all duration-300 inline-flex justify-center items-center cursor-pointer ${isActive
-                                        ? "bg-[#002B5B] border-[#002B5B] text-white font-bold"
+                                        ? "bg-primary border-primary text-white font-bold"
                                         : "border-gray-400 text-[#333333] font-normal"
                                     } ${i === 0 ? "rounded-tl-lg" : ""} ${i === TABS.length - 1 ? "rounded-tr-lg" : ""
                                     }`}
@@ -53,7 +53,7 @@ export default function LocationAround({ services = [] }: { services?: any[] }) 
 
                                                 return (
                                                     <li key={i} className="flex items-center py-1">
-                                                        <span className="border rounded-full p-1 text-[#002B5B]">
+                                                        <span className="border rounded-full p-1 text-primary">
                                                             <Icon className="w-3 h-3" />
                                                         </span>
                                                         <span className="ml-2 text-xs">

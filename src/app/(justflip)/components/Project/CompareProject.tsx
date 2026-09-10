@@ -47,7 +47,7 @@ const CompareCarousel = ({ data, isDefault = true }: CompareCarouselProps) => {
 
         return (
             <div key={item?.id || index} className={`flex justify-center ${isMobileGrid ? 'w-full' : (!isDefault ? 'w-[260px]' : 'w-[320px]')}`}>
-                <div className="w-full rounded-2xl border border-gray-300 overflow-hidden hover:-translate-y-2 transition-all duration-500 ">
+                <div className="w-full rounded-lg border border-gray-300 overflow-hidden hover:-translate-y-2 transition-all duration-500 ">
                     <div className={`${isMobileGrid ? 'h-[180px]' : (!isDefault ? 'h-[200px]' : 'h-[260px]')} w-full relative `}>
                         <Link href={projectUrl}>
                             <Image src={imageUrl} alt={item?.banner?.name || name} className="w-full h-full object-cover transition-transform duration-700 " />
@@ -68,7 +68,7 @@ const CompareCarousel = ({ data, isDefault = true }: CompareCarouselProps) => {
 
                                 <button
                                     onClick={handleCompare}
-                                    className={`cursor-pointer ${isMobileGrid ? 'mt-1 py-1.5 rounded-lg text-xs gap-1' : 'mt-3 py-2.5 rounded-xl text-sm gap-2'} flex items-center justify-center font-medium text-white backdrop-blur-xl border border-white/20 transition-all duration-300 hover:scale-105 active:scale-95 ${isAdded ? "bg-red-500/30 hover:bg-red-500/40" : "bg-white/30 hover:bg-white/40"}`}
+                                    className={`cursor-pointer ${isMobileGrid ? 'mt-1 py-1.5 rounded-lg text-xs gap-1' : 'mt-3 py-2.5 rounded-lg text-sm gap-2'} flex items-center justify-center font-medium text-white backdrop-blur-xl border border-white/20 transition-all duration-300 hover:scale-105 active:scale-95 ${isAdded ? "bg-red-500/30 hover:bg-red-500/40" : "bg-white/30 hover:bg-white/40"}`}
                                 >
                                     {isAdded ? (<>
                                         <IoRemoveSharp className={isMobileGrid ? '' : 'ml-2'} /> <span>Compare</span>
@@ -107,7 +107,7 @@ const CompareCarousel = ({ data, isDefault = true }: CompareCarouselProps) => {
     }
 
     return (
-        <div className={` ${isDefault && "py-8 rounded-xl  shadow-[0px_0px_10px_1px_#dad6d6]"}`}>
+        <div className={` ${isDefault && "py-8 rounded-lg  shadow-[0px_0px_10px_1px_#dad6d6]"}`}>
             <div className={`w-full ${isDefault && "max-w-[320px] mx-auto"}`}>
                 <Carousel
                     items={data}

@@ -17,11 +17,11 @@ const ReviewModal = ({ formData, isOpen, onClose, onSubmit, error }: ReviewModal
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 app-overlay">
-            <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col animate-modal">
+            <div className="bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col animate-modal">
                 
                 {/* Header */}
                 <div className="flex items-center justify-between p-5 border-b border-gray-100">
-                    <h2 className="text-xl font-bold text-[#002b5b]">Review Registration Data</h2>
+                    <h2 className="text-xl font-bold text-primary">Review Registration Data</h2>
                     <button
                         onClick={onClose}
                         className="p-1 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition"
@@ -88,7 +88,7 @@ const ReviewModal = ({ formData, isOpen, onClose, onSubmit, error }: ReviewModal
                     </button>
                     <button
                         onClick={onSubmit}
-                        className="py-2.5 px-6 text-sm font-semibold rounded-lg text-white bg-[#002B5B] hover:bg-[#003b7b] transition active:scale-95"
+                        className="py-2.5 px-6 text-sm font-semibold rounded-lg text-white bg-primary hover:bg-[#003b7b] transition active:scale-95"
                     >
                         Confirm & Register
                     </button>

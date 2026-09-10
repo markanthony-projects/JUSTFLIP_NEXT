@@ -154,7 +154,7 @@ export default function LoginModal({ isOpen, closeModal, onSuccess, title="Find 
             <div className="relative">
                 <form onSubmit={handleLogin}>
                     <div className={`${showOtp ? 'hidden' : ' space-y-1'}`}>
-                        <h2 className={`text-start text-2xl font-bold text-[#002B5B] `}>
+                        <h2 className={`text-start text-2xl font-bold text-primary `}>
                             {title}
                         </h2>
 
@@ -175,7 +175,7 @@ export default function LoginModal({ isOpen, closeModal, onSuccess, title="Find 
                                 value={email}
                                 placeholder="Enter your phone number"
                                 required
-                                className={`w-full p-3 h-11.5 text-[#002B5B] text-xs outline-none bg-white border rounded-lg
+                                className={`w-full p-3 h-11.5 text-primary text-xs outline-none bg-white border rounded-lg
                             ${inputError ? 'border-red-500' : 'border-gray-300'}`}
                             />
 
@@ -187,7 +187,7 @@ export default function LoginModal({ isOpen, closeModal, onSuccess, title="Find 
                         </div>
 
                         <button
-                            className={` bg-[#002B5B] text-white mt-4 h-10 py-1 w-full rounded-lg text-sm font-semibold transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-2  focus:border-transparent`}
+                            className={` bg-primary text-white mt-4 h-10 py-1 w-full rounded-lg text-sm font-semibold transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-2  focus:border-transparent`}
                             type="button"
                             onClick={handleSendOtp}
                         >
@@ -200,7 +200,7 @@ export default function LoginModal({ isOpen, closeModal, onSuccess, title="Find 
 
                     <div className={`w-full relative ${!showOtp ? "pointer-events-none opacity-0 hidden" : "opacity-100"}`}                   >
                         <div className={`w-full transform transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${showForm ? "translate-y-0 scale-100 opacity-100" : "translate-y-10 scale-95 opacity-0 pointer-events-none"}`}>
-                            <h1 className='text-xl lg:text-2xl text-center text-[#002B5B] font-bold py-1'>
+                            <h1 className='text-xl lg:text-2xl text-center text-primary font-bold py-1'>
                                 Confirm Your Phone Number
                             </h1>
 
@@ -219,7 +219,7 @@ export default function LoginModal({ isOpen, closeModal, onSuccess, title="Find 
                                 }}
                             >
                                 <span className="font-semibold">{userData.input}</span>
-                                <HiPencilSquare className='ml-1 h-4 w-4 text-[#002B5B]' />
+                                <HiPencilSquare className='ml-1 h-4 w-4 text-primary' />
                             </p>
 
                             <div className="flex justify-center gap-2 my-4">
@@ -242,7 +242,7 @@ export default function LoginModal({ isOpen, closeModal, onSuccess, title="Find 
                             </div>
 
                             <button
-                                className="bg-[#002B5B] text-white text-sm font-semibold mt-3 p-3 w-full rounded-lg transition-transform duration-300 hover:scale-105 focus:outline-none"
+                                className="bg-primary text-white text-sm font-semibold mt-3 p-3 w-full rounded-lg transition-transform duration-300 hover:scale-105 focus:outline-none"
                                 type="submit"
                             >
                                 {loading ? "Logging in..." : "CONFIRM"}
@@ -254,7 +254,7 @@ export default function LoginModal({ isOpen, closeModal, onSuccess, title="Find 
                                 </p>
 
                                 <button
-                                    className={`text-[10px] md:text-[13px] text-[#002B5B] font-medium focus:outline-none hover:scale-105 ${resendOtpDisabled ? "cursor-not-allowed" : ""
+                                    className={`text-[10px] md:text-[13px] text-primary font-medium focus:outline-none hover:scale-105 ${resendOtpDisabled ? "cursor-not-allowed" : ""
                                         }`}
                                     type="button"
                                     onClick={handleResendOtp}

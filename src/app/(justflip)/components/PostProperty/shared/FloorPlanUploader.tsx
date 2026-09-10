@@ -54,7 +54,7 @@ function UnitTypeCombobox({ value, onChange }: UnitTypeComboboxProps) {
                 onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
                 onFocus={() => setOpen(true)}
                 onKeyDown={(e) => { if (e.key === 'Enter' && query.trim()) confirm(query.trim()); }}
-                className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-[#002B5B] bg-white transition-colors"
+                className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm focus:outline-none focus:border-primary bg-white transition-colors"
             />
             {open && (filtered.length > 0 || isCustom) && (
                 <ul className="absolute z-20 top-full left-0 w-full mt-1 bg-white border border-slate-200 rounded-lg shadow-xl max-h-52 overflow-y-auto">
@@ -62,7 +62,7 @@ function UnitTypeCombobox({ value, onChange }: UnitTypeComboboxProps) {
                         <li
                             key={o.value}
                             onMouseDown={() => confirm(o.value)}
-                            className={`px-3 py-2 text-sm cursor-pointer hover:bg-blue-50 hover:text-[#002B5B] transition-colors ${value === o.value ? 'bg-blue-50 font-bold text-[#002B5B]' : 'text-slate-700'}`}
+                            className={`px-3 py-2 text-sm cursor-pointer hover:bg-blue-50 hover:text-primary transition-colors ${value === o.value ? 'bg-blue-50 font-bold text-primary' : 'text-slate-700'}`}
                         >
                             {o.label}
                         </li>
@@ -70,7 +70,7 @@ function UnitTypeCombobox({ value, onChange }: UnitTypeComboboxProps) {
                     {isCustom && (
                         <li
                             onMouseDown={() => confirm(query.trim())}
-                            className="px-3 py-2 text-sm cursor-pointer text-[#002B5B] font-bold flex items-center gap-2 border-t border-slate-100 hover:bg-blue-50 transition-colors"
+                            className="px-3 py-2 text-sm cursor-pointer text-primary font-bold flex items-center gap-2 border-t border-slate-100 hover:bg-blue-50 transition-colors"
                         >
                             <IoAddOutline className="shrink-0" /> Add "{query.trim()}"
                         </li>
@@ -98,8 +98,8 @@ interface FloorPlanCardProps {
 
 function FloorPlanCard({ plan, onRemove, onAltChange, onUnitChange }: FloorPlanCardProps) {
     return (
-        <div className="bg-white flex gap-1 border- w-full rounded-xl  shadow-sm">
-            <div className="relative h-36 w-48 bg-slate-100 rounded-xl overflow-hidden m-2">
+        <div className="bg-white flex gap-1 border- w-full rounded-lg  shadow-sm">
+            <div className="relative h-36 w-48 bg-slate-100 rounded-lg overflow-hidden m-2">
                 <Image
                     src={plan.url}
                     alt={plan.alt || 'Floor plan'}
@@ -126,7 +126,7 @@ function FloorPlanCard({ plan, onRemove, onAltChange, onUnitChange }: FloorPlanC
                         placeholder="e.g. Ground Floor Layout"
                         value={plan.alt || ''}
                         onChange={(e) => onAltChange(e.target.value)}
-                        className="w-full px-3 py-2 border border-slate-100 rounded-lg text-xs focus:outline-none focus:border-[#002B5B] bg-slate-50 transition-colors"
+                        className="w-full px-3 py-2 border border-slate-100 rounded-lg text-xs focus:outline-none focus:border-primary bg-slate-50 transition-colors"
                     />
                 </div>
             </div>
@@ -152,10 +152,10 @@ export default function FloorPlanUploader({
     isUploading = false,
 }: FloorPlanUploaderProps) {
     return (
-        <div className="p-5 rounded-2xl border border-slate-100 bg-slate-50/50 space-y-4">
+        <div className="p-5 rounded-lg border border-slate-100 bg-slate-50/50 space-y-4">
             {/* Header */}
             <div className="flex items-start gap-2">
-                <BiGridAlt className="text-[#002B5B] text-xl mt-0.5 shrink-0" />
+                <BiGridAlt className="text-primary text-xl mt-0.5 shrink-0" />
                 <div>
                     <p className="text-sm font-bold text-slate-800 tracking-tight">Floor Plans</p>
                     <p className="text-xs text-slate-500 mt-0.5">
@@ -174,15 +174,15 @@ export default function FloorPlanUploader({
                     onChange={(e) => onUpload(e.target.files)}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10 disabled:cursor-not-allowed"
                 />
-                <div className="w-full py-7 border-2 border-dashed border-slate-200 rounded-xl bg-white flex flex-col items-center justify-center gap-2 group-hover:border-[#002B5B] group-hover:bg-blue-50/30 transition-all duration-300">
+                <div className="w-full py-7 border-2 border-dashed border-slate-200 rounded-lg bg-white flex flex-col items-center justify-center gap-2 group-hover:border-primary group-hover:bg-blue-50/30 transition-all duration-300">
                     {isUploading ? (
                         <div className='flex justify-center items-center h-20'>
-                        <span className="text-sm font-semibold text-[#002B5B] animate-pulse ">Uploading…</span>
+                        <span className="text-sm font-semibold text-primary animate-pulse ">Uploading…</span>
                         </div>
                     ) : (
                         <>
-                            <IoCloudUploadOutline className="text-3xl text-slate-400 group-hover:text-[#002B5B] transition-colors" />
-                            <span className="text-sm font-semibold text-slate-500 group-hover:text-[#002B5B]">
+                            <IoCloudUploadOutline className="text-3xl text-slate-400 group-hover:text-primary transition-colors" />
+                            <span className="text-sm font-semibold text-slate-500 group-hover:text-primary">
                                 Upload Floor Plans
                             </span>
                             <span className="text-[11px] text-slate-400">JPG, PNG, WEBP • Multiple allowed</span>

@@ -7,35 +7,35 @@ import StampDutyCalculator from '@/src/app/(justflip)/(tools)/stamp-duty/compone
 import { convertToIndianWords } from '@/src/app/(justflip)/(tools)/stamp-duty/components/useStampDutyCalculator';
 
 interface SummaryCardProps {
-    label: string;
-    value: string | number | undefined;
-    dotClass: string;
-    borderClass?: string;
+  label: string;
+  value: string | number | undefined;
+  dotClass: string;
+  borderClass?: string;
 }
 
 function SummaryCard({ label, value, dotClass, borderClass = "border-gray-200" }: SummaryCardProps) {
-    return (
-        <div className={`flex items-center justify-between rounded-lg border ${borderClass} bg-white p-3 sm:p-4 shadow-xs`}>
-            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                <span className={`h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full shrink-0 ${dotClass}`} />
-                <span className="truncate text-xs sm:text-sm font-medium text-gray-600">
-                    {label}
-                </span>
-            </div>
-            <span className="ml-3 text-xs sm:text-sm md:text-base font-semibold text-gray-900 break-all text-right">
-                ₹ {Number(value || 0).toLocaleString("en-IN")}
-            </span>
-        </div>
-    );
+  return (
+    <div className={`flex items-center justify-between rounded-lg border ${borderClass} bg-white p-3 sm:p-4 shadow-xs`}>
+      <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+        <span className={`h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full shrink-0 ${dotClass}`} />
+        <span className="truncate text-xs sm:text-sm font-medium text-gray-600">
+          {label}
+        </span>
+      </div>
+      <span className="ml-3 text-xs sm:text-sm md:text-base font-semibold text-gray-900 break-all text-right">
+        ₹ {Number(value || 0).toLocaleString("en-IN")}
+      </span>
+    </div>
+  );
 }
 
 interface QuickCalculationsProps {
   project?: {
     name?: string;
-    city?:{
-      id?:string;
-      name?:string;
-      region?:string;
+    city?: {
+      id?: string;
+      name?: string;
+      region?: string;
     }
     units?: Array<{
       minPrice?: number | string;
@@ -127,15 +127,15 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
             </p>
           </div>
 
-          <span className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#002B5B]/5 text-[#002B5B] border border-[#002B5B]/10 shadow-xs">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#002B5B] animate-pulse" />
+          <span className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-primary/5 text-primary border border-primary/10 shadow-xs">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
             Based on Min Price
           </span>
         </div>
 
         {/* Borderless Layout with a Single Separator in Between */}
         <div className="grid grid-cols-2 sm:grid-cols-2 relative items-center gap-6 sm:gap-0">
-          
+
           {/* Mortgage / EMI Option */}
           <button
             type="button"
@@ -143,13 +143,13 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
             className="group flex flex-col items-center text-center p-4 transition-all cursor-pointer w-full bg-transparent border-0 outline-none"
           >
             <div className="w-28 h-28 flex items-center justify-center p-1 group-hover:scale-105 transition-transform duration-300">
-              <img 
-                src="/assets/images/tools/icon_mortgage.jpg" 
-                alt="Mortgage / EMI" 
-                className="w-full h-full object-contain" 
+              <img
+                src="/assets/images/tools/icon_mortgage.jpg"
+                alt="Mortgage / EMI"
+                className="w-full h-full object-contain"
               />
             </div>
-            <h4 className="text-base md:text-xl font-bold text-slate-900 group-hover:text-[#002B5B] transition-colors">
+            <h4 className="text-base md:text-xl font-bold text-slate-900 group-hover:text-primary transition-colors">
               Calculate EMI
             </h4>
             <p className="text-xs text-slate-500 mt-1">
@@ -167,13 +167,13 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
             className="group flex flex-col items-center text-center p-4 transition-all cursor-pointer w-full bg-transparent border-0 outline-none border-t sm:border-t-0 border-gray-100 pt-6 sm:pt-4"
           >
             <div className="w-28 h-28 flex items-center justify-center p-1 group-hover:scale-105 transition-transform duration-300">
-              <img 
-                src="/assets/images/tools/icon_stamp_duty.jpg" 
-                alt="Stamp Duty" 
-                className="w-full h-full object-contain" 
+              <img
+                src="/assets/images/tools/icon_stamp_duty.jpg"
+                alt="Stamp Duty"
+                className="w-full h-full object-contain"
               />
             </div>
-            <h4 className="text-base md:text-xl font-bold text-slate-900 group-hover:text-[#002B5B] transition-colors">
+            <h4 className="text-base md:text-xl font-bold text-slate-900 group-hover:text-primary transition-colors">
               Stamp Duty
             </h4>
             <p className="text-xs text-slate-500 mt-1">
@@ -188,10 +188,9 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
       {activeModal && (
         <div className="fixed inset-0 h-screen w-screen z-50 flex items-center justify-center bg-black/50 p-3 sm:p-6 backdrop-blur-xs">
           <div className="relative w-full max-w-5xl max-h-[92vh] overflow-y-auto rounded-lg bg-white p-6 sm:p-8 shadow-2xl transition-all duration-300 border border-gray-100">
-            
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-6">
-              <h3 className="text-xl sm:text-2xl font-bold text-[#002B5B]">
+              <h3 className="text-xl sm:text-2xl font-bold text-primary">
                 {activeModal === 'emi' ? 'Mortgage / EMI Calculator' : 'Stamp Duty & Registration Calculator'}
               </h3>
               <button
@@ -207,7 +206,7 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
             <div>
               {activeModal === 'emi' ? (
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-                  
+
                   {/* Left Column: Inputs & Sliders */}
                   <div className="md:col-span-7 space-y-5">
                     <div className="rounded-lg bg-[#002B5B] p-5 text-center text-white shadow-sm">
@@ -227,7 +226,7 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
                         value={"₹ " + (loanAmount ? Number(loanAmount).toLocaleString("en-IN") : 0)}
                         onChange={handleAmountChange}
                         placeholder="0"
-                        className="w-full bg-transparent text-center text-2xl font-bold text-[#002B5B] focus:outline-none"
+                        className="w-full bg-transparent text-center text-2xl font-bold text-primary focus:outline-none"
                       />
                       <p className="text-center text-xs text-gray-400 mt-0.5">
                         {convertToIndianWords(Number(loanAmount))}
@@ -238,7 +237,7 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
                       <div>
                         <div className="mb-1.5 flex items-center justify-between text-xs font-semibold">
                           <span className="text-gray-700">Loan Tenure Years</span>
-                          <span className="text-[#002B5B]">{years} Yrs</span>
+                          <span className="text-primary">{years} Yrs</span>
                         </div>
                         <input
                           type="range"
@@ -246,14 +245,14 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
                           max="30"
                           value={years}
                           onChange={(e) => setYears(e.target.value)}
-                          className="h-2 w-full cursor-pointer accent-[#002B5B]"
+                          className="h-2 w-full cursor-pointer accent-primary"
                         />
                       </div>
 
                       <div>
                         <div className="mb-1.5 flex items-center justify-between text-xs font-semibold">
                           <span className="text-gray-700">Loan Tenure Months</span>
-                          <span className="text-[#002B5B]">{months} Months</span>
+                          <span className="text-primary">{months} Months</span>
                         </div>
                         <input
                           type="range"
@@ -261,14 +260,14 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
                           max="11"
                           value={months}
                           onChange={(e) => setMonths(e.target.value)}
-                          className="h-2 w-full cursor-pointer accent-[#002B5B]"
+                          className="h-2 w-full cursor-pointer accent-primary"
                         />
                       </div>
 
                       <div>
                         <div className="mb-1.5 flex items-center justify-between text-xs font-semibold">
                           <span className="text-gray-700">Interest Rate (%)</span>
-                          <span className="text-[#002B5B]">{interestRate}%</span>
+                          <span className="text-primary">{interestRate}%</span>
                         </div>
                         <input
                           type="range"
@@ -277,7 +276,7 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
                           step="0.1"
                           value={interestRate}
                           onChange={(e) => setInterestRate(e.target.value)}
-                          className="h-2 w-full cursor-pointer accent-[#002B5B]"
+                          className="h-2 w-full cursor-pointer accent-primary"
                         />
                       </div>
                     </div>
@@ -289,7 +288,7 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
                     <SummaryCard label="Interest" value={results?.totalInterest} dotClass="bg-green-500" />
                     <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50/50 p-4">
                       <span className="text-xs font-semibold text-gray-700">Total Payment</span>
-                      <span className="text-sm md:text-base font-bold text-[#002B5B]">
+                      <span className="text-sm md:text-base font-bold text-primary">
                         ₹ {Number(results?.totalPayment || 0).toLocaleString("en-IN")}
                       </span>
                     </div>
@@ -325,7 +324,7 @@ export default function QuickCalculations({ project, onViewProperties }: QuickCa
                 </div>
               ) : (
                 <div className="w-full">
-                  <StampDutyCalculator initialPrice={minPrice} defaultState={project?.city?.region} cityName={project?.city?.name} cityId={project?.city?.id}/>
+                  <StampDutyCalculator initialPrice={minPrice} defaultState={project?.city?.region} cityName={project?.city?.name} cityId={project?.city?.id} />
                 </div>
               )}
             </div>

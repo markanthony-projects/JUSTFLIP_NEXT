@@ -46,10 +46,10 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
         </div>
 
         {/* Info Card */}
-        <div className="relative z-10 w-full max-w-[1300px] px-2 md:px-4 mx-auto -mt-14 sm:-mt-16 md:-mt-20">
-          <div className="bg-white border border-gray-200/80 rounded-2xl md:rounded-3xl shadow-lg p-5 sm:p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-5 md:gap-8">
+        <div className="relative z-10 w-full max-w-[1300px] px-4 mx-auto -mt-14 sm:-mt-16 md:-mt-20">
+          <div className="bg-white border border-gray-200/80 rounded-lg p-5 sm:p-6 md:p-8 flex flex-col md:flex-row items-center md:items-start gap-5 md:gap-8">
             {/* Logo Container */}
-            <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 shrink-0 bg-white rounded-2xl p-2.5 border border-gray-200 shadow-md overflow-hidden flex items-center justify-center">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-36 md:h-36 shrink-0 bg-white rounded-lg p-2.5 border border-gray-200 overflow-hidden flex items-center justify-center">
               <Image
                 src={logo?.url}
                 alt={builder?.name}
@@ -60,12 +60,12 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
             {/* Builder Details */}
             <div className="flex-1 text-center md:text-left">
               <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 md:mb-3 mb-2">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#002B5B] tracking-tight">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary tracking-tight">
                   {builder?.name}
                 </h1>
                 {builder?.startedAt && (
-                  <span className="inline-flex items-center px-3 mx-auto md:mx-0 py-0.5 rounded-full bg-[#002B5B]/5 border border-[#002B5B]/15 text-[#002B5B] text-xs sm:text-sm font-medium">
-                    <FiCheckCircle className="mr-1.5 text-[#002B5B]" />
+                  <span className="inline-flex items-center px-3 mx-auto md:mx-0 py-0.5 rounded-full bg-primary/5 border border-primary/15 text-primary text-xs sm:text-sm font-medium">
+                    <FiCheckCircle className="mr-1.5 text-primary" />
                     Est. {builder?.startedAt}
                   </span>
                 )}
@@ -78,7 +78,7 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
                   {isLongMobile && (
                     <button
                       onClick={() => setIsOpen(true)}
-                      className="ml-2 inline-flex items-center text-[#002B5B] underline hover:text-[#001f42] font-semibold transition-colors group"
+                      className="ml-2 inline-flex items-center text-primary underline hover:text-primary/80 font-semibold transition-colors group"
                     >
                       Read more
                       <span className="ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -94,7 +94,7 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
                   {isLongDesktop && (
                     <button
                       onClick={() => setIsOpen(true)}
-                      className="ml-2 inline-flex items-center text-[#002B5B] underline hover:text-[#001f42] font-semibold transition-colors group"
+                      className="ml-2 inline-flex items-center text-primary underline hover:text-primary/80 font-semibold transition-colors group"
                     >
                       Read more
                       <span className="ml-1 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
@@ -110,9 +110,9 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
       </div>
 
       {/* Description Modal */}
-      <Modal isOpen={isOpen} maxWidth="md:max-w-3xl" className='bg-white p-6 md:p-8 rounded-2xl shadow-2xl border border-gray-100' onClose={() => setIsOpen(false)}>
+      <Modal isOpen={isOpen} maxWidth="md:max-w-3xl" className='bg-white p-6 md:p-8 rounded-lg shadow-2xl border border-gray-100' onClose={() => setIsOpen(false)}>
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-[#002B5B]">
+          <h2 className="text-2xl font-bold text-primary">
             About {builder?.name}
           </h2>
         </div>
@@ -122,7 +122,7 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
       </Modal>
 
       {/* Content Sections */}
-      <div className="w-full max-w-[1300px] mx-auto px-2 md:px-4 pt-8 md:pt-12 space-y-8 md:space-y-12">
+      <div className="w-full max-w-[1300px] mx-auto px-4 pt-8 md:pt-12 space-y-8 md:space-y-12">
         {(builder?.employees?.length ?? 0) > 0 && (
           <section>
             <KeyEmployees employees={builder?.employees} />
@@ -137,9 +137,9 @@ function DeveloperDetailsClient({ initialData }: { initialData?: Builder }) {
 
         <section>
           <div className="md:mb-4 mb-3 flex items-center justify-between">
-            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-[#002B5B] tracking-tight">Our Projects</h2>
+            <h2 className="section-heading">Our Projects</h2>
           </div>
-          <div className="bg-white rounded-3xl p-4 md:p-6 shadow-xl border border-gray-100">
+          <div className="bg-white rounded-lg p-4 md:p-6 border border-gray-100">
             <Map builder={builder} />
           </div>
         </section>

@@ -16,10 +16,10 @@ const TermsAndConditions = () => {
       <Breadcrumb items={breadcrumbItems}/>
 
       {/* Hero Header */}
-      <header className="mt-6 flex min-h-[180px] flex-col items-center justify-center rounded-2xl bg-[#EAF3FA] px-4 py-10 text-center">
+      <header className="mt-6 flex min-h-[180px] flex-col items-center justify-center rounded-lg bg-[#EAF3FA] px-4 py-10 text-center">
 
         {/* Document Icon */}
-        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-sm">
+        <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-white shadow-sm">
           <svg
             aria-hidden="true"
             focusable="false"
@@ -30,7 +30,7 @@ const TermsAndConditions = () => {
           >
             <path
               d="M6 3.5C6 2.672 6.672 2 7.5 2H14L18 6V20.5C18 21.328 17.328 22 16.5 22H7.5C6.672 22 6 21.328 6 20.5V3.5Z"
-              fill="#002B5B"
+              fill="primary"
             />
 
             <path
@@ -47,7 +47,7 @@ const TermsAndConditions = () => {
           </svg>
         </div>
 
-        <h1 className="text-2xl font-bold tracking-tight text-[#002B5B] sm:text-3xl">
+        <h1 className="text-2xl font-bold tracking-tight text-primary sm:text-3xl">
             {termsData.metadata.title}
         </h1>
 
@@ -55,7 +55,7 @@ const TermsAndConditions = () => {
 
 
     {/* Introduction Card */}
-    <section className="mt-10 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8">
+    <section className="mt-10 rounded-lg border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8">
 
         <div className="flex items-start gap-4">
 
@@ -67,7 +67,7 @@ const TermsAndConditions = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-[#002B5B]"
+                className="h-5 w-5 text-primary"
                 >
                 <path
                     d="M12 3L19 6V11.5C19 16.2 16.1 20.1 12 21C7.9 20.1 5 16.2 5 11.5V6L12 3Z"
@@ -111,7 +111,7 @@ const TermsAndConditions = () => {
                 <a
                     href="mailto:support@justflip.in"
                     aria-label="Contact JustFlip Support via email"
-                    className="ml-1 font-semibold text-[#002B5B] transition-colors hover:text-[#001F42] hover:underline"
+                    className="ml-1 font-semibold text-primary transition-colors hover:text-[#001F42] hover:underline"
                 >
                     support@justflip.in
                 </a>
@@ -138,19 +138,19 @@ const TermsAndConditions = () => {
             }`}
             >
             <div className="flex gap-4">
-                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#EAF3FA] text-sm font-bold text-[#002B5B]">
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#EAF3FA] text-sm font-bold text-primary">
                 {String(section.id).padStart(2, "0")}
                 </span>
 
                 <div className="w-full">
-                <h2 className="text-lg font-semibold text-[#002B5B]">
+                <h2 className="text-lg font-semibold text-primary">
                     {section.title}
                 </h2>
 
                 <ul className="mt-3 space-y-2 text-xs leading-6 text-gray-700 sm:text-sm">
                     {section.content.map((paragraph, paragraphIndex) => (
                     <li key={paragraphIndex} className="flex items-start gap-2">
-                        <span className="shrink-0 text-[#002B5B] font-bold">→</span>
+                        <span className="shrink-0 text-primary font-bold">→</span>
                         <span>{paragraph}</span>
                     </li>
                     ))} 
@@ -162,8 +162,8 @@ const TermsAndConditions = () => {
       </div>
 
       {/* Contact */}
-      <section className="mt-8 rounded-2xl border border-[#D8E4EE] bg-[#EAF3FA] p-6 text-center sm:p-8">
-        <h3 className="text-lg font-semibold text-[#002B5B]">
+      <section className="mt-8 rounded-lg border border-[#D8E4EE] bg-[#EAF3FA] p-6 text-center sm:p-8">
+        <h3 className="text-lg font-semibold text-primary">
           Have questions?
         </h3>
 
@@ -174,7 +174,7 @@ const TermsAndConditions = () => {
         <a
           href="mailto:support@justflip.in"
           aria-label="Contact JustFlip Support via email"
-          className="mt-4 inline-block font-semibold text-[#002B5B] transition-colors hover:text-[#001F42] hover:underline"
+          className="mt-4 inline-block font-semibold text-primary transition-colors hover:text-[#001F42] hover:underline"
         >
             {termsData.ContactUs.Email}
         </a>

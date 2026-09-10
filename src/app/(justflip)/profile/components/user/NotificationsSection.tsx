@@ -30,7 +30,7 @@ function Toggle({ checked, onChange, disabled = false, name }: ToggleProps) {
       />
       <div className="relative w-10 h-5 bg-gray-200 rounded-full
         peer-focus:outline-none peer-focus:ring-4
-        peer-focus:ring-white peer-checked:bg-[#002B5B]
+        peer-focus:ring-white peer-checked:bg-primary
 
         after:content-[''] after:absolute after:top-[1px] after:inset-s-0 after:bg-white
         after:border-gray-300 after:border after:rounded-full
@@ -68,7 +68,7 @@ const NotificationsSection = () => {
     const { name, checked } = e.target;
 
     const updatedChild = { ...child, [name as keyof typeof child]: checked };
-    setChild(updatedChild);    
+    setChild(updatedChild);
   };
 
   return (
@@ -83,9 +83,9 @@ const NotificationsSection = () => {
       {/* children are disabled and also visually dimmed when parent is off.
           This prevents toggling individual items when notifications are globally off.  we also have added the parent state to keep a check that the other toggles are only available when the parent is toggled*/}
       {parent && featureList.map(({ key, title, desc }) => (
-        <div key={key} className="grid justify-between grid-flow-col p-2 rounded-2xl bg-linear-to-r from-blue-50 from-10% via-transparent via-30% to-blue-50 to-90%">
+        <div key={key} className="grid justify-between grid-flow-col p-2 rounded-lg bg-linear-to-r from-blue-50 from-10% via-transparent via-30% to-blue-50 to-90%">
           <div className="grid">
-            <p className="text-base text-[#002B5B] font-semibold">{title}</p>
+            <p className="text-base text-primary font-semibold">{title}</p>
             <p className="text-sm text-[#14242E9E]">{desc}</p>
           </div>
           <Toggle

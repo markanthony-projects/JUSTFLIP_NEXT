@@ -2,9 +2,9 @@ import { SkeletonBlock } from "./SkeletonSection";
 
 export default function DeveloperCardSkeleton() {
   return (
-    <div className="w-full relative h-[260px] rounded-2xl overflow-hidden bg-gray-200 animate-pulse shadow-md">
+    <div className="w-full relative h-[260px] rounded-lg overflow-hidden bg-gray-200 animate-pulse shadow-md">
         {/* Glassmorphism panel skeleton at the bottom */}
-        <div className="absolute bottom-3 left-3 right-3 bg-white/40 p-3 rounded-xl flex items-center justify-between">
+        <div className="absolute bottom-3 left-3 right-3 bg-white/40 p-3 rounded-lg flex items-center justify-between">
             
             <div className="flex items-center gap-3 overflow-hidden w-full">
                 {/* Logo Skeleton */}

@@ -22,7 +22,7 @@ export default function BlogGridCard({ blog }: BlogGridCardProps) {
         <Link
             href={`/blogs/${formatUrl(blog.heading || "blog")}-${blog?.id}`}
             aria-label={blog.heading || "Read blog post"}
-            className="group w-full flex flex-col h-full bg-white border border-gray-200/60 rounded-2xl overflow-hidden hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1.5"
+            className="group w-full flex flex-col h-full bg-white border border-gray-200/60 rounded-lg overflow-hidden transition-all duration-300 hover:-translate-y-1.5"
         >
             <div className="relative w-full aspect-[16/10] overflow-hidden bg-gray-50">
                 {blog?.image?.url ? (

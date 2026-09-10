@@ -41,8 +41,8 @@ const PopularCityTile = memo(function PopularCityTile({ city, selected, onSelect
         >
             <span
                 className={`relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden bg-gray-50 border-2 transition-colors ${selected
-                    ? "border-[#002B5B]"
-                    : "border-gray-200 group-hover:border-[#002B5B]/50"
+                    ? "border-primary"
+                    : "border-gray-200 group-hover:border-primary/50"
                     }`}
             >
                 {showImage ? (
@@ -65,7 +65,7 @@ const PopularCityTile = memo(function PopularCityTile({ city, selected, onSelect
             </span>
 
             <span
-                className={`text-[12px] leading-tight text-center line-clamp-2 ${selected ? "font-bold text-[#002B5B]" : "font-medium text-gray-600"
+                className={`text-[12px] leading-tight text-center line-clamp-2 ${selected ? "font-bold text-primary" : "font-medium text-gray-600"
                     }`}
             >
                 {city?.name}
@@ -82,8 +82,8 @@ const CityChip = memo(function CityChip({ city, selected, onSelect }: { city: an
             type="button"
             onClick={() => onSelect(city)}
             className={`h-10 px-3 rounded-lg text-[13px] text-left truncate border transition-colors cursor-pointer ${selected
-                ? "bg-[#F4F9FF] border-[#002B5B] text-[#002B5B] font-semibold"
-                : "bg-white border-gray-200 text-gray-700 hover:border-[#002B5B]/40 hover:bg-gray-50"
+                ? "bg-[#F4F9FF] border-primary text-primary font-semibold"
+                : "bg-white border-gray-200 text-gray-700 hover:border-primary/40 hover:bg-gray-50"
                 }`}
         >
             {city?.name}
@@ -183,7 +183,7 @@ export default function CitySelectorModal({ isOpen, onClose, onCitySelect, updat
             <div className="shrink-0 px-5 pt-5 pb-4 border-b border-gray-100">
                 <div className="flex items-start justify-between gap-4">
                     <div>
-                        <h2 className="text-[17px] font-bold text-[#002B5B]">
+                        <h2 className="text-[17px] font-bold text-primary">
                             Select your city
                         </h2>
                         <p className="mt-0.5 text-[12px] text-gray-500">
@@ -201,7 +201,7 @@ export default function CitySelectorModal({ isOpen, onClose, onCitySelect, updat
                     </button>
                 </div>
 
-                <div className="mt-4 flex items-center gap-2 h-11 px-3.5 rounded-xl border border-gray-200 bg-gray-50 focus-within:bg-white focus-within:border-[#002B5B] transition-colors">
+                <div className="mt-4 flex items-center gap-2 h-11 px-3.5 rounded-lg border border-gray-200 bg-gray-50 focus-within:bg-white focus-within:border-primary transition-colors">
                     <HiOutlineSearch className="w-4.5 h-4.5 text-gray-400 shrink-0" />
                     <input
                         id="city-search-input"
@@ -229,7 +229,7 @@ export default function CitySelectorModal({ isOpen, onClose, onCitySelect, updat
                     type="button"
                     onClick={handleDetect}
                     disabled={detecting}
-                    className="mt-3 flex items-center gap-2 text-[13px] font-semibold text-[#002B5B] hover:text-[#001f42] disabled:opacity-60 transition-colors"
+                    className="mt-3 flex items-center gap-2 text-[13px] font-semibold text-primary hover:text-[#001f42] disabled:opacity-60 transition-colors"
                 >
                     <BiTargetLock
                         className={`w-4.5 h-4.5 ${detecting ? "animate-spin" : ""}`}

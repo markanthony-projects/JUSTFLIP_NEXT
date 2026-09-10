@@ -8,9 +8,9 @@ export default function DeveloperLegacySkeleton() {
         <section className="animate-pulse">
             <SkeletonBlock className="h-5 w-48 mb-4" />
             <div className="grid md:grid-cols-[200px_1fr] gap-4 items-start">
-                <div className="bg-[#F3F8FA] rounded-2xl p-4 flex flex-col items-center gap-4 shadow-sm">
-                    <div className="relative w-[150px] h-[150px] rounded-xl overflow-hidden shadow-md">
-                        <SkeletonBlock className="w-full h-full rounded-xl" />
+                <div className="bg-[#F3F8FA] rounded-lg p-4 flex flex-col items-center gap-4 shadow-sm">
+                    <div className="relative w-[150px] h-[150px] rounded-lg overflow-hidden shadow-md">
+                        <SkeletonBlock className="w-full h-full rounded-lg" />
                     </div>
                     <SkeletonBlock className="h-9 w-full rounded-full" />
                 </div>

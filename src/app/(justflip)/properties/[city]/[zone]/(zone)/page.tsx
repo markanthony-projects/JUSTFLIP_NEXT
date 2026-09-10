@@ -112,21 +112,21 @@ async function ZonePageContent({ params }: ZonePageProps) {
           </Suspense>
 
           {/* 3. Zone Highlights Tile */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<HighlightSkeleton />}>
               <Highlight data={zoneData} />
             </Suspense>
           </div>
 
           {/* 4. Top Builders Tile */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<TopBuildersSkeleton />}>
               <BuildersSection builders={builders} city={zoneData?.city} />
             </Suspense>
           </div>
 
           {/* 5. Ratings & Reviews Tile */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<ReviewsSkeleton />}>
               <ReviewsSectionClient typeName={name} typeId={id} type="zone" reviews={reviewList} />
             </Suspense>

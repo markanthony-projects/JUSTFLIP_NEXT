@@ -150,18 +150,18 @@ const UnitConverter = ({
         <div className='sm:ml-20 relative  w-full max-w-md'>
 
           {/* -------------------------------------------- */}
-          <div className='overflow-hidden rounded-xl border-2 border-[#e1e8f2] bg-white shadow-[0_20px_60px_rgba(0,43,91,0.10)]'>
+          <div className='overflow-hidden rounded-lg border-2 border-[#e1e8f2] bg-white shadow-[0_20px_60px_rgba(0,43,91,0.10)]'>
             
             {/* -----------------header----------------------- */}
             <div className='flex items-center justify-between border-b border-[#e8edf4] px-5 py-4 md:px-7'>
 
               <div className='flex items-center gap-2'>
-                <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-l-lg rounded-br-lg bg-[#002B5B] text-white'>
+                <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-l-lg rounded-br-lg bg-primary text-white'>
                   <PiCalculator size={24} />
                 </div>
 
                 <div>
-                  <h1 className='text-base font-bold text-[#002B5B] md:text-md uppercase'>
+                  <h1 className='text-base font-bold text-primary md:text-md uppercase'>
                     Conversion Calculator
                   </h1>
                   <p className='text-xs text-slate-700 font-medium'>
@@ -175,7 +175,7 @@ const UnitConverter = ({
                 onClick={handleReset}
                 aria-label="Reset calculator"
                 className='flex items-center gap-2 rounded-lg border border-[#d9e2ef] bg-white px-3 py-2 text-xs   
-                  font-semibold text-[#002B5B] transition-all duration-200 hover:border-[#b8c9df] hover:bg-[#f7faff] active:scale-95 md:px-4'
+                  font-semibold text-primary transition-all duration-200 hover:border-[#b8c9df] hover:bg-[#f7faff] active:scale-95 md:px-4'
               >
                 <FiRefreshCw size={14} />
 
@@ -216,8 +216,8 @@ const UnitConverter = ({
                       className={`rounded-lg py-2 text-sm font-semibold transition-all duration-200
                         ${
                             category === item.value
-                                ? ` bg-[#002B5B] text-white shadow-[0_4px_12px_rgba(0,43,91,0.18)]`
-                                : ` text-slate-700 font-bold hover:text-[#002B5B]`
+                                ? ` bg-primary text-white shadow-[0_4px_12px_rgba(0,43,91,0.18)]`
+                                : ` text-slate-700 font-bold hover:text-primary`
                         }`}
                     >
                       {item.label}
@@ -232,7 +232,7 @@ const UnitConverter = ({
                 <label htmlFor="" className='mb-0.5 block text-[13px] font-bold text-[#27364b] uppercase'>enter value</label>
                 
                 <div className='flex items-center overflow-hidden rounded-lg border border-[#d9e2ef] bg-white transition-all 
-                  duration-200 focus-within:border-[#002B5B] focus-within:ring-4 focus-within:ring-[#002B5B]/10'>
+                  duration-200 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10'>
                     <input type="text" 
                       inputMode="decimal"
                       value={inputValue}
@@ -257,10 +257,10 @@ const UnitConverter = ({
                             handleConvert()
                           }}}
                       placeholder="0.00"
-                      className='min-w-0 flex-1 bg-transparent px-5 py-2 text-md font-bold tracking-tight text-[#002B5B] outline-none placeholder:text-slate-400'
+                      className='min-w-0 flex-1 bg-transparent px-5 py-2 text-md font-bold tracking-tight text-primary outline-none placeholder:text-slate-400'
                     />
 
-                    <div className='mr-3 flex h-8 w-8 items-center justify-center rounded-lg bg-[#f2f6fb] text-[#002B5B]'>
+                    <div className='mr-3 flex h-8 w-8 items-center justify-center rounded-lg bg-[#f2f6fb] text-primary'>
                       <PiCalculator size={20} />
                     </div>
                 </div>
@@ -288,7 +288,7 @@ const UnitConverter = ({
                       onClick={swapUnits}
                       aria-label="Swap from and to units"
                       title="Swap units"
-                      className='flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-3 border-white bg-[#f4f8fd] text-[#002B5B] transition-all duration-200 hover:border-[#9db5d3] hover:bg-[#eaf1fa] active:scale-90 md:self-end shadow-md shadow-[#cbd9eb]
+                      className='flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-3 border-white bg-[#f4f8fd] text-primary transition-all duration-200 hover:border-[#9db5d3] hover:bg-[#eaf1fa] active:scale-90 md:self-end shadow-md shadow-[#cbd9eb]
                       '>
                         <span className="text-lg font-bold"> ⇄ </span>
                   </button>
@@ -327,7 +327,7 @@ const UnitConverter = ({
                 <div className='flex justify-between'>
                   <div>
                     <div className='flex flex-wrap items-baseline gap-2' >
-                      <span className='text-md font-bold tracking-tight text-[#002B5B] md:text-xl' >
+                      <span className='text-md font-bold tracking-tight text-primary md:text-xl' >
                           {formatREsult( converted )}
                       </span>
                       <span className='text-lg font-bold text-[#1d5da3]'>
@@ -352,7 +352,7 @@ const UnitConverter = ({
                     onClick={handleCopyResult}
                     aria-label="Copy conversion result"
                     title="Copy result"
-                    className=' flex h-7 w-7 items-center justify-center rounded-lg border border-[#d4e0ef] bg-white text-[#002B5B] transition hover:bg-[#f4f8fd]
+                    className=' flex h-7 w-7 items-center justify-center rounded-lg border border-[#d4e0ef] bg-white text-primary transition hover:bg-[#f4f8fd]
                     '
                   >
                     {copied ? ( <FiCheckCircle size={14} />) : ( <FiCopy size={14} /> )}

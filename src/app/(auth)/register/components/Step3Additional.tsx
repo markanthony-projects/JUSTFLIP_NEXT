@@ -54,13 +54,13 @@ export default function Step3Additional({
         </label>
         <div className="flex items-center gap-5">
           <label className="flex items-center font-medium cursor-pointer">
-            <input type="checkbox" name="expertiesIn" value="Rent" checked={formData.expertiesIn?.includes("Rent")} onChange={handleExpertiseCheckboxChange} className="mr-2 accent-[#002b5b]" /> Rent
+            <input type="checkbox" name="expertiesIn" value="Rent" checked={formData.expertiesIn?.includes("Rent")} onChange={handleExpertiseCheckboxChange} className="mr-2 accent-primary" /> Rent
           </label>
           <label className="flex items-center font-medium cursor-pointer">
-            <input type="checkbox" name="expertiesIn" value="Sale" checked={formData.expertiesIn?.includes("Sale")} onChange={handleExpertiseCheckboxChange} className="mr-2 accent-[#002b5b]" /> Sale
+            <input type="checkbox" name="expertiesIn" value="Sale" checked={formData.expertiesIn?.includes("Sale")} onChange={handleExpertiseCheckboxChange} className="mr-2 accent-primary" /> Sale
           </label>
           <label className="flex items-center font-medium cursor-pointer">
-            <input type="checkbox" name="expertiesIn" value="Re-sale" checked={formData.expertiesIn?.includes("Re-sale")} onChange={handleExpertiseCheckboxChange} className="mr-2 accent-[#002b5b]" /> Re-sale
+            <input type="checkbox" name="expertiesIn" value="Re-sale" checked={formData.expertiesIn?.includes("Re-sale")} onChange={handleExpertiseCheckboxChange} className="mr-2 accent-primary" /> Re-sale
           </label>
         </div>
         {errors.expertiesIn && <p className="text-red-500 text-xs mt-1">{errors.expertiesIn}</p>}
@@ -72,7 +72,7 @@ export default function Step3Additional({
           name="missionAndVision"
           rows={5}
           maxLength={500}
-          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-[#002b5b] focus:ring-1 focus:ring-[#002b5b] outline-none transition placeholder-gray-400"
+          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition placeholder-gray-400"
           placeholder="Enter About Mission and Vision"
           value={formData.missionAndVision}
           onChange={handleChange}

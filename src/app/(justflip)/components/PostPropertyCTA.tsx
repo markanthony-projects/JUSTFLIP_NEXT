@@ -55,7 +55,7 @@ export default function PostPropertyCTA() {
   return (
     <section aria-label="Property Owner and Partner Banner" className="w-full">
       {/* Outer Card Shell with Ambient Shadow & Border Reflection */}
-      <div className="relative overflow-hidden rounded-lg md:rounded-lg bg-white border border-slate-200/90 shadow-sm md:shadow-md p-5 sm:p-8 lg:p-10 text-slate-900">
+      <div className="relative overflow-hidden rounded-lg bg-white border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)] p-5 sm:p-8 lg:p-10 text-slate-900">
         
         {/* ======================= MOBILE VIEW (< lg) ======================= */}
         <div className="flex flex-col gap-5 lg:hidden">

@@ -28,13 +28,13 @@ const UserPropertySideBarStepper = ({ currentStep }: { currentStep: number }) =>
     };
 
     return (
-        <div className="w-full lg:w-[320px] shrink-0 bg-white rounded-xl p-5 flex-col shadow-[0_8px_30px_rgb(0,0,0,0.08)] hidden md:flex">
+        <div className="w-full lg:w-[320px] shrink-0 bg-white rounded-lg p-5 flex-col shadow-[0_8px_30px_rgb(0,0,0,0.08)] hidden md:flex">
             {/* Stepper Section */}
             <div className="flex flex-col gap-5">
                 {/* Title Section */}
                 <div className="space-y-0.5 mt-1">
-                    <h2 className="text-[20px] font-bold text-[#002B5B] tracking-tight flex items-center gap-2">
-                        <FaHome className="text-2xl text-[#002B5B]" /> Post your property
+                    <h2 className="text-[20px] font-bold text-primary tracking-tight flex items-center gap-2">
+                        <FaHome className="text-2xl text-primary" /> Post your property
                     </h2>
                     {/* <p className="text-[13px] font-medium text-slate-500">Sell or rent your property</p> */}
                 </div>
@@ -70,8 +70,8 @@ const UserPropertySideBarStepper = ({ currentStep }: { currentStep: number }) =>
                                             </div>
                                         )}
                                         {isCurrent && (
-                                            <div className="w-7 h-7 rounded-full border-[2.5px] border-[#002B5B] p-[2.5px] flex items-center justify-center bg-white">
-                                                <div className="w-full h-full rounded-full bg-[#002B5B]"></div>
+                                            <div className="w-7 h-7 rounded-full border-[2.5px] border-primary p-[2.5px] flex items-center justify-center bg-white">
+                                                <div className="w-full h-full rounded-full bg-primary"></div>
                                             </div>
                                         )}
                                         {isPending && (
@@ -81,14 +81,14 @@ const UserPropertySideBarStepper = ({ currentStep }: { currentStep: number }) =>
                                     {/* Vertical Line (only if not last) */}
                                     {!isLast && (
                                         <div className="flex-1 w-[2px] min-h-[20px] my-0.5 rounded-full overflow-hidden flex flex-col">
-                                            <div className={`h-full ${isCompleted ? 'bg-[#057748]' : isCurrent ? 'bg-gradient-to-b from-[#002B5B] to-slate-100' : 'bg-slate-100'}`}></div>
+                                            <div className={`h-full ${isCompleted ? 'bg-[#057748]' : isCurrent ? 'bg-gradient-to-b from-primary to-slate-100' : 'bg-slate-100'}`}></div>
                                         </div>
                                     )}
                                 </div>
 
                                 {/* Content Column */}
                                 <div className={`pt-1 pb-4 flex flex-col ${isLast ? 'pb-1' : ''}`}>
-                                    <h3 className={`text-[14px] font-bold ${isCurrent ? 'text-[#002B5B]' : 'text-slate-600'}`}>
+                                    <h3 className={`text-[14px] font-bold ${isCurrent ? 'text-primary' : 'text-slate-600'}`}>
                                         {step.title}
                                     </h3>
                                     
@@ -99,7 +99,7 @@ const UserPropertySideBarStepper = ({ currentStep }: { currentStep: number }) =>
                                             </span>
                                         )}
                                         {isCurrent && (
-                                            <span className="inline-flex px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#e6eaef] text-[#002B5B]">
+                                            <span className="inline-flex px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#e6eaef] text-primary">
                                                 In progress
                                             </span>
                                         )}
@@ -129,7 +129,7 @@ const UserPropertySideBarStepper = ({ currentStep }: { currentStep: number }) =>
                 <div className="flex flex-col gap-2 w-full text-[12px] font-bold text-white">
                     <SimpleButton
                         onClick={() => HandleCall()}
-                        className="w-full h-[36px] bg-[#002B5B] rounded-lg flex items-center justify-center gap-2 px-3 hover:bg-[#001D3D]"
+                        className="w-full h-[36px] bg-primary rounded-lg flex items-center justify-center gap-2 px-3 hover:bg-[#001D3D]"
                         label={<span className="flex items-center gap-2">Call For Help <IoCallOutline className="text-sm" /></span>}
                     />
                     <SimpleButton

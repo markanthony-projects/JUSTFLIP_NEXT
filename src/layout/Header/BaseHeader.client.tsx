@@ -109,7 +109,7 @@ export default function BaseHeaderClient({ children, config }: BaseHeaderClientP
     return (
         <header className={`${isSearchPage ? "hidden lg:flex" : "flex"} ${isHome ? (config.sticky ? "fixed " : "relative") : "sticky"} top-0 left-0 z-50 w-full h-15 items-center ${config.bg} transition-[transform,opacity] duration-300 ${visible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0 pointer-events-none"}`} >
             {/* `relative` anchors the absolutely-centred search bar slot. */}
-            <div className="relative flex h-full flex-1 gap-2 sm:gap-4 items-center justify-between px-2 md:px-4 w-full mx-auto md:max-w-[1440px]">
+            <div className="relative flex h-full flex-1 gap-2 sm:gap-4 items-center justify-between px-4 w-full mx-auto md:max-w-[1440px]">
                 {children}
 
                 <div className="shrink-0">

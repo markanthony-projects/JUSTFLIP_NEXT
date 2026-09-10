@@ -3,7 +3,7 @@ import Image from "next/image";
 import { RiSpeedUpLine, RiEyeLine } from "react-icons/ri";
 
 export const PostPropertyBanner = () => (
-    <div className="md:col-span-3 hidden lg:flex relative rounded-2xl overflow-hidden h-full min-h-[650px] shadow-lg">
+    <div className="md:col-span-3 hidden lg:flex relative rounded-lg overflow-hidden h-full min-h-[650px] shadow-lg">
         <Image
             src={img} 
             alt="Post Property Information" 
@@ -24,8 +24,8 @@ export const PostPropertyBanner = () => (
             
             <div className="space-y-5 max-w-[420px]">
                 {/* Card 1 */}
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl flex items-center gap-5 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-                    <div className="bg-white/20 p-3 rounded-xl flex items-center justify-center">
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-lg flex items-center gap-5 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                    <div className="bg-white/20 p-3 rounded-lg flex items-center justify-center">
                         <RiSpeedUpLine className="text-2xl text-white" />
                     </div>
                     <div>
@@ -35,8 +35,8 @@ export const PostPropertyBanner = () => (
                 </div>
                 
                 {/* Card 2 */}
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl flex items-center gap-5 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-                    <div className="bg-white/20 p-3 rounded-xl flex items-center justify-center">
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-lg flex items-center gap-5 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                    <div className="bg-white/20 p-3 rounded-lg flex items-center justify-center">
                         <RiEyeLine className="text-2xl text-white" />
                     </div>
                     <div>
@@ -45,8 +45,8 @@ export const PostPropertyBanner = () => (
                     </div>
                 </div>
 
-                <div className="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl flex items-center gap-5 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
-                    <div className="bg-white/20 p-3 rounded-xl flex items-center justify-center">
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-lg flex items-center gap-5 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
+                    <div className="bg-white/20 p-3 rounded-lg flex items-center justify-center">
                         <RiEyeLine className="text-2xl text-white" />
                     </div>
                     <div>

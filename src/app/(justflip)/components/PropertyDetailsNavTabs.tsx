@@ -134,7 +134,7 @@ export default function PropertyDetailNavTabs({navItems, scrollThreshold = 500, 
           : "top-[60px] -translate-y-full opacity-0 pointer-events-none"
       }`}
     >
-      <div className="w-full max-w-[1300px] mx-auto px-2 md:px-4 relative flex items-center">
+      <div className="w-full max-w-[1300px] mx-auto px-4 relative flex items-center">
         {/* Left Arrow Indicator */}
         {showLeftArrow && (
           <button
@@ -173,7 +173,7 @@ export default function PropertyDetailNavTabs({navItems, scrollThreshold = 500, 
                 onClick={() => scrollToSection(item.id)}
                 className={`whitespace-nowrap py-1 text-sm font-semibold transition-all border-b-2 ${
                   isActive
-                    ? "border-[#002B5B] text-[#002B5B]"
+                    ? "border-primary text-primary"
                     : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300"
                 }`}
               >

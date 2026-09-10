@@ -76,7 +76,7 @@ const UpcomingProperty = ({ project, priority }: UpcomingPropertyProps) => {
 
   return (
     <>
-      <article className='group relative flex sm:w-87.5 w-[calc(100vw-100px)] flex-col overflow-hidden rounded-lg border border-gray-100 bg-white transition-all duration-300  hover:shadow-[0_5px_20px_rgb(0,0,0,0.05)] hover:border-gray-300'>
+      <article className='group relative flex sm:w-87.5 w-[calc(100vw-100px)] flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-[0_2px_8px_rgb(0,0,0,0.04)] transition-all duration-300 hover:shadow-[0_8px_24px_rgb(0,0,0,0.08)] hover:border-gray-300'>
         <Link href={projectUrl}>
           {/* IMAGE */}
           <div className='relative sm:h-54 h-48 w-full overflow-hidden bg-gray-100'>
@@ -94,8 +94,8 @@ const UpcomingProperty = ({ project, priority }: UpcomingPropertyProps) => {
             {/* BADGES + FAVOURITE */}
             {details?.rera !== null ? (
               <span className="absolute left-0 top-4 flex gap-0.5 rounded-r-lg bg-primary/40 pl-3 pr-4 py-1.5 text-xs font-medium text-white uppercase backdrop-blur-sm shadow-sm shadow-gray-800">
-                RERA 
-                <MdVerified className="size={15} ml-1" fill='currentColor'/>
+                RERA
+                <MdVerified className="size={15} ml-1" fill='currentColor' />
               </span>
             ) : (
               <span />
@@ -215,10 +215,10 @@ const UpcomingProperty = ({ project, priority }: UpcomingPropertyProps) => {
                   Starting from
                 </p>
                 <p className="mt-0.5 truncate text-md font-extrabold leading-none text-primary " >
-                  { minPrice || '₹ 1.25 CR'}
+                  {minPrice || '₹ 1.25 CR'}
                 </p>
 
-                
+
                 <p className="mt-0.5 text-[10px] text-slate-400">
                   {project?.pricePerSqft || "₹10,400 / sq.ft"}
                 </p>
@@ -226,7 +226,7 @@ const UpcomingProperty = ({ project, priority }: UpcomingPropertyProps) => {
 
               <Link href={projectUrl}
                 className="flex shrink-0 items-end gap-1 rounded-lg bg-primary px-4 py-2 text-xs font-bold text-white transition-all duration-200 hover:bg-[#003D7A] hover:shadow-lg ">
-                    View Details<MdOutlineArrowForward size={18} className="font-bold text-xs"/>
+                View Details<MdOutlineArrowForward size={18} className="font-bold text-xs" />
               </Link>
 
             </div>

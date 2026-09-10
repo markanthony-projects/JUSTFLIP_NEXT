@@ -61,7 +61,7 @@ export default function ResultGrid({
               {results.length} {results.length === 1 ? "Property" : "Properties"} Available
             </span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#002B5B] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-primary tracking-tight">
             Best Matches for You
           </h2>
           <p className="text-sm sm:text-base text-gray-500 font-medium mt-1">
@@ -80,8 +80,8 @@ export default function ResultGrid({
 
       {isSearching ? (
         <div className="py-24 text-center">
-          <div className="inline-block w-8 h-8 border-4 border-[#002B5B] border-t-transparent rounded-full animate-spin mb-4"></div>
-          <p className="text-[#002B5B] text-base font-bold">
+          <div className="inline-block w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
+          <p className="text-primary text-base font-bold">
             Finding optimal recommendations...
           </p>
           <p className="text-xs text-gray-400 mt-1">Filtering through top developments</p>
@@ -115,15 +115,15 @@ export default function ResultGrid({
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"></div>
-                
-                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg text-2xs font-extrabold text-[#002B5B] uppercase tracking-wider shadow-xs">
+
+                <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-md px-3 py-1 rounded-lg text-2xs font-extrabold text-primary uppercase tracking-wider shadow-xs">
                   {item.bhkTypes}
                 </div>
               </div>
 
               <div className="p-5 space-y-4 flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 className="font-extrabold text-gray-900 text-lg leading-snug group-hover:text-[#002B5B] transition-colors line-clamp-1">
+                  <h3 className="font-extrabold text-gray-900 text-lg leading-snug group-hover:text-primary transition-colors line-clamp-1">
                     {item.name}
                   </h3>
                   <p className="text-xs text-gray-500 font-semibold mt-1 flex items-center gap-1">
@@ -157,7 +157,7 @@ export default function ResultGrid({
                   </ul>
                 </div>
 
-                <div className="pt-2 flex items-center justify-between text-xs font-bold text-[#002B5B] group-hover:translate-x-1 transition-transform">
+                <div className="pt-2 flex items-center justify-between text-xs font-bold text-primary group-hover:translate-x-1 transition-transform">
                   <span>View Details & Floor Plans</span>
                   <span>&rarr;</span>
                 </div>

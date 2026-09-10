@@ -40,7 +40,7 @@ export default function MultiSelectFilter({ config, onClose }: MultiSelectFilter
               onClick={() => handleToggle(option.value)}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
                 isSelected 
-                  ? 'bg-blue-50 border-[#002B5B] text-[#002B5B]' 
+                  ? 'bg-blue-50 border-primary text-primary' 
                   : 'bg-white border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50'
               }`}
             >

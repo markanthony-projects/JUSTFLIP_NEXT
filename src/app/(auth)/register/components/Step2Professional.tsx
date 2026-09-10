@@ -48,7 +48,7 @@ export default function Step2Professional({
               type="radio"
               name="hasRERA"
               value="yes"
-              className="mr-2 accent-[#002b5b]"
+              className="mr-2 accent-primary"
               onChange={handleRERARadioChange}
             />
             Yes
@@ -58,7 +58,7 @@ export default function Step2Professional({
               type="radio"
               name="hasRERA"
               value="no"
-              className="mr-2 accent-[#002b5b]"
+              className="mr-2 accent-primary"
               onChange={handleRERARadioChange}
             />
             No
@@ -71,7 +71,7 @@ export default function Step2Professional({
             <input
               name="rera"
               type="text"
-              className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-[#002b5b] focus:ring-1 focus:ring-[#002b5b] outline-none transition placeholder-gray-400"
+              className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition placeholder-gray-400"
               placeholder="Enter RERA Number *"
               value={formData.rera}
               onChange={handleChange}
@@ -86,7 +86,7 @@ export default function Step2Professional({
         <input
           name="companyName"
           type="text"
-          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-[#002b5b] focus:ring-1 focus:ring-[#002b5b] outline-none transition placeholder-gray-400"
+          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition placeholder-gray-400"
           placeholder="Enter Registered company Name"
           value={formData.companyName}
           onChange={handleChange}
@@ -99,7 +99,7 @@ export default function Step2Professional({
         <input
           name="companyAddress"
           type="text"
-          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-[#002b5b] focus:ring-1 focus:ring-[#002b5b] outline-none transition placeholder-gray-400"
+          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition placeholder-gray-400"
           placeholder="Enter Company Address"
           value={formData.companyAddress}
           onChange={handleChange}
@@ -112,7 +112,7 @@ export default function Step2Professional({
         <input
           name="startedAt"
           type="date"
-          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-[#002b5b] focus:ring-1 focus:ring-[#002b5b] outline-none transition placeholder-gray-400 text-gray-700"
+          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition placeholder-gray-400 text-gray-700"
           value={formData.startedAt}
           onChange={handleChange}
         />
@@ -124,7 +124,7 @@ export default function Step2Professional({
         <input
           name="teamSize"
           type="number"
-          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-[#002b5b] focus:ring-1 focus:ring-[#002b5b] outline-none transition placeholder-gray-400"
+          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition placeholder-gray-400"
           placeholder="Enter Team Size"
           value={formData.teamSize}
           onChange={handleChange}
@@ -137,7 +137,7 @@ export default function Step2Professional({
         <input
           name="annualIncome"
           type="number"
-          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-[#002b5b] focus:ring-1 focus:ring-[#002b5b] outline-none transition placeholder-gray-400"
+          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition placeholder-gray-400"
           placeholder="Enter Average Annual Income"
           value={formData.annualIncome}
           onChange={handleChange}
@@ -150,7 +150,7 @@ export default function Step2Professional({
         <textarea
           name="companyDescription"
           rows={4}
-          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-[#002b5b] focus:ring-1 focus:ring-[#002b5b] outline-none transition placeholder-gray-400"
+          className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition placeholder-gray-400"
           placeholder="About You or Your Company"
           value={formData.companyDescription}
           onChange={handleChange}
@@ -165,7 +165,7 @@ export default function Step2Professional({
             name="companyOwnership"
             value={formData.companyOwnership}
             onChange={handleChange}
-            className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-[#002b5b] focus:ring-1 focus:ring-[#002b5b] outline-none transition text-gray-700"
+            className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-gray-700"
           >
             <option value="">-- Select Ownership Type --</option>
             <option value="Sole Proprietorship">Sole Proprietorship</option>
@@ -183,7 +183,7 @@ export default function Step2Professional({
             name="brokerOperatedCities"
             value={formData?.brokerOperatedCities?.[0]?.cityId || ""}
             onChange={handleCitySelect}
-            className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-[#002b5b] focus:ring-1 focus:ring-[#002b5b] outline-none transition text-gray-700"
+            className="bg-white border border-gray-200 w-full px-3 py-3 rounded-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-gray-700"
           >
             <option value="" disabled>-- Select City --</option>
             {cities.map((city: any) => (
@@ -216,7 +216,7 @@ export default function Step2Professional({
                 <input
                   type="text"
                   placeholder={`Enter or select Operation Area ${index + 1}`}
-                  className={`w-full border border-gray-200 rounded-md px-3 py-3 outline-none focus:border-[#002b5b] transition ${citySelected ? 'bg-white' : 'bg-gray-50 cursor-not-allowed'}`}
+                  className={`w-full border border-gray-200 rounded-md px-3 py-3 outline-none focus:border-primary transition ${citySelected ? 'bg-white' : 'bg-gray-50 cursor-not-allowed'}`}
                   value={formData.brokerOperatedCities[0].operatedAreas[index]?.name || ""}
                   onChange={(e) => handleOperationAreaInput(e, index)}
                   onFocus={() => citySelected && setShowSuggestionsIndex(index)}

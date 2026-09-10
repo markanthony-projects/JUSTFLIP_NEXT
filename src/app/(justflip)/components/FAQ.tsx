@@ -46,7 +46,7 @@ export default function FAQ({ data, title = "Frequently Asked Questions (FAQ's)"
                     {showContactLink && (
                         <p className="mt-2 text-xs md:text-sm text-gray-500 max-w-2xl mx-auto">
                             Can't find the answer you're looking for? Feel free to{" "}
-                            <Link href="/contact-us" className="text-[#002B5B] underline font-semibold transition-colors">
+                            <Link href="/contact-us" className="text-primary underline font-semibold transition-colors">
                                 Contact Us
                             </Link>.
                         </p>

@@ -174,7 +174,7 @@ export default function ExploreMap({ project }: { project: Project }) {
                         href={`https://maps.google.com/?q=${lat},${lng}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-bold text-[#002B5B] hover:text-blue-800 underline underline-offset-4 cursor-pointer transition text-xs sm:text-[13px]"
+                        className="font-bold text-primary hover:text-blue-800 underline underline-offset-4 cursor-pointer transition text-xs sm:text-[13px]"
                     >
                         See on Google Maps
                     </a>
@@ -187,7 +187,7 @@ export default function ExploreMap({ project }: { project: Project }) {
                             onClick={handleShare}
                             title="Share"
                             aria-label="Share property"
-                            className="p-1 hover:text-[#002B5B] hover:bg-gray-100 rounded-md transition cursor-pointer"
+                            className="p-1 hover:text-primary hover:bg-gray-100 rounded-md transition cursor-pointer"
                         >
                             <IoShareSocialOutline size={17} />
                         </button>
@@ -198,7 +198,7 @@ export default function ExploreMap({ project }: { project: Project }) {
                             onClick={handleCopyLink}
                             title="Copy link"
                             aria-label="Copy link to clipboard"
-                            className="p-1 hover:text-[#002B5B] hover:bg-gray-100 rounded-md transition cursor-pointer"
+                            className="p-1 hover:text-primary hover:bg-gray-100 rounded-md transition cursor-pointer"
                         >
                             <IoCopyOutline size={16} />
                         </button>
@@ -232,7 +232,7 @@ export default function ExploreMap({ project }: { project: Project }) {
                     <button
                         type="button"
                         onClick={() => setIsMapModalOpen(true)}
-                        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#002B5B] hover:bg-[#001E3D] text-white text-xs sm:text-sm font-semibold shadow-[0_4px_16px_rgba(0,43,91,0.35)] hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/20"
+                        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-primary hover:bg-[#001E3D] text-white text-xs sm:text-sm font-semibold shadow-[0_4px_16px_rgba(0,43,91,0.35)] hover:scale-105 active:scale-95 transition-all cursor-pointer border border-white/20"
                     >
                         <FiMapPin size={15} />
                         <span>View on Map</span>
@@ -250,9 +250,9 @@ export default function ExploreMap({ project }: { project: Project }) {
                                 key={key}
                                 type="button"
                                 onClick={() => handleCategoryChange(key)}
-                                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium inline-flex items-center gap-2 whitespace-nowrap cursor-pointer transition-all duration-200 shrink-0 ${
+                                className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-medium inline-flex items-center gap-2 whitespace-nowrap cursor-pointer transition-all duration-200 shrink-0 ${
                                     isActive
-                                        ? "bg-[#002B5B] text-white border border-[#002B5B] shadow-xs font-semibold"
+                                        ? "bg-primary text-white border border-primary shadow-xs font-semibold"
                                         : "bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-900"
                                 }`}
                             >

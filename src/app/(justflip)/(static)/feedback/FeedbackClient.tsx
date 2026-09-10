@@ -129,12 +129,12 @@ const FeedbackClient = () => {
         <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
           <Breadcrumb items={breadcrumbItems} />
 
-          <div className="mx-auto mt-10 max-w-2xl rounded-2xl border border-[#D8E4EE] bg-white p-8 text-center shadow-sm sm:p-12">
+          <div className="mx-auto mt-10 max-w-2xl rounded-lg border border-[#D8E4EE] bg-white p-8 text-center shadow-sm sm:p-12">
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#EAF3FA]">
-              <FiCheck aria-hidden="true" size={30} className="text-[#002B5B]" />
+              <FiCheck aria-hidden="true" size={30} className="text-primary" />
             </div>
 
-            <h1 className="mt-6 text-2xl font-bold text-[#002B5B]">
+            <h1 className="mt-6 text-2xl font-bold text-primary">
               Thank you for your feedback!
             </h1>
 
@@ -146,7 +146,7 @@ const FeedbackClient = () => {
             <button
               type="button"
               onClick={resetForm}
-              className="mt-6 text-sm font-semibold text-[#002B5B] hover:underline"
+              className="mt-6 text-sm font-semibold text-primary hover:underline"
             >
               Submit another response
             </button>
@@ -164,12 +164,12 @@ const FeedbackClient = () => {
         <Breadcrumb items={breadcrumbItems} />
 
         {/* Hero */}
-        <header className="mt-6 rounded-2xl bg-[#EAF3FA] px-6 py-6 text-center sm:px-10 sm:py-8">
+        <header className="mt-6 rounded-lg bg-[#EAF3FA] px-6 py-6 text-center sm:px-10 sm:py-8">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white shadow-sm">
-            <VscFeedback aria-hidden="true" size={28} className="text-[#002B5B]" />
+            <VscFeedback aria-hidden="true" size={28} className="text-primary" />
           </div>
 
-          <h1 className="mt-3 text-2xl font-bold tracking-tight text-[#002B5B] sm:text-3xl">
+          <h1 className="mt-3 text-2xl font-bold tracking-tight text-primary sm:text-3xl">
             We&apos;d love to hear from you!
           </h1>
 
@@ -182,12 +182,12 @@ const FeedbackClient = () => {
         {/* Form Card */}
         <form
           onSubmit={handleSubmit}
-          className="mt-5 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-10"
+          className="mt-5 rounded-lg border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-10"
         >
 
           {/* 1. Rating */}
           <section>
-            <h2 className="text-md font-bold text-[#002B5B] sm:text-lg">
+            <h2 className="text-md font-bold text-primary sm:text-lg">
               1. How was your experience?
             </h2>
 
@@ -248,7 +248,7 @@ const FeedbackClient = () => {
 
           {/* 2. Category */}
           <section>
-            <h2 className="text-md font-bold text-[#002B5B] sm:text-lg">
+            <h2 className="text-md font-bold text-primary sm:text-lg">
               2. What is your feedback about?
             </h2>
 
@@ -264,8 +264,8 @@ const FeedbackClient = () => {
                     onClick={() => setCategory(item.label)}
                     className={`inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium transition-all ${
                       isSelected
-                        ? "border-[#002B5B] bg-[#002B5B] text-white"
-                        : "border-[#D8E4EE] bg-white text-[#002B5B] hover:border-[#002B5B] hover:bg-[#EAF3FA]"
+                        ? "border-primary bg-primary text-white"
+                        : "border-[#D8E4EE] bg-white text-primary hover:border-primary hover:bg-[#EAF3FA]"
                     }`}
                   >
                     <Icon aria-hidden="true" size={18} />
@@ -280,7 +280,7 @@ const FeedbackClient = () => {
 
           {/* 3. Feedback */}
           <section>
-            <h2 className="text-md font-bold text-[#002B5B] sm:text-lg">
+            <h2 className="text-md font-bold text-primary sm:text-lg">
               3. Tell us more
             </h2>
 
@@ -301,7 +301,7 @@ const FeedbackClient = () => {
               placeholder="Write your feedback here..."
               rows={7}
               required
-              className="mt-4 w-full resize-none rounded-xl border border-[#D8E4EE] px-4 py-3 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
+              className="mt-4 w-full resize-none rounded-lg border border-[#D8E4EE] px-4 py-3 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-primary focus:ring-2 focus:ring-primary/10"
             />
 
             <div className="mt-1 text-right text-xs text-gray-600">
@@ -313,7 +313,7 @@ const FeedbackClient = () => {
 
           {/* 4. Email */}
           <section>
-            <h2 className="text-md font-bold text-[#002B5B] sm:text-lg">
+            <h2 className="text-md font-bold text-primary sm:text-lg">
               4. Your email{" "}
               <span className="font-normal text-gray-600 text-sm">
                 (optional)
@@ -328,7 +328,7 @@ const FeedbackClient = () => {
               <FiMail
                 aria-hidden="true"
                 size={18}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-[#002B5B]"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-primary"
               />
 
               <input
@@ -338,7 +338,7 @@ const FeedbackClient = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-                className="w-full rounded-xl border border-[#D8E4EE] py-3 pl-11 pr-4 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-[#002B5B] focus:ring-2 focus:ring-[#002B5B]/10"
+                className="w-full rounded-lg border border-[#D8E4EE] py-3 pl-11 pr-4 text-sm text-gray-800 outline-none placeholder:text-gray-500 focus:border-primary focus:ring-2 focus:ring-primary/10"
               />
             </div>
           </section>
@@ -347,7 +347,7 @@ const FeedbackClient = () => {
           <button
             type="submit"
             disabled={!rating || !feedback.trim()}
-            className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-[#002B5B] px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-[#001F42] disabled:cursor-not-allowed disabled:opacity-50"
+            className="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3.5 text-sm font-semibold text-white transition hover:bg-[#001F42] disabled:cursor-not-allowed disabled:opacity-50"
           >
             <FiSend aria-hidden="true" size={17} />
             Send Feedback
@@ -355,18 +355,18 @@ const FeedbackClient = () => {
         </form>
 
         {/* Privacy Notice */}
-        <section className="mt-5 rounded-2xl border border-[#D8E4EE] bg-[#EAF3FA] p-4 sm:p-6">
+        <section className="mt-5 rounded-lg border border-[#D8E4EE] bg-[#EAF3FA] p-4 sm:p-6">
           <div className="flex items-start gap-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white">
               <SiPrivateinternetaccess
                 aria-hidden="true"
                 size={24}
-                className="text-[#002B5B]"
+                className="text-primary"
               />
             </div>
 
             <div>
-              <h2 className="text-base font-bold text-[#002B5B] sm:text-lg">
+              <h2 className="text-base font-bold text-primary sm:text-lg">
                 Your privacy matters
               </h2>
 

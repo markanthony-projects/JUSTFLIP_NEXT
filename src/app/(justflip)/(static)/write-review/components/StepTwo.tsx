@@ -112,17 +112,17 @@ export default function StepTwo({
     <div className="bg-white p-7 md:p-10 rounded-lg border border-gray-100 shadow-md">
       {/* Title Header matching StepOne */}
       <div className="mb-8">
-        <h2 className="text-3xl font-extrabold text-[#002B5B] tracking-tight">
+        <h2 className="text-3xl font-extrabold text-primary tracking-tight">
           Review {stepOneData.locationName}
         </h2>
         <p className="text-base text-gray-500 font-medium mt-1.5">
-          Reviewing as <span className="font-bold text-[#002B5B]">{stepOneData.userRole}</span>
+          Reviewing as <span className="font-bold text-primary">{stepOneData.userRole}</span>
         </p>
       </div>
 
       {/* Rating Input Area */}
       {isProject ? (
-        <div className="mb-8 p-6 bg-slate-50/80 rounded-2xl border border-gray-100 flex flex-col items-center justify-center text-center">
+        <div className="mb-8 p-6 bg-slate-50/80 rounded-lg border border-gray-100 flex flex-col items-center justify-center text-center">
           <label className="block text-xs font-bold tracking-wider text-gray-400 uppercase mb-3">
             RATE THIS PROJECT <span className="text-red-500">*</span>
           </label>
@@ -147,7 +147,7 @@ export default function StepTwo({
               );
             })}
           </div>
-          <p className="text-sm font-bold text-[#002B5B] mt-2 h-5">
+          <p className="text-sm font-bold text-primary mt-2 h-5">
             {overallRating === 1 && "Poor"}
             {overallRating === 2 && "Below Average"}
             {overallRating === 3 && "Average"}
@@ -168,10 +168,10 @@ export default function StepTwo({
             ].map(({ key, title, desc }) => (
               <div
                 key={key}
-                className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-slate-50/60 rounded-xl border border-gray-100 gap-3"
+                className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-slate-50/60 rounded-lg border border-gray-100 gap-3"
               >
                 <div>
-                  <p className="text-xs font-bold tracking-wider text-[#002B5B] uppercase">{title}</p>
+                  <p className="text-xs font-bold tracking-wider text-primary uppercase">{title}</p>
                   <p className="text-xs text-gray-500 font-medium mt-0.5">{desc}</p>
                 </div>
 
@@ -211,7 +211,7 @@ export default function StepTwo({
               ? "Share your overall experience living in or visiting this project..."
               : "Share your experience regarding environment, lifestyle, or commute..."
           }
-          className="w-full px-5 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#002B5B] focus:border-[#002B5B] text-base font-semibold text-gray-900 transition-all placeholder:text-gray-400 placeholder:font-normal resize-none"
+          className="w-full px-5 py-3.5 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary text-base font-semibold text-gray-900 transition-all placeholder:text-gray-400 placeholder:font-normal resize-none"
         />
       </div>
 
@@ -220,7 +220,7 @@ export default function StepTwo({
         type="button"
         disabled={isSubmitting || overallRating === 0}
         onClick={handleSubmit}
-        className="w-full py-4 bg-[#002B5B] hover:bg-[#001f42] disabled:bg-gray-200 disabled:text-gray-400 text-white text-lg font-bold rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+        className="w-full py-4 bg-primary hover:bg-[#001f42] disabled:bg-gray-200 disabled:text-gray-400 text-white text-lg font-bold rounded-lg transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
       >
         <span>{isSubmitting ? "Submitting..." : "Submit Review"}</span>
         {!isSubmitting && <span className="text-xl">→</span>}

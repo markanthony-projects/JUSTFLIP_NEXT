@@ -103,7 +103,7 @@ export default function BrokerSliderContent() {
                                 <button
                                     key={item.name}
                                     onClick={() => handleNavigate(item.href)}
-                                    className="flex items-center gap-3 w-full px-3 py-2.5 text-left text-sm font-medium text-gray-700 rounded-xl hover:bg-gray-50 hover:text-blue-600 transition-all duration-200 group"
+                                    className="flex items-center gap-3 w-full px-3 py-2.5 text-left text-sm font-medium text-gray-700 rounded-lg hover:bg-gray-50 hover:text-blue-600 transition-all duration-200 group"
                                 >
                                     <item.icon className="h-5 w-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
                                     <span>{item.name}</span>
@@ -117,7 +117,7 @@ export default function BrokerSliderContent() {
             <div className="p-4 border-t border-gray-100 bg-gray-50/50 md:block hidden">
                 <button
                     onClick={handleLogout}
-                    className="flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-white border border-gray-200 hover:border-red-200 hover:bg-red-50 text-gray-700 hover:text-red-600 rounded-xl text-sm font-semibold transition-all duration-200 shadow-sm"
+                    className="flex items-center justify-center gap-2 w-full py-2.5 px-4 bg-white border border-gray-200 hover:border-red-200 hover:bg-red-50 text-gray-700 hover:text-red-600 rounded-lg text-sm font-semibold transition-all duration-200 shadow-sm"
                 >
                     <HiOutlineLogout className="h-5 w-5" />
                     <span>Sign Out</span>

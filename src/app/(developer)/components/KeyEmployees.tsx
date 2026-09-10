@@ -13,7 +13,7 @@ const KeyEmployees = ({ employees = [] }: KeyEmployeesProps) => {
     const EmployeeCard = ({ employee, index }: { employee: any, index: number }) => (
         <figure
             role='listitem'
-            className="group relative shrink-0 w-64 md:w-72 lg:w-80 h-80 md:h-96 rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.2)] transition-all duration-500 ease-out hover:-translate-y-2 cursor-pointer"
+            className="group relative shrink-0 w-64 md:w-72 lg:w-80 h-80 md:h-96 rounded-lg overflow-hidden transition-all duration-500 ease-out hover:-translate-y-2 cursor-pointer"
         >
             <div className="absolute inset-0 w-full h-full">
                 <Image
@@ -30,7 +30,7 @@ const KeyEmployees = ({ employees = [] }: KeyEmployeesProps) => {
             <div className="absolute inset-0 bg-gradient-to-t from-[#001f42] via-[#001f42]/40 to-transparent opacity-85 group-hover:opacity-95 transition-opacity duration-300"></div>
             
             {/* Info Container */}
-            <figcaption className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-[#001f42]/70 border border-white/10 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300">
+            <figcaption className="absolute bottom-4 left-4 right-4 p-3.5 rounded-lg bg-[#001f42]/70 border border-white/10 transform translate-y-1 group-hover:translate-y-0 transition-all duration-300">
                 <p className="text-white text-lg md:text-xl font-bold capitalize truncate mb-0.5">
                     {employee.name}
                 </p>
@@ -43,8 +43,8 @@ const KeyEmployees = ({ employees = [] }: KeyEmployeesProps) => {
 
     return (
         <section className='w-full' aria-labelledby='key-people-heading' role='region'>
-            <div className="md:mb-4 mb-3 flex items-center justify-between">
-                <h2 id="key-people-heading" className="text-xl md:text-2xl lg:text-3xl font-bold text-[#002B5B] tracking-tight">
+            <div className="md:mb-2 mb-1 flex items-center justify-between">
+                <h2 id="key-people-heading" className="section-heading">
                     Key People
                 </h2>
             </div>

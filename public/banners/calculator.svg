@@ -5,6 +5,12 @@
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
 >
+  <style>
+    :root {
+      --color-primary: #002B5B;
+    }
+  </style>
+
   <!-- background buildings -->
   <g opacity="0.1">
     <rect opacity="0.5" x="60" y="170" width="75" height="180" rx="4" fill="#074a96"/>
@@ -16,7 +22,7 @@
   </g>
 
   <!-- windows -->
-  <g fill="#002B5B">
+  <g fill="var(--color-primary, #002B5B)">
     <rect x="80" y="195" width="12" height="15"/>
     <rect x="100" y="195" width="12" height="15"/>
     <rect x="80" y="220" width="12" height="15"/>
@@ -44,7 +50,7 @@
 
   <path
     d="M200 250L310 155L420 250"
-    stroke="#002B5B"
+    stroke="var(--color-primary, #002B5B)"
     stroke-width="8"
     stroke-linecap="round"
     stroke-linejoin="round"
@@ -53,7 +59,7 @@
   <!-- house side -->
   <path
     d="M310 165L420 250V370H310V165Z"
-    fill="#002B5B"
+    fill="var(--color-primary, #002B5B)"
   />
 
   <!-- door -->
@@ -70,7 +76,7 @@
     cx="317"
     cy="328"
     r="4"
-    fill="#002B5B"
+    fill="var(--color-primary, #002B5B)"
   />
 
   <!-- window -->
@@ -81,7 +87,7 @@
     height="45"
     rx="4"
     fill="#C9E5F7"
-    stroke="#002B5B"
+    stroke="var(--color-primary, #002B5B)"
     stroke-width="5"
   />
 
@@ -121,28 +127,28 @@
   <!-- conversion arrows -->
   <path
     d="M540 410C590 440 610 375 605 340"
-    stroke="#002B5B"
+    stroke="var(--color-primary, #002B5B)"
     stroke-width="8"
     stroke-linecap="round"
   />
 
   <path
     d="M602 340L585 350"
-    stroke="#002B5B"
+    stroke="var(--color-primary, #002B5B)"
     stroke-width="8"
     stroke-linecap="round"
   />
 
   <path
     d="M175 390C125 380 105 350 110 315"
-    stroke="#002B5B"
+    stroke="var(--color-primary, #002B5B)"
     stroke-width="8"
     stroke-linecap="round"
   />
 
   <path
     d="M110 315L127 325"
-    stroke="#002B5B"
+    stroke="var(--color-primary, #002B5B)"
     stroke-width="8"
     stroke-linecap="round"
   />

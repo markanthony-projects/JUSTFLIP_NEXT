@@ -12,13 +12,13 @@ export default function FilterPanel() {
   const activeCount = Object.entries(filters).filter(([_, v]) => v !== undefined && v !== null && v !== '').length;
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/90 overflow-hidden shadow-2xs">
+    <div className="bg-white rounded-lg border border-slate-200/90 overflow-hidden shadow-2xs">
       <div className="flex items-center justify-between px-4 py-3.5 border-b border-slate-100 bg-slate-50/70">
         <h2 className="font-bold text-sm text-slate-900 flex items-center gap-2">
-          <LuSlidersHorizontal className="w-4 h-4 text-[#002B5B]" />
+          <LuSlidersHorizontal className="w-4 h-4 text-primary" />
           <span>Filters</span>
           {activeCount > 0 && (
-            <span className="w-5 h-5 rounded-full bg-[#002B5B] text-white text-[11px] font-bold flex items-center justify-center">
+            <span className="w-5 h-5 rounded-full bg-primary text-white text-[11px] font-bold flex items-center justify-center">
               {activeCount}
             </span>
           )}

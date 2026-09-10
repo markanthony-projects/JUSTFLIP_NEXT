@@ -32,10 +32,10 @@ export default function SingleSelectFilter({ config }: SingleSelectFilterProps) 
                 onChange={() => handleChange(option.value)} 
               />
               <div className={`w-4 h-4 rounded-full border flex items-center justify-center transition-colors ${
-                isSelected ? 'border-[#002B5B]' : 'border-gray-300 group-hover:border-[#002B5B]'
+                isSelected ? 'border-primary' : 'border-gray-300 group-hover:border-primary'
               }`}>
                 {isSelected && (
-                  <div className="w-2 h-2 rounded-full bg-[#002B5B]" />
+                  <div className="w-2 h-2 rounded-full bg-primary" />
                 )}
               </div>
               <span className={`text-sm ${isSelected ? 'text-gray-900 font-medium' : 'text-gray-600'}`}>

@@ -19,7 +19,7 @@ const LoginPage = () => {
         <main className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-900">
             <div className="absolute inset-0 z-0">
                 <Image src={LoginPageBg} alt="Background" fill priority className="object-cover brightness-[0.4] scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#002b5b]/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent" />
             </div>
 
             <div className="absolute top-6 right-6 z-20">
@@ -34,9 +34,9 @@ const LoginPage = () => {
                     <Logo className="w-40 h-14 sm:w-48 sm:h-16 md:w-56 md:h-20" priority />
                 </div>
                 <div className="flex items-start flex-1 min-h-[420px] w-full justify-center relative">
-                    <div className="bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl p-8 md:p-7 border border-white/20 w-[420px]">
+                    <div className="bg-white/95 backdrop-blur-xl rounded-lg shadow-2xl p-8 md:p-7 border border-white/20 w-[420px]">
                         <div className="mb-2">
-                            <h1 className="text-3xl font-black text-[#002b5b] tracking-tight mb-2">
+                            <h1 className="text-3xl font-black text-primary tracking-tight mb-2">
                                 Welcome back
                             </h1>
                             <p className="text-gray-500 text-sm">

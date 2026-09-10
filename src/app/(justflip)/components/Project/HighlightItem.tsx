@@ -19,18 +19,18 @@ function HighlightItem({ title, description, isOpen, onToggle }: HighlightItemPr
         <div className="flex items-start gap-3">
           <div className="flex items-center justify-center mt-0.5 shrink-0">
             <span className="border border-gray-400 rounded-full w-7 h-7 flex items-center justify-center">
-              <span className="w-2.5 h-2.5 bg-[#002B5B] rounded-full" />
+              <span className="w-2.5 h-2.5 bg-primary rounded-full" />
             </span>
           </div>
 
           {title && (
-            <p className="text-sm font-medium text-[#002B5B] leading-snug pt-1">
+            <p className="text-sm font-medium text-primary leading-snug pt-1">
               {title}
             </p>
           )}
         </div>
 
-        <div className="md:hidden text-[#002B5B] pt-1 shrink-0">
+        <div className="md:hidden text-primary pt-1 shrink-0">
           <svg
             className={`w-5 h-5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
             fill="none"

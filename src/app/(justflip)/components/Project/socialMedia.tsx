@@ -63,8 +63,8 @@ function SocialMedia({ project = "" }) {
                 icon={IoCall}
                 onClick={handleCallClick}
                 label="Call now"
-                bg="bg-[#002B5B]"
-                ring="focus:ring-[#002B5B]"
+                bg="bg-primary"
+                ring="focus:ring-primary"
             />
         </div>
     );

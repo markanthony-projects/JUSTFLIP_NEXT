@@ -29,10 +29,10 @@ const OSMCustomMarker = ({ position, label = "You", type, icon }: OSMCustomMarke
       style={{ transform: "translate(-50%, -100%)" }}
     >
       <span className="absolute inline-flex h-6 w-6 rounded-full bg-blue-400 opacity-75 animate-ping" />
-      <div className="relative bg-[#002B5B] text-white text-[10px] px-2 py-0.5 rounded-full shadow-lg whitespace-nowrap">
+      <div className="relative bg-primary text-white text-[10px] px-2 py-0.5 rounded-full shadow-lg whitespace-nowrap">
         {label}
       </div>
-      <div className="w-2 h-2 bg-[#002B5B] rotate-45 mt-[-4px]" />
+      <div className="w-2 h-2 bg-primary rotate-45 mt-[-4px]" />
     </div>
   );
 
@@ -47,23 +47,6 @@ const OSMCustomMarker = ({ position, label = "You", type, icon }: OSMCustomMarke
   if (!leaflet || typeof window === "undefined") {
     return null;
   }
-
-  // const iconMarkup = renderToStaticMarkup(
-  //   <div className="relative flex flex-col items-center" style={{ transform: 'translate(-50%, -100%)', marginTop: '10px' }}>
-  //     <span className="absolute inline-flex h-6 w-6 rounded-full bg-blue-400 opacity-75 animate-ping" style={{ top: '-12px' }}></span>
-  //     <div className="relative bg-[#002B5B] text-white text-[10px] px-2 py-0.5 rounded-full shadow-lg flex items-center gap-1 whitespace-nowrap">
-  //       {label}
-  //     </div>
-  //     <div className="w-1.5 h-1.5 bg-[#002B5B] rotate-45 mt-[-3px]" />
-  //   </div>
-  // );
-
-  // const customIcon = leaflet.divIcon({
-  //   html: iconMarkup,
-  //   className: "custom-osm-marker",
-  //   iconSize: [0, 0],
-  //   iconAnchor: [0, 0],
-  // });
 
   return <Marker position={[position.lat, position.lng]} icon={icon || fallbackIcon} />;
 };

@@ -194,7 +194,7 @@ export default function SearchBarClient({ showCitySelector = true, initialCity }
                     <div className="shrink-0 lg:hidden w-[62px] sm:w-[84px] h-full">
                         <NearestCity
                             className="relative w-full h-full"
-                            buttonClassName="h-full bg-transparent text-[#002B5B] font-semibold text-[11px] sm:text-[12px] gap-0.5 sm:gap-1"
+                            buttonClassName="h-full bg-transparent text-primary font-semibold text-[11px] sm:text-[12px] gap-0.5 sm:gap-1"
                             initialCity={initialCity}
                         />
                     </div>
@@ -228,7 +228,7 @@ export default function SearchBarClient({ showCitySelector = true, initialCity }
             <button
                 type="submit"
                 aria-label="Search"
-                className="shrink-0 inline-flex items-center justify-center gap-2 w-8 h-8 sm:w-auto sm:h-full sm:px-5 rounded-full sm:rounded-md bg-[#002B5B] text-white text-sm font-medium transition-transform duration-200 ease-in-out hover:scale-[1.03] active:scale-95 z-10"
+                className="shrink-0 inline-flex items-center justify-center gap-2 w-8 h-8 sm:w-auto sm:h-full sm:px-5 rounded-full sm:rounded-md bg-primary text-white text-sm font-medium transition-transform duration-200 ease-in-out hover:scale-[1.03] active:scale-95 z-10"
                 onClick={handleSearchRedirect}
             >
                 <FaSearch className="text-[13px] sm:text-sm" />

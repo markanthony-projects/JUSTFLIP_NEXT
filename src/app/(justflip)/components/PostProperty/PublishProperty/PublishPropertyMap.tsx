@@ -89,7 +89,7 @@ const PublishPropertyMap = ({ isOpen, onClose, coordinates, onSave }: { isOpen: 
       className="p-2 md:p-4 bg-white"
     >
       <div className="space-y-3">
-        <h2 className="text-xl font-bold text-[#002B5B]">
+        <h2 className="text-xl font-bold text-primary">
           Locate Your Property
         </h2>
 
@@ -97,7 +97,7 @@ const PublishPropertyMap = ({ isOpen, onClose, coordinates, onSave }: { isOpen: 
           Click on map or enter coordinates manually.
         </p>
 
-        <div className="h-[300px] md:h-[400px] w-full rounded-xl overflow-hidden border">
+        <div className="h-[300px] md:h-[400px] w-full rounded-lg overflow-hidden border">
           <MapContainer
             center={mapCenter}
             zoom={tempCoords?.lat ? 15 : 5}
@@ -170,7 +170,7 @@ const PublishPropertyMap = ({ isOpen, onClose, coordinates, onSave }: { isOpen: 
 
           <button
             onClick={handleSave}
-            className="bg-[#002B5B] text-white px-4 py-2 rounded"
+            className="bg-primary text-white px-4 py-2 rounded"
           >
             Save Location
           </button>

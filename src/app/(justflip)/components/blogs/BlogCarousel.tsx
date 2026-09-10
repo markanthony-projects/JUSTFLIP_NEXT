@@ -36,7 +36,7 @@ const BlogCarousel = ({ blogs = [], loading }: BlogCarouselProps) => {
     };
 
     return (
-        <div className="relative w-full overflow-hidden rounded-2xl my-6 shadow-2xl"
+        <div className="relative w-full overflow-hidden rounded-lg my-6 "
             onMouseEnter={stopAutoPlay}
             onMouseLeave={startAutoPlay}
             role="region"

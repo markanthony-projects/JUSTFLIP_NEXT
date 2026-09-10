@@ -161,7 +161,7 @@ export default function MobileSearchModal() {
             <div className={`fixed inset-0 z-[110] bg-white flex flex-col animate-slide-up md:hidden h-[100dvh] w-full`}>
                 {/* Header */}
                 <div className="flex items-center justify-between px-5 py-3 pt-[max(1rem,env(safe-area-inset-top))] border-b border-gray-100 shadow-sm bg-white z-10">
-                    <h2 className="text-xl font-extrabold text-[#002B5B] tracking-tight">Search Properties</h2>
+                    <h2 className="text-xl font-extrabold text-primary tracking-tight">Search Properties</h2>
                     <button onClick={closeSearchModal} className="p-2 -mr-2 bg-gray-50 text-gray-500 hover:bg-gray-100 hover:text-gray-900 rounded-full transition-colors">
                         <HiOutlineX className="w-5 h-5" />
                     </button>
@@ -175,11 +175,11 @@ export default function MobileSearchModal() {
                             {activeCity && (
                                 <div className="flex justify-between items-center px-2 py-1 mb-1 bg-blue-50/40 rounded-lg">
                                     <p className="text-[13px] text-gray-500">
-                                        You are searching in <span className="font-semibold text-[#002B5B]">{activeCity.name}</span>
+                                        You are searching in <span className="font-semibold text-primary">{activeCity.name}</span>
                                     </p>
                                     <button
                                         onClick={() => setShowLocationEditor(true)}
-                                        className="text-[13px] text-[#002B5B] font-medium flex items-center gap-1.5 hover:bg-blue-100 px-2 py-1 rounded-md transition-colors"
+                                        className="text-[13px] text-primary font-medium flex items-center gap-1.5 hover:bg-blue-100 px-2 py-1 rounded-md transition-colors"
                                     >
                                         Edit <HiOutlinePencil className="w-3.5 h-3.5" />
                                     </button>
@@ -187,7 +187,7 @@ export default function MobileSearchModal() {
                             )}
 
                             {/* City/Localities/Projects Card */}
-                            <div className="bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-gray-100 p-4 mb-2 transition-all">
+                            <div className="bg-white rounded-lg shadow-[0_8px_30px_rgba(0,0,0,0.08)] border border-gray-100 p-4 mb-2 transition-all">
                                 <h3 className="text-[15px] font-bold text-gray-800 mb-4 flex items-center gap-2">
                                     City, Localities & Projects
                                 </h3>
@@ -229,7 +229,7 @@ export default function MobileSearchModal() {
                                         <button
                                             type="button"
                                             onClick={() => setShowLocationEditor(true)}
-                                            className="flex items-center gap-1 px-2 py-1.5 bg-blue-50 !text-xs text-[#002B5B] border border-blue-100 rounded-full text-[13px] font-medium hover:bg-blue-100 transition-colors shadow-sm"
+                                            className="flex items-center gap-1 px-2 py-1.5 bg-blue-50 !text-xs text-primary border border-blue-100 rounded-full text-[13px] font-medium hover:bg-blue-100 transition-colors shadow-sm"
                                         >
                                             +{selectedLocalities.length - 2} more
                                         </button>
@@ -240,21 +240,21 @@ export default function MobileSearchModal() {
                                         <button
                                             type="button"
                                             onClick={() => setShowLocationEditor(true)}
-                                            className="flex items-center !text-xs gap-1 px-5 py-2 bg-white text-[#002B5B] border-2 border-dashed border-blue-200 rounded-full text-[13px] font-medium hover:bg-blue-50 hover:border-[#002B5B] transition-all"
+                                            className="flex items-center !text-xs gap-1 px-5 py-2 bg-white text-primary border-2 border-dashed border-blue-200 rounded-full text-[13px] font-medium hover:bg-blue-50 hover:border-primary transition-all"
                                         >
                                             + Add Locality
                                         </button>
                                     ) : (
                                         <div className="relative w-full group">
                                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                                <HiSearch className="h-4 w-4 text-[#002B5B] group-hover:scale-110 transition-transform duration-300" />
+                                                <HiSearch className="h-4 w-4 text-primary group-hover:scale-110 transition-transform duration-300" />
                                             </div>
                                             <input
                                                 type="text"
                                                 readOnly
                                                 onClick={() => setShowLocationEditor(true)}
                                                 placeholder="Search in a City, Locality or Project..."
-                                                className="text-sm block w-full pl-12 pr-10 py-2.5 border-2 border-gray-100 rounded-2xl leading-5 bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-[#002B5B] hover:shadow-[0_4px_20px_rgba(0,43,91,0.08)] sm:text-sm cursor-pointer transition-all duration-300"
+                                                className="text-sm block w-full pl-12 pr-10 py-2.5 border-2 border-gray-100 rounded-lg leading-5 bg-gray-50/50 text-gray-900 placeholder-gray-400 focus:outline-none focus:bg-white focus:border-primary hover:shadow-[0_4px_20px_rgba(0,43,91,0.08)] sm:text-sm cursor-pointer transition-all duration-300"
                                             />
                                             <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                                                 <div className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse"></div>
@@ -264,7 +264,7 @@ export default function MobileSearchModal() {
                                 </div>
 
                                 {/* Use Current Location */}
-                                <button className="flex items-center gap-2.5 text-[#002B5B] font-semibold text-[11px] hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-1 py-1.5 rounded-xl transition-all w-full justify-center mt-1 group border border-blue-100">
+                                <button className="flex items-center gap-2.5 text-primary font-semibold text-[11px] hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-1 py-1.5 rounded-lg transition-all w-full justify-center mt-1 group border border-blue-100">
                                     <BiTargetLock className="w-5 h-5" />
                                     Use my Current Location
                                 </button>
@@ -311,14 +311,14 @@ export default function MobileSearchModal() {
                                                         onClick={() => { submitRef.current = true; }}
                                                         className="flex items-center gap-3.5 px-5 py-3.5 text-sm hover:bg-blue-50/50 border-b border-gray-100 last:border-0 group transition-colors"
                                                     >
-                                                        <div className="w-9 h-9 rounded-full bg-blue-50 text-[#002B5B] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-[#002B5B] group-hover:text-white transition-all duration-300 shadow-sm">
+                                                        <div className="w-9 h-9 rounded-full bg-blue-50 text-primary flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300 shadow-sm">
                                                             {icon}
                                                         </div>
                                                         <div className="flex flex-col flex-1 truncate">
-                                                            <span className="font-semibold text-gray-900 truncate group-hover:text-[#002B5B] transition-colors">{label}</span>
+                                                            <span className="font-semibold text-gray-900 truncate group-hover:text-primary transition-colors">{label}</span>
                                                             {item.type === "project" && <span className="text-xs text-gray-500 truncate">{item.data.location?.name}, {item.data.city?.name}</span>}
                                                         </div>
-                                                        <span className="text-[10px] uppercase text-[#002B5B] font-bold bg-blue-50 px-2.5 py-1 rounded-md shadow-sm border border-blue-100/50">{item.type}</span>
+                                                        <span className="text-[10px] uppercase text-primary font-bold bg-blue-50 px-2.5 py-1 rounded-md shadow-sm border border-blue-100/50">{item.type}</span>
                                                     </Link>
                                                 </li>
                                             );
@@ -340,8 +340,8 @@ export default function MobileSearchModal() {
                         <button
                             onClick={clearFilters}
                             disabled={!hasFilters}
-                            className={`flex-1 py-3 px-4 rounded-xl font-bold text-[14px] border transition-all active:scale-[0.98] ${hasFilters
-                                ? 'border-[#002B5B] text-[#002B5B] hover:bg-blue-50 hover:shadow-sm'
+                            className={`flex-1 py-3 px-4 rounded-lg font-bold text-[14px] border transition-all active:scale-[0.98] ${hasFilters
+                                ? 'border-primary text-primary hover:bg-blue-50 hover:shadow-sm'
                                 : 'border-gray-200 text-gray-400 bg-gray-50 opacity-70'
                                 }`}
                         >
@@ -351,8 +351,8 @@ export default function MobileSearchModal() {
                         <button
                             onClick={handleSearchSubmit}
                             disabled={!activeCity || isNavigating}
-                            className={`flex-[2] py-3.5 px-[9px] rounded-xl font-bold text-[14px] shadow-lg transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-1 ${activeCity
-                                ? 'bg-gradient-to-r from-[#002B5B] to-[#004f9f] text-white hover:from-[#001f42] hover:to-[#003b7a] shadow-blue-900/25 hover:shadow-blue-900/40'
+                            className={`flex-[2] py-3.5 px-[9px] rounded-lg font-bold text-[14px] shadow-lg transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-1 ${activeCity
+                                ? 'bg-gradient-to-r from-primary to-[#004f9f] text-white hover:from-primary-hover hover:to-[#003b7a] shadow-blue-900/25 hover:shadow-blue-900/40'
                                 : 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
                                 }`}
                         >

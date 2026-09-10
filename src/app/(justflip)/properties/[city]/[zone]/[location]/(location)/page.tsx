@@ -127,14 +127,14 @@ async function LocationPageContent({ params }: LocationPageProps) {
           </Suspense>
 
           {/* 3. Highlights Tile */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<HighlightSkeleton />}>
               <Highlight data={locationData} />
             </Suspense>
           </div>
 
           {/* 4. Price Trends Tile */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<PriceTrendSkeleton />}>
               <PriceTrendSection data={locationData as any} />
             </Suspense>
@@ -142,28 +142,28 @@ async function LocationPageContent({ params }: LocationPageProps) {
           </div>
 
           {/* 5. Top Builders Tile */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<TopBuildersSkeleton />}>
               <BuildersSection builders={builders} city={locationData?.city} />
             </Suspense>
           </div>
 
           {/* 6. Location Around & Services Tile */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<LocationAroundSkeleton />}>
               <LocationAround services={locationData?.services} />
             </Suspense>
           </div>
 
           {/* 7. Ratings & Reviews Tile */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<ReviewsSkeleton />}>
               <ReviewsSectionClient typeName={name} typeId={id} type="location" reviews={reviewList} />
             </Suspense>
           </div>
 
           {/* 8. Areas Nearby Tile */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<AreasNearbySkeleton />}>
               <AreasNearby locationData={locationData} />
             </Suspense>
@@ -175,7 +175,7 @@ async function LocationPageContent({ params }: LocationPageProps) {
           </Suspense>
 
           {/* 10. Interactive Map Tile */}
-          <div className="bg-white rounded-2xl p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<MapFilterSkeleton />}>
               <GoogleMapFilter locationData={locationData} />
             </Suspense>

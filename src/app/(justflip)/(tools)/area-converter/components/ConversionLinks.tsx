@@ -10,7 +10,7 @@ const ConversionLinks = () => {
             key={group.title}
             className="rounded-lg border border-gray-200 bg-white p-5"
         >
-            <h2 className="mb-5 text-lg font-semibold text-[#002B5B]">
+            <h2 className="mb-5 text-lg font-semibold text-primary">
                 {group.title}
             </h2>
 
@@ -20,7 +20,7 @@ const ConversionLinks = () => {
                         key={link.conversion}
                         href={`/area-converter/${link.conversion}`}
                         target='_blank'
-                        className="block text-sm text-[#002B5B] underline underline-offset-2 transition hover:text-[#1d5da3]"
+                        className="block text-sm text-primary underline underline-offset-2 transition hover:text-[#1d5da3]"
                     >
                         {link.label}
                     </Link>

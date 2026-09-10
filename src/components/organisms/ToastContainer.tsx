@@ -87,7 +87,7 @@ function ToastCard({ toast, onClose }: ToastCardProps) {
             onTouchEnd={handleEnd}
             className="
                 w-[280px] md:w-[320px]
-                 bg-black/20 backdrop-blur-xl border border-white/20 shadow-xl rounded-2xl
+                 bg-black/20 backdrop-blur-xl border border-white/20 shadow-xl rounded-lg
                   p-4
                 flex items-center gap-3
                 text-white

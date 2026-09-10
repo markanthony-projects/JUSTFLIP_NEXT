@@ -93,7 +93,7 @@ const BrokerPropertyDashboard = () => {
       initial="hidden"
       animate="show"
       variants={containerVariants}
-      className='bg-gray-50/30 md:bg-white/80 md:backdrop-blur-2xl rounded-3xl md:p-8 p-4 md:shadow-[0_8px_30px_rgb(0,0,0,0.06)] md:border md:border-white min-h-[600px] relative overflow-hidden'
+      className='bg-gray-50/30 md:bg-white/80 md:backdrop-blur-2xl rounded-lg md:p-8 p-4 md:shadow-[0_8px_30px_rgb(0,0,0,0.06)] md:border md:border-white min-h-[600px] relative overflow-hidden'
     >
       {/* Decorative background blob */}
       <div className="hidden md:block absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full blur-[80px] opacity-50 -z-10 translate-x-20 -translate-y-20 pointer-events-none"></div>
@@ -109,9 +109,9 @@ const BrokerPropertyDashboard = () => {
               onHoverStart={() => setIsHovered(index)}
               onHoverEnd={() => setIsHovered(null)}
               onClick={() => setActiveTab(tabs[index].id)}
-              className={`cursor-pointer relative flex flex-row items-center md:flex-col md:items-start p-4 md:p-5 rounded-xl md:rounded-2xl border transition-all duration-300 ${isHovered === index && !isActiveCard ? 'shadow-md md:ring-1 md:ring-gray-200' : 'shadow-sm'} ${isActiveCard ? 'bg-[#002B5B] text-white border-transparent shadow-md' : 'bg-white border-gray-100 text-slate-800 hover:bg-slate-50'}`}
+              className={`cursor-pointer relative flex flex-row items-center md:flex-col md:items-start p-4 md:p-5 rounded-lg md:rounded-lg border transition-all duration-300 ${isHovered === index && !isActiveCard ? 'shadow-md md:ring-1 md:ring-gray-200' : 'shadow-sm'} ${isActiveCard ? 'bg-primary text-white border-transparent shadow-md' : 'bg-white border-gray-100 text-slate-800 hover:bg-slate-50'}`}
             >
-              <div className={`w-12 h-12 rounded-lg md:rounded-xl flex items-center justify-center mr-4 md:mr-0 md:mb-4 shrink-0 ${isActiveCard ? 'bg-white/10 border border-white/10 text-white' : 'bg-slate-50 border border-slate-100 text-[#002B5B]'}`}>
+              <div className={`w-12 h-12 rounded-lg md:rounded-lg flex items-center justify-center mr-4 md:mr-0 md:mb-4 shrink-0 ${isActiveCard ? 'bg-white/10 border border-white/10 text-white' : 'bg-slate-50 border border-slate-100 text-primary'}`}>
                 {stat.icon}
               </div>
               <div className="flex flex-col md:block">
@@ -151,17 +151,17 @@ const BrokerPropertyDashboard = () => {
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`relative shrink-0 flex items-center gap-2 px-6 py-2 md:px-5 md:py-2.5 rounded-xl text-sm font-bold transition-all duration-300 overflow-hidden group border ${isActive ? 'md:border-transparent bg-[#002B5B] md:bg-transparent text-white' : 'border-gray-200 md:border-transparent md:border-slate-200 bg-white md:hover:bg-slate-50 text-slate-700'}`}
+                className={`relative shrink-0 flex items-center gap-2 px-6 py-2 md:px-5 md:py-2.5 rounded-lg text-sm font-bold transition-all duration-300 overflow-hidden group border ${isActive ? 'md:border-transparent bg-primary md:bg-transparent text-white' : 'border-gray-200 md:border-transparent md:border-slate-200 bg-white md:hover:bg-slate-50 text-slate-700'}`}
               >
                 {isActive && (
                   <motion.div
                     layoutId="activeTabIndicator"
-                    className="hidden md:block absolute inset-0 bg-[#002B5B] rounded-xl z-0"
+                    className="hidden md:block absolute inset-0 bg-primary rounded-lg z-0"
                     transition={{ type: "spring", stiffness: 300, damping: 25 }}
                   />
                 )}
-                <span className={`relative z-10 flex items-center gap-2 ${isActive ? 'text-white' : 'text-slate-600 md:group-hover:text-[#002B5B]'}`}>
-                  <span className={`hidden md:flex ${isActive ? 'text-white' : 'text-slate-400 md:group-hover:text-[#002B5B]'} transition-colors`}>
+                <span className={`relative z-10 flex items-center gap-2 ${isActive ? 'text-white' : 'text-slate-600 md:group-hover:text-primary'}`}>
+                  <span className={`hidden md:flex ${isActive ? 'text-white' : 'text-slate-400 md:group-hover:text-primary'} transition-colors`}>
                     {tab.icon}
                   </span>
                   <span className="md:hidden whitespace-nowrap">{tab.label}</span>
@@ -175,7 +175,7 @@ const BrokerPropertyDashboard = () => {
         {/* Search Bar */}
         <motion.div
           whileFocus={{ scale: 1.01 }}
-          className="order-1 md:order-2 relative flex items-center w-full md:w-72 h-12 rounded-xl focus-within:shadow-md focus-within:ring-2 focus-within:ring-blue-100 bg-white border border-gray-200 overflow-hidden transition-all duration-300 shrink-0"
+          className="order-1 md:order-2 relative flex items-center w-full md:w-72 h-12 rounded-lg focus-within:shadow-md focus-within:ring-2 focus-within:ring-blue-100 bg-white border border-gray-200 overflow-hidden transition-all duration-300 shrink-0"
         >
           <div className="grid place-items-center h-full w-12 text-gray-400 bg-transparent md:bg-gray-50">
             <HiOutlineSearch size={18} />
@@ -198,7 +198,7 @@ const BrokerPropertyDashboard = () => {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="flex flex-col items-center justify-center mt-20 p-10 text-center"
           >
-            <div className="w-10 h-10 border-4 border-blue-200 border-t-[#002B5B] rounded-full animate-spin mb-4"></div>
+            <div className="w-10 h-10 border-4 border-blue-200 border-t-primary rounded-full animate-spin mb-4"></div>
             <p className="text-gray-500 font-medium">Fetching your properties...</p>
           </motion.div>
         ) : filteredProperties.length > 0 ? (
@@ -207,7 +207,7 @@ const BrokerPropertyDashboard = () => {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center md:justify-items-start"
           >
-            {filteredProperties.map(project => (            
+            {filteredProperties.map(project => (
               <PropertyCard key={project.id} project={project} />
             ))}
           </motion.div>
@@ -223,7 +223,7 @@ const BrokerPropertyDashboard = () => {
             <div className="relative w-32 h-32 mb-6 flex items-center justify-center">
               <div className="absolute inset-0 bg-blue-50 rounded-full animate-pulse opacity-60"></div>
               <div className="absolute inset-4 bg-[#E6EEF2] rounded-full"></div>
-              <HiOutlineDocumentText className="relative z-10 text-[#002B5B] opacity-80" size={48} />
+              <HiOutlineDocumentText className="relative z-10 text-primary opacity-80" size={48} />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">No {activeTab} Found</h3>
             <p className="text-gray-500 font-medium text-sm max-w-sm mb-8 leading-relaxed">
@@ -234,7 +234,7 @@ const BrokerPropertyDashboard = () => {
               <motion.button
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#002B5B] to-blue-800 text-white rounded-xl font-bold shadow-lg shadow-blue-900/20 hover:shadow-xl hover:shadow-blue-900/30 transition-all"
+                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-blue-800 text-white rounded-lg font-bold shadow-lg shadow-blue-900/20 hover:shadow-xl hover:shadow-blue-900/30 transition-all"
               >
                 <FiPlus size={18} /> Post a New Property
               </motion.button>

@@ -53,7 +53,7 @@ export const getCategoryIcon = (categoryKey: string): L.DivIcon => {
 
     const IconComp = CATEGORY_ICONS[categoryKey] || IoSchoolSharp;
     const iconHtml = ReactDOMServer.renderToString(
-        <IconComp size={15} color="#002B5B" />
+        <IconComp size={15} />
     );
 
     const icon = L.divIcon({
@@ -67,7 +67,7 @@ export const getCategoryIcon = (categoryKey: string): L.DivIcon => {
                 background:white;
                 border-radius:50%;
                 box-shadow:0 2px 8px rgba(0,0,0,0.22);
-                border: 2px solid #002B5B;
+                border: 2px solid primary;
             ">
                 ${iconHtml}
             </div>
@@ -163,4 +163,4 @@ export default function MapView({
             )}
         </div>
     );
-}
+}

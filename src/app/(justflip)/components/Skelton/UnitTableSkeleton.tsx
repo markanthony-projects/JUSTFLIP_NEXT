@@ -4,7 +4,7 @@ import { SkeletonBlock } from "./SkeletonSection";
 
 function UnitCardSkeleton() {
     return (
-        <div className="border border-slate-200/60 rounded-2xl bg-white shadow-sm flex flex-col h-fit overflow-hidden max-w-[340px] w-full">
+        <div className="border border-slate-200/60 rounded-lg bg-white shadow-sm flex flex-col h-fit overflow-hidden max-w-[340px] w-full">
             <div className="px-4 pt-4 sm:px-5 sm:pt-5 pb-3 flex flex-col gap-2">
                 <SkeletonBlock className="h-5 sm:h-6 w-16 rounded-sm mb-1" />
                 <SkeletonBlock className="h-6 sm:h-7 w-32 rounded-sm mb-2" />

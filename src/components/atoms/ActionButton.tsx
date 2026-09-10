@@ -13,10 +13,10 @@ export default function ActionButton({ label, onClick, icon }: ActionButtonProps
       type="button"
       onClick={onClick}
       aria-label={label}
-      className="group relative px-4 py-2 flex items-center justify-center text-[#002B5B] cursor-pointer overflow-visible transition-all duration-300 ease-out active:scale-95"
+      className="group relative px-4 py-2 flex items-center justify-center text-primary cursor-pointer overflow-visible transition-all duration-300 ease-out active:scale-95"
     >
       {/* Background hover */}
-      <span className="absolute inset-0 bg-[#002B5B]/5 opacity-0 scale-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100" />
+      <span className="absolute inset-0 bg-primary/5 opacity-0 scale-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100" />
 
       {/* Icon */}
       <span className="relative z-50 transition-all duration-300 ease-out group-hover:scale-110 group-hover:-translate-y-[2px]">

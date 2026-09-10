@@ -116,7 +116,7 @@ const Broker = () => {
             <button
               type='button'
               onClick={() => router.push('/register')}
-              className='text-gray-500 hover:text-[#002b5b] transition underline underline-offset-2'
+              className='text-gray-500 hover:text-primary transition underline underline-offset-2'
             >
               Create an account
             </button>
@@ -127,7 +127,7 @@ const Broker = () => {
                 setMode('forgot')
                 setError('')
               }}
-              className='text-[#002b5b] font-medium hover:underline transition'
+              className='text-primary font-medium hover:underline transition'
             >
               Forgot Password?
             </button>
@@ -139,7 +139,7 @@ const Broker = () => {
               setMode('login')
               setError('')
             }}
-            className='text-gray-500 hover:text-[#002b5b] transition font-medium'
+            className='text-gray-500 hover:text-primary transition font-medium'
           >
             ← Back to Login
           </button>
@@ -149,8 +149,8 @@ const Broker = () => {
       <button
         type='submit'
         disabled={loading}
-        className='w-full h-11 rounded-lg bg-[#002b5b] text-white text-sm font-semibold 
-                           transition-all hover:bg-[#003b7b] disabled:opacity-50 active:scale-[0.98]'
+        className='w-full h-11 rounded-lg bg-primary text-white text-sm font-semibold 
+                           transition-all hover:bg-primary/90 disabled:opacity-50 active:scale-[0.98]'
       >
         {loading
           ? 'Processing...'

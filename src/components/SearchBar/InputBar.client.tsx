@@ -211,7 +211,7 @@ const InputBar = () => {
         <button
           type='submit'
           aria-label='Search'
-          className=' transition-all duration-200 ease-in-out  transform hover:scale-[1.03] active:scale-95 inline-flex items-center justify-center gap-2 px-4 h-full rounded-lg bg-[#002B5B] text-white text-sm font-medium       transition-all duration-200     '
+          className=' transition-all duration-200 ease-in-out  transform hover:scale-[1.03] active:scale-95 inline-flex items-center justify-center gap-2 px-4 h-full rounded-lg bg-primary text-white text-sm font-medium       transition-all duration-200     '
         >
           {/* <FaSearch className="text-lg" /> */}
 

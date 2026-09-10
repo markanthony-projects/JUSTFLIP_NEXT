@@ -63,7 +63,7 @@ export default function AutocompletePanel({ currentInput, onSelect }: Autocomple
               e.preventDefault();
               clearSearches();
             }}
-            className="text-xs text-[#002B5B] hover:underline"
+            className="text-xs text-primary hover:underline"
           >
             Clear All
           </button>
@@ -135,7 +135,7 @@ export default function AutocompletePanel({ currentInput, onSelect }: Autocomple
                     className="flex items-center gap-3 px-4 py-2.5"
                     onMouseDown={() => onSelect(p.name)}
                   >
-                    <div className="bg-blue-100 p-2 rounded-full text-[#002B5B]">
+                    <div className="bg-blue-100 p-2 rounded-full text-primary">
                       <PiBuildingApartment />
                     </div>
                     <div>

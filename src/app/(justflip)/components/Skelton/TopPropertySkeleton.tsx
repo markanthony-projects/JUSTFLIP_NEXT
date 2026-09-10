@@ -5,7 +5,7 @@ import { SkeletonBlock } from "./SkeletonSection";
 export const TopPropertySkeleton = memo( function TopPropertySkeleton(){
   return (
     <section
-      className="lg:border border-gray-300 rounded-xl lg:p-4 bg-white w-full"
+      className="lg:border border-gray-300 rounded-lg lg:p-4 bg-white w-full"
       aria-label="Top Properties"
       role="status"
       aria-busy="true"

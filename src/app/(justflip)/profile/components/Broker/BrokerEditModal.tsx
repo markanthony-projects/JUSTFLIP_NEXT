@@ -23,7 +23,7 @@ const BrokerEditModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
     annualIncome: '',
     missionAndVision: ''
   })
-  
+
   const [isLoading, setIsLoading] = useState(false)
 
   // Pre-fill form when modal opens
@@ -56,11 +56,11 @@ const BrokerEditModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
     e.preventDefault()
     if (!user?.id) return
     setIsLoading(true)
-    
+
     try {
       // Call the API with user ID
       const updatedData = await AuthService.updateBrokerProfile(user.id, formData)
-      
+
       // Update local Zustand state so the UI reflects the changes immediately
       if (updateUser) {
         updateUser(formData)
@@ -96,11 +96,11 @@ const BrokerEditModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 20 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
+          className="relative w-full max-w-3xl bg-white rounded-lg shadow-2xl overflow-hidden max-h-[90vh] flex flex-col"
         >
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50/50">
-            <h2 className="text-xl font-bold text-[#002B5B]">Edit Profile</h2>
+            <h2 className="text-xl font-bold text-primary">Edit Profile</h2>
             <button
               onClick={onClose}
               className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
@@ -112,26 +112,26 @@ const BrokerEditModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
           {/* Body */}
           <div className="p-6 overflow-y-auto scrollbar-modern">
             <form id="edit-profile-form" onSubmit={handleSubmit} className="space-y-6">
-              
+
               {/* Personal Info */}
               <div>
                 <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">Personal Information</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label className="text-sm font-semibold text-gray-700">Full Name</label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#002B5B]/20 focus:border-[#002B5B] transition-all outline-none" />
+                    <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" />
                   </div>
                   <div className="space-y-1">
                     <label className="text-sm font-semibold text-gray-700">Email</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#002B5B]/20 focus:border-[#002B5B] transition-all outline-none" />
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" />
                   </div>
                   <div className="space-y-1">
                     <label className="text-sm font-semibold text-gray-700">Phone</label>
-                    <input type="text" name="phone" value={formData.phone} onChange={handleChange} required className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#002B5B]/20 focus:border-[#002B5B] transition-all outline-none" />
+                    <input type="text" name="phone" value={formData.phone} onChange={handleChange} required className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" />
                   </div>
                   <div className="space-y-1">
                     <label className="text-sm font-semibold text-gray-700">Alternate Phone</label>
-                    <input type="text" name="alternatePhone" value={formData.alternatePhone} onChange={handleChange} className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#002B5B]/20 focus:border-[#002B5B] transition-all outline-none" />
+                    <input type="text" name="alternatePhone" value={formData.alternatePhone} onChange={handleChange} className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" />
                   </div>
                 </div>
               </div>
@@ -144,27 +144,27 @@ const BrokerEditModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label className="text-sm font-semibold text-gray-700">Company Name</label>
-                    <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#002B5B]/20 focus:border-[#002B5B] transition-all outline-none" />
+                    <input type="text" name="companyName" value={formData.companyName} onChange={handleChange} className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" />
                   </div>
                   <div className="space-y-1">
                     <label className="text-sm font-semibold text-gray-700">RERA Number</label>
-                    <input type="text" name="rera" value={formData.rera} onChange={handleChange} className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#002B5B]/20 focus:border-[#002B5B] transition-all outline-none" />
+                    <input type="text" name="rera" value={formData.rera} onChange={handleChange} className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" />
                   </div>
                   <div className="space-y-1 md:col-span-2">
                     <label className="text-sm font-semibold text-gray-700">Company Address</label>
-                    <input type="text" name="companyAddress" value={formData.companyAddress} onChange={handleChange} className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#002B5B]/20 focus:border-[#002B5B] transition-all outline-none" />
+                    <input type="text" name="companyAddress" value={formData.companyAddress} onChange={handleChange} className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" />
                   </div>
                   <div className="space-y-1">
                     <label className="text-sm font-semibold text-gray-700">Team Size</label>
-                    <input type="number" name="teamSize" value={formData.teamSize} onChange={handleChange} placeholder="e.g. 50" className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#002B5B]/20 focus:border-[#002B5B] transition-all outline-none" />
+                    <input type="number" name="teamSize" value={formData.teamSize} onChange={handleChange} placeholder="e.g. 50" className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" />
                   </div>
                   <div className="space-y-1">
                     <label className="text-sm font-semibold text-gray-700">Annual Income (Cr)</label>
-                    <input type="number" name="annualIncome" value={formData.annualIncome} onChange={handleChange} placeholder="e.g. 6" className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#002B5B]/20 focus:border-[#002B5B] transition-all outline-none" />
+                    <input type="number" name="annualIncome" value={formData.annualIncome} onChange={handleChange} placeholder="e.g. 6" className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none" />
                   </div>
                 </div>
               </div>
-              
+
               <hr className="border-gray-100" />
 
               {/* About Info */}
@@ -172,7 +172,7 @@ const BrokerEditModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
                 <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">About</h3>
                 <div className="space-y-1">
                   <label className="text-sm font-semibold text-gray-700">Mission and Vision</label>
-                  <textarea name="missionAndVision" value={formData.missionAndVision} onChange={handleChange} maxLength={500} rows={3} className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#002B5B]/20 focus:border-[#002B5B] transition-all outline-none resize-none"></textarea>
+                  <textarea name="missionAndVision" value={formData.missionAndVision} onChange={handleChange} maxLength={500} rows={3} className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none resize-none"></textarea>
                   <p className={`text-xs text-right ${formData.missionAndVision?.length >= 500 ? 'text-red-500 font-bold' : 'text-gray-500'}`}>
                     {formData.missionAndVision?.length || 0}/500 characters
                   </p>
@@ -187,7 +187,7 @@ const BrokerEditModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
             <button
               onClick={onClose}
               disabled={isLoading}
-              className="px-5 py-2 text-sm font-semibold text-gray-600 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 transition-colors"
+              className="px-5 py-2 text-sm font-semibold text-gray-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
             >
               Cancel
             </button>
@@ -195,7 +195,7 @@ const BrokerEditModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
               form="edit-profile-form"
               type="submit"
               disabled={isLoading}
-              className="flex items-center gap-2 px-6 py-2 text-sm font-bold text-white bg-[#002B5B] rounded-xl hover:bg-blue-900 shadow-md shadow-[#002B5B]/20 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+              className="flex items-center gap-2 px-6 py-2 text-sm font-bold text-white bg-primary rounded-lg hover:bg-blue-900 shadow-md shadow-primary/20 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>

@@ -127,7 +127,7 @@ export default function MobileBottomNav() {
                             key={item.name}
                             onClick={item.action}
                             className={`flex flex-col items-center justify-center w-1/5 gap-1.5 ${
-                                item.isActive ? "text-[#002B5B]" : "text-gray-500"
+                                item.isActive ? "text-primary" : "text-gray-500"
                             }`}
                         >
                             {content}
@@ -140,7 +140,7 @@ export default function MobileBottomNav() {
                         key={item.name}
                         href={item.href}
                         className={`flex flex-col items-center justify-center w-1/5 gap-1.5 ${
-                            item.isActive ? "text-[#002B5B]" : "text-gray-500"
+                            item.isActive ? "text-primary" : "text-gray-500"
                         }`}
                     >
                         {content}

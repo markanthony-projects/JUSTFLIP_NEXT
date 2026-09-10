@@ -99,12 +99,12 @@ const SafetyGuideClient = () => {
         <Breadcrumb items={breadcrumbItems} />
 
         {/* Hero */}
-        <header className='mt-6 rounded-2xl bg-[#EAF3FA] px-6 py-6 text-center sm:px-8 sm:py-8'>
+        <header className='mt-6 rounded-lg bg-[#EAF3FA] px-6 py-6 text-center sm:px-8 sm:py-8'>
           <div className='mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white shadow-sm'>
-            <AiFillSafetyCertificate aria-hidden="true" size={36} className='text-[#002B5B]' />
+            <AiFillSafetyCertificate aria-hidden="true" size={36} className='text-primary' />
           </div>
 
-          <h1 className='mt-2 text-2xl font-bold tracking-tight text-[#002B5B] sm:text-3xl'>
+          <h1 className='mt-2 text-2xl font-bold tracking-tight text-primary sm:text-3xl'>
             Stay Safe with JustFlip
           </h1>
 
@@ -115,14 +115,14 @@ const SafetyGuideClient = () => {
         </header>
 
         {/* Introduction */}
-        <section className='mt-6 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
+        <section className='mt-6 rounded-lg border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
           <div className='flex items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FA]'>
-              <FiCheckCircle aria-hidden="true" size={24} className='text-[#002B5B]' />
+              <FiCheckCircle aria-hidden="true" size={24} className='text-primary' />
             </div>
 
             <div>
-              <h2 className='text-md font-bold text-[#002B5B] sm:text-lg'>
+              <h2 className='text-md font-bold text-primary sm:text-lg'>
                 A few simple precautions can make a big difference
               </h2>
 
@@ -138,7 +138,7 @@ const SafetyGuideClient = () => {
         {/* Safety Tips */}
         <section className='mt-8'>
           <div>
-            <h2 className='text-lg font-bold text-[#002B5B] sm:text-xl'>
+            <h2 className='text-lg font-bold text-primary sm:text-xl'>
               Essential Safety Tips
             </h2>
 
@@ -155,15 +155,15 @@ const SafetyGuideClient = () => {
               return (
                 <article
                   key={item.title}
-                  className='rounded-2xl border border-[#D8E4EE] bg-white p-6  shadow-sm transition hover:-translate-y-0.5 hover:shadow-md'
+                  className='rounded-lg border border-[#D8E4EE] bg-white p-6  shadow-sm transition hover:-translate-y-0.5 hover:shadow-md'
                 >
                   <div className='flex items-start gap-4'>
-                    <div className='flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#EAF3FA]'>
-                      <Icon aria-hidden="true" size={22} className='text-[#002B5B]' />
+                    <div className='flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#EAF3FA]'>
+                      <Icon aria-hidden="true" size={22} className='text-primary' />
                     </div>
 
                     <div>
-                      <h3 className='text-base font-bold text-[#002B5B]'>
+                      <h3 className='text-base font-bold text-primary'>
                         {item.title}
                       </h3>
 
@@ -179,14 +179,14 @@ const SafetyGuideClient = () => {
         </section>
 
         {/* Red Flags */}
-        <section className='mt-8 rounded-2xl border border-[#F0D7B5] bg-[#FFF9F0] p-6 sm:p-8'>
+        <section className='mt-8 rounded-lg border border-[#F0D7B5] bg-[#FFF9F0] p-6 sm:p-8'>
           <div className='flex flex-col sm:flex-row items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white'>
               <FiAlertTriangle aria-hidden="true" size={25} className='text-[#d0190c]' />
             </div>
 
             <div className='flex-1'>
-              <h2 className='text-md font-bold text-[#002B5B] sm:text-lg'>
+              <h2 className='text-md font-bold text-primary sm:text-lg'>
                 Watch Out for Red Flags
               </h2>
 
@@ -216,14 +216,14 @@ const SafetyGuideClient = () => {
         </section>
 
         {/* Property Viewing */}
-        <section className='mt-8 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
+        <section className='mt-8 rounded-lg border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
           <div className='flex flex-col sm:flex-row items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FA]'>
-              <SiGooglestreetview aria-hidden="true" size={24} className='text-[#002B5B]' />
+              <SiGooglestreetview aria-hidden="true" size={24} className='text-primary' />
             </div>
 
             <div>
-              <h2 className='text-md font-bold text-[#002B5B] sm:text-lg'>
+              <h2 className='text-md font-bold text-primary sm:text-lg'>
                 When Viewing a Property
               </h2>
 
@@ -241,12 +241,12 @@ const SafetyGuideClient = () => {
                 ].map(item => (
                   <div
                     key={item}
-                    className='flex items-start gap-2 rounded-xl bg-[#F7FAFC] p-3'
+                    className='flex items-start gap-2 rounded-lg bg-[#F7FAFC] p-3'
                   >
                     <FiCheckCircle
                       aria-hidden="true"
                       size={18}
-                      className='mt-0.5 shrink-0 text-[#002B5B]'
+                      className='mt-0.5 shrink-0 text-primary'
                     />
 
                     <span className='text-sm leading-6 text-gray-700'>
@@ -260,14 +260,14 @@ const SafetyGuideClient = () => {
         </section>
 
         {/* Transactions */}
-        <section className='mt-8 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
+        <section className='mt-8 rounded-lg border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
           <div className='flex flex-col sm:flex-row items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FA]'>
-              <FiCreditCard aria-hidden="true" size={24} className='text-[#002B5B]' />
+              <FiCreditCard aria-hidden="true" size={24} className='text-primary' />
             </div>
 
             <div className='flex-1 w-full'>
-              <h2 className='text-md font-bold text-[#002B5B] sm:text-lg'>
+              <h2 className='text-md font-bold text-primary sm:text-lg'>
                 Before Making a Transaction
               </h2>
 
@@ -280,9 +280,9 @@ const SafetyGuideClient = () => {
                 {transactionSteps.map((step, index) => (
                   <div
                     key={step}
-                    className='flex items-start gap-4 rounded-xl bg-[#F7FAFC] p-4'
+                    className='flex items-start gap-4 rounded-lg bg-[#F7FAFC] p-4'
                   >
-                    <div className='flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#002B5B] text-xs font-bold text-white'>
+                    <div className='flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-white'>
                       {index + 1}
                     </div>
 
@@ -295,14 +295,14 @@ const SafetyGuideClient = () => {
         </section>
 
         {/* Personal Information */}
-        <section className='mt-8 rounded-2xl border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
+        <section className='mt-8 rounded-lg border border-[#D8E4EE] bg-white p-6 shadow-sm sm:p-8'>
           <div className='flex flex-col sm:flex-row items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#EAF3FA]' >
-              <FiLock aria-hidden="true" size={24} className='text-[#002B5B]' />
+              <FiLock aria-hidden="true" size={24} className='text-primary' />
             </div>
 
             <div>
-              <h2 className='text-lg font-bold text-[#002B5B] sm:text-xl'>
+              <h2 className='text-lg font-bold text-primary sm:text-xl'>
                 Protect Your Personal Information
               </h2>
 
@@ -320,12 +320,12 @@ const SafetyGuideClient = () => {
                 ].map(item => (
                   <div
                     key={item}
-                    className='flex items-start gap-3 rounded-xl border border-[#D8E4EE] p-4'
+                    className='flex items-start gap-3 rounded-lg border border-[#D8E4EE] p-4'
                   >
                     <FiLock
                       aria-hidden="true"
                       size={17}
-                      className='mt-1 shrink-0 text-[#002B5B]'
+                      className='mt-1 shrink-0 text-primary'
                     />
 
                     <span className='text-sm leading-6 text-gray-700'>
@@ -339,7 +339,7 @@ const SafetyGuideClient = () => {
         </section>
 
         {/* Report Suspicious Activity */}
-        <section className='mt-8 rounded-2xl bg-[#002B5B] p-6 text-white sm:p-8'>
+        <section className='mt-8 rounded-lg bg-primary p-6 text-white sm:p-8'>
           <div className='flex items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10'>
               <FiFlag aria-hidden="true" size={24} className='text-white' />
@@ -360,7 +360,7 @@ const SafetyGuideClient = () => {
               <button
                 onClick={() => setShowReportModal(true)}
                 type='button'
-                className='mt-5 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-[#002B5B] transition hover:bg-[#EAF3FA]'
+                className='mt-5 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-semibold text-primary transition hover:bg-[#EAF3FA]'
               >
                 <FiFlag aria-hidden="true" size={17} />
                 Report Suspicious Activity
@@ -370,14 +370,14 @@ const SafetyGuideClient = () => {
         </section>
 
         {/* Important Notice */}
-        <section className='mt-6 rounded-2xl border border-[#D8E4EE] bg-[#EAF3FA] p-6 sm:p-8'>
+        <section className='mt-6 rounded-lg border border-[#D8E4EE] bg-[#EAF3FA] p-6 sm:p-8'>
           <div className='flex items-start gap-4'>
             <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white'>
-              <FiShield aria-hidden="true" size={24} className='text-[#002B5B]' />
+              <FiShield aria-hidden="true" size={24} className='text-primary' />
             </div>
 
             <div>
-              <h2 className='text-base font-bold text-[#002B5B] sm:text-lg'>
+              <h2 className='text-base font-bold text-primary sm:text-lg'>
                 Important
               </h2>
 

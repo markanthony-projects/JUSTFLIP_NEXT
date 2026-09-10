@@ -31,7 +31,7 @@ export default function SaveSearchModal({ isOpen, onClose }: SaveSearchModalProp
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden relative animate-in zoom-in-95 duration-200">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-md overflow-hidden relative animate-in zoom-in-95 duration-200">
         {/* Close button */}
         <button 
           onClick={onClose}
@@ -43,7 +43,7 @@ export default function SaveSearchModal({ isOpen, onClose }: SaveSearchModalProp
         </button>
 
         <div className="p-6 sm:p-8">
-          <div className="w-12 h-12 bg-blue-50 text-[#002B5B] rounded-xl flex items-center justify-center mb-5">
+          <div className="w-12 h-12 bg-blue-50 text-primary rounded-lg flex items-center justify-center mb-5">
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
             </svg>
@@ -60,7 +60,7 @@ export default function SaveSearchModal({ isOpen, onClose }: SaveSearchModalProp
           </div>
 
           {isSuccess ? (
-            <div className="bg-green-50 border border-green-200 rounded-xl p-4 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2">
               <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -83,13 +83,13 @@ export default function SaveSearchModal({ isOpen, onClose }: SaveSearchModalProp
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full px-4 py-2.5 rounded-xl border border-gray-300 focus:ring-2 focus:ring-[#002B5B] focus:border-[#002B5B] outline-none transition-all text-sm"
+                  className="w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-sm"
                 />
               </div>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full mt-2 px-6 py-3 bg-[#002B5B] text-white font-semibold rounded-xl hover:bg-[#001f42] transition-colors shadow-md shadow-blue-900/20 active:scale-95 disabled:opacity-70 disabled:pointer-events-none flex items-center justify-center"
+                className="w-full mt-2 px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-hover transition-colors shadow-md shadow-blue-900/20 active:scale-95 disabled:opacity-70 disabled:pointer-events-none flex items-center justify-center"
               >
                 {isSubmitting ? (
                   <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
