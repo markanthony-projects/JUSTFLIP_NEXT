@@ -165,7 +165,7 @@ const SimilarPropertyCard = ({ project, priority }: { project: Project; priority
                     </div>
                 </div>
             </Link>
-            <LoginModal isOpen={showLoginPrompt} closeModal={() => setShowLoginPrompt(false)} />
+            <LoginModal title="Compare Side-by-Side" subtitle="Sign in to analyze properties together" isOpen={showLoginPrompt} closeModal={() => setShowLoginPrompt(false)} />
         </>
     );
 };
