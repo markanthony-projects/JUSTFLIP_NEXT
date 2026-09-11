@@ -34,27 +34,13 @@ export default function ResultsHeader() {
         {/* Save Search Button */}
         <button
           onClick={() => setIsModalOpen(true)}
-          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 bg-slate-50 border border-slate-200 text-primary hover:bg-slate-100 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 border border-slate-200 text-primary hover:bg-slate-100 rounded-lg text-xs font-semibold transition-colors cursor-pointer"
         >
           <FaRegBell className="w-3.5 h-3.5" />
           <span>Save Search</span>
         </button>
 
-        {/* Mobile Filter Sheet Trigger */}
-        <button
-          onClick={toggleFilterSheet}
-          className="lg:hidden inline-flex items-center gap-1.5 px-3.5 py-2 bg-white border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 hover:bg-slate-50 transition-colors shadow-2xs"
-        >
-          <LuSlidersHorizontal className="w-3.5 h-3.5 text-slate-600" />
-          <span>Filters</span>
-          {activeFilterCount > 0 && (
-            <span className="ml-1 w-4 h-4 bg-primary text-white rounded-full text-[10px] flex items-center justify-center font-bold">
-              {activeFilterCount}
-            </span>
-          )}
-        </button>
-
-        {/* List / Map Switcher */}
+        {/* List / Map Switcher (Desktop) */}
         <div className="hidden lg:flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200/60">
           <button
             onClick={() => setViewMode('list')}
@@ -80,8 +66,10 @@ export default function ResultsHeader() {
           </button>
         </div>
 
-        {/* Sort Dropdown */}
-        <SortDropdown />
+        {/* Sort Dropdown (Desktop) */}
+        <div className="hidden lg:block">
+          <SortDropdown />
+        </div>
       </div>
 
       <SaveSearchModal

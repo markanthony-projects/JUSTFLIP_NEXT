@@ -1,212 +1,205 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
-import { HiChevronDown, HiMenuAlt4 } from 'react-icons/hi';
-import { LuSlidersHorizontal } from 'react-icons/lu';
-import { useCityStore } from '@/src/stores/city.store';
+import React, { useState, useEffect } from 'react';
 import { useSearchStore } from '@/src/stores/search.store';
+import { useCityStore } from '@/src/stores/city.store';
 import { SEARCH_CONFIG } from '@/src/services/search/searchConfig';
-import FilterFactory from './FilterFactory';
-import DesktopMoreFiltersModal from './DesktopMoreFiltersModal';
-import { FiSearch, FiX } from 'react-icons/fi';
+import { FiSearch, FiCheck } from 'react-icons/fi';
+import { BiMicrophone } from 'react-icons/bi';
+import { LuSlidersHorizontal, LuArrowUpDown } from 'react-icons/lu';
+import { HiOutlineX } from 'react-icons/hi';
 
 export default function HorizontalFilterBar() {
-  const { activeCity, setActiveCity } = useCityStore();
-  const { query, setQuery, toggleSearchModal } = useSearchStore();
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [localQuery, setLocalQuery] = useState(query || '');
+  const { query, setQuery, toggleSearchModal, toggleFilterSheet, sort, setSort, filters } = useSearchStore();
+  const { activeCity } = useCityStore();
+  const [isSortSheetOpen, setIsSortSheetOpen] = useState(false);
+  const [isListening, setIsListening] = useState(false);
 
-  useEffect(() => {
-    setLocalQuery(query || '');
-  }, [query]);
+  // Determine display label for the yellow badge
+  const chipLabel = query
+    ? (query.length > 15 ? `${query.slice(0, 15)}..` : query)
+    : activeCity?.name
+    ? activeCity.name
+    : 'All Localities';
 
-  // Close dropdown when scrolling
+  // Prevent background scroll when Sort sheet is open
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-    const handleScroll = () => {
-      if (Math.abs(window.scrollY - lastScrollY) > 10) {
-        setActiveDropdown(null);
-        lastScrollY = window.scrollY;
-      }
-    };
-    window.addEventListener("scroll", handleScroll, true);
-    return () => window.removeEventListener("scroll", handleScroll, true);
-  }, []);
-
-  // Close dropdown when clicking outside
-  const barRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (barRef.current && !barRef.current.contains(event.target as Node)) {
-        setActiveDropdown(null);
-      }
+    if (isSortSheetOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isSortSheetOpen]);
 
-  const toggleDropdown = (key: string) => {
-    setActiveDropdown(prev => prev === key ? null : key);
+  // Voice Search Handler
+  const handleVoiceSearch = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const SpeechRecognition =
+      (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      toggleSearchModal();
+      return;
+    }
+
+    try {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'en-IN';
+      recognition.interimResults = false;
+
+      recognition.onstart = () => setIsListening(true);
+      recognition.onend = () => setIsListening(false);
+      recognition.onerror = () => {
+        setIsListening(false);
+        toggleSearchModal();
+      };
+
+      recognition.onresult = (event: any) => {
+        setIsListening(false);
+        const transcript = event.results[0][0]?.transcript;
+        if (transcript) {
+          setQuery(transcript.trim());
+        }
+      };
+
+      recognition.start();
+    } catch {
+      setIsListening(false);
+      toggleSearchModal();
+    }
   };
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setQuery(localQuery.trim());
-  };
+  const hasActiveFilters = Object.values(filters || {}).some(
+    (v) => v !== undefined && v !== null && v !== ''
+  );
 
   return (
-    <div
-      ref={barRef}
-      className="w-full bg-primary h-14 z-40 relative shadow-xs"
-    >
-      <div
-        onScroll={() => setActiveDropdown(null)}
-        className="px-4 flex items-center gap-1.5 sm:gap-3 flex-nowrap overflow-x-auto lg:overflow-visible no-scrollbar h-full w-full max-w-[1300px] mx-auto"
-      >
-        {/* Mobile Header Filter Button (Pinned at Most Left Part) */}
-        <div className="sticky left-0 z-30 bg-primary pl-1.5 pr-1.5 flex items-center shrink-0 lg:hidden h-full">
+    <>
+      {/* Mobile Top Search Bar Header */}
+      <div className="w-full bg-primary px-3 py-2.5 flex items-center gap-2 shadow-sm">
+        {/* 1. Search Box Container */}
+        <div
+          onClick={toggleSearchModal}
+          role="button"
+          tabIndex={0}
+          aria-label="Search properties or localities"
+          className="flex-1 flex items-center bg-white border border-gray-300 rounded-lg px-2.5 h-10 min-w-0 cursor-pointer hover:border-gray-400 active:scale-[0.99] transition-all"
+        >
+          {/* Magnifying Glass Search Icon */}
+          <FiSearch className="w-4 h-4 text-gray-400 shrink-0 mr-1.5" />
+
+          {/* Primary Theme Locality/City Chip */}
+          <div className="bg-primary text-white text-xs font-semibold px-2 py-0.5 rounded-md shrink-0 truncate max-w-[125px] xs:max-w-[145px]">
+            {chipLabel}
+          </div>
+
+          {/* Add More Placeholder Text */}
+          <span className="text-xs text-gray-400 ml-2 truncate select-none">
+            Add More
+          </span>
+
+          {/* Microphone Icon on Right */}
           <button
-            onClick={toggleSearchModal}
-            aria-label="Open search filters"
-            className="flex items-center justify-center w-9 h-9 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors cursor-pointer border border-white/20 shrink-0"
+            type="button"
+            onClick={handleVoiceSearch}
+            aria-label="Voice Search"
+            className={`ml-auto p-1 rounded-full text-gray-700 hover:text-primary transition-colors shrink-0 ${
+              isListening ? 'text-rose-500 animate-pulse bg-rose-50' : ''
+            }`}
           >
-            <LuSlidersHorizontal className="w-4 h-4" />
+            <BiMicrophone className="w-4.5 h-4.5" />
           </button>
         </div>
 
-        {/* City & Search Box Pill */}
-        <form
-          onSubmit={handleSearchSubmit}
-          className="flex shrink-0 items-center bg-white rounded-lg px-2.5 py-1 h-9.5 shadow-2xs w-[170px] xs:w-[195px] sm:w-auto sm:min-w-[240px] md:min-w-[280px]"
+        {/* 2. Filters Button */}
+        <button
+          type="button"
+          onClick={toggleFilterSheet}
+          aria-label="Open Filters"
+          className="relative flex flex-col items-center justify-center bg-white border border-gray-300 rounded-lg w-11 h-10 shrink-0 cursor-pointer hover:bg-gray-50 active:scale-95 transition-all shadow-2xs"
         >
-          {activeCity ? (
+          <div className="relative">
+            <LuSlidersHorizontal className="w-3.5 h-3.5 text-gray-800" />
+            {/* Dot on top-right in primary theme */}
+            <span
+              className="absolute -top-1 -right-1.5 w-1.5 h-1.5 rounded-full bg-primary ring-1 ring-white"
+            />
+          </div>
+          <span className="text-[9px] font-medium text-gray-700 leading-none mt-1">
+            Filters
+          </span>
+        </button>
+
+        {/* 3. Sort By Button */}
+        <button
+          type="button"
+          onClick={() => setIsSortSheetOpen(true)}
+          aria-label="Open Sort Options"
+          className="flex flex-col items-center justify-center bg-white border border-gray-300 rounded-lg w-11 h-10 shrink-0 cursor-pointer hover:bg-gray-50 active:scale-95 transition-all shadow-2xs"
+        >
+          <LuArrowUpDown className="w-3.5 h-3.5 text-gray-800" />
+          <span className="text-[9px] font-medium text-gray-700 leading-none mt-1">
+            Sort By
+          </span>
+        </button>
+      </div>
+
+      {/* Mobile Sort By Bottom Sheet */}
+      {isSortSheetOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/40 z-[110] transition-opacity"
+            onClick={() => setIsSortSheetOpen(false)}
+          />
+
+          {/* Bottom Sheet */}
+          <div className="fixed inset-x-0 bottom-0 z-[120] bg-white rounded-t-2xl shadow-2xl p-4 animate-slide-up">
             <div
-              className="flex items-center gap-1 bg-slate-100 rounded-lg px-2 py-0.5 mr-1.5 shrink-0 text-slate-800 text-xs font-semibold"
-              title={activeCity.name}
-            >
-              <span>
-                {activeCity.name.length > 5 ? `${activeCity.name.slice(0, 5)}...` : activeCity.name}
-              </span>
+              className="w-12 h-1 bg-gray-300 rounded-full mx-auto mb-3 cursor-pointer"
+              onClick={() => setIsSortSheetOpen(false)}
+            />
+            <div className="flex items-center justify-between pb-3 border-b border-gray-100">
+              <h3 className="text-base font-bold text-gray-900">Sort Properties By</h3>
               <button
                 type="button"
-                onClick={() => setActiveCity(null)}
-                className="text-slate-400 hover:text-rose-600 transition-colors ml-0.5 cursor-pointer"
-                title="Clear City"
+                onClick={() => setIsSortSheetOpen(false)}
+                className="p-1.5 -mr-1 text-gray-500 hover:text-gray-800"
+                aria-label="Close sort sheet"
               >
-                <FiX className="w-3 h-3" />
+                <HiOutlineX className="w-5 h-5" />
               </button>
             </div>
-          ) : null}
 
-          <input
-            type="text"
-            value={localQuery}
-            onChange={(e) => setLocalQuery(e.target.value)}
-            placeholder={activeCity ? "Locality / Project" : "Search..."}
-            className="flex-1 bg-transparent border-none text-xs focus:outline-none text-slate-700 placeholder-slate-400 min-w-0"
-          />
-
-          <button
-            type="submit"
-            aria-label="Search"
-            className="text-slate-400 hover:text-primary transition-colors p-1 cursor-pointer"
-          >
-            <FiSearch className="w-3.5 h-3.5" />
-          </button>
-        </form>
-
-        {/* Filter Pills */}
-        <FilterPill
-          configKey="priceRange"
-          label="Budget"
-          isOpen={activeDropdown === 'priceRange'}
-          onToggle={() => toggleDropdown('priceRange')}
-        />
-        <FilterPill
-          configKey="propertyType"
-          label="Property Type"
-          isOpen={activeDropdown === 'propertyType'}
-          onToggle={() => toggleDropdown('propertyType')}
-        />
-        <FilterPill
-          configKey="unitType"
-          label="BHK"
-          isOpen={activeDropdown === 'unitType'}
-          onToggle={() => toggleDropdown('unitType')}
-        />
-        <FilterPill
-          configKey="uploader"
-          label="Posted By"
-          isOpen={activeDropdown === 'uploader'}
-          onToggle={() => toggleDropdown('uploader')}
-        />
-
-        {/* More Filters Modal */}
-        <div className="relative ml-auto shrink-0 hidden md:block">
-          <button
-            onClick={() => toggleDropdown('moreFilters')}
-            className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-lg px-3.5 h-9.5 text-xs font-semibold transition-colors cursor-pointer"
-          >
-            <HiMenuAlt4 className="text-white/80 w-4 h-4" />
-            <span>More Filters</span>
-            <HiChevronDown
-              className={`w-3.5 h-3.5 text-white/80 transition-transform ${
-                activeDropdown === 'moreFilters' ? 'rotate-180' : ''
-              }`}
-            />
-          </button>
-          <DesktopMoreFiltersModal
-            isOpen={activeDropdown === 'moreFilters'}
-            onClose={() => toggleDropdown('moreFilters')}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-interface FilterPillProps {
-  configKey: string;
-  label: string;
-  isOpen: boolean;
-  onToggle: () => void;
-}
-
-function FilterPill({ configKey, label, isOpen, onToggle }: FilterPillProps) {
-  const { filters } = useSearchStore();
-  const config = SEARCH_CONFIG.filters[configKey];
-
-  const isActive =
-    !!filters[configKey] ||
-    (configKey === 'priceRange' && (!!filters.minPrice || !!filters.maxPrice));
-
-  return (
-    <div className="relative shrink-0">
-      <button
-        onClick={onToggle}
-        className={`flex items-center gap-1.5 rounded-lg px-3 sm:px-3.5 h-9.5 text-xs font-semibold transition-colors cursor-pointer border ${
-          isActive
-            ? 'bg-white text-primary border-white shadow-2xs font-bold'
-            : 'bg-white/10 text-white hover:bg-white/20 border-white/15'
-        }`}
-      >
-        <span>{label}</span>
-        {isActive && <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 ml-0.5"></div>}
-        <HiChevronDown
-          className={`w-3.5 h-3.5 transition-transform ${isOpen ? 'rotate-180' : ''} ${
-            isActive ? 'text-primary' : 'text-white/70'
-          }`}
-        />
-      </button>
-
-      {/* Dropdown Popover */}
-      {isOpen && (
-        <div className="fixed top-[60px] left-4 right-4 w-auto lg:absolute lg:top-[calc(100%+8px)] lg:left-0 lg:right-auto lg:min-w-[300px] bg-white rounded-lg shadow-xl border border-slate-200 z-50 overflow-hidden">
-          <div className="relative z-10 max-h-[380px] overflow-y-auto p-4">
-            <FilterFactory config={config} onClose={onToggle} />
+            <div className="py-2 space-y-1">
+              {SEARCH_CONFIG.sortOptions.map((opt) => {
+                const isSelected = sort === opt.value;
+                return (
+                  <button
+                    key={opt.value}
+                    type="button"
+                    onClick={() => {
+                      setSort(opt.value);
+                      setIsSortSheetOpen(false);
+                    }}
+                    className={`w-full flex items-center justify-between px-3.5 py-3 rounded-lg text-sm transition-colors cursor-pointer ${
+                      isSelected
+                        ? 'bg-primary/10 text-primary font-bold border border-primary/20'
+                        : 'text-gray-700 hover:bg-gray-50 font-medium'
+                    }`}
+                  >
+                    <span>{opt.label}</span>
+                    {isSelected && <FiCheck className="w-4 h-4 text-primary font-bold" />}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 }
