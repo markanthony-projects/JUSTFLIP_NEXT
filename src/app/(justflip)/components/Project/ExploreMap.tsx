@@ -46,7 +46,17 @@ function calculateDistanceKm(lat1: number, lon1: number, lat2?: number, lon2?: n
     return R * c;
 }
 
-export default function ExploreMap({ project }: { project: Project }) {
+interface LocationDataShape {
+    name?: string;
+    coordinates?: { lat?: string | number; lng?: string | number };
+    geo?: { coordinates?: [number, number] };
+    latitude?: string | number;
+    longitude?: string | number;
+    location?: { name?: string; latitude?: string | number; longitude?: string | number };
+    city?: { name?: string; latitude?: string | number; longitude?: string | number };
+}
+
+export default function ExploreMap({ project }: { project: Project | LocationDataShape }) {
     const coordinates = project?.coordinates || {};
     const rawLat = parseFloat(coordinates?.lat || (project as any)?.latitude || (project as any)?.location?.latitude || (project as any)?.city?.latitude);
     const rawLng = parseFloat(coordinates?.lng || (project as any)?.longitude || (project as any)?.location?.longitude || (project as any)?.city?.longitude);
@@ -156,7 +166,7 @@ export default function ExploreMap({ project }: { project: Project }) {
             {/* Fullscreen Interactive Map Explorer Modal */}
             {isMapModalOpen && (
                 <CommuteExplorerModal
-                    project={project}
+                    project={project as Project}
                     initialCategory={activeTab}
                     onClose={() => setIsMapModalOpen(false)}
                 />
@@ -221,7 +231,7 @@ export default function ExploreMap({ project }: { project: Project }) {
             {/* Top Map Preview Banner */}
             <div className="relative w-full h-[160px] sm:h-[190px] md:h-[210px] rounded-lg overflow-hidden my-4 border border-gray-100 bg-slate-100 isolate">
                 <MapView
-                    project={project}
+                    project={project as Project}
                     activeCategory={activeTab}
                     places={sortedPlaces}
                     isInteractive={false}

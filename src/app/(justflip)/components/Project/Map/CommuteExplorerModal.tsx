@@ -537,7 +537,7 @@ export default function CommuteExplorerModal({
                                     <Polyline
                                         positions={routeCoordinates}
                                         pathOptions={{
-                                            color: "#0F172A",
+                                            color: "var(--color-primary)",
                                             weight: 7,
                                             opacity: 0.3,
                                             lineCap: "round",
@@ -547,7 +547,7 @@ export default function CommuteExplorerModal({
                                     <Polyline
                                         positions={routeCoordinates}
                                         pathOptions={{
-                                            color: "primary",
+                                            color: "var(--color-primary)",
                                             weight: 5,
                                             opacity: 1,
                                             lineCap: "round",

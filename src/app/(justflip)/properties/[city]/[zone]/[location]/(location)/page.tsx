@@ -38,6 +38,21 @@ import { constructMetadata } from "@/src/utils/seo";
 import { Metadata } from 'next';
 import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
+const locationNavItems = [
+  { id: "overview", label: "Overview" },
+  { id: "properties", label: "Explore More Properties"},
+  { id: "highlights", label: "City Highlights" },
+  { id: "price-trend", label: "Price Trend"},
+  { id: "builders", label: "Top Builders" },
+  { id: "nearby", label: "Neighborhood"},
+  { id: "reviews", label: "Reviews" },
+  { id: "areas", label: "Nearby Areas"},
+  { id: "gallery", label: "Gallery" },
+  { id: "location", label: "Location&Connectivity"},
+  { id: "blogs", label: "Blogs" },
+  { id: "faq", label: "Frequently Asked Questions" },
+];
+
 type LocationPageProps = {
   params: Promise<{ city: string; zone: string; location: string }>;
 };
@@ -66,6 +81,8 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
 }
 
 import LocationLoading from './LocationLoading';
+import PropertyDetailNavTabs from '@/src/app/(justflip)/components/PropertyDetailsNavTabs';
+import ExploreMap from '@/src/app/(justflip)/components/Project/ExploreMap';
 
 export const revalidate = 1800;
 
@@ -87,6 +104,7 @@ async function LocationPageContent({ params }: LocationPageProps) {
   }
 
   const { locationData, builders, reviewData, reviewList, trends } = data;
+  console.log("datatttttt..",locationData)
   const cityUrl = createCityUrl(cityName, locationData?.zone?.city?.id);
   const zoneUrl = createZoneUrl(cityName, name, locationData?.zone?.id);
 
@@ -104,12 +122,16 @@ async function LocationPageContent({ params }: LocationPageProps) {
       <ScrollToTop />
       <Breadcrumb items={breadcrumbItems} />
 
+      <PropertyDetailNavTabs navItems={locationNavItems} scrollThreshold={20} showArrows={true}/>
+
       <div className="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-4 gap-6 mx-auto">
         {/* Left Column: Stack of individual, clean tile cards */}
         <div className="lg:col-span-4 xl:col-span-3 space-y-4 md:space-y-6">
 
           {/* 1. Header / Location Overview */}
-          <HeaderTop data={locationData} bannerImage={bannerImage} />
+          <div id="overview">
+            <HeaderTop data={locationData} bannerImage={bannerImage} />
+          </div>
 
           {/* Mobile Sidebar Cards */}
           <div className="block lg:hidden space-y-4">
@@ -122,19 +144,21 @@ async function LocationPageContent({ params }: LocationPageProps) {
           </div>
 
           {/* 2. Explore Properties by Category & Price Filter */}
-          <Suspense fallback={<PropertySupplySkeleton />}>
-            <PropertySupply type="location" data={locationData as any} typeName={name} typeId={id} />
-          </Suspense>
+          <div id="properties">
+            <Suspense fallback={<PropertySupplySkeleton />}>
+              <PropertySupply type="location" data={locationData as any} typeName={name} typeId={id} />
+            </Suspense>
+          </div>
 
           {/* 3. Highlights Tile */}
-          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div id="highlights" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<HighlightSkeleton />}>
               <Highlight data={locationData} />
             </Suspense>
           </div>
 
           {/* 4. Price Trends Tile */}
-          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div id="price-trend" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<PriceTrendSkeleton />}>
               <PriceTrendSection data={locationData as any} />
             </Suspense>
@@ -142,42 +166,44 @@ async function LocationPageContent({ params }: LocationPageProps) {
           </div>
 
           {/* 5. Top Builders Tile */}
-          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div id="builders" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<TopBuildersSkeleton />}>
               <BuildersSection builders={builders} city={locationData?.city} />
             </Suspense>
           </div>
 
           {/* 6. Location Around & Services Tile */}
-          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div id="nearby" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<LocationAroundSkeleton />}>
               <LocationAround services={locationData?.services} />
             </Suspense>
           </div>
 
           {/* 7. Ratings & Reviews Tile */}
-          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div id="reviews" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<ReviewsSkeleton />}>
               <ReviewsSectionClient typeName={name} typeId={id} type="location" reviews={reviewList} />
             </Suspense>
           </div>
 
           {/* 8. Areas Nearby Tile */}
-          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div id="areas" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<AreasNearbySkeleton />}>
               <AreasNearby locationData={locationData} />
             </Suspense>
           </div>
 
           {/* 9. Photo Gallery */}
-          <Suspense fallback={<GallerySkeleton />}>
-            <PropertyGallery data={locationData} title={`${name} - At a Glance`} />
-          </Suspense>
+          <div id="gallery">
+            <Suspense fallback={<GallerySkeleton />}>
+              <PropertyGallery data={locationData} title={`${name} - At a Glance`} />
+            </Suspense>
+          </div>
 
           {/* 10. Interactive Map Tile */}
-          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div id="location" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<MapFilterSkeleton />}>
-              <GoogleMapFilter locationData={locationData} />
+              <ExploreMap project={locationData} />
             </Suspense>
           </div>
 
@@ -197,13 +223,17 @@ async function LocationPageContent({ params }: LocationPageProps) {
 
       {/* Full-Width Centered Sections Below Grid */}
       <div className="w-full space-y-8 my-8">
-        <Suspense fallback={<BlogsSkeleton />}>
-          <Blogs tag="Popular Blogs" />
-        </Suspense>
+        <div id="blogs">
+          <Suspense fallback={<BlogsSkeleton />}>
+            <Blogs tag="Popular Blogs" />
+          </Suspense>
+        </div>
 
-        <Suspense fallback={<FAQSkeleton />}>
-          <FAQ data={locationData} />
-        </Suspense>
+        <div id="faq">
+          <Suspense fallback={<FAQSkeleton />}>
+            <FAQ data={locationData} />
+          </Suspense>
+        </div>
       </div>
     </div>
   );
