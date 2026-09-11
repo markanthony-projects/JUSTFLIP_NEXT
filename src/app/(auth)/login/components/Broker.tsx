@@ -102,7 +102,7 @@ const Broker = () => {
           <button
             type="button"
             onClick={() => setIsVisible(!isVisible)}
-            className="absolute top-[50%] -translate-0.5 right-3 text-gray-500 hover:text-gray-700 flex items-center"
+            className="absolute cursor-pointer top-[50%] -translate-0.5 right-3 text-gray-500 hover:text-gray-700 flex items-center"
           >
             {isVisible ? <LuEyeOff size={20} /> : <LuEye size={20} />}
           </button>
@@ -116,7 +116,7 @@ const Broker = () => {
             <button
               type='button'
               onClick={() => router.push('/register')}
-              className='text-gray-500 hover:text-primary transition underline underline-offset-2'
+              className='text-gray-500 hover:text-primary transition underline underline-offset-2 cursor-pointer'
             >
               Create an account
             </button>
@@ -127,7 +127,7 @@ const Broker = () => {
                 setMode('forgot')
                 setError('')
               }}
-              className='text-primary font-medium hover:underline transition'
+              className='text-primary font-medium hover:underline transition cursor-pointer'
             >
               Forgot Password?
             </button>
@@ -139,7 +139,7 @@ const Broker = () => {
               setMode('login')
               setError('')
             }}
-            className='text-gray-500 hover:text-primary transition font-medium'
+            className='text-gray-500 hover:text-primary transition font-medium cursor-pointer'
           >
             ← Back to Login
           </button>
@@ -149,7 +149,7 @@ const Broker = () => {
       <button
         type='submit'
         disabled={loading}
-        className='w-full h-11 rounded-lg bg-primary text-white text-sm font-semibold 
+        className='w-full cursor-pointer h-11 rounded-lg bg-primary text-white text-sm font-semibold 
                            transition-all hover:bg-primary/90 disabled:opacity-50 active:scale-[0.98]'
       >
         {loading

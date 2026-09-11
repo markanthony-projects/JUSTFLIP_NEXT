@@ -20,14 +20,14 @@ export default function LoginTabs() {
         <>
             <div className="relative flex p-1 bg-gray-100 rounded-lg mb-4 border border-gray-200 overflow-hidden">
                 <div
-                    className={`absolute top-1 left-1 h-[calc(100%-8px)] w-[calc(50%-4px)] rounded-lg transition-all duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] ${
+                    className={`absolute top-1 left-1 h-[calc(100%-8px)] w-[calc(50%-4px)] bg-primary rounded-lg transition-all duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] ${
                         loginType === "user" ? "translate-x-0" : "translate-x-full"
                     }`}
                 />
 
                 <button
                     onClick={() => setLoginType("user")}
-                    className={`relative z-10 flex-1 py-2.5 text-xs font-bold rounded-lg transition-all duration-300 ${
+                    className={`relative z-10 flex-1 py-2.5 text-xs cursor-pointer font-bold rounded-lg transition-all duration-300 ${
                         loginType === "user" ? "text-white scale-105" : "text-gray-500 hover:text-gray-700"
                     }`}
                 >
@@ -36,7 +36,7 @@ export default function LoginTabs() {
 
                 <button
                     onClick={() => setLoginType("agent")}
-                    className={`relative z-10 flex-1 py-2.5 text-xs font-bold rounded-lg transition-all duration-300 ${
+                    className={`relative z-10 flex-1 py-2.5 text-xs cursor-pointer font-bold rounded-lg transition-all duration-300 ${
                         loginType === "agent" ? "text-white scale-105" : "text-gray-500 hover:text-gray-700"
                     }`}
                 >

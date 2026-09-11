@@ -146,7 +146,7 @@ const User = () => {
                     <button
                         onClick={sendOtp}
                         disabled={loading || !identifier}
-                        className="h-11 rounded-lg bg-primary text-white text-sm font-semibold transition-all hover:bg-[#003b7b] disabled:opacity-50 active:scale-[0.98]"
+                        className="h-11 rounded-lg bg-primary cursor-pointer text-white text-sm font-semibold transition-all hover:bg-[#003b7b] disabled:opacity-50 active:scale-[0.98]"
                     >
                         {loading ? "Sending OTP..." : "Get Started"}
                     </button>
