@@ -40,8 +40,10 @@ import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
 const locationNavItems = [
   { id: "overview", label: "Overview" },
+  { id: "ratings", label: "Ratings", className: "block md:hidden"},
+  { id: "top", label: "Top Properties", className: "block md:hidden"},
   { id: "properties", label: "Explore More Properties"},
-  { id: "highlights", label: "City Highlights" },
+  { id: "highlights", label: "Location Highlights" },
   { id: "price-trend", label: "Price Trend"},
   { id: "builders", label: "Top Builders" },
   { id: "nearby", label: "Neighborhood"},
@@ -134,12 +136,17 @@ async function LocationPageContent({ params }: LocationPageProps) {
 
           {/* Mobile Sidebar Cards */}
           <div className="block lg:hidden space-y-4">
-            <Suspense fallback={<RatingCardSkeleton />}>
-              <PriceTrendClient data={reviewData || {}} trendData={trends as any} type={"location"} typeId={id} />
-            </Suspense>
-            <Suspense fallback={<TopPropertySkeleton />}>
-              <TopProperty typeId={id} type={"location"} />
-            </Suspense>
+            <div id="ratings">
+              <Suspense fallback={<RatingCardSkeleton />}>
+                <PriceTrendClient data={reviewData || {}} trendData={trends as any} type={"location"} typeId={id} />
+              </Suspense>
+            </div>
+
+            <div id="top">
+              <Suspense fallback={<TopPropertySkeleton />}>
+                <TopProperty typeId={id} type={"location"} />
+              </Suspense>
+            </div>
           </div>
 
           {/* 2. Explore Properties by Category & Price Filter */}

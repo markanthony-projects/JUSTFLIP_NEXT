@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from "react";
 export type navItems = {
     id: string;
     label: string;
+    className?: string;
 };
 
 type navTabProps = {
@@ -175,7 +176,7 @@ export default function PropertyDetailNavTabs({navItems, scrollThreshold = 500, 
                   isActive
                     ? "border-primary text-primary"
                     : "border-transparent text-gray-500 hover:text-gray-900 hover:border-gray-300"
-                }`}
+                } ${item.className || ""}`}
               >
                 {item.label}
               </button>

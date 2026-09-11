@@ -191,12 +191,11 @@ const LeadForm = ({ data }: LeadFormProps) => {
   return (
     <div
       className="bg-white rounded-lg p-4 md:p-6 lg:p-6"
-      style={{ boxShadow: "0px 0px 5px 1px #dad6d6" }}
     >
       {/* Dynamic Toast / Banner */}
       {banner && (
         <div
-          className={`w-max max-w-full mx-auto flex items-center px-3 gap-2 py-2 border rounded-lg text-[9px] md:text-xs font-medium shadow-sm transition-all duration-300 ${banner.containerClass}`}
+          className={`w-max max-w-full mx-auto flex items-center px-3 gap-2 py-2 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)] rounded-lg text-[12px] md:text-xs font-medium transition-all duration-300 ${banner.containerClass}`}
         >
           <span className="truncate">{banner.text}</span>
         </div>

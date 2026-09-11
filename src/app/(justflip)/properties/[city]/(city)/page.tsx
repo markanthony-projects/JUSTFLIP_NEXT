@@ -31,6 +31,8 @@ import PropertyDetailNavTabs from "@/src/app/(justflip)/components/PropertyDetai
 
 const cityNavItems = [
   { id: "overview", label: "Overview" },
+  { id: "ratings", label: "Ratings", className: "block md:hidden"},
+  { id: "top", label: "Top Properties", className: "block md:hidden"},
   { id: "properties", label: "Explore More Properties"},
   { id: "highlights", label: "City Highlights" },
   { id: "builders", label: "Top Builders" },
@@ -112,12 +114,17 @@ async function CityPageContent({ params }: CityPageProps) {
 
           {/* Mobile Sidebar Cards (Price Trends & Top Properties) */}
           <div className="block lg:hidden space-y-4">
-            <Suspense fallback={<RatingCardSkeleton />}>
-              <PriceTrendClient data={reviewData || {}} trendData={trends as any} type={"city"} typeId={id} />
-            </Suspense>
-            <Suspense fallback={<TopPropertySkeleton />}>
-              <TopProperty typeId={id} type={"city"} />
-            </Suspense>
+            <div id="ratings">
+              <Suspense fallback={<RatingCardSkeleton />}>
+                <PriceTrendClient data={reviewData || {}} trendData={trends as any} type={"city"} typeId={id} />
+              </Suspense>
+            </div>
+
+            <div id="top">
+              <Suspense fallback={<TopPropertySkeleton />}>
+                <TopProperty typeId={id} type={"city"} />
+              </Suspense>
+            </div>
           </div>
 
           {/* 2. Explore Properties by Category & Price Filter */}
@@ -178,7 +185,7 @@ async function CityPageContent({ params }: CityPageProps) {
       {/* Full-Width Centered Sections Below Grid */}
       <div className="w-full space-y-8 my-8">
         <Suspense fallback={<BlogsSkeleton />}>
-          <div id="blogs">
+          <div id="blogs" className='bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]'>
             <Blogs tag="Popular Blogs" />
           </div>
         </Suspense>

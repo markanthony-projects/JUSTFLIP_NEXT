@@ -48,6 +48,7 @@ const propertyNavItems = [
   { id: "overview", label: "About the Project" },
   { id: "floor-plans", label: "Floor Plans" },
   { id: "amenities", label: "Amenities & Specifications" },
+  { id: "lead", label: "Enquire Now", className: "block md:hidden"},
   { id: "tools", label: "Financial & Tax Estimator"},
   { id: "location", label: "Location & Connectivity"},
   { id: "highlights", label: "Highlights" },
@@ -200,6 +201,12 @@ async function PropertyDetails({ params }: ProjectPageProps) {
                                 </Suspense>
                             </div>
                         )}
+
+                        <div id="lead" className="block md:hidden">
+                            <Suspense fallback={<CallbackFormSkeleton />}>
+                                <LeadForm data={projectData} />
+                            </Suspense>
+                        </div>
 
                         <div id="tools">
                             <QuickCalculations project={projectData}/>

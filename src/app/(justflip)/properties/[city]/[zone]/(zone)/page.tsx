@@ -28,6 +28,19 @@ import { constructMetadata } from "@/src/utils/seo";
 import { Metadata } from 'next';
 import ScrollToTop from '@/src/components/atoms/ScrollToTop';
 
+const zoneNavItems = [
+  { id: "overview", label: "Overview" },
+  { id: "ratings", label: "Ratings", className: "block md:hidden"},
+  { id: "top", label: "Top Properties", className: "block md:hidden"},
+  { id: "properties", label: "Explore More Properties"},
+  { id: "highlights", label: "Zone Highlights" },
+  { id: "builders", label: "Top Builders" },
+  { id: "reviews", label: "Reviews" },
+  { id: "gallery", label: "Gallery" },
+  { id: "blogs", label: "Blogs" },
+  { id: "faq", label: "Frequently Asked Questions" },
+];
+
 type ZonePageProps = {
   params: Promise<{ city: string; zone: string }>;
 };
@@ -56,6 +69,7 @@ export async function generateMetadata({ params }: ZonePageProps): Promise<Metad
 }
 
 import ZoneLoading from './ZoneLoading';
+import PropertyDetailNavTabs from '@/src/app/(justflip)/components/PropertyDetailsNavTabs';
 
 export const revalidate = 1800;
 
@@ -89,53 +103,66 @@ async function ZonePageContent({ params }: ZonePageProps) {
       <ScrollToTop />
       <Breadcrumb items={breadcrumbItems} />
 
+      <PropertyDetailNavTabs navItems={zoneNavItems} scrollThreshold={20} showArrows={false}/>
+
       <div className="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-4 gap-6 mx-auto">
         {/* Left Column: Stack of individual, clean tile cards */}
         <div className="lg:col-span-4 xl:col-span-3 space-y-4 md:space-y-6">
 
           {/* 1. Header / Zone Overview */}
-          <HeaderTop data={zoneData} bannerImage={bannerImage} zone={true} />
+          <div id="overview">
+            <HeaderTop data={zoneData} bannerImage={bannerImage} zone={true} />
+          </div>
 
           {/* Mobile Sidebar Cards */}
           <div className="block lg:hidden space-y-4">
-            <Suspense fallback={<TopPropertySkeleton />}>
-              <TopProperty typeId={id} type={"zone"} />
-            </Suspense>
-            <Suspense fallback={<RatingCardSkeleton />}>
-              <PriceTrendClient data={reviewData || {}} trendData={trends as any} type={"zone"} typeId={id} />
-            </Suspense>
+            <div id="ratings"> 
+              <Suspense fallback={<RatingCardSkeleton />}>
+                <PriceTrendClient data={reviewData || {}} trendData={trends as any} type={"zone"} typeId={id} />
+              </Suspense>
+            </div>
+            
+            <div id="top">
+              <Suspense fallback={<TopPropertySkeleton />}>
+                <TopProperty typeId={id} type={"zone"} />
+              </Suspense>
+            </div>
           </div>
 
           {/* 2. Explore Properties by Category & Price Filter */}
-          <Suspense fallback={<PropertySupplySkeleton />}>
-            <PropertySupply type="zone" data={zoneData as any} typeName={name} typeId={id} />
-          </Suspense>
+          <div id="properties">
+            <Suspense fallback={<PropertySupplySkeleton />}>
+              <PropertySupply type="zone" data={zoneData as any} typeName={name} typeId={id} />
+            </Suspense>
+          </div>
 
           {/* 3. Zone Highlights Tile */}
-          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div id="highlights" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<HighlightSkeleton />}>
               <Highlight data={zoneData} />
             </Suspense>
           </div>
 
           {/* 4. Top Builders Tile */}
-          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div id="builders" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<TopBuildersSkeleton />}>
               <BuildersSection builders={builders} city={zoneData?.city} />
             </Suspense>
           </div>
 
           {/* 5. Ratings & Reviews Tile */}
-          <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
+          <div id="reviews" className="bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]">
             <Suspense fallback={<ReviewsSkeleton />}>
               <ReviewsSectionClient typeName={name} typeId={id} type="zone" reviews={reviewList} />
             </Suspense>
           </div>
 
           {/* 6. Photo Gallery */}
-          <Suspense fallback={<GallerySkeleton />}>
-            <PropertyGallery data={zoneData} title={`${name} - At a Glance`} />
-          </Suspense>
+          <div id="gallery">
+            <Suspense fallback={<GallerySkeleton />}>
+              <PropertyGallery data={zoneData} title={`${name} - At a Glance`} />
+            </Suspense>
+          </div>
 
         </div>
 
@@ -153,13 +180,17 @@ async function ZonePageContent({ params }: ZonePageProps) {
 
       {/* Full-Width Centered Sections Below Grid */}
       <div className="w-full space-y-8 my-8">
-        <Suspense fallback={<BlogsSkeleton />}>
-          <Blogs tag="Popular Blogs" />
-        </Suspense>
+        <div id="blogs" className='bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]'>
+          <Suspense fallback={<BlogsSkeleton />}>
+            <Blogs tag="Popular Blogs" />
+          </Suspense>
+        </div>
 
-        <Suspense fallback={<FAQSkeleton />}>
-          <FAQ data={zoneData} />
-        </Suspense>
+        <div id="faq">
+          <Suspense fallback={<FAQSkeleton />}>
+            <FAQ data={zoneData} />
+          </Suspense>
+        </div>
       </div>
     </div>
   );
