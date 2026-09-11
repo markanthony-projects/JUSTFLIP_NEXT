@@ -244,7 +244,7 @@ const LeadForm = ({ data }: LeadFormProps) => {
 
         <p className="text-[8px] font-medium text-[#333333] text-center">
           By Submitting you agree to all{" "}
-          <Link href="" className="text-primary text-[9px] font-bold">
+          <Link href="/terms-conditions" className="text-primary text-[9px] font-bold">
             Terms & Conditions
           </Link>{" "}
           of JustFlip
