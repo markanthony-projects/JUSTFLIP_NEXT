@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     min-h-screen
                     flex
                     flex-col
-                    overflow-x-hidden
+                    overflow-x-clip
                     antialiased
                     pb-16 md:pb-0
                 `}

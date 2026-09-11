@@ -150,7 +150,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
 
     return (
         <>
-            <div className='w-full max-w-full overflow-x-hidden bg-gray-50'>
+            <div className='w-full max-w-full overflow-x-clip bg-gray-50'>
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(realEstateSchema) }} />
                 <ScrollToTop />
 
@@ -172,7 +172,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
                     </Suspense>
                 </div> */}
 
-                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-6 xl:grid-cols-7 gap-4 lg:gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-6 xl:grid-cols-7 gap-4 lg:gap-6 items-start">
                     {/* Left Column: Stack of individual, clean tile cards */}
                     <div className="lg:col-span-4 xl:col-span-5 space-y-4 md:space-y-6">
                         
@@ -242,12 +242,12 @@ async function PropertyDetails({ params }: ProjectPageProps) {
 
                     </div>
 
-                    <div className="hidden lg:block lg:col-span-2 xl:col-span-2">
+                    <div className="hidden lg:block lg:col-span-2 xl:col-span-2 sticky -top-30 self-start z-20">
                         <Link
                             href={staticAddSection.href}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="w-full relative hidden lg:block mb-4 overflow-hidden rounded-sm group"
+                            className="w-full relative hidden lg:block mb-6 overflow-hidden rounded-sm group"
                         >
                             <Image
                                 src={staticAddSection.src}
@@ -273,16 +273,20 @@ async function PropertyDetails({ params }: ProjectPageProps) {
                 <section className="lg:hidden block">
                     <FloatingActions data={projectData} />
                 </section>
-                <Suspense fallback={<SimilarPropertiesSkeleton />}>
-                    <div id="similar-properties">
-                    <SimilarProjectsWrapper locationId={locationId} projectId={id} type="similar" />
-                    </div>
-                </Suspense>
-                <Suspense fallback={<FAQSkeleton />}>
-                    <div id="faq">
-                        <FAQ data={projectData} />
-                    </div>
-                </Suspense>
+
+                <div className="space-y-4 md:space-y-6 mt-4 md:mt-6">
+                    <Suspense fallback={<SimilarPropertiesSkeleton />}>
+                        <div id="similar-properties">
+                            <SimilarProjectsWrapper locationId={locationId} projectId={id} type="similar" />
+                        </div>
+                    </Suspense>
+
+                    <Suspense fallback={<FAQSkeleton />}>
+                        <div id="faq">
+                            <FAQ data={projectData} />
+                        </div>
+                    </Suspense>
+                </div>
 
             </div>
         </>

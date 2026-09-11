@@ -85,14 +85,14 @@ const SimilarPropertyCard = ({ project, priority }: { project: Project; priority
     return (
         <>
             <Link href={projectUrl} className="w-full">
-                <div className="group relative bg-white shadow-sm  transition-all duration-300 hover:scale-105 hover:border-gray-300 rounded-lg overflow-hidden flex flex-col my-2 w-60 md:w-60 max-w-60 animate-slide-up">
-                    <div className="h-35 md:h-35 xl:h-35 relative overflow-hidden bg-gray-100 border-b border-gray-100 w-60 md:w-60 max-w-60">
+                <div className="group relative bg-white shadow-sm  transition-all duration-300 hover:scale-[1.02] hover:border-gray-300 rounded-lg overflow-hidden flex flex-col my-2 w-52 md:w-72 max-w-52 md:max-w-72 animate-slide-up">
+                    <div className="h-32 md:h-44 relative overflow-hidden bg-gray-100 border-b border-gray-100 w-52 md:w-72 max-w-52 md:max-w-72">
                         <Image
                             src={bannerImage?.url || "/assets/project-banner.webp"}
                             alt={bannerImage?.alt || project.name}
                             className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                             priority={priority}
-                            sizes="250px"
+                            sizes="(max-width: 768px) 208px, 288px"
                         />
 
                         <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent pointer-events-none z-0"></div>
@@ -117,7 +117,7 @@ const SimilarPropertyCard = ({ project, priority }: { project: Project; priority
                         <div className="absolute bottom-2 right-2 z-10">
                             <button
                                 onClick={handleCompareClick}
-                                className={`text-[10px] font-bold px-2 py-1 rounded-md shadow-md flex items-center gap-1 transition-all ${
+                                className={`text-base cursor-pointer font-bold px-2 py-1 rounded-md shadow-md flex items-center gap-1 transition-all ${
                                     isCompared
                                         ? "bg-blue-600 text-white hover:bg-blue-700"
                                         : "bg-white/95 text-gray-800 hover:bg-gray-100"
@@ -129,28 +129,28 @@ const SimilarPropertyCard = ({ project, priority }: { project: Project; priority
                         </div>
                     </div>
 
-                    <div className="flex flex-col flex-1 py-1 z-10 bg-white h-16 md:h-16.5 overflow-hidden px-2 border border-gray-200">
-                        <h3 className="text-[13px] leading-snug text-start line-clamp-1 font-extrabold text-gray-900 truncate tracking-tight text-sm md:font-bold">
+                    <div className="flex flex-col flex-1 py-1.5 md:py-2.5 z-10 bg-white h-20 md:h-24 overflow-hidden px-2 md:px-3 border border-gray-200">
+                        <h3 className="text-[12px] md:text-[15px] leading-snug text-start line-clamp-1 font-extrabold text-gray-900 truncate tracking-tight md:font-bold">
                             {projectName}
                         </h3>
 
                         {project.summary ? (
-                            <p className="text-[10px] font-medium text-gray-500 line-clamp-1 truncate text-xs md:font-medium">
+                            <p className="text-[10px] md:text-[12px] font-medium text-gray-500 line-clamp-1 truncate md:font-medium">
                                 {project.summary}
                             </p>
                         ) : (
-                            <p className="text-[10px] text-xs font-medium text-gray-500 line-clamp-1 truncate">
+                            <p className="text-[10px] md:text-[12px] font-medium text-gray-500 line-clamp-1 truncate">
                                 {project.address || `${project?.residenceType || "Property"} • ${project?.transactionTag || "For Sale"}`}
                             </p>
                         )}
 
                         <div className="my-1 flex items-center justify-between">
-                            <p className="text-[12px] text-start font-extrabold text-primary md:font-bold">
+                            <p className="text-[11px] md:text-[14px] text-start font-extrabold text-primary md:font-bold">
                                 {project?.priceRange || "Price on Request"}
                             </p>
                             {project.status && (
                                 <span
-                                    className={`text-[8px] px-2 py-1 rounded-md font-bold uppercase tracking-widest ${
+                                    className={`text-[10px] px-2 py-1 rounded-md font-bold uppercase tracking-widest ${
                                         project.status === "active"
                                             ? "bg-green-100 text-green-700"
                                             : project.status === "pending" || project.approval === "pending"
