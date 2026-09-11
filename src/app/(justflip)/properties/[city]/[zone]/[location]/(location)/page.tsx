@@ -104,7 +104,6 @@ async function LocationPageContent({ params }: LocationPageProps) {
   }
 
   const { locationData, builders, reviewData, reviewList, trends } = data;
-  console.log("datatttttt..",locationData)
   const cityUrl = createCityUrl(cityName, locationData?.zone?.city?.id);
   const zoneUrl = createZoneUrl(cityName, name, locationData?.zone?.id);
 
@@ -223,7 +222,7 @@ async function LocationPageContent({ params }: LocationPageProps) {
 
       {/* Full-Width Centered Sections Below Grid */}
       <div className="w-full space-y-8 my-8">
-        <div id="blogs">
+        <div id="blogs" className='bg-white rounded-lg p-4 sm:p-5 md:p-6 border border-gray-100 shadow-[0_2px_12px_rgb(0,0,0,0.04)]'>
           <Suspense fallback={<BlogsSkeleton />}>
             <Blogs tag="Popular Blogs" />
           </Suspense>
