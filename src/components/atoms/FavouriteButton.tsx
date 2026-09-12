@@ -54,8 +54,8 @@ function FavouriteButton({
       className={clsx(
         "group relative flex items-center justify-center select-none transition-all duration-300 ease-out active:scale-90",
         variant === "button"
-          ? "gap-2 rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-1.5 text-xs font-semibold text-slate-700 shadow-xs hover:border-red-100 hover:bg-red-50/50 hover:text-red-600"
-          : "rounded-full p-2 bg-white/90 backdrop-blur-md border border-white/80 shadow-sm hover:scale-101",
+          ? "gap-1.5 sm:gap-2 rounded-full border border-gray-200/80 bg-white/90 px-2.5 sm:px-3.5 py-1 sm:py-1.5 text-[11px] sm:text-xs font-semibold text-slate-700 shadow-xs hover:border-red-100 hover:bg-red-50/50 hover:text-red-600"
+          : "rounded-full p-1.5 sm:p-2 bg-white/90 backdrop-blur-md border border-white/80 shadow-sm hover:scale-101",
         isFavourite && variant === "button" && "border-red-200 bg-red-50/60 text-red-600",
         className
       )}
@@ -75,7 +75,7 @@ function FavouriteButton({
           {[...Array(8)].map((_, i) => (  
             <span
               key={i}
-              className="absolute w-2.5 h-2.5 bg-red-500 rounded-full"
+              className="absolute w-2 h-2 sm:w-2.5 sm:h-2.5 bg-red-500 rounded-full"
               style={{
                 transform: `rotate(${i * 45}deg)`,
                 animation: "fav-burst 0.8s ease-out forwards",
@@ -99,9 +99,9 @@ function FavouriteButton({
         )}
 
         {isFavourite ? (
-          <IoIosHeart className= "relative z-10 text-xl text-red-500 drop-shadow-[0_2px_8px_rgba(239,68,68,0.4)] transition-transform duration-300 group-hover:scale-110" />
+          <IoIosHeart className= "relative z-10 text-[16px] sm:text-xl text-red-500 drop-shadow-[0_2px_8px_rgba(239,68,68,0.4)] transition-transform duration-300 group-hover:scale-110" />
         ) : (
-          <IoIosHeartEmpty color="red" className="relative z-10 text-xl text-gray-400 transition-colors duration-200 " />
+          <IoIosHeartEmpty color="red" className="relative z-10 text-[16px] sm:text-xl text-gray-400 transition-colors duration-200 " />
         )}
       </span>
 
@@ -111,7 +111,7 @@ function FavouriteButton({
       </span>
 
       {showLabel && (
-        <span className="relative z-10 font-medium tracking-tight">{isFavourite ? "Saved" : "Save"}</span>
+        <span className="relative z-10 font-medium tracking-tight text-[11px] sm:text-xs">{isFavourite ? "Saved" : "Save"}</span>
       )}
     </button>
   );

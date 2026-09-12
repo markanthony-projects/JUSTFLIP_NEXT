@@ -3,7 +3,6 @@
 import { useMemo, useState } from 'react'
 import { ConverterCategory, DEFAULT_AREA_FROM, DEFAULT_AREA_TO, DEFAULT_LENGTH_FROM, DEFAULT_LENGTH_TO } from '../data/standardUnit';
 import { convertUnit, formatREsult, getUnitsCategory, isValidNumericInput, resolveSafeUnitKey } from '../utils/converter';
-import Image from 'next/image'
 
 //icons import
 import {
@@ -52,7 +51,7 @@ const UnitConverter = ({
     const safeTo = resolveSafeUnitKey(units, toKey, 1)
 
     const unitOptions = units.map( unit => ({ value: unit.key, label: `${unit.label}`}) )
-    const fromUnit = units.find( unit => unit .key === safeFrom )
+    const fromUnit = units.find( unit => unit.key === safeFrom )
     const toUnit = units.find( unit => unit.key === safeTo )
 
     const states = INDIAN_STATES_AND_UTS.map( state => ({ value: state.name, label: `${state.name}`})) 
@@ -135,15 +134,15 @@ const UnitConverter = ({
 
       <Breadcrumb items={breadcrumbItems} /> 
       
-      <div className='overflow-hidden pt-6 sm:pt-0 sm:mt-2'>
+      <div className='pt-6 sm:pt-0 sm:mt-2'>
         
         <DecorationImage/>        
 
         {/* main content */}
-        <div className='relative w-[calc(100vw-33px)] ml-30 sm:w-full max-w-md'>
+        <div className='relative w-[calc(100vw-33px)] ml-30 max-w-md pb-5 sm:pb-7'>
 
           {/* -------------------------------------------- */}
-          <div className='overflow-hidden rounded-lg border-t-2 border-b-2 border-[#e1e8f2] bg-white shadow-[0_2px_10px_rgba(0,3,91,0.10)]'>
+          <div className=' rounded-lg border-t-2 border-b-2 border-[#e1e8f2] bg-white shadow-[0_2px_10px_rgba(0,3,91,0.10)]'>
             
             {/* -----------------header----------------------- */}
             <div className='flex items-center justify-between border-b border-[#e8edf4] px-5 py-4 md:px-7'>
@@ -230,6 +229,7 @@ const UnitConverter = ({
                   duration-200 focus-within:border-primary focus-within:ring-4 focus-within:ring-primary/10'>
                     <input type="text" 
                       inputMode="decimal"
+                      maxLength={12}
                       value={inputValue}
                       onChange={(e) => {
                         const value = e.target.value
@@ -286,12 +286,12 @@ const UnitConverter = ({
                       aria-label="Swap from and to units"
                       title="Swap units"
                       className='flex h-7 w-11 shrink-0 items-center justify-center rounded-lg border-3 border-white bg-primary text-primary transition-all duration-200 hover:border-primary hover:bg-primary/20 active:scale-90 md:self-end shadow-md shadow-[#cbd9eb]
-                      relative z-120 -mx-2 mb-1.5'
+                      relative z-10 -mx-2 mb-1.5'
                   >
                         <span className="text-lg font-extrabold text-white hover:text-primary"> <TbArrowsExchange2 size={18}/> </span>
                   </button>
 
-                  <div className='min-w-0 flex-1 rounded-lg border border-gray-200 bg-white text-left shadow-sm'>
+                  <div className='z-0 min-w-0 flex-1 rounded-lg border border-gray-200 bg-white text-left shadow-sm'>
                       <p className='ml-2 text-[9px] font-bold uppercase tracking-[0.08em] text-slate-700'>
                         To
                       </p>
@@ -314,7 +314,7 @@ const UnitConverter = ({
             </div>
 
             {/* -------------------------result------------ */}
-            <div className={`mx-5 mb-5 rounded-lg border md:mx-7 md:mb-7
+            <div className={`mx-5 rounded-lg border md:mx-7 mb-2
               ${
                 converted !== null
                     ? ` border-[#d7e4f3] bg-[#f1f6fc] `
@@ -366,10 +366,17 @@ const UnitConverter = ({
                   </div>)
                 }
             </div>
-          </div>
+            </div>
+            <p className='text-[9px] text-primary text-center mb-5 sm:mb-7 tracking-wide'>
+              <strong>*</strong> The 
+              <strong> e </strong> 
+              here simply stands for 
+              <strong> exponent </strong>
+              and means 
+              <strong> times 10 to the power of</strong>.
+            </p>
 
           </div>
-
         </div>
       </div>
 

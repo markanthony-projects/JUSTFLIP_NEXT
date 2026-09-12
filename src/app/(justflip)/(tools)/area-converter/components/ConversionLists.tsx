@@ -5,7 +5,7 @@ import AboutConversions from './AboutConversions';
 const ConversionLists = () => {
   return (
     <>
-    <section className='flex flex-col-reverse sm:flex sm:flex-row py-10 gap-10'>
+    <section className='flex flex-col-reverse sm:flex sm:flex-row  gap-10'>
       <div>
         <AboutConversions/>
       </div>

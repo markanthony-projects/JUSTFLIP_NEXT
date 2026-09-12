@@ -108,35 +108,35 @@ const FeaturedProperty = ({ project, priority }: FeaturedPropertyProps) => {
       key: "type",
       label: "Type",
       value: type,
-      icon: <MdOutlineApartment size={16} />,
+      icon: <MdOutlineApartment className='size-3.5 sm:size-4' />,
     },
     {
       key: "floors",
-      icon: <MdOutlineLayers size={16} />,
+      icon: <MdOutlineLayers className='size-3.5 sm:size-4' />,
       value: floors || 0,
       label: "Floors",
     },
     {
       key: "totalUnits",
-      icon: <MdOutlineHomeWork size={16} />,
+      icon: <MdOutlineHomeWork className='size-3.5 sm:size-4' />,
       value: totalUnits || "—",
       label: "Total Units",
     },
     {
       key: "towers",
-      icon: <MdDomain size={16} />,
+      icon: <MdDomain className='size-3.5 sm:size-4' />,
       value: towers || "—",
       label: "Towers",
     },
     {
       key: "possession",
-      icon: <MdEvent size={16} />,
+      icon: <MdEvent className='size-3.5 sm:size-4' />,
       value: possessionInfo.value || "—",
       label: possessionInfo.label
     },
     {
       key: "amenities",
-      icon: <MdPool size={16} />,
+      icon: <MdPool className='size-3.5 sm:size-4'/>,
       value: `${amenities}+` || "—",
       label: "Amenities",
     },
@@ -164,33 +164,30 @@ const FeaturedProperty = ({ project, priority }: FeaturedPropertyProps) => {
             <div className='absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-[#001B3B]/75 via-primary/10 to-transparent pointer-events-none' />
 
             {details?.rera !== null ? (
-              <span className="absolute left-0 top-4 flex gap-0.5 rounded-r-lg bg-primary/40 pl-3 pr-4 py-1.5 text-xs font-medium text-white uppercase backdrop-blur-sm shadow-sm shadow-gray-800">
+              <span className="absolute left-0 top-3 sm:top-4 flex items-center gap-0.5 rounded-r-lg bg-primary/40 pl-2.5 sm:pl-3 pr-3 sm:pr-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-medium text-white uppercase backdrop-blur-sm shadow-sm shadow-gray-800">
                 RERA
-                <MdVerified className="size={15} ml-1" fill='currentColor' />
+                <MdVerified className="size-3 sm:size-4 sm:ml-1 ml-0.5" fill='currentColor' />
               </span>
             ) : (
               <span />
             )}
 
             {/* LOCATION */}
-            <div className="absolute bottom-3 left-0 bg-white/95 backdrop-blur-sm shadow-md text-primary flex items-center rounded-r-lg shadow-gray-800 h-7 pr-3 pl-1.5 border border-white/60" >
-              <MdOutlineLocationOn
-                size={17}
-                className="shrink-0 text-[#d51717e8]"
-              />
-              <span className=" truncate text-xs font-semibold text-primary" >
+            <div className="absolute bottom-2 sm:bottom-3 left-0 max-w-[130px] sm:max-w-none bg-white/95 backdrop-blur-sm shadow-md text-primary flex items-center rounded-r-lg shadow-gray-800 h-6 sm:h-7 px-2 sm:px-2.5 border border-white/60" >
+              <MdOutlineLocationOn className="shrink-0 text-[#d51717e8] sm:size-4.5 size-3.5"/>
+              <span className=" truncate sm:text-xs text-[10px] font-semibold text-primary" >
                 {locationName}
               </span>
             </div>
 
             {/* FAVOURITE */}
-            <div className=" absolute right-4 top-3 z-20 "
+            <div className="absolute right-2.5 sm:right-4 top-2.5 sm:top-4 z-20"
               onClick={(e) => e.stopPropagation()}
             >
               <FavouriteButton
                 project={project}
                 onAuthRequired={() => setShowLoginPrompt(true)}
-                className={`p-2 rounded-full flex items-center justify-center bg-white/95 backdrop-blur-sm shadow-sm shadow-gray-800 hover:bg-red-50 transition-colors border border-white/60`}
+                className={`p-2 rounded-full flex items-center justify-center bg-white/95 backdrop-blur-sm shadow-sm shadow-primary hover:bg-red-50 transition-colors border border-white/60`}
               />
             </div>
 
@@ -198,11 +195,11 @@ const FeaturedProperty = ({ project, priority }: FeaturedPropertyProps) => {
         </Link>
 
         {/* content- description about the project */}
-        <div className='px-5 py-3 border  border-gray-200'>
+        <div className='sm:px-5 py-3 px-4 border  border-gray-200'>
 
           <div className="flex items-start justify-between">
             <Link href={projectUrl}>
-              <h2 className="line-clamp-1 text-[16px] font-extrabold leading-tight tracking-tight text-primary transition-colors hover:text-[#00437A]" >
+              <h2 className="line-clamp-1 text-[15px] sm:text-[16px] font-extrabold leading-none sm:leading-tight tracking-tight text-primary transition-colors hover:text-[#00437A]" >
                 {projectName}
               </h2>
             </Link>
@@ -232,12 +229,12 @@ const FeaturedProperty = ({ project, priority }: FeaturedPropertyProps) => {
           </div>
 
           {/* DESCRIPTION */}
-          <p className="line-clamp-2 text-[12px] text-gray-500 max-w-3/4 truncate h-[30px] overflow-hidden">
+          <p className="line-clamp-2 text-[11px] leading-tight sm:text-[12px] text-primary/70 max-w-3/4 truncate mb-2 sm:mb-4 overflow-hidden">
             {project.summary}
           </p>
 
           {/* property specs */}
-          <div className='grid divide-gray-200 overflow-hidden rounded-lg border border-gray-100 bg-gray-50 grid-cols-3'>
+          <div className='grid divide-primary-200 overflow-hidden rounded-lg border border-primary/10 bg-primary/3 grid-cols-3'>
             {propertySpecData.map((spec) => (
               <PropertySpec
                 key={spec.key}
@@ -249,26 +246,26 @@ const FeaturedProperty = ({ project, priority }: FeaturedPropertyProps) => {
           </div>
 
           {/* Price */}
-          <div className="border-t border-gray-200 pt-3 mt-3" >
+          <div className="border-t border-gray-200 sm:pt-3 sm:mt-3 pt-2 mt-2" >
             <div className="flex items-end justify-between gap-4" >
 
               {/* PRICE */}
               <div className="min-w-0">
-                <p className="text-[11px] font-medium text-gray-500 ">
+                <p className="sm:text-[11px] text-[9px] leading-none sm:leading-tight font-medium text-primary/70 ">
                   Price ranges
                 </p>
-                <p className="mt-0.5 truncate text-md font-extrabold leading-none text-primary " >
+                <p className="sm:mt-0.5 truncate sm:text-md text-[14px] mt-1 font-extrabold leading-none sm:leading-tight text-primary " >
                   {project.priceRange || "Price on Request"}
                 </p>
 
 
-                <p className="mt-0.5 text-[10px] text-slate-400">
+                <p className="sm:mt-0.5 sm:text-[10px] text-[9px] leading-none sm:leading-tight mt-1  text-slate-400">
                   {project?.pricePerSqft || "₹10,400 / sq.ft"}
                 </p>
               </div>
 
               <Link href={projectUrl}
-                className="flex shrink-0 items-end gap-1 rounded-lg bg-primary px-4 py-2 text-xs font-bold text-white transition-all duration-200 hover:bg-[#003D7A] hover:shadow-lg ">
+                className="flex shrink-0 items-end gap-1 rounded-lg bg-primary px-4 sm:py-2 py-1.5 sm:text-xs text-[11px] font-bold text-white transition-all duration-200 hover:bg-[#003D7A] hover:shadow-lg ">
                 View Details<MdOutlineArrowForward size={18} className="font-bold text-xs" />
               </Link>
 
@@ -302,14 +299,14 @@ function PropertySpec({
   label: string;
 }) {
   return (
-    <div key={key} className="flex min-w-0 flex-col items-center justify-center px-1.5 py-4 text-center border-t border-r border-slate-100 gap-1 " >
-      <div className="text-primary flex gap-0.5">
+    <div key={key} className="flex min-w-0 flex-col items-center justify-center px-1.5 sm:py-4 py-3 text-center border-t border-r border-slate-100 gap-0.5 sm:gap-1 " >
+      <div className="text-primary/70 flex gap-0.5 font-medium">
         {icon}
-        <p className="mt-0.5 text-[10px] font-medium text-primary">
+        <p className="mt-0.5 sm:text-[10px] text-[9px] leading-none text-primary/70">
           {label}
         </p>
       </div>
-      <p className="max-w-4/5 truncate text-[12px] font-medium text-gray-500 ">
+      <p className="max-w-4/5 truncate text-[11px] sm:text-[12px] leading-none font-semibold text-primary ">
         {value}
       </p>
 

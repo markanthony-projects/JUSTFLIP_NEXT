@@ -93,25 +93,21 @@ const UpcomingProperty = ({ project, priority }: UpcomingPropertyProps) => {
 
             {/* BADGES + FAVOURITE */}
             {details?.rera !== null ? (
-              <span className="absolute left-0 top-4 flex gap-0.5 rounded-r-lg bg-primary/40 pl-3 pr-4 py-1.5 text-xs font-medium text-white uppercase backdrop-blur-sm shadow-sm shadow-gray-800">
+              <span className="absolute left-0 top-3 sm:top-4 flex items-center gap-0.5 rounded-r-lg bg-primary/40 pl-2.5 sm:pl-3 pr-3 sm:pr-4 py-1 sm:py-1.5 text-[10px] sm:text-xs font-medium text-white uppercase backdrop-blur-sm shadow-sm shadow-gray-800">
                 RERA
-                <MdVerified className="size={15} ml-1" fill='currentColor' />
+                <MdVerified className="size-3 sm:size-4 sm:ml-1 ml-0.5" fill='currentColor' />
               </span>
             ) : (
               <span />
             )}
 
             {/* LOCATION */}
-            <div className='absolute bottom-3 left-0 bg-white/95 backdrop-blur-sm shadow-md text-primary flex items-center rounded-r-lg shadow-gray-800 h-7 px-2.5'>
-              <MdOutlineLocationOn
-                size={17}
-                className='shrink-0 text-[#d51717e8]'
-              />
-              <span className='truncate text-xs font-semibold text-primary'>
+            <div className="absolute bottom-2 sm:bottom-3 left-0 max-w-[130px] sm:max-w-none bg-white/95 backdrop-blur-sm shadow-md text-primary flex items-center rounded-r-lg shadow-gray-800 h-6 sm:h-7 px-2 sm:px-2.5 border border-white/60" >
+              <MdOutlineLocationOn className="shrink-0 text-[#d51717e8] sm:size-4.5 size-3.5" />
+              <span className=" truncate sm:text-xs text-[10px] font-semibold text-primary" >
                 {locationName}
               </span>
             </div>
-
             {/* FAVOURITE */}
             <div
               className=' absolute right-4 top-4 z-20 '
@@ -127,12 +123,12 @@ const UpcomingProperty = ({ project, priority }: UpcomingPropertyProps) => {
         </Link>
 
         {/* CONTENT */}
-        <div className='flex flex-1 flex-col gap-3 px-5 py-3 border border-gray-200'>
+        <div className='flex flex-1 flex-col gap-3 sm:px-5 px-4 py-3 border border-gray-200'>
           {/* HEADER */}
           <div className='flex flex-col'>
             <div className='flex items-start justify-between gap-4'>
               <Link href={projectUrl}>
-                <h2 className='line-clamp-1 text-[16px] font-extrabold leading-tight tracking-tight text-primary transition-colors hover:text-[#00437A]'>
+                <h2 className='sm:line-clamp-1 sm:text-[16px] text-[15px] leading-none font-extrabold sm:leading-tight sm:tracking-tight text-primary transition-colors hover:text-[#00437A]'>
                   {projectName}
                 </h2>
               </Link>
@@ -157,11 +153,10 @@ const UpcomingProperty = ({ project, priority }: UpcomingPropertyProps) => {
                   alt='See in map'
                   className=''
                 />
-                {/* <ImLocation2 className='text-[#d51717e8]'/> */}
               </Link>
             </div>
 
-            <p className='text-[12px] text-slate-500'>
+            <p className='sm:text-[12px] text-[11px] text-primary/70 mt-0.5'>
               By {details?.builder.name}
             </p>
           </div>
@@ -170,62 +165,62 @@ const UpcomingProperty = ({ project, priority }: UpcomingPropertyProps) => {
           <div className='flex flex-col gap-1 border-t border-slate-200 pt-3'>
             {/* Configuration */}
             <div className='flex items-center gap-1'>
-              <MdApartment className='text-[15px] text-primary' />
+              <MdApartment className='sm:text-[15px] text-[14px] text-primary' />
 
-              <span className='text-[14px] font-medium text-primary max-w-full truncate'>
+              <span className='sm:text-[14px] text-[12px] font-medium text-primary max-w-full truncate'>
                 {project?.summary}
               </span>
             </div>
 
             {/* Possession */}
             <div className='flex items-center gap-1 text-sm text-primary'>
-              <MdCalendarMonth className='text-[15px]' />
+              <MdCalendarMonth className='sm:text-[15px] text-[14px]' />
 
-              <span className='text-[14px] font-medium text-slate-600 max-w-full truncate'>
+              <span className='sm:text-[14px] text-[12px] font-medium text-primary/70 max-w-full truncate'>
                 Possession starts : {details?.possessionDate?.slice(0, 10)}
               </span>
             </div>
 
             {/* Stats */}
-            <div className='flex flex-wrap items-center gap-1 pt-2'>
-              <span className='rounded-lg bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600'>
+            <div className='flex flex-wrap items-center gap-1 sm:pt-2 pt-1.5'>
+              <span className='rounded-lg bg-primary/3 px-2 sm:py-1 py-0.5 text-[10px] sm:text-xs font-medium text-primary/70'>
                 {'8.5 Acres'}
               </span>
 
-              <span className='h-1 w-1 rounded-full bg-slate-300' />
+              <span className='h-1 w-1 rounded-full bg-primary/3' />
 
-              <span className='rounded-lg bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600'>
+              <span className='rounded-lg bg-primary/3 px-2 sm:py-1 py-0.5 text-[10px] sm:text-xs font-medium text-primary/70'>
                 {details?.towers} towers
               </span>
 
-              <span className='h-1 w-1 rounded-full bg-slate-300' />
+              <span className='h-1 w-1 rounded-full bg-primary/3' />
 
-              <span className='rounded-lg bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600'>
+              <span className='rounded-lg bg-primary/3 px-2 sm:py-1 py-0.5 text-[10px] sm:text-xs font-medium text-primary/70'>
                 {details?.totalUnits} units
               </span>
             </div>
           </div>
 
-          <div className="border-t border-gray-200 pt-3 mt-3" >
+          <div className="border-t border-gray-200 pt-3 sm:mt-3 mt-2" >
             <div className="flex items-end justify-between gap-4" >
 
               {/* PRICE */}
               <div className="min-w-0">
-                <p className="text-[11px] font-medium text-gray-500 ">
-                  Starting from
+                <p className="sm:text-[11px] text-[9px] leading-none sm:leading-tight font-medium text-primary/70 ">
+                  Price ranges
                 </p>
-                <p className="mt-0.5 truncate text-md font-extrabold leading-none text-primary " >
-                  {minPrice || '₹ 1.25 CR'}
+                <p className="sm:mt-0.5 truncate sm:text-md text-[14px] mt-1 font-extrabold leading-none sm:leading-tight text-primary " >
+                  {project.priceRange || "Price on Request"}
                 </p>
 
 
-                <p className="mt-0.5 text-[10px] text-slate-400">
+                <p className="sm:mt-0.5 sm:text-[10px] text-[9px] leading-none sm:leading-tight mt-1  text-primary/60">
                   {project?.pricePerSqft || "₹10,400 / sq.ft"}
                 </p>
               </div>
 
               <Link href={projectUrl}
-                className="flex shrink-0 items-end gap-1 rounded-lg bg-primary px-4 py-2 text-xs font-bold text-white transition-all duration-200 hover:bg-[#003D7A] hover:shadow-lg ">
+                className="flex shrink-0 items-end gap-1 rounded-lg bg-primary px-4 sm:py-2 py-1.5 sm:text-xs text-[11px] font-bold text-white transition-all duration-200 hover:bg-[#003D7A] hover:shadow-lg ">
                 View Details<MdOutlineArrowForward size={18} className="font-bold text-xs" />
               </Link>
 
