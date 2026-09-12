@@ -242,7 +242,7 @@ async function PropertyDetails({ params }: ProjectPageProps) {
 
                     </div>
 
-                    <div className="hidden lg:block lg:col-span-2 xl:col-span-2 sticky -top-30 self-start z-20">
+                    <div className="hidden lg:block lg:col-span-2 xl:col-span-2 sticky -top-42 self-start z-20">
                         <Link
                             href={staticAddSection.href}
                             target="_blank"
